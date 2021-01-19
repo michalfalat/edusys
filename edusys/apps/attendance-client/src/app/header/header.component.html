@@ -1,0 +1,22 @@
+<mat-toolbar>
+  <div class="row flex-1 between">
+    <div>{{ getTitle() }}</div>
+    <div class="row right">
+      <div *ngIf="!!userInfo">
+        <button mat-button [matMenuTriggerFor]="menu">{{ userInfo?.email }}</button>
+        <mat-menu #menu="matMenu">
+          <button mat-button (click)="onLogout()">{{ 'general.logout' | translate }}</button>
+        </mat-menu>
+      </div>
+
+      <div>
+        <button mat-button [matMenuTriggerFor]="menu">{{ 'general.language' | translate }}</button>
+        <mat-menu #menu="matMenu">
+          <div class="row" *ngFor="let lang of languages">
+            <button mat-button (click)="setLanguage(lang)">{{ lang | uppercase }}</button>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</mat-toolbar>

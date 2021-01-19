@@ -1,0 +1,27 @@
+<mat-card class="basic-card">
+  <form [formGroup]="form" (ngSubmit)="onRegister()">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'general.firstName' | translate }}</mat-label>
+        <input matInput placeholder="Ex. Jan" formControlName="firstName" name="firstName" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" name="email" />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" name="password" />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <button mat-raised-button type="submit" [disabled]="!form?.valid">Submit</button>
+    </div>
+  </form>
+</mat-card>
