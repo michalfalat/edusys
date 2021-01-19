@@ -23,6 +23,7 @@
     },
     "core": { "tags": [] },
     "core-translate": { "tags": [] },
-    "app-config": { "tags": [] }
+    "app-config": { "tags": [] },
+    "api": { "tags": [] }
   }
 }
