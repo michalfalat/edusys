@@ -24,6 +24,7 @@
     "core": { "tags": [] },
     "core-translate": { "tags": [] },
     "app-config": { "tags": [] },
-    "api": { "tags": [] }
+    "api": { "tags": [] },
+    "model": { "tags": [] }
   }
 }

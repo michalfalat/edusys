@@ -9,8 +9,8 @@ import * as helmet from 'helmet';
 import * as cookieParser from 'cookie-parser';
 import { verifyToken } from './app/core/middlewares/verify-token';
 import { verifyRole } from './app/core/middlewares/verify-role';
-import { UserRole } from './app/core/entities/user.entity';
 import { handleErrors } from './app/core/utils/error-handle';
+import { AuthUserRole } from '@edusys/model';
 
 const app = express();
 dotenv.config({ path: path.join(__dirname, './../.env') });
@@ -39,7 +39,7 @@ app.post('/api/auth/login', authController.login);
 app.post('/api/auth/logout', authController.logout);
 app.get('/api/auth/user-info', [verifyToken], authController.userInfo);
 app.get('/api/auth/change-password', [verifyToken], authController.changePassword);
-app.get('/api/auth/users', [verifyToken, verifyRole(UserRole.ADMIN)], authController.listOfUsers);
+app.get('/api/auth/users', [verifyToken, verifyRole(AuthUserRole.ADMIN)], authController.listOfUsers);
 
 // Error handler
 app.use(handleErrors);

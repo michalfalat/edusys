@@ -1,26 +1,27 @@
 import { Request, Response } from 'express';
 import { compare, genSalt, hash } from 'bcrypt';
-import UserEntity, { IUser, UserRole } from '../entities/user.entity';
+import UserEntity, { IUser } from '../entities/user.entity';
 import { changePasswordSchema, loginUserSchema, registerUserSchema } from '../validations/auth.validations';
 import { BadRequest, NotFound } from '../utils/errors';
 import * as jwt from 'jsonwebtoken';
 import { userDetailMappper, userListMappper, userRegistrationMappper } from '../mappers/auth.mapper';
 import {
-  IUserChangePasswordRequest,
-  IUserChangePasswordResponse,
-  IUserLoginRequest,
-  IUserLoginResponse,
-  IUserRegistrationRequest,
-  IUserRegistrationResponse,
-  IUserResponse,
-} from '../models/auth.model';
-import { EmailTemplate } from '../models/email.model';
+  IAuthUserChangePasswordRequest,
+  IAuthUserChangePasswordResponse,
+  IAuthLoginUserRequest,
+  IAuthLoginUserResponse,
+  IAuthRegisterUserRequest,
+  IAuthRegisterUserResponse,
+  IAuthUserInfoResponse,
+  AuthUserRole,
+} from '@edusys/model';
+import { EmailTemplate } from '@edusys/model';
 import { sendEmail } from './email.service';
 import VerifyTokenEntity, { IVerifyToken } from '../entities/verify-token.entity';
 
 // REGISTER
-export const register = async (request: Request, response: Response): Promise<IUserRegistrationResponse> => {
-  const registerUser: IUserRegistrationRequest = request.body;
+export const register = async (request: Request, response: Response): Promise<IAuthRegisterUserResponse> => {
+  const registerUser: IAuthRegisterUserRequest = request.body;
   const verificationNeeded = Boolean(process.env.APP_EMAIL_VERIFICATION);
   const { error } = registerUserSchema(registerUser);
   if (!!error) {
@@ -39,7 +40,7 @@ export const register = async (request: Request, response: Response): Promise<IU
     name: registerUser.name || '',
     email: registerUser.email,
     password: hashedPassword,
-    roles: [UserRole.USER],
+    roles: [AuthUserRole.OTHER],
   });
   try {
     const savedUser = await user.save();
@@ -53,8 +54,8 @@ export const register = async (request: Request, response: Response): Promise<IU
 };
 
 // LOGIN
-export const login = async (request: Request, response: Response): Promise<IUserLoginResponse> => {
-  const loginUser: IUserLoginRequest = request.body;
+export const login = async (request: Request, response: Response): Promise<IAuthLoginUserResponse> => {
+  const loginUser: IAuthLoginUserRequest = request.body;
   const verificationNeeded = Boolean(process.env.APP_EMAIL_VERIFICATION);
   const { error } = loginUserSchema(loginUser);
   if (!!error) {
@@ -80,7 +81,7 @@ export const login = async (request: Request, response: Response): Promise<IUser
 };
 
 // USER INFO
-export const userInfo = async (request: Request, response: Response): Promise<IUserResponse> => {
+export const userInfo = async (request: Request, response: Response): Promise<IAuthUserInfoResponse> => {
   const token = response.locals.jwtToken;
   const user = await UserEntity.findOne({ _id: token.id });
   if (!user) {
@@ -91,8 +92,8 @@ export const userInfo = async (request: Request, response: Response): Promise<IU
 };
 
 // CHANGE PASSWORD
-export const changePassword = async (request: Request, response: Response): Promise<IUserChangePasswordResponse> => {
-  const changePasswordRequest: IUserChangePasswordRequest = request.body;
+export const changePassword = async (request: Request, response: Response): Promise<IAuthUserChangePasswordResponse> => {
+  const changePasswordRequest: IAuthUserChangePasswordRequest = request.body;
   const { error } = changePasswordSchema(changePasswordRequest);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
@@ -117,7 +118,7 @@ export const changePassword = async (request: Request, response: Response): Prom
 };
 
 // LIST OF USERS
-export const listOfUsers = async (request: Request, response: Response): Promise<IUserResponse[]> => {
+export const listOfUsers = async (request: Request, response: Response): Promise<IAuthUserInfoResponse[]> => {
   const users = await UserEntity.find();
   if (!users) {
     throw new NotFound(request.__('error.notFound'));

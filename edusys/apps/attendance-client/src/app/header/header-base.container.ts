@@ -1,11 +1,8 @@
 import { Injector } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  AuthFacade,
-  CommonContainer,
-  IAuthUserInfoResponse,
-} from '@edusys/core';
+import { AuthFacade, CommonContainer } from '@edusys/core';
 import { CoreTranslateService } from '@edusys/core-translate';
+import { IAuthUserInfoResponse } from '@edusys/model';
 
 export class HeaderBaseContainer extends CommonContainer {
   authFacade: AuthFacade;
@@ -18,9 +15,7 @@ export class HeaderBaseContainer extends CommonContainer {
     this.authFacade = injector.get(AuthFacade);
     this.snackbar = injector.get(MatSnackBar);
     this.translateService = injector.get(CoreTranslateService);
-    this.subscriptions.add(
-      this.authFacade.getUserInfo$.subscribe((data) => (this.userInfo = data))
-    );
+    this.subscriptions.add(this.authFacade.getUserInfo$.subscribe((data) => (this.userInfo = data)));
   }
 
   onError = (message?: string): void => {

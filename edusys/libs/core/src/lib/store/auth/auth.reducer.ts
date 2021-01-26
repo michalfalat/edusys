@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { IAuthLoginUserResponse, IAuthRegisterUserResponse, IAuthUserInfoResponse } from '../../model/auth/auth.model';
+import { IAuthLoginUserResponse, IAuthRegisterUserResponse, IAuthUserInfoResponse } from '@edusys/model';
 import { authLoginResponseAction, authLogoutAction, authRegisterResponseAction, authUserInfoResponseAction } from './auth.actions';
 
 export default interface IAuthState {
@@ -23,7 +23,7 @@ const _authReducer = createReducer(
   }),
   on(authLogoutAction, (state: IAuthState) => {
     return {};
-  }),
+  })
 );
 
 export function authReducer(state: IAuthState, action: Action): any {

@@ -1,6 +1,5 @@
 import * as jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import { __ } from 'i18n';
 import { NotAuthorized } from '../utils/errors';
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction): any => {

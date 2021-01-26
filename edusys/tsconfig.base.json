@@ -17,7 +17,8 @@
     "paths": {
       "@edusys/core": ["libs/core/src/index.ts"],
       "@edusys/core-translate": ["libs/core-translate/src/index.ts"],
-      "@edusys/app-config": ["libs/app-config/src/index.ts"]
+      "@edusys/app-config": ["libs/app-config/src/index.ts"],
+      "@edusys/model": ["libs/model/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

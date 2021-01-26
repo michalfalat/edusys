@@ -1,8 +1,8 @@
 import { IUser } from '../entities/user.entity';
-import { IUserRegistrationResponse, IUserResponse } from '../models/auth.model';
+import { IAuthRegisterUserResponse, IAuthUserInfoResponse } from '@edusys/model';
 
-export const userListMappper = (users: IUser[]): IUserResponse[] =>
-  users?.map(user => ({
+export const userListMappper = (users: IUser[]): IAuthUserInfoResponse[] =>
+  users?.map((user) => ({
     name: user.name,
     surname: user.surname,
     email: user.email,
@@ -12,7 +12,7 @@ export const userListMappper = (users: IUser[]): IUserResponse[] =>
     phoneVerified: user.phoneVerified,
   }));
 
-export const userDetailMappper = (user: IUser): IUserResponse => ({
+export const userDetailMappper = (user: IUser): IAuthUserInfoResponse => ({
   name: user.name,
   surname: user.surname,
   email: user.email,
@@ -22,7 +22,7 @@ export const userDetailMappper = (user: IUser): IUserResponse => ({
   phoneVerified: user.phoneVerified,
 });
 
-export const userRegistrationMappper = (user: IUser, verificationNeeded: boolean): IUserRegistrationResponse => ({
+export const userRegistrationMappper = (user: IUser, verificationNeeded: boolean): IAuthRegisterUserResponse => ({
   name: user.name,
   surname: user.surname,
   email: user.email,

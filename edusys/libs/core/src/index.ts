@@ -13,4 +13,3 @@ export { CookieService } from './lib/services/cookie/cookie.service';
 export { AuthFacade } from './lib/store/auth/auth.facade';
 
 // MODELS
-export * from './lib/model/auth/auth.model';

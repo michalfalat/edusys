@@ -1,8 +1,8 @@
 import * as Email from 'email-templates';
-import { EmailTemplate } from './../models/email.model';
 import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import { __basedir } from '../../../dir';
+import { EmailTemplate } from '@edusys/model';
 
 export const sendEmail = (emailTemplate: EmailTemplate<any>): Promise<any> => {
   const email = new Email({

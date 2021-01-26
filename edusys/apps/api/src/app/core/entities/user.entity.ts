@@ -1,17 +1,12 @@
+import { AuthUserRole } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
-
-export enum UserRole {
-  USER = 'USER',
-  ADMIN = 'ADMIN',
-  SUPERADMIN = 'SUPERADMIN',
-}
 
 export interface IUser extends Document {
   name: string;
   surname: string;
   email: string;
   password: string;
-  roles: UserRole[];
+  roles: AuthUserRole[];
   obsolete: boolean;
   phone: string;
   emailVerified: boolean;
@@ -67,7 +62,7 @@ const userSchema = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 const UserEntity = model<IUser>('User', userSchema);

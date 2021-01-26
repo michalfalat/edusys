@@ -1,10 +1,7 @@
 import { Injector } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  AuthFacade,
-  CommonContainer,
-  IAuthUserInfoResponse,
-} from '@edusys/core';
+import { AuthFacade, CommonContainer } from '@edusys/core';
+import { IAuthUserInfoResponse } from '@edusys/model';
 
 export class ProfileBaseContainer extends CommonContainer {
   authFacade: AuthFacade;
@@ -14,9 +11,7 @@ export class ProfileBaseContainer extends CommonContainer {
     super(injector);
     this.authFacade = injector.get(AuthFacade);
     this.snackbar = injector.get(MatSnackBar);
-    this.subscriptions.add(
-      this.authFacade.getUserInfo$.subscribe((data) => (this.userInfo = data))
-    );
+    this.subscriptions.add(this.authFacade.getUserInfo$.subscribe((data) => (this.userInfo = data)));
   }
 
   onError = (message?: string): void => {

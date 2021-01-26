@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { IAuthLoginUserRequest, IAuthLoginUserResponse, IAuthRegisterUserRequest, IAuthRegisterUserResponse, IAuthUserInfoResponse } from '../../model/auth/auth.model';
+import { IAuthLoginUserRequest, IAuthLoginUserResponse, IAuthRegisterUserRequest, IAuthRegisterUserResponse, IAuthUserInfoResponse } from '@edusys/model';
 import { authLoginRequestAction, authLogoutAction, authRegisterRequestAction, authUserInfoRequestAction } from './auth.actions';
 import IAuthState from './auth.reducer';
 import { getUserInfo } from './auth.selectors';
@@ -21,7 +21,11 @@ export class AuthFacade {
     this.store.dispatch(authLogoutAction({ onSucceeded }));
   }
 
-  register(payload: IAuthRegisterUserRequest, onSucceeded?: (response: IAuthRegisterUserResponse) => void, onError?: (response: HttpErrorResponse) => void): void {
+  register(
+    payload: IAuthRegisterUserRequest,
+    onSucceeded?: (response: IAuthRegisterUserResponse) => void,
+    onError?: (response: HttpErrorResponse) => void
+  ): void {
     this.store.dispatch(authRegisterRequestAction({ payload, onSucceeded, onError }));
   }
 
