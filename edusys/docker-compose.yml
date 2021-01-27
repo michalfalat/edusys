@@ -1,0 +1,11 @@
+version: '3'
+services:
+  edusys-api:
+    container_name: edusys-api
+    image: edusys-api
+  edusys-attendance:
+    container_name: edusys-attendance
+    image: edusys-attendance
+    ports:
+      - 4000:4000
+      - 4001:4001
