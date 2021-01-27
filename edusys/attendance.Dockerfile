@@ -1,10 +1,10 @@
 FROM nginx:alpine
 
-COPY nginx.conf C:/nginx_tmp/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 4000
 
 EXPOSE 4001
 
-WORKDIR html
+WORKDIR /usr/share/nginx/html
 COPY ./dist/apps/attendance-client .
