@@ -1,4 +1,4 @@
-FROM nginx:1.13.8-alpine
+FROM node:14
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
