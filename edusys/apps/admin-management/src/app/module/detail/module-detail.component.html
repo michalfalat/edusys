@@ -1,0 +1,19 @@
+<mat-card class="basic-card">
+  <div class="column">
+    <p class="mat-caption">{{ 'module.name' | translate }}</p>
+    <h3 class="mat-h3">{{ moduleDetail?.name }}</h3>
+  </div>
+  <div class="column">
+    <p class="mat-caption">{{ 'module.description' | translate }}</p>
+    <h3 class="mat-h3">{{ moduleDetail?.description }}</h3>
+  </div>
+  <div class="column">
+    <p class="small">{{ 'module.enabled' | translate }}</p>
+    <h3 class="mat-h3">{{ moduleDetail?.enabled }}</h3>
+  </div>
+
+  <div class="row between">
+    <button mat-button (click)="deleteModule()">{{ 'general.delete.button' | translate }}</button>
+    <button mat-raised-button color="primary" type="submit" (click)="navigateToModuleEdit(moduleId)">{{ 'general.edit.button' | translate }}</button>
+  </div>
+</mat-card>

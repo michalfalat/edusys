@@ -11,5 +11,4 @@ export { CookieService } from './lib/services/cookie/cookie.service';
 
 // FACADES
 export { AuthFacade } from './lib/store/auth/auth.facade';
-
-// MODELS
+export { ModuleFacade } from './lib/store/module/module.facade';

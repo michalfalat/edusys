@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, Injector, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { NavigationExtras, Params, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CoreTranslateService } from '@edusys/core-translate';
 
@@ -12,6 +12,7 @@ import { CoreTranslateService } from '@edusys/core-translate';
 export abstract class CommonContainer implements OnDestroy {
   subscriptions = new Subscription();
   router: Router;
+  activatedRoute: ActivatedRoute;
   locationRouter: Location;
   form: FormGroup;
   fb: FormBuilder;
@@ -25,6 +26,7 @@ export abstract class CommonContainer implements OnDestroy {
     this.fb = injector.get(FormBuilder);
     this.titleService = injector.get(Title);
     this.translateService = injector.get(CoreTranslateService);
+    this.activatedRoute = injector.get(ActivatedRoute);
     this.subscriptions.add(
       this.translateService.onLangChange().subscribe((langChange) => {
         if (!!this.titleKey) {
@@ -44,24 +46,12 @@ export abstract class CommonContainer implements OnDestroy {
     return this.titleService.getTitle();
   }
 
-  navigateTo = (
-    url: string,
-    p1?: string,
-    p2?: string,
-    p3?: string,
-    p4?: string
-  ): void => {
+  navigateTo = (url: string, p1?: string, p2?: string, p3?: string, p4?: string): void => {
     const routerLink = this.format(url, p1, p2, p3, p4);
     this.navigateByUrl(encodeURI(routerLink));
   };
 
-  navigateToReplace = (
-    url: string,
-    p1?: string,
-    p2?: string,
-    p3?: string,
-    p4?: string
-  ): void => {
+  navigateToReplace = (url: string, p1?: string, p2?: string, p3?: string, p4?: string): void => {
     const routerLink = this.format(url, p1, p2, p3, p4);
     this.navigateByUrl(encodeURI(routerLink), { replaceUrl: true });
   };
@@ -70,30 +60,18 @@ export abstract class CommonContainer implements OnDestroy {
     this.router.navigateByUrl(page, extras);
   };
 
-  navigateToWithParams = (
-    url: string,
-    params: Params,
-    replaceUrl?: boolean
-  ): void => {
+  navigateToWithParams = (url: string, params: Params, replaceUrl?: boolean): void => {
     this.router.navigate([url], { replaceUrl, queryParams: params });
   };
 
-  getUrl = (
-    url: string,
-    p1?: string,
-    p2?: string,
-    p3?: string,
-    p4?: string
-  ): string => this.format(url, p1, p2, p3, p4);
+  getUrl = (url: string, p1?: string, p2?: string, p3?: string, p4?: string): string => this.format(url, p1, p2, p3, p4);
 
   navigateBack = (): void => {
     this.locationRouter.back();
   };
 
   format(input: string, ...args: any[]): string {
-    return input.replace(/{(\d+)}/g, (match, num) =>
-      typeof args[num] !== 'undefined' ? args[num] : match
-    );
+    return input.replace(/{(\d+)}/g, (match, num) => (typeof args[num] !== 'undefined' ? args[num] : match));
   }
 
   createForm(form: any): void {
