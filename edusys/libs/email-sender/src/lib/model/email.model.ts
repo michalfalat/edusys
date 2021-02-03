@@ -3,6 +3,9 @@ export type EmailTemplates = {
     name: string;
     verifyTokenUrl: string;
   };
+  testEmail: {
+    name: string;
+  };
 };
 
 type TemplateType = keyof EmailTemplates;

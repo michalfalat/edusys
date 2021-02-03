@@ -7,10 +7,11 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "nx": "nx",
     "start:attendance": "nx run-many --parallel --target=serve --projects=attendance-client,api",
-    "start:admin": "ng serve api",
     "start:api": "ng serve api",
+    "start:admin": "ng serve admin-management",
     "build:api": "nx build api",
     "build:attendance": "nx build attendance-client --aot --prod --configuration=production",
+    "build:admin": "nx build admin-management --aot --prod --configuration=production",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
@@ -61,6 +62,7 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.7.36",
     "@types/nodemailer": "^6.4.0",
+    "@types/uuid": "^8.3.0",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -77,6 +79,7 @@
     "rxjs": "~6.5.5",
     "ts-node-dev": "^1.0.0-pre.62",
     "tslib": "^2.0.0",
+    "uuid": "^8.3.2",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {

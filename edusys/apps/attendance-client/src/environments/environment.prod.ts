@@ -5,7 +5,7 @@ class AppConfig implements APP_CONFIG {
   apiUrl = 'http://localhost:4200';
   appUrls = {
     attendanceClient: 'http://localhost:4200',
-    attendanceAdmin: 'http://localhost:4201',
+    adminManagement: 'http://localhost:4201',
   };
 }
 

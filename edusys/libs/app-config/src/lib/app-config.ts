@@ -3,6 +3,6 @@ export abstract class APP_CONFIG {
   abstract readonly apiUrl: string;
   abstract readonly appUrls: {
     readonly attendanceClient: string;
-    readonly attendanceAdmin: string;
+    readonly adminManagement: string;
   };
 }

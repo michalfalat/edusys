@@ -1,5 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import { AuthUserRole } from '@edusys/model';
+import { NextFunction, Request, Response, Router } from 'express';
+import { verifyRole } from '../core/middlewares/verify-role';
+import { verifyToken } from '../core/middlewares/verify-token';
+import { BadRequest } from '../core/utils/errors';
 import * as authService from './../core/services/auth.service';
+import * as emailService from './../core/services/email.service';
 
 // REGISTER
 export const register = async (req: Request, res: Response, next: NextFunction) => {
@@ -51,6 +56,19 @@ export const listOfUsers = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
+// TEST EMAIL
+export const testEmail = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await emailService.sendTestEmail(req, res);
+    if (!req.query.to) {
+      throw new BadRequest("Missing email property 'to' ");
+    }
+    res.send({ status: 'OK' });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {
     res.send({});
@@ -58,3 +76,12 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
     next(err);
   }
 };
+
+export const authRouter = Router();
+authRouter.post('/api/auth/register', register);
+authRouter.post('/api/auth/login', login);
+authRouter.post('/api/auth/logout', logout);
+authRouter.get('/api/auth/user-info', [verifyToken], userInfo);
+authRouter.get('/api/auth/change-password', [verifyToken], changePassword);
+authRouter.post('/api/auth/test-email', testEmail);
+authRouter.get('/api/auth/users', [verifyToken, verifyRole(AuthUserRole.ADMIN)], listOfUsers);
