@@ -54,6 +54,9 @@
     "admin-management-e2e": {
       "tags": [],
       "implicitDependencies": ["admin-management"]
+    },
+    "core-ui": {
+      "tags": []
     }
   }
 }

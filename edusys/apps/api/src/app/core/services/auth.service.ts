@@ -124,6 +124,24 @@ export const changePassword = async (request: Request, response: Response): Prom
   return { success: true };
 };
 
+// SU
+export const seedSU = async (request: Request, response: Response): Promise<void> => {
+  const existingUser = await UserEntity.findOne({ email: process.env.SU_EMAIL });
+  if (!!existingUser) {
+    throw new BadRequest(request.__(errorLabels.EXISTING_USER_SU));
+  }
+
+  const salt = await genSalt(10);
+  const hashedPassword = await hash(process.env.SU_PWD, salt);
+  const user = new UserEntity({
+    name: process.env.SU_NAME,
+    email: process.env.SU_EMAIL,
+    password: hashedPassword,
+    roles: [AuthUserRole.SUPERADMIN],
+  });
+  await user.save();
+};
+
 // LIST OF USERS
 export const listOfUsers = async (request: Request, response: Response): Promise<IAuthUserInfoResponse[]> => {
   const users = await UserEntity.find();

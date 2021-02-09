@@ -60,6 +60,10 @@ div.row {
   &.left {
     justify-content: flex-start;
   }
+
+  &.vertical-align {
+    align-items: center;
+  }
 }
 
 div.column {

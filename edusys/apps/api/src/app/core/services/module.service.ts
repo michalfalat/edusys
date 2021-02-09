@@ -1,6 +1,6 @@
 import { IModuleCreateRequest, IModuleDetailResponse, IModuleEditRequest } from '@edusys/model';
 import { Request, Response } from 'express';
-import ModuleEntity, { IModule } from '../entities/module.entity';
+import ModuleEntity from '../entities/module.entity';
 import { moduleDetailMapper, moduleListMapper } from '../mappers/module.mapper';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';

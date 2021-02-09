@@ -1,20 +1,32 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@edusys/core';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { LayoutsEmptyLayoutComponent } from './empty-layout/layouts-empty-layout.component';
+import { LayoutsMainLayoutComponent } from './main-layout/layouts-main-layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainLayoutComponent,
+    canActivate: [AuthGuard],
+    component: LayoutsMainLayoutComponent,
+    children: [
+      {
+        path: 'module',
+        loadChildren: () => import('../module/module.module').then((m) => m.ModuleModule),
+      },
+      {
+        path: 'package',
+        loadChildren: () => import('../package/package.module').then((m) => m.PackageModule),
+      },
+    ],
+  },
+  {
+    path: '',
+    component: LayoutsEmptyLayoutComponent,
     children: [
       {
         path: 'login',
         loadChildren: () => import('../login/login.module').then((m) => m.LoginModule),
-      },
-      {
-        path: 'module',
-        loadChildren: () => import('../module/module.module').then((m) => m.ModuleModule),
       },
     ],
   },

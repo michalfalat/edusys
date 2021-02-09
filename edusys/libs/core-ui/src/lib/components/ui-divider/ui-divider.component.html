@@ -1,0 +1,30 @@
+<div
+  class="ui-divider"
+  *ngIf="!vertical"
+  [ngClass]="{
+    compact: !!compact
+  }"
+>
+  <ng-container *ngTemplateOutlet="uiDividerLine"></ng-container>
+</div>
+
+<span
+  class="ui-divider vertical"
+  *ngIf="!!vertical"
+  [ngClass]="{
+    compact: !!compact
+  }"
+>
+  <ng-container *ngTemplateOutlet="uiDividerLine"></ng-container>
+</span>
+
+<ng-template #uiDividerLine>
+  <div
+    class="line"
+    [ngClass]="{
+      dotted: !!dotted,
+      solid: !!solid,
+      compact: !!compact
+    }"
+  ></div>
+</ng-template>

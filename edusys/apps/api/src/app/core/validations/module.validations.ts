@@ -14,7 +14,7 @@ export const editModuleSchema = (data: IModuleEditRequest): Joi.ValidationResult
     id: Joi.required(),
     name: Joi.string().min(2).max(255).required(),
     description: Joi.string().max(512).optional(),
-    enabled: Joi.string().optional(),
+    enabled: Joi.boolean().optional(),
   });
   return schema.validate(data);
 };

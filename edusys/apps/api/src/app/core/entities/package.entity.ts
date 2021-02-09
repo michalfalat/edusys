@@ -6,40 +6,41 @@ export interface IPackage extends Document {
   name: string;
   description: string;
   enabled: boolean;
-  annumPrice: IAmount;
-  installationPrice: IAmount;
+  annumPrices: IAmount[];
+  installationPrices: IAmount[];
   modules: IModule[];
 }
-
-const PackageSchema = new Schema(
+const amountSchema = new Schema({ amount: { type: Number, required: true }, currency: { type: String, required: true } });
+const packageSchema = new Schema(
   {
     name: {
       type: String,
-      required: false,
+      required: true,
       min: 2,
       max: 255,
     },
     description: {
       type: String,
-      required: false,
       min: 2,
-      max: 255,
+      max: 1024,
     },
     enabled: {
       type: Boolean,
       default: true,
     },
-    annumPrice: {
-      required: true,
-    },
-    installationPrice: {
-      required: true,
-    },
+    annumPrices: { type: [amountSchema], validate: (v) => v?.length > 0 },
+    installationPrices: { type: [amountSchema], validate: (v) => v?.length > 0 },
+    modules: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Module',
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-const PackageEntity = model<IPackage>('Package', PackageSchema);
+const PackageEntity = model<IPackage>('Package', packageSchema);
 export default PackageEntity;

@@ -1,0 +1,12 @@
+<app-header></app-header>
+<mat-sidenav-container>
+  <mat-sidenav [opened]="true" mode="side">
+    <mat-action-list>
+      <button mat-list-item>Modules</button>
+      <button mat-list-item>Packages</button>
+    </mat-action-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

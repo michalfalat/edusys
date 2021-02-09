@@ -396,6 +396,23 @@
           }
         }
       }
+    },
+    "core-ui": {
+      "projectType": "library",
+      "root": "libs/core-ui",
+      "sourceRoot": "libs/core-ui/src",
+      "prefix": "edusys",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/core-ui/src/**/*.ts",
+              "libs/core-ui/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -2,21 +2,20 @@ import { Schema, model, Document } from 'mongoose';
 
 export interface IModule extends Document {
   name: string;
-  description: string;
-  enabled: boolean;
+  description?: string;
+  enabled?: boolean;
 }
 
 const moduleSchema = new Schema(
   {
     name: {
       type: String,
-      required: false,
+      required: true,
       min: 2,
       max: 255,
     },
     description: {
       type: String,
-      required: false,
       min: 2,
       max: 255,
     },

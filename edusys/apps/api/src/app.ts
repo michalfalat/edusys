@@ -1,7 +1,5 @@
 import * as express from 'express';
 import * as mongoose from 'mongoose';
-import * as authController from './app/controllers/auth.controller';
-import * as moduleController from './app/controllers/module.controller';
 import * as dotenv from 'dotenv';
 import * as i18n from 'i18n';
 import * as path from 'path';
@@ -9,6 +7,9 @@ import * as cors from 'cors';
 import * as helmet from 'helmet';
 import * as cookieParser from 'cookie-parser';
 import { handleErrors } from './app/core/utils/error-handle';
+import { packageRouter } from './app/controllers/package.controller';
+import { authRouter } from './app/controllers/auth.controller';
+import { moduleRouter } from './app/controllers/module.controller';
 
 const app = express();
 dotenv.config({ path: path.join(__dirname, './../.env') });
@@ -32,8 +33,9 @@ app.use(express.json());
 app.use('/locales', express.static(path.join(__dirname, 'assets/locales')));
 
 // Routes
-app.use(authController.authRouter);
-app.use(moduleController.moduleRouter);
+app.use(authRouter);
+app.use(moduleRouter);
+app.use(packageRouter);
 
 // Error handler
 app.use(handleErrors);
