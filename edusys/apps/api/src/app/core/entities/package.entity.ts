@@ -1,6 +1,7 @@
 import { IAmount } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
 import { IModule } from './module.entity';
+import { amountSchema } from './common.entity';
 
 export interface IPackage extends Document {
   name: string;
@@ -10,7 +11,6 @@ export interface IPackage extends Document {
   installationPrices: IAmount[];
   modules: IModule[];
 }
-const amountSchema = new Schema({ amount: { type: Number, required: true }, currency: { type: String, required: true } });
 const packageSchema = new Schema(
   {
     name: {

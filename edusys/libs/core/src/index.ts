@@ -3,7 +3,10 @@ export * from './lib/core.module';
 // COMMON
 export * from './lib/common/common.container';
 export * from './lib/interceptors';
+
+// GUARDS
 export * from './lib/guards/auth.guard';
+export * from './lib/guards/permission.guard';
 
 // SERVICES
 export { LocalStorageService } from './lib/services/local-storage/local-storage.service';

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@edusys/core';
+import { AuthGuard, PermissionGuard } from '@edusys/core';
+import { PERMISSION } from '@edusys/model';
 import { LayoutsEmptyLayoutComponent } from './empty-layout/layouts-empty-layout.component';
 import { LayoutsMainLayoutComponent } from './main-layout/layouts-main-layout.component';
 
@@ -11,12 +12,20 @@ const routes: Routes = [
     component: LayoutsMainLayoutComponent,
     children: [
       {
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then((m) => m.HomeModule),
+      },
+      {
         path: 'module',
         loadChildren: () => import('../module/module.module').then((m) => m.ModuleModule),
+        canActivate: [PermissionGuard],
+        data: { moduleName: PERMISSION.MODULE.BASIC },
       },
       {
         path: 'package',
         loadChildren: () => import('../package/package.module').then((m) => m.PackageModule),
+        canActivate: [PermissionGuard],
+        data: { moduleName: PERMISSION.PACKAGE.BASIC },
       },
     ],
   },

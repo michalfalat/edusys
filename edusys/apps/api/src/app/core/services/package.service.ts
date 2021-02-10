@@ -13,7 +13,6 @@ export const listOfPackages = async (request: Request, response: Response): Prom
   if (!packages) {
     throw new NotFound(request.__(errorLabels.NOT_FOUND));
   }
-  console.log('packages :>> ', packages);
   return packageListMapper(packages, process.env.PRIMARY_CURRENCY);
 };
 
@@ -39,9 +38,7 @@ export const createPackage = async (request: Request, response: Response): Promi
   if (!!existingPackage) {
     throw new BadRequest(request.__(errorLabels.EXISTING_NAME));
   }
-  console.log('createPackage :>> ', createPackage);
   const modules = await ModuleEntity.find().where('_id').in(createPackage.moduleIds).exec();
-  console.log('modules :>> ', modules);
   const pack = new PackageEntity({
     name: createPackage.name,
     description: createPackage.description,

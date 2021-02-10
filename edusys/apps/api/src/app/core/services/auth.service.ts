@@ -23,7 +23,7 @@ import VerifyTokenEntity from '../entities/verify-token.entity';
 // REGISTER
 export const register = async (request: Request, response: Response): Promise<IAuthRegisterUserResponse> => {
   const registerUser: IAuthRegisterUserRequest = request.body;
-  const verificationNeeded = Boolean(process.env.APP_EMAIL_VERIFICATION);
+  const verificationNeeded = Boolean(JSON.parse(process.env.APP_EMAIL_VERIFICATION));
   const { error } = registerUserSchema(registerUser);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
@@ -64,7 +64,7 @@ export const register = async (request: Request, response: Response): Promise<IA
 // LOGIN
 export const login = async (request: Request, response: Response): Promise<IAuthLoginUserResponse> => {
   const loginUser: IAuthLoginUserRequest = request.body;
-  const verificationNeeded = Boolean(process.env.APP_EMAIL_VERIFICATION);
+  const verificationNeeded = Boolean(JSON.parse(process.env.APP_EMAIL_VERIFICATION));
   const { error } = loginUserSchema(loginUser);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
@@ -76,7 +76,7 @@ export const login = async (request: Request, response: Response): Promise<IAuth
   }
 
   if (verificationNeeded && !user.emailVerified) {
-    throw new BadRequest(request.__(errorLabels.INVALID_CREDENTIALS));
+    throw new BadRequest(request.__(errorLabels.VERIFICATION_NEEDED));
   }
 
   const validPassword = await compare(loginUser.password, user.password);
@@ -138,6 +138,7 @@ export const seedSU = async (request: Request, response: Response): Promise<void
     email: process.env.SU_EMAIL,
     password: hashedPassword,
     roles: [AuthUserRole.SUPERADMIN],
+    emailVerified: true,
   });
   await user.save();
 };

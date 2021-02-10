@@ -6,27 +6,41 @@ import { loginUrl, registerUrl, userInfoUrl, logoutUrl } from './auth.endpoints'
 import { APP_CONFIG } from '@edusys/app-config';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AppLocalStorageKeys } from '../../model/app/app.model';
+import jwt_decode from 'jwt-decode';
+import memoize from 'memoizee';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private httpClient: HttpClient, private localStoragrService: LocalStorageService, @Inject(APP_CONFIG) private appConfig: any) {}
+  constructor(private httpClient: HttpClient, private localStorageService: LocalStorageService, @Inject(APP_CONFIG) private appConfig: any) {}
 
   baseUrl(): string {
     return this.appConfig.apiUrl;
   }
 
   getAuthToken(): string {
-    return this.localStoragrService.get(AppLocalStorageKeys.AUTH_TOKEN);
+    return this.localStorageService.get(AppLocalStorageKeys.AUTH_TOKEN);
   }
 
+  getDecodedAuthToken(): any {
+    const token = this.getAuthToken();
+    if (!token) {
+      return null;
+    } else {
+      return this.memoizedDecodeJwt(token);
+    }
+  }
+
+  decodeJwt = (token: string) => jwt_decode(token);
+  memoizedDecodeJwt = memoize(this.decodeJwt);
+
   saveAuthToken(token: string): void {
-    this.localStoragrService.set(AppLocalStorageKeys.AUTH_TOKEN, token);
+    this.localStorageService.set(AppLocalStorageKeys.AUTH_TOKEN, token);
   }
 
   clearAuthToken(): void {
-    this.localStoragrService.remove(AppLocalStorageKeys.AUTH_TOKEN);
+    this.localStorageService.remove(AppLocalStorageKeys.AUTH_TOKEN);
   }
 
   login = (payload: IAuthLoginUserRequest): Observable<IAuthLoginUserResponse> => {
