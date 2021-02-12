@@ -1,12 +1,12 @@
-import { AuthUserRole } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
+import { IOrganizationRole } from './organization-role.entity';
 
 export interface IUser extends Document {
   name: string;
   surname: string;
   email: string;
   password: string;
-  roles: AuthUserRole[];
+  roles?: IOrganizationRole['_id'][];
   obsolete: boolean;
   phone: string;
   emailVerified: boolean;
@@ -43,10 +43,9 @@ const userSchema = new Schema(
       required: true,
       max: 1024,
     },
-    roles: {
-      type: Array,
-      required: true,
-    },
+    roles: [{
+      type: Schema.Types.ObjectId,
+    }],
     obsolete: {
       type: Boolean,
       default: false,

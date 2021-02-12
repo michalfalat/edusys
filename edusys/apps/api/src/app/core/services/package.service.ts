@@ -1,5 +1,4 @@
 import { IPackageCreateRequest, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
-import { Request, Response } from 'express';
 import ModuleEntity from '../entities/module.entity';
 import PackageEntity from '../entities/package.entity';
 import { packageDetailMapper, packageListMapper } from '../mappers/package.mapper';
@@ -8,73 +7,69 @@ import { BadRequest, NotFound } from '../utils/errors';
 import { createPackageSchema, editPackageSchema } from '../validations/package.validations';
 
 // LIST OF ALL PACKAGES WITHOUT PAGINATION
-export const listOfPackages = async (request: Request, response: Response): Promise<IPackageDetailResponse[]> => {
-  const packages = await PackageEntity.find().populate('modules');
-  if (!packages) {
-    throw new NotFound(request.__(errorLabels.NOT_FOUND));
+export const listOfPackages = async (): Promise<IPackageDetailResponse[]> => {
+  const listOfEntities = await PackageEntity.find().populate('modules');
+  if (!listOfEntities) {
+    throw new NotFound();
   }
-  return packageListMapper(packages, process.env.PRIMARY_CURRENCY);
+  return packageListMapper(listOfEntities, process.env.PRIMARY_CURRENCY);
 };
 
 // DETAIL OF PACKAGE
-export const detailOfPackage = async (request: Request, response: Response): Promise<IPackageDetailResponse> => {
-  const id = request.params.id;
-  const pack = await PackageEntity.findById(id).populate('modules');
-  if (!pack) {
-    throw new NotFound(request.__(errorLabels.NOT_FOUND));
+export const detailOfPackage = async (id: string): Promise<IPackageDetailResponse> => {
+  const detailEntity = await PackageEntity.findById(id).populate('modules');
+  if (!detailEntity) {
+    throw new NotFound();
   }
-  return packageDetailMapper(pack, process.env.PRIMARY_CURRENCY);
+  return packageDetailMapper(detailEntity, process.env.PRIMARY_CURRENCY);
 };
 
 // CREATE NEW PACKAGE
-export const createPackage = async (request: Request, response: Response): Promise<IPackageDetailResponse> => {
-  const createPackage: IPackageCreateRequest = request.body;
-  const { error } = createPackageSchema(createPackage);
+export const createPackage = async (payload: IPackageCreateRequest): Promise<IPackageDetailResponse> => {
+  const { error } = createPackageSchema(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
 
-  const existingPackage = await PackageEntity.findOne({ name: createPackage.name });
-  if (!!existingPackage) {
-    throw new BadRequest(request.__(errorLabels.EXISTING_NAME));
+  const existingEntity = await PackageEntity.findOne({ name: payload.name });
+  if (!!existingEntity) {
+    throw new BadRequest(errorLabels.EXISTING_NAME);
   }
-  const modules = await ModuleEntity.find().where('_id').in(createPackage.moduleIds).exec();
-  const pack = new PackageEntity({
-    name: createPackage.name,
-    description: createPackage.description,
-    annumPrices: createPackage.annumPrices,
-    installationPrices: createPackage.installationPrices,
+  const modules = await ModuleEntity.find().where('_id').in(payload.moduleIds).exec();
+  const newEntity = new PackageEntity({
+    name: payload.name,
+    description: payload.description,
+    annumPrices: payload.annumPrices,
+    installationPrices: payload.installationPrices,
     modules,
   });
   try {
-    const savedPackage = await pack.save();
-    return packageDetailMapper(savedPackage, process.env.PRIMARY_CURRENCY);
+    const savedEntity = await newEntity.save();
+    return packageDetailMapper(savedEntity, process.env.PRIMARY_CURRENCY);
   } catch (error) {
     throw new BadRequest(error);
   }
 };
 
 // EDIT PACKAGE
-export const editPackage = async (request: Request, response: Response): Promise<IPackageDetailResponse> => {
-  const editPackage: IPackageEditRequest = request.body;
-  const { error } = editPackageSchema(editPackage);
+export const editPackage = async (payload: IPackageEditRequest): Promise<IPackageDetailResponse> => {
+  const { error } = editPackageSchema(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
   try {
-    const id = request.params.id;
-    const updatedPackage = await PackageEntity.findByIdAndUpdate(id, editPackage, { new: true });
-    return packageDetailMapper(updatedPackage, process.env.PRIMARY_CURRENCY);
+    const id = payload.id;
+    const updatedEntity = await PackageEntity.findByIdAndUpdate(id, payload, { new: true });
+    return packageDetailMapper(updatedEntity, process.env.PRIMARY_CURRENCY);
   } catch (error) {
     throw new BadRequest(error);
   }
 };
 
 // DELETE PACKAGE
-export const deletePackage = async (request: Request, response: Response): Promise<void> => {
+export const deletePackage = async (id: string): Promise<void> => {
   try {
-    const id = request.params.id;
-    const result = await PackageEntity.findByIdAndDelete(id);
+    await PackageEntity.findByIdAndDelete(id);
     return;
   } catch (error) {
     throw new BadRequest(error);

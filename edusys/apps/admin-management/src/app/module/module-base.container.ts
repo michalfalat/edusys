@@ -16,8 +16,12 @@ export class ModuleBaseContainer extends CommonContainer {
     this.moduleFacade = injector.get(ModuleFacade);
     this.snackbar = injector.get(MatSnackBar);
     this.subscriptions.add(this.moduleFacade.getModuleList$.subscribe((data) => (this.moduleList = data)));
-    this.subscriptions.add(this.moduleFacade.getModuleDetail$.subscribe((data) => (this.moduleDetail = data)));
     this.subscriptions.add(this.activatedRoute.params.subscribe((data) => (this.moduleId = data?.moduleId)));
+    this.subscriptions.add(
+      this.moduleFacade.getModuleDetail$.subscribe((data) => {
+        this.moduleDetail = data?.id === this.moduleId ? data : null;
+      })
+    );
   }
 
   onError = (message?: string): void => {

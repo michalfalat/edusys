@@ -4,7 +4,7 @@ import * as packageService from './../core/services/package.service';
 // CREATE PACKAGE
 export const listOfPackages = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const listOfPackagesResponse = await packageService.listOfPackages(req, res);
+    const listOfPackagesResponse = await packageService.listOfPackages();
     res.send(listOfPackagesResponse);
   } catch (err) {
     next(err);
@@ -14,7 +14,7 @@ export const listOfPackages = async (req: Request, res: Response, next: NextFunc
 // CREATE PACKAGE
 export const detailOfPackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const detailPackageResponse = await packageService.detailOfPackage(req, res);
+    const detailPackageResponse = await packageService.detailOfPackage(req.params.id);
     res.send(detailPackageResponse);
   } catch (err) {
     next(err);
@@ -24,7 +24,7 @@ export const detailOfPackage = async (req: Request, res: Response, next: NextFun
 // CREATE PACKAGE
 export const createPackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const createPackageResponse = await packageService.createPackage(req, res);
+    const createPackageResponse = await packageService.createPackage(req.body);
     res.send(createPackageResponse);
   } catch (err) {
     next(err);
@@ -34,7 +34,7 @@ export const createPackage = async (req: Request, res: Response, next: NextFunct
 // EDIT PACKAGE
 export const editPackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const editPackageResponse = await packageService.editPackage(req, res);
+    const editPackageResponse = await packageService.editPackage(req.body);
     res.send(editPackageResponse);
   } catch (err) {
     next(err);
@@ -44,7 +44,7 @@ export const editPackage = async (req: Request, res: Response, next: NextFunctio
 // DELETE PACKAGE
 export const deletePackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await packageService.deletePackage(req, res);
+    await packageService.deletePackage(req.params.id);
     res.send();
   } catch (err) {
     next(err);

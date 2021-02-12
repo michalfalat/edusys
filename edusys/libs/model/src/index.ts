@@ -6,3 +6,4 @@ export * from './lib/models/package.model';
 export * from './lib/models/common.model';
 export * from './lib/models/permissions.model';
 export * from './lib/models/organization.model';
+export * from './lib/models/organization-role.model';

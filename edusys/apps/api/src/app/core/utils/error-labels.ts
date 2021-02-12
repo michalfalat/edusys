@@ -7,4 +7,5 @@ export const errorLabels = {
   EXISTING_NAME: 'error.existingName',
   UNAUTHORIZED: 'error.notLoggedIn',
   ACCESS_DENIED: 'error.accessDenied',
+  BAD_REQUEST: 'error.badRequest',
 };

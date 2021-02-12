@@ -6,11 +6,10 @@ import { errorLabels } from '../utils/error-labels';
 export const verifyToken = (req: Request, res: Response, next: NextFunction): any => {
   try {
     const token = req.headers?.authorization?.split(' ')[1];
-    if (!token) throw new NotAuthorized(req.__(errorLabels.UNAUTHORIZED));
+    if (!token) throw new NotAuthorized();
     const verifiedToken = jwt.verify(token, process.env.TOKEN_SECRET);
-    res.locals.jwtToken = verifiedToken;
     next();
   } catch (error) {
-    throw new NotAuthorized(req.__(errorLabels.UNAUTHORIZED));
+    throw new NotAuthorized();
   }
 };

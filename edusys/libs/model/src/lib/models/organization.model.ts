@@ -2,6 +2,13 @@ export interface IOrganizationCreateRequest {
   name: string;
   description: string;
 }
+
+export interface IOrganizationResponse {
+  id: string;
+  name: string;
+  description: string;
+}
+
 export interface IOrganizationDetailResponse {
   id: string;
   name: string;

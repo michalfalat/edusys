@@ -1,15 +1,15 @@
-import { AuthUserRole } from '@edusys/model';
 import { NextFunction, Request, Response, Router } from 'express';
-import { verifyRole } from '../core/middlewares/verify-role';
+// import { verifyRole } from '../core/middlewares/verify-role';
 import { verifyToken } from '../core/middlewares/verify-token';
 import { BadRequest } from '../core/utils/errors';
 import * as authService from './../core/services/auth.service';
 import * as emailService from './../core/services/email.service';
+import * as httpContext from 'express-http-context';
 
 // REGISTER
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const registerResponse = await authService.register(req, res);
+    const registerResponse = await authService.register(req.body);
     res.send(registerResponse);
   } catch (err) {
     next(err);
@@ -19,7 +19,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 // LOGIN
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = await authService.login(req, res);
+    const token = await authService.login(req.body);
     res.send(token);
   } catch (err) {
     next(err);
@@ -29,7 +29,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 // USER INFO
 export const userInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userDetail = await authService.userInfo(req, res);
+    const userDetail = await authService.userInfo();
     res.send(userDetail);
   } catch (err) {
     next(err);
@@ -39,7 +39,7 @@ export const userInfo = async (req: Request, res: Response, next: NextFunction) 
 // CHANGE PASSWORD
 export const changePassword = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const changeResult = await authService.changePassword(req, res);
+    const changeResult = await authService.changePassword(req.body);
     res.send(changeResult);
   } catch (err) {
     next(err);
@@ -49,7 +49,7 @@ export const changePassword = async (req: Request, res: Response, next: NextFunc
 // LIST OF USERS
 export const listOfUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const users = await authService.listOfUsers(req, res);
+    const users = await authService.listOfUsers();
     res.send(users);
   } catch (err) {
     next(err);
@@ -59,7 +59,7 @@ export const listOfUsers = async (req: Request, res: Response, next: NextFunctio
 // SEED SU
 export const seedSU = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await authService.seedSU(req, res);
+    await authService.seedSU();
     res.send({ status: 'OK' });
   } catch (err) {
     next(err);
@@ -69,10 +69,10 @@ export const seedSU = async (req: Request, res: Response, next: NextFunction) =>
 // TEST EMAIL
 export const testEmail = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await emailService.sendTestEmail(req, res);
     if (!req.query.to) {
       throw new BadRequest("Missing email property 'to' ");
     }
+    await emailService.sendTestEmail(req.query.to as string);
     res.send({ status: 'OK' });
   } catch (err) {
     next(err);
@@ -81,6 +81,7 @@ export const testEmail = async (req: Request, res: Response, next: NextFunction)
 
 export const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(httpContext.get('currentUser'));
     res.send({});
   } catch (err) {
     next(err);
@@ -94,5 +95,5 @@ authRouter.post('/api/auth/logout', logout);
 authRouter.get('/api/auth/user-info', [verifyToken], userInfo);
 authRouter.get('/api/auth/change-password', [verifyToken], changePassword);
 authRouter.post('/api/auth/test-email', testEmail);
-authRouter.get('/api/auth/users', [verifyToken, verifyRole(AuthUserRole.ADMIN)], listOfUsers);
+// authRouter.get('/api/auth/users', [verifyToken, verifyRole(AuthUserRole.ADMIN)], listOfUsers);
 authRouter.post('/api/auth/seedSU', seedSU);

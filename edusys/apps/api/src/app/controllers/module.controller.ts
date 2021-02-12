@@ -4,7 +4,7 @@ import * as moduleService from './../core/services/module.service';
 // CREATE MODULE
 export const listOfModules = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const listOfModulesResponse = await moduleService.listOfModules(req, res);
+    const listOfModulesResponse = await moduleService.listOfModules();
     res.send(listOfModulesResponse);
   } catch (err) {
     next(err);
@@ -14,7 +14,7 @@ export const listOfModules = async (req: Request, res: Response, next: NextFunct
 // CREATE MODULE
 export const detailOfModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const detailModuleResponse = await moduleService.detailOfModule(req, res);
+    const detailModuleResponse = await moduleService.detailOfModule(req.params.id);
     res.send(detailModuleResponse);
   } catch (err) {
     next(err);
@@ -24,7 +24,7 @@ export const detailOfModule = async (req: Request, res: Response, next: NextFunc
 // CREATE MODULE
 export const createModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const createModuleResponse = await moduleService.createModule(req, res);
+    const createModuleResponse = await moduleService.createModule(req.body);
     res.send(createModuleResponse);
   } catch (err) {
     next(err);
@@ -34,7 +34,7 @@ export const createModule = async (req: Request, res: Response, next: NextFuncti
 // EDIT MODULE
 export const editModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const editModuleResponse = await moduleService.editModule(req, res);
+    const editModuleResponse = await moduleService.editModule(req.body);
     res.send(editModuleResponse);
   } catch (err) {
     next(err);
@@ -44,7 +44,7 @@ export const editModule = async (req: Request, res: Response, next: NextFunction
 // DELETE MODULE
 export const deleteModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await moduleService.deleteModule(req, res);
+    await moduleService.deleteModule(req.params.id);
     res.send();
   } catch (err) {
     next(err);

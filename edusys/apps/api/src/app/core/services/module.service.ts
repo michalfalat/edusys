@@ -1,76 +1,73 @@
 import { IModuleCreateRequest, IModuleDetailResponse, IModuleEditRequest } from '@edusys/model';
-import { Request, Response } from 'express';
 import ModuleEntity from '../entities/module.entity';
 import { moduleDetailMapper, moduleListMapper } from '../mappers/module.mapper';
+import { getCurrentLanguage } from '../middlewares/current-http-context';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
 import { createModuleSchema, editModuleSchema } from '../validations/module.validations';
 
 // LIST OF ALL MODULES WITHOUT PAGINATION
-export const listOfModules = async (request: Request, response: Response): Promise<IModuleDetailResponse[]> => {
-  const modules = await ModuleEntity.find();
-  if (!modules) {
-    throw new NotFound(request.__(errorLabels.NOT_FOUND));
+export const listOfModules = async (): Promise<IModuleDetailResponse[]> => {
+  const listOfEntities = await ModuleEntity.find();
+  console.log(getCurrentLanguage());
+  if (!listOfEntities) {
+    throw new NotFound();
   }
-  return moduleListMapper(modules);
+  return moduleListMapper(listOfEntities);
 };
 
 // DETAIL OF MODULE
-export const detailOfModule = async (request: Request, response: Response): Promise<IModuleDetailResponse> => {
-  const id = request.params.id;
-  const module = await ModuleEntity.findById(id);
-  if (!module) {
-    throw new NotFound(request.__(errorLabels.NOT_FOUND));
+export const detailOfModule = async (id: string): Promise<IModuleDetailResponse> => {
+  const detailEntity = await ModuleEntity.findById(id);
+  if (!detailEntity) {
+    throw new NotFound();
   }
-  return moduleDetailMapper(module);
+  return moduleDetailMapper(detailEntity);
 };
 
 // CREATE NEW MODULE
-export const createModule = async (request: Request, response: Response): Promise<IModuleDetailResponse> => {
-  const createModule: IModuleCreateRequest = request.body;
-  const { error } = createModuleSchema(createModule);
+export const createModule = async (payload: IModuleCreateRequest): Promise<IModuleDetailResponse> => {
+  const { error } = createModuleSchema(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
 
-  const existingModule = await ModuleEntity.findOne({ name: createModule.name });
-  if (!!existingModule) {
-    throw new BadRequest(request.__(errorLabels.EXISTING_NAME));
+  const existingEntity = await ModuleEntity.findOne({ name: payload.name });
+  if (!!existingEntity) {
+    throw new BadRequest(errorLabels.EXISTING_NAME);
   }
 
-  const module = new ModuleEntity({
-    name: createModule.name,
-    description: createModule.description,
+  const newEntity = new ModuleEntity({
+    name: payload.name,
+    description: payload.description,
   });
   try {
-    const savedModule = await module.save();
-    return moduleDetailMapper(savedModule);
+    const savedEntity = await newEntity.save();
+    return moduleDetailMapper(savedEntity);
   } catch (error) {
     throw new BadRequest(error);
   }
 };
 
 // EDIT MODULE
-export const editModule = async (request: Request, response: Response): Promise<IModuleDetailResponse> => {
-  const editModule: IModuleEditRequest = request.body;
-  const { error } = editModuleSchema(editModule);
+export const editModule = async (payload: IModuleEditRequest): Promise<IModuleDetailResponse> => {
+  const { error } = editModuleSchema(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
   try {
-    const id = request.params.id;
-    const updatedModule = await ModuleEntity.findByIdAndUpdate(id, editModule, { new: true });
-    return moduleDetailMapper(updatedModule);
+    const id = payload.id;
+    const updatedEntity = await ModuleEntity.findByIdAndUpdate(id, payload, { new: true });
+    return moduleDetailMapper(updatedEntity);
   } catch (error) {
     throw new BadRequest(error);
   }
 };
 
 // DELETE MODULE
-export const deleteModule = async (request: Request, response: Response): Promise<void> => {
+export const deleteModule = async (id: string): Promise<void> => {
   try {
-    const id = request.params.id;
-    const result = await ModuleEntity.findByIdAndDelete(id);
+    await ModuleEntity.findByIdAndDelete(id);
     return;
   } catch (error) {
     throw new BadRequest(error);

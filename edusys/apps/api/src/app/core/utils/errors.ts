@@ -1,7 +1,29 @@
+import { request } from 'express';
+import { errorLabels } from './error-labels';
+
 export class GeneralError extends Error {
-  constructor(message) {
+  constructor(message?: string) {
     super();
-    this.message = message;
+    this.setMessage(message);
+  }
+
+  setMessage(message: string): void {
+    if (!!message) {
+      this.message = message;
+    } else {
+      if (this instanceof BadRequest) {
+        this.message = errorLabels.BAD_REQUEST;
+      }
+      if (this instanceof NotAuthorized) {
+        this.message = errorLabels.UNAUTHORIZED;
+      }
+      if (this instanceof AccessForbidden) {
+        this.message = errorLabels.ACCESS_DENIED;
+      }
+      if (this instanceof NotFound) {
+        this.message = errorLabels.NOT_FOUND;
+      }
+    }
   }
 
   getCode(): number {
