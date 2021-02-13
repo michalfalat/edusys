@@ -1,13 +1,11 @@
-import * as jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { NotAuthorized } from '../utils/errors';
-import { errorLabels } from '../utils/error-labels';
+import { getCurrentUser } from './current-http-context';
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction): any => {
   try {
-    const token = req.headers?.authorization?.split(' ')[1];
-    if (!token) throw new NotAuthorized();
-    const verifiedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+    const user = getCurrentUser();
+    if (!user?.id) throw new NotAuthorized();
     next();
   } catch (error) {
     throw new NotAuthorized();

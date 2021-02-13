@@ -2,8 +2,9 @@
 <mat-sidenav-container>
   <mat-sidenav [opened]="true" mode="side">
     <mat-action-list>
-      <button mat-list-item>Modules</button>
-      <button mat-list-item>Packages</button>
+      <ng-container *ngFor="let item of navigationItems">
+        <button mat-list-item [routerLink]="item.route">{{ item.name | translate }}</button>
+      </ng-container>
     </mat-action-list>
   </mat-sidenav>
   <mat-sidenav-content>

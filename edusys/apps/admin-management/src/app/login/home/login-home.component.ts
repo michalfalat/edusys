@@ -31,9 +31,9 @@ export class LoginHomeComponent extends LoginBaseContainer implements OnInit {
         this.authFacade.userInfo();
         this.navigateToProfile();
       },
-      error => {
-        this.onError(error.error?.message || error.error);
-      },
+      (error) => {
+        this.onError(error.error?.messageLocalized || error.error);
+      }
     );
   }
 }

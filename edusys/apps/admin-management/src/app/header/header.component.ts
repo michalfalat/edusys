@@ -16,6 +16,7 @@ export class HeaderComponent extends HeaderBaseContainer implements OnInit {
 
   ngOnInit(): void {
     this.languages = this.translateService.getLanguages();
+    this.authFacade.userInfo();
   }
 
   setLanguage(lang: string): void {

@@ -11,6 +11,7 @@ export const currentHttpContext = (req: Request, res: Response, next: NextFuncti
       httpContext.set('currentUser', jwt.decode(token));
     }
     httpContext.set('currentLanguage', req.getLocale());
+    httpContext.set('currentHostname', req.headers.host);
     next();
   } catch (error) {
     next();
@@ -23,4 +24,8 @@ export const getCurrentUser = (): IJWTUserData => {
 
 export const getCurrentLanguage = (): string => {
   return httpContext.get('currentLanguage');
+};
+
+export const getCurrentHostname = (): string => {
+  return httpContext.get('currentHostname');
 };

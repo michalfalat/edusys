@@ -1,12 +1,24 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
-import { APP_CONFIG } from '@edusys/app-config';
+import { APP_CONFIG, missingTranslations } from '@edusys/app-config';
 
 export function createTranslateLoader(http: HttpClient, appConfig: APP_CONFIG) {
   return new TranslateHttpLoader(http, `${appConfig.apiUrl}/locales/`, '.json');
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class MyMissingTranslationHandler implements MissingTranslationHandler {
+  handle(params: MissingTranslationHandlerParams): any {
+    const missingKey = params.key;
+    missingTranslations[missingKey] = missingKey; // or any structure holding missing translations
+    console.warn('Missing translations: ', missingKey, missingTranslations);
+    return `${missingKey}`;
+  }
 }
 
 @NgModule({
@@ -21,5 +33,6 @@ export function createTranslateLoader(http: HttpClient, appConfig: APP_CONFIG) {
       defaultLanguage: 'en',
     }),
   ],
+  providers: [{ provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler }],
 })
 export class CoreTranslateModule {}

@@ -9,6 +9,14 @@ import { ModuleBaseContainer } from '../module-base.container';
 export class ModuleDetailComponent extends ModuleBaseContainer implements OnInit {
   constructor(injector: Injector) {
     super(injector);
+    this.navigationItems = [
+      {
+        text: 'Module List',
+      },
+      {
+        text: 'Detail',
+      },
+    ];
   }
 
   ngOnInit(): void {

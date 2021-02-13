@@ -84,10 +84,15 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
     throw new BadRequest(errorLabels.INVALID_CREDENTIALS);
   }
 
+  const permissions = [];
+  if (user.email === process.env.SU_EMAIL) {
+    permissions.push(PERMISSION.SUPER_USER);
+  }
+
   const jwtData: IJWTUserData = {
     id: user._id,
     name: user.name,
-    permissions: [PERMISSION.MODULE.BASIC],
+    permissions,
   };
 
   const token = jwt.sign(jwtData, process.env.TOKEN_SECRET);
@@ -110,8 +115,8 @@ export const changePassword = async (payload: IAuthUserChangePasswordRequest): P
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
-  const token = { id: 'asd' }; // response.locals.jwtToken; context
-  const user = await UserEntity.findOne({ _id: token.id });
+  const jwtData = getCurrentUser();
+  const user = await UserEntity.findOne({ _id: jwtData?.id });
   if (!user) {
     throw new NotFound();
   }
@@ -124,7 +129,7 @@ export const changePassword = async (payload: IAuthUserChangePasswordRequest): P
   const salt = await genSalt(10);
   const hashedPassword = await hash(payload.newPassword, salt);
 
-  await UserEntity.updateOne({ _id: token.id }, { $set: { password: hashedPassword } });
+  await UserEntity.updateOne({ _id: jwtData?.id }, { $set: { password: hashedPassword } });
 
   return { success: true };
 };
@@ -152,7 +157,7 @@ export const seedSU = async (): Promise<void> => {
 export const listOfUsers = async (): Promise<IAuthUserInfoResponse[]> => {
   const listOfEntities = await UserEntity.find();
   if (!listOfEntities) {
-    throw new NotFound(errorLabels.NOT_FOUND);
+    throw new NotFound();
   }
   return userListMappper(listOfEntities);
 };

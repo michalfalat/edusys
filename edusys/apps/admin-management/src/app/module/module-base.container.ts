@@ -2,6 +2,7 @@ import { Injector } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonContainer, ModuleFacade } from '@edusys/core';
 import { IModuleDetailResponse } from '@edusys/model';
+import { INavigationItem } from 'libs/core-ui/src/lib/components/ui-breadcrumb/ui-breadcrumb.component';
 import { routes } from '../utils/routes';
 
 export class ModuleBaseContainer extends CommonContainer {
@@ -10,6 +11,7 @@ export class ModuleBaseContainer extends CommonContainer {
   moduleList: IModuleDetailResponse[];
   moduleDetail: IModuleDetailResponse;
   moduleId: string;
+  navigationItems: INavigationItem[];
 
   constructor(injector: Injector) {
     super(injector);

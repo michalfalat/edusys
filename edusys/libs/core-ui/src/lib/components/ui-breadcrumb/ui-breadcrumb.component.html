@@ -1,0 +1,14 @@
+<div class="row left">
+  <ng-container *ngIf="showHome">
+    <h3 class="mat-h3">{{ 'general.home' | translate }}</h3>
+    <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+    <h3 class="mat-h3">></h3>
+    <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+  </ng-container>
+  <ng-container *ngFor="let item of navigationItems; let last = last">
+    <h3 class="mat-h3">{{ item?.text | translate }}</h3>
+    <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+    <h3 class="mat-h3" *ngIf="!last">></h3>
+    <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+  </ng-container>
+</div>

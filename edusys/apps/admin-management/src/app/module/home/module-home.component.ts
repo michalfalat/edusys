@@ -10,6 +10,11 @@ export class ModuleHomeComponent extends ModuleBaseContainer implements OnInit {
   displayedColumns: string[] = ['name', 'description'];
   constructor(injector: Injector) {
     super(injector);
+    this.navigationItems = [
+      {
+        text: 'Module List',
+      },
+    ];
   }
 
   ngOnInit(): void {

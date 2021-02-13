@@ -1,18 +1,23 @@
-export type EmailTemplates = {
-  verifyEmail: {
+export enum EmailType {
+  VERIFY_EMAIL = 'VERIFY_EMAIL',
+  TEST_EMAIL = 'TEST_EMAIL',
+}
+
+export type EmailTemplatesData = {
+  [EmailType.VERIFY_EMAIL]: {
     name: string;
     verifyTokenUrl: string;
   };
-  testEmail: {
+  [EmailType.TEST_EMAIL]: {
     name: string;
   };
 };
 
-type TemplateType = keyof EmailTemplates;
+type TemplateType = keyof EmailTemplatesData;
 
 export type EmailTemplate<T extends TemplateType> = {
   template: T;
-  params: EmailTemplates[T];
+  params: EmailTemplatesData[T];
   lang: string;
   to: string;
 };

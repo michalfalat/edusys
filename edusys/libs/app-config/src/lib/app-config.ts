@@ -6,3 +6,5 @@ export abstract class APP_CONFIG {
     readonly adminManagement: string;
   };
 }
+
+export const missingTranslations = {};

@@ -12,10 +12,6 @@ const routes: Routes = [
     component: LayoutsMainLayoutComponent,
     children: [
       {
-        path: 'home',
-        loadChildren: () => import('../home/home.module').then((m) => m.HomeModule),
-      },
-      {
         path: 'module',
         loadChildren: () => import('../module/module.module').then((m) => m.ModuleModule),
         canActivate: [PermissionGuard],
@@ -26,6 +22,19 @@ const routes: Routes = [
         loadChildren: () => import('../package/package.module').then((m) => m.PackageModule),
         canActivate: [PermissionGuard],
         data: { moduleName: PERMISSION.PACKAGE.BASIC },
+      },
+      {
+        canActivate: [AuthGuard],
+        path: 'profile',
+        loadChildren: () => import('../profile/profile.module').then((m) => m.ProfileModule),
+      },
+      {
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then((m) => m.HomeModule),
+      },
+      {
+        path: '**',
+        loadChildren: () => import('../home/home.module').then((m) => m.HomeModule),
       },
     ],
   },

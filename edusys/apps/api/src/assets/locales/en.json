@@ -13,5 +13,9 @@
   "general.logout": "Logout",
   "general.email": "Email",
   "general.password": "Password",
+  "general.home": "Home",
+  "general.emptyList": "Oops! It looks like there is no content to show. Would you like to add something? ",
+  "general.add.button": "Add",
+  "module.name": "Module name",
   "general.login.button": "Sign in"
 }

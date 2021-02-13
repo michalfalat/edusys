@@ -11,6 +11,7 @@ const moduleSchema = new Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
       min: 2,
       max: 255,
     },

@@ -13,5 +13,7 @@
   "general.logout": "Odhlásiť",
   "general.email": "Email",
   "general.password": "Heslo",
+  "general.home": "Domov",
+  "module.name": "Domov",
   "general.login.button": "Prihlásiť"
 }

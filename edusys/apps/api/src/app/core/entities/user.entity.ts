@@ -30,6 +30,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
       min: 6,
       max: 255,
     },
@@ -43,9 +44,11 @@ const userSchema = new Schema(
       required: true,
       max: 1024,
     },
-    roles: [{
-      type: Schema.Types.ObjectId,
-    }],
+    roles: [
+      {
+        type: Schema.Types.ObjectId,
+      },
+    ],
     obsolete: {
       type: Boolean,
       default: false,

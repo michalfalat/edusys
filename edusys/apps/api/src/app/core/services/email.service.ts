@@ -1,31 +1,32 @@
-import { EmailTemplate, sendEmail } from '@edusys/email-sender';
+import { EmailTemplate, sendEmail, EmailType } from '@edusys/email-sender';
 import { IUser } from '../entities/user.entity';
 import { IVerifyToken } from '../entities/verify-token.entity';
+import { getCurrentHostname, getCurrentLanguage } from '../middlewares/current-http-context';
 
 // SENDING TEST EMAIL
 export const sendTestEmail = async (to: string): Promise<void> => {
-  const email: EmailTemplate<'testEmail'> = {
-    template: 'testEmail',
+  const email: EmailTemplate<EmailType.TEST_EMAIL> = {
+    template: EmailType.TEST_EMAIL,
     params: {
       name: 'random user name',
     },
     to,
-    lang: 'sk', // request.getLocale(), TODO context
+    lang: getCurrentLanguage() || 'sk',
   };
 
   await sendEmail(email);
 };
 
 // EMAIL ADDRESS VERIFICATION
-export const sendVerifyEmail = async (user: IUser, token: IVerifyToken, lang?: string): Promise<void> => {
-  const email: EmailTemplate<'verifyEmail'> = {
-    template: 'verifyEmail',
+export const sendVerifyEmail = async (user: IUser, token: IVerifyToken): Promise<void> => {
+  const email: EmailTemplate<EmailType.VERIFY_EMAIL> = {
+    template: EmailType.VERIFY_EMAIL,
     params: {
       name: user?.name?.length ? `${user.name} ${user.surname}` : user.email,
-      verifyTokenUrl: '', //`${request.headers.host}/${token.token}`,  // TODO context
+      verifyTokenUrl: `${getCurrentHostname()}/${token.token}`,
     },
     to: user.email,
-    lang: lang || 'sk', // request.getLocale(), TODO context
+    lang: getCurrentLanguage() || 'sk',
   };
 
   await sendEmail(email);

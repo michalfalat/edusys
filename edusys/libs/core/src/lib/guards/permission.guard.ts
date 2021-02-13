@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { PERMISSION } from '@edusys/model';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
 
@@ -17,7 +18,7 @@ export class PermissionGuard implements CanActivate {
         throw new Error(`PermissionGuard - moduleName not defined for following URL: ${route.url}`);
       }
       const jwt = this.authService.getDecodedAuthToken();
-      if (!jwt?.permissions?.includes(moduleName)) {
+      if (!jwt?.permissions?.includes(moduleName) && !jwt?.permissions?.includes(PERMISSION.SUPER_USER)) {
         this.router.navigate([redirectUrl]);
         return false;
       } else {
