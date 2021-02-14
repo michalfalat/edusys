@@ -22,8 +22,8 @@ export class LayoutsMainLayoutComponent implements OnInit {
     },
     {
       name: 'navigation.organizations',
-      route: routes.package.home,
-      permission: PERMISSION.PACKAGE.BASIC,
+      route: routes.organization.home,
+      permission: PERMISSION.ORGANIZATION.BASIC,
     },
     {
       name: 'navigation.users',

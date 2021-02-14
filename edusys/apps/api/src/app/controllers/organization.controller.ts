@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as organizationService from './../core/services/organization.service';
 
-// CREATE ORGANIZATION
+// LIST OF ORGANIZATIONS
 export const listOfOrganizations = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const listOfOrganizationsResponse = await organizationService.listOfOrganizations();
@@ -11,7 +11,7 @@ export const listOfOrganizations = async (req: Request, res: Response, next: Nex
   }
 };
 
-// CREATE ORGANIZATION
+// DETAIL OF ORGANIZATION
 export const detailOfOrganization = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailOrganizationResponse = await organizationService.detailOfOrganization(req.params.id);

@@ -16,3 +16,4 @@ export { CookieService } from './lib/services/cookie/cookie.service';
 export { AuthFacade } from './lib/store/auth/auth.facade';
 export { ModuleFacade } from './lib/store/module/module.facade';
 export { PackageFacade } from './lib/store/package/package.facade';
+export { OrganizationFacade } from './lib/store/organization/organization.facade';

@@ -7,7 +7,7 @@ import { createOrganizationSchema, editOrganizationSchema } from '../validations
 
 // LIST OF ALL ORGANIZATIONS WITHOUT PAGINATION
 export const listOfOrganizations = async (): Promise<IOrganizationResponse[]> => {
-  const listOfEntities = await OrganizationEntity.find();
+  const listOfEntities = await OrganizationEntity.find().populate('users').populate('organizationRoles');
   if (!listOfEntities) {
     throw new NotFound();
   }
@@ -16,7 +16,7 @@ export const listOfOrganizations = async (): Promise<IOrganizationResponse[]> =>
 
 // DETAIL OF ORGANIZATION
 export const detailOfOrganization = async (id: string): Promise<IOrganizationDetailResponse> => {
-  const detailEntity = await OrganizationEntity.findById(id);
+  const detailEntity = await OrganizationEntity.findById(id).populate('users').populate('organizationRoles');
   if (!detailEntity) {
     throw new NotFound();
   }

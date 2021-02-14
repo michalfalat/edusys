@@ -1,0 +1,21 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <form [formGroup]="form" (ngSubmit)="onCreateOrganization()">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'organization.name' | translate }}</mat-label>
+        <input matInput formControlName="name" name="name" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'organization.description' | translate }}</mat-label>
+        <input matInput formControlName="description" name="description" />
+      </mat-form-field>
+    </div>
+
+    <div class="row center">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form?.valid">{{ 'general.create.button' | translate }}</button>
+    </div>
+  </form>
+</mat-card>

@@ -1,0 +1,22 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider></ui-divider>
+  <div class="column">
+    <p class="mat-body">{{ 'organization.name' | translate }}</p>
+    <h4 class="mat-display-h4">{{ organizationDetail?.name }}</h4>
+  </div>
+  <ui-divider [compact]="true"></ui-divider>
+  <div class="column">
+    <p class="mat-body">{{ 'organization.description' | translate }}</p>
+    <h4 class="mat-display-h4">{{ organizationDetail?.description }}</h4>
+  </div>
+
+  <ui-divider></ui-divider>
+
+  <div class="row between">
+    <button mat-button (click)="deleteOrganization()">{{ 'general.delete.button' | translate }}</button>
+    <button mat-raised-button color="primary" type="submit" (click)="navigateToOrganizationEdit(organizationId)">
+      {{ 'general.edit.button' | translate }}
+    </button>
+  </div>
+</mat-card>

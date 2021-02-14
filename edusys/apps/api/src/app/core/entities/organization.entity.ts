@@ -13,6 +13,7 @@ export interface IOrganization extends Document {
   owner?: IUser['_id'];
   status: OrganizationStatus;
   organizationRoles: IOrganizationRole[];
+  users?: IUser['_id'][];
 }
 
 const organizationSchema = new Schema(
@@ -46,7 +47,7 @@ const organizationSchema = new Schema(
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'User',
     },
     status: {
       type: OrganizationStatus,
@@ -55,6 +56,12 @@ const organizationSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'OrganizationRole',
+      },
+    ],
+    users: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
       },
     ],
   },

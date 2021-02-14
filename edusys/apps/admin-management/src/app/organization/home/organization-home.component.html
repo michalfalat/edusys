@@ -1,0 +1,24 @@
+<mat-card class="basic-card" *ngIf="organizationList?.length > 0">
+  <div class="row between">
+    <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+    <button mat-raised-button color="primary" (click)="navigateToOrganizationCreate()">{{ 'organization.add.button' | translate }}</button>
+  </div>
+  <table mat-table [dataSource]="organizationList" class="mat-elevation-z0">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>{{ 'organization.name' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>{{ 'organization.description' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="navigateToOrganizationDetail(row.id)"></tr>
+  </table>
+</mat-card>
+
+<div *ngIf="organizationList?.length === 0">
+  <ui-empty-list (onAdd)="navigateToOrganizationCreate()"></ui-empty-list>
+</div>

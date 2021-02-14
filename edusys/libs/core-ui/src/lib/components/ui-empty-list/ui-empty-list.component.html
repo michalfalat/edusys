@@ -1,6 +1,7 @@
 <div class="empty-data-container">
   <img [src]="'./assets/icons/empty_box.svg'" />
-  <h3 class="mat-display-h3">{{ message || 'general.emptyList' | translate }}</h3>
   <ui-divider [compact]="true"></ui-divider>
+  <h3 class="mat-display-h3">{{ message || 'general.emptyList' | translate }}</h3>
+  <ui-divider></ui-divider>
   <button mat-flat-button color="primary" (click)="onAdd.emit()">{{ buttonText || 'general.add.button' | translate }}</button>
 </div>

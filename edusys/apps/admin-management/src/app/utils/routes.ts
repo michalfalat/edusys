@@ -15,4 +15,10 @@ export const routes = {
     detail: '/package/detail/{0}',
     edit: '/package/edit/{0}',
   },
+  organization: {
+    home: '/organization',
+    create: '/organization/create',
+    detail: '/organization/detail/{0}',
+    edit: '/organization/edit/{0}',
+  },
 };

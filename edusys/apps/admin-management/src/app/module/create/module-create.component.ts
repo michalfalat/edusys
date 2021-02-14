@@ -24,7 +24,7 @@ export class ModuleCreateComponent extends ModuleBaseContainer implements OnInit
     this.setTitle('module.home.title');
     this.createForm({
       name: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
+      description: new FormControl(''),
     });
   }
 

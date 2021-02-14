@@ -1,18 +1,3 @@
-// AUTHUSER ROLE
-// export enum AuthUserRole {
-//   SUPERADMIN = 'SUPERADMIN',
-//   ADMIN = 'ADMIN',
-//   FOUNDER = 'FOUNDER',
-//   PRINCIPAL = 'PRINCIPAL',
-//   TEACHER = 'TEACHER',
-//   STUDENT = 'STUDENT',
-//   ACCOUNTANT = 'ACCOUNTANT',
-//   REPRESENTATIVE = 'REPRESENTATIVE',
-//   EXTERNAL = 'EXTERNAL',
-//   TERMINAL_USER = 'TERMINAL_USER',
-//   OTHER = 'OTHER',
-// }
-
 import { IOrganizationRoleResponse } from './organization-role.model';
 
 export interface IJWTUserData {
@@ -53,6 +38,7 @@ export interface IAuthRegisterUserResponse {
 
 // USER INFO
 export interface IAuthUserInfoResponse {
+  id: string;
   name: string;
   surname: string;
   email: string;
@@ -60,6 +46,14 @@ export interface IAuthUserInfoResponse {
   roles: IOrganizationRoleResponse[];
   emailVerified: boolean;
   phoneVerified: boolean;
+}
+
+export interface IAuthUserBasicResponse {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  phone: string;
 }
 
 // CHANGE PASSWORD

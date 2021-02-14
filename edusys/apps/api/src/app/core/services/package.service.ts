@@ -1,6 +1,6 @@
 import { IPackageCreateRequest, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
 import ModuleEntity from '../entities/module.entity';
-import PackageEntity from '../entities/package.entity';
+import PackageEntity, { IPackage } from '../entities/package.entity';
 import { packageDetailMapper, packageListMapper } from '../mappers/package.mapper';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
@@ -59,7 +59,15 @@ export const editPackage = async (payload: IPackageEditRequest): Promise<IPackag
   }
   try {
     const id = payload.id;
-    const updatedEntity = await PackageEntity.findByIdAndUpdate(id, payload, { new: true });
+    const modules = await ModuleEntity.find().where('_id').in(payload.moduleIds).exec();
+    const editedPackage = {
+      name: payload.name,
+      description: payload.description,
+      annumPrices: payload.annumPrices,
+      installationPrices: payload.installationPrices,
+      modules,
+    };
+    const updatedEntity = await PackageEntity.findByIdAndUpdate(id, editedPackage, { new: true });
     return packageDetailMapper(updatedEntity, process.env.PRIMARY_CURRENCY);
   } catch (error) {
     throw new BadRequest(error);
