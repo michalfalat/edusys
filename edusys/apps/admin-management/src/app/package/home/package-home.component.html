@@ -1,6 +1,6 @@
 <mat-card class="basic-card" *ngIf="packageList?.length > 0">
-  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems"></ui-breadcrumb>
-  <div class="row right">
+  <div class="row between">
+    <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
     <button mat-raised-button color="primary" (click)="navigateToPackageCreate()">{{ 'package.add.button' | translate }}</button>
   </div>
   <table mat-table [dataSource]="packageList" class="mat-elevation-z0">

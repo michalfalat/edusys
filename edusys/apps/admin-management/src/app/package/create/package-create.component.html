@@ -14,7 +14,7 @@
     </div>
     <div class="row">
       <mat-form-field>
-        <mat-select multiple formControlName="moduleIds" placeholder="select module">
+        <mat-select multiple formControlName="moduleIds" [placeholder]="'package.selectModule' | translate">
           <mat-option *ngFor="let module of moduleList" [value]="module?.id">
             {{ module?.name }}
           </mat-option>
@@ -25,35 +25,33 @@
 
     <div class="column">
       <div class="row vertical-align">
-        <h2 class="mat-h2">{{ 'package.annumPrices' | translate }}</h2>
+        <h4 class="mat-display-h4">{{ 'package.annumPrices' | translate }}</h4>
         <button mat-icon-button type="button" (click)="addAnnumPrice()" [matTooltip]="'package.addAnnumPrice.button' | translate">
           <mat-icon>add</mat-icon>
         </button>
       </div>
       <div formArrayName="annumPrices">
         <div *ngFor="let control of form?.get('annumPrices')['controls']; let i = index">
-          <ui-amount [label]="('package.annumPrice' | translate) + ' ' + i" [formGroupName]="i"></ui-amount>
+          <ui-amount [label]="('package.annumPrice' | translate) + ' ' + i" [formGroupName]="i" (onDelete)="deleteAnnumPrice(i)"></ui-amount>
         </div>
       </div>
     </div>
 
-    <ui-divider [solid]="true"></ui-divider>
+    <ui-divider [solid]="true" [compact]="true"></ui-divider>
 
     <div class="column">
       <div class="row vertical-align">
-        <h2 class="mat-h2">{{ 'package.installationPrices' | translate }}</h2>
+        <h4 class="mat-display-h4">{{ 'package.installationPrices' | translate }}</h4>
         <button mat-icon-button type="button" (click)="addInstallationPrice()" [matTooltip]="'package.addInstallationPrices.button' | translate">
           <mat-icon>add</mat-icon>
         </button>
       </div>
       <div formArrayName="installationPrices">
         <div *ngFor="let control of form?.get('installationPrices')['controls']; let i = index">
-          <ui-amount [label]="('package.installationPrices' | translate) + ' ' + i" [formGroupName]="i"></ui-amount>
+          <ui-amount [label]="('package.installationPrices' | translate) + ' ' + i" [formGroupName]="i" (onDelete)="deleteInstallationPrice(i)"></ui-amount>
         </div>
       </div>
     </div>
-
-    {{ form?.value | json }}
 
     <div class="row center">
       <button mat-raised-button color="primary" type="submit" [disabled]="!form?.valid">{{ 'general.create.button' | translate }}</button>

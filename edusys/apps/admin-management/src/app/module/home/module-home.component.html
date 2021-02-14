@@ -1,6 +1,6 @@
-<mat-card class="basic-card" *ngIf="packageList?.length > 0">
-  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems"></ui-breadcrumb>
-  <div class="row right">
+<mat-card class="basic-card" *ngIf="moduleList?.length > 0">
+  <div class="row between">
+    <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
     <button mat-raised-button color="primary" (click)="navigateToModuleCreate()">{{ 'module.add.button' | translate }}</button>
   </div>
   <table mat-table [dataSource]="moduleList" class="mat-elevation-z0">
@@ -17,14 +17,14 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="navigateToModuleDetail(row.id)"></tr>
   </table>
+  <h3>{{ 'general.home' | translate }}</h3>
 </mat-card>
 
-
-<div *ngIf="packageList?.length === 0">
+<div *ngIf="moduleList?.length === 0">
   <ui-empty-list (onAdd)="navigateToPackageCreate()"></ui-empty-list>
 </div>
 
-MAT H
+<!-- MAT H
 <h1 class="mat-h1">Jackdaws love my big sphinx of quartz.</h1>
 <h2 class="mat-h2">The quick brown fox jumps over the lazy dog.</h2>
 <h3 class="mat-h3">Jackdaws love my big sphinx of quartz.</h3>
@@ -39,4 +39,4 @@ MAT DISPLAY H :
 <p class="mat-body">The quick brown fox jumps over the lazy dog.</p>
 <p class="mat-body-2">The quick brown fox jumps over the lazy dog.</p>
 <p class="mat-small">The quick brown fox jumps over the lazy dog.</p>
-<p class="mat-caption">The quick brown fox jumps over the lazy dog.</p>
+<p class="mat-caption">The quick brown fox jumps over the lazy dog.</p> -->

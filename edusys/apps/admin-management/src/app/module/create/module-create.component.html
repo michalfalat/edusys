@@ -1,4 +1,5 @@
 <mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
   <form [formGroup]="form" (ngSubmit)="onCreateModule()">
     <div class="row">
       <mat-form-field>

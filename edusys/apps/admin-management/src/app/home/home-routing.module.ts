@@ -5,7 +5,7 @@ import { HomeLandingComponent } from './landing/home-landing.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeLandingComponent,
   },
   {

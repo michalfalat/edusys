@@ -1,17 +1,22 @@
 <mat-card class="basic-card">
-  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems"></ui-breadcrumb>
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider></ui-divider>
   <div class="column">
-    <p class="mat-caption">{{ 'module.name' | translate }}</p>
-    <h3 class="mat-h3">{{ moduleDetail?.name }}</h3>
+    <p class="mat-body">{{ 'module.name' | translate }}</p>
+    <h4 class="mat-display-h4">{{ moduleDetail?.name }}</h4>
   </div>
+  <ui-divider [compact]="true"></ui-divider>
   <div class="column">
-    <p class="mat-caption">{{ 'module.description' | translate }}</p>
-    <h3 class="mat-h3">{{ moduleDetail?.description }}</h3>
+    <p class="mat-body">{{ 'module.description' | translate }}</p>
+    <h4 class="mat-display-h4">{{ moduleDetail?.description }}</h4>
   </div>
+  <ui-divider [compact]="true"></ui-divider>
   <div class="column">
-    <p class="small">{{ 'module.enabled' | translate }}</p>
-    <h3 class="mat-h3">{{ moduleDetail?.enabled }}</h3>
+    <p class="mat-vody">{{ 'module.enabled' | translate }}</p>
+    <h4 class="mat-display-h4">{{ moduleDetail?.enabled }}</h4>
   </div>
+
+  <ui-divider></ui-divider>
 
   <div class="row between">
     <button mat-button (click)="deleteModule()">{{ 'general.delete.button' | translate }}</button>

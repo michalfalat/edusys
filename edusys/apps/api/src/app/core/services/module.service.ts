@@ -9,7 +9,6 @@ import { createModuleSchema, editModuleSchema } from '../validations/module.vali
 // LIST OF ALL MODULES WITHOUT PAGINATION
 export const listOfModules = async (): Promise<IModuleDetailResponse[]> => {
   const listOfEntities = await ModuleEntity.find();
-  console.log(getCurrentLanguage());
   if (!listOfEntities) {
     throw new NotFound();
   }

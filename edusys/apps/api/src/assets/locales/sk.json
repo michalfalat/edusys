@@ -14,6 +14,9 @@
   "general.email": "Email",
   "general.password": "Heslo",
   "general.home": "Domov",
-  "module.name": "Domov",
+  "general.emptyList": "Oj! Ziadne data ",
+  "general.add.button": "Pridat",
+  "navigation.module": "Moduly",
+  "module.name": "Nazov modulu",
   "general.login.button": "Prihlásiť"
 }

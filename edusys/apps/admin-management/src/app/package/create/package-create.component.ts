@@ -31,6 +31,11 @@ export class PackageCreateComponent extends PackageBaseContainer implements OnIn
     );
   }
 
+  deleteAnnumPrice(index: number): void {
+    let control = <FormArray>this.form.get('annumPrices');
+    control.removeAt(index);
+  }
+
   addInstallationPrice(): void {
     const control = <FormArray>this.form.get('installationPrices');
     control.push(
@@ -39,6 +44,11 @@ export class PackageCreateComponent extends PackageBaseContainer implements OnIn
         amount: new FormControl('', Validators.required),
       })
     );
+  }
+
+  deleteInstallationPrice(index: number): void {
+    let control = <FormArray>this.form.get('installationPrices');
+    control.removeAt(index);
   }
 
   ngOnInit(): void {

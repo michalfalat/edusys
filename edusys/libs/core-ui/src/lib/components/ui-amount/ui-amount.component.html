@@ -1,17 +1,23 @@
 <ng-container [formGroup]="controlContainer.control">
-  <div class="row left vertical-align">
+  <div class="row between vertical-align">
     <p class="amount-label">{{ label }}</p>
 
     <ui-divider [vertical]="true"></ui-divider>
-    <mat-form-field>
-      <input matInput formControlName="amount" placeholder="Enter amount e.g. 250" />
-      <mat-select formControlName="currency" [style.width]="'4rem'">
-        <mat-option *ngFor="let currency of currencyCodes" [value]="currency.currency">
-          {{ currency.symbol }}
-        </mat-option>
-      </mat-select>
-      <mat-icon (click)="onDelete.emit()">clear</mat-icon>
-    </mat-form-field>
+    <div class="row vertical-align">
+      <mat-form-field [style.width]="'12rem'">
+        <input matInput formControlName="amount" placeholder="Enter amount e.g. 250" />
+      </mat-form-field>
+
+      <mat-form-field [style.width]="'3rem'">
+        <mat-select formControlName="currency">
+          <mat-option *ngFor="let currency of currencyCodes" [value]="currency.currency">
+            {{ currency.symbol }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button type="button" (click)="onDelete.emit()" [matTooltip]="'general.delete' | translate">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
   </div>
-  <ui-divider [compact]="true"></ui-divider>
 </ng-container>

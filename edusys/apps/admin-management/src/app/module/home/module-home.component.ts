@@ -12,7 +12,7 @@ export class ModuleHomeComponent extends ModuleBaseContainer implements OnInit {
     super(injector);
     this.navigationItems = [
       {
-        text: 'Module List',
+        text: 'navigation.modules',
       },
     ];
   }

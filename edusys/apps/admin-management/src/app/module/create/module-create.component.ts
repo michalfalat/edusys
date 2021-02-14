@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { IModuleCreateRequest } from '@edusys/model';
+import { routes } from '../../utils/routes';
 import { ModuleBaseContainer } from '../module-base.container';
 
 @Component({
@@ -11,6 +12,15 @@ import { ModuleBaseContainer } from '../module-base.container';
 export class ModuleCreateComponent extends ModuleBaseContainer implements OnInit {
   constructor(injector: Injector) {
     super(injector);
+    this.navigationItems = [
+      {
+        text: 'navigation.modules',
+        route: routes.module.home,
+      },
+      {
+        text: 'Create',
+      },
+    ];
     this.setTitle('module.home.title');
     this.createForm({
       name: new FormControl('', Validators.required),

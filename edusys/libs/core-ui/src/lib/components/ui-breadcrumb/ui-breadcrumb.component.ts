@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CoreTranslateService } from '@edusys/core-translate';
 
 export interface INavigationItem {
   text: string;
@@ -13,8 +14,15 @@ export interface INavigationItem {
 export class UiBreadcrumbComponent implements OnInit {
   @Input() showHome: boolean;
   @Input() navigationItems: INavigationItem[];
+  @Output() onNavigationItemClick = new EventEmitter<INavigationItem>();
 
-  constructor() {}
+  constructor(public tr: CoreTranslateService) {}
+
+  onItemClick(item: INavigationItem): void {
+    if (!!item.route) {
+      this.onNavigationItemClick.emit(item);
+    }
+  }
 
   ngOnInit(): void {}
 }

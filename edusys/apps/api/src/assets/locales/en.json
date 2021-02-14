@@ -17,5 +17,6 @@
   "general.emptyList": "Oops! It looks like there is no content to show. Would you like to add something? ",
   "general.add.button": "Add",
   "module.name": "Module name",
+  "navigation.module": "Modules",
   "general.login.button": "Sign in"
 }

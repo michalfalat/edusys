@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { IModuleDetailResponse, IModuleEditRequest } from '@edusys/model';
+import { routes } from '../../utils/routes';
 import { ModuleBaseContainer } from '../module-base.container';
 
 @Component({
@@ -11,6 +12,15 @@ import { ModuleBaseContainer } from '../module-base.container';
 export class ModuleEditComponent extends ModuleBaseContainer implements OnInit {
   constructor(injector: Injector) {
     super(injector);
+    this.navigationItems = [
+      {
+        text: 'Modules',
+        route: routes.module.home,
+      },
+      {
+        text: 'Edit',
+      },
+    ];
     this.setTitle('module.edit.title');
     this.createForm({
       name: new FormControl(this.moduleDetail?.name, Validators.required),

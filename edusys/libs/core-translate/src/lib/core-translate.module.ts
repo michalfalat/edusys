@@ -25,6 +25,7 @@ export class MyMissingTranslationHandler implements MissingTranslationHandler {
   imports: [
     CommonModule,
     TranslateModule.forRoot({
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler },
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
@@ -33,6 +34,6 @@ export class MyMissingTranslationHandler implements MissingTranslationHandler {
       defaultLanguage: 'en',
     }),
   ],
-  providers: [{ provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler }],
+  exports: [TranslateModule],
 })
 export class CoreTranslateModule {}

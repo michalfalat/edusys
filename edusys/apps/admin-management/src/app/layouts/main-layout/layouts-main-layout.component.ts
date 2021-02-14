@@ -11,22 +11,22 @@ import { routes } from '../../utils/routes';
 export class LayoutsMainLayoutComponent implements OnInit {
   navigationItems = [
     {
-      name: 'general.navigation.module',
+      name: 'navigation.modules',
       route: routes.module.home,
       permission: PERMISSION.MODULE.BASIC,
     },
     {
-      name: 'general.navigation.package',
+      name: 'navigation.packages',
       route: routes.package.home,
       permission: PERMISSION.PACKAGE.BASIC,
     },
     {
-      name: 'general.navigation.organization',
+      name: 'navigation.organizations',
       route: routes.package.home,
       permission: PERMISSION.PACKAGE.BASIC,
     },
     {
-      name: 'general.navigation.user',
+      name: 'navigation.users',
       route: routes.package.home,
       permission: PERMISSION.PACKAGE.BASIC,
     },
