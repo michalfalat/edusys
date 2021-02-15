@@ -14,8 +14,26 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
     super(injector);
     this.setTitle('organization.home.title');
     this.createForm({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
+      info: this.fb.group({
+        name: new FormControl('', Validators.required),
+        description: new FormControl(''),
+        businessId: new FormControl(''),
+        registrationNumberVAT: new FormControl(''),
+        taxId: new FormControl(''),
+      }),
+      owner: this.fb.group({
+        email: new FormControl('', Validators.required),
+        name: new FormControl('', Validators.required),
+        surname: new FormControl('', Validators.required),
+      }),
+      address: this.fb.group({
+        name: new FormControl('', Validators.required),
+        street: new FormControl(''),
+        streetNumber: new FormControl(''),
+        city: new FormControl(''),
+        postalCode: new FormControl(''),
+        country: new FormControl('sk'),
+      }),
     });
     this.navigationItems = [
       {
@@ -34,11 +52,7 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
     const request: IOrganizationCreateRequest = {
       name: this.form?.value.name,
       description: this.form?.value.description,
-      owner: {
-        email: this.form?.value.ownerEmail,
-        name: this.form?.value.ownerName,
-        surname: this.form?.value.ownerSurname,
-      },
+      owner: this.form?.value.owner,
       address: this.form?.value.address,
       businessId: this.form?.value.businessId,
       registrationNumberVAT: this.form?.value.registrationNumberVAT,

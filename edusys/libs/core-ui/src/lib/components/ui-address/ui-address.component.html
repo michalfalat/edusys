@@ -1,0 +1,32 @@
+<ng-container [formGroup]="controlContainer.control">
+  <div class="column">
+    <mat-form-field>
+      <input matInput formControlName="name" [placeholder]="'address.name' | translate" />
+    </mat-form-field>
+    <div class="row between">
+      <mat-form-field [style.width]="'60%'">
+        <input matInput formControlName="street" [placeholder]="'address.street' | translate" />
+      </mat-form-field>
+      <mat-form-field [style.width]="'35%'">
+        <input matInput formControlName="streetNumber" [placeholder]="'address.streetNumber' | translate" />
+      </mat-form-field>
+    </div>
+
+    <div class="row between">
+      <mat-form-field [style.width]="'60%'">
+        <input matInput formControlName="city" [placeholder]="'address.city' | translate" />
+      </mat-form-field>
+      <mat-form-field [style.width]="'35%'">
+        <input matInput formControlName="postalCode" [placeholder]="'address.postalCode' | translate" />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-select formControlName="country">
+        <mat-option *ngFor="let country of countries" [value]="country.code" [placeholder]="'address.country' | translate">
+          {{ country.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</ng-container>

@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { UiEmptyListComponent } from './components/ui-empty-list/ui-empty-list.component';
 // import { TranslateModule } from '@ngx-translate/core';
 import { UiBreadcrumbComponent } from './components/ui-breadcrumb/ui-breadcrumb.component';
+import { UiAddressComponent } from './components/ui-address/ui-address.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { UiBreadcrumbComponent } from './components/ui-breadcrumb/ui-breadcrumb.
     MatButtonModule,
     MatTooltipModule,
   ],
-  exports: [UiAmountComponent, UiDividerComponent, UiEmptyListComponent, UiBreadcrumbComponent, CoreTranslateModule],
-  declarations: [UiAmountComponent, UiDividerComponent, UiEmptyListComponent, UiBreadcrumbComponent, UiBreadcrumbComponent],
+  exports: [UiAmountComponent, UiDividerComponent, UiEmptyListComponent, UiBreadcrumbComponent, UiAddressComponent, CoreTranslateModule],
+  declarations: [UiAmountComponent, UiDividerComponent, UiEmptyListComponent, UiBreadcrumbComponent, UiBreadcrumbComponent, UiAddressComponent],
 })
 export class CoreUiModule {}

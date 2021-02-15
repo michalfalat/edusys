@@ -30,7 +30,6 @@ const routes: Routes = [
         data: { moduleName: PERMISSION.ORGANIZATION.BASIC },
       },
       {
-        canActivate: [AuthGuard],
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then((m) => m.ProfileModule),
       },
