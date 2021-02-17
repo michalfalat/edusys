@@ -42,6 +42,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+      select: false,
       max: 1024,
     },
     roles: [
@@ -67,5 +68,5 @@ const userSchema = new Schema(
   }
 );
 
-const UserEntity = model<IUser>('User', userSchema);
+const UserEntity = model<IUser>('user', userSchema);
 export default UserEntity;

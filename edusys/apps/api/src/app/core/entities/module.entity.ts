@@ -30,5 +30,5 @@ const moduleSchema = new Schema(
   }
 );
 
-const ModuleEntity = model<IModule>('Module', moduleSchema);
+const ModuleEntity = model<IModule>('module', moduleSchema);
 export default ModuleEntity;

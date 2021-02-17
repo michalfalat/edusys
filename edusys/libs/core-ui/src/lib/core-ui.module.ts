@@ -13,6 +13,7 @@ import { UiEmptyListComponent } from './components/ui-empty-list/ui-empty-list.c
 // import { TranslateModule } from '@ngx-translate/core';
 import { UiBreadcrumbComponent } from './components/ui-breadcrumb/ui-breadcrumb.component';
 import { UiAddressComponent } from './components/ui-address/ui-address.component';
+import { UiFormErrorComponent } from './components/ui-form-error/ui-form-error.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,15 @@ import { UiAddressComponent } from './components/ui-address/ui-address.component
     MatButtonModule,
     MatTooltipModule,
   ],
-  exports: [UiAmountComponent, UiDividerComponent, UiEmptyListComponent, UiBreadcrumbComponent, UiAddressComponent, CoreTranslateModule],
-  declarations: [UiAmountComponent, UiDividerComponent, UiEmptyListComponent, UiBreadcrumbComponent, UiBreadcrumbComponent, UiAddressComponent],
+  exports: [UiAmountComponent, UiDividerComponent, UiEmptyListComponent, UiBreadcrumbComponent, UiAddressComponent, CoreTranslateModule, UiFormErrorComponent],
+  declarations: [
+    UiAmountComponent,
+    UiDividerComponent,
+    UiEmptyListComponent,
+    UiBreadcrumbComponent,
+    UiBreadcrumbComponent,
+    UiAddressComponent,
+    UiFormErrorComponent,
+  ],
 })
 export class CoreUiModule {}

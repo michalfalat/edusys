@@ -7,3 +7,9 @@ export * from './lib/models/common.model';
 export * from './lib/models/permissions.model';
 export * from './lib/models/organization.model';
 export * from './lib/models/organization-role.model';
+
+export * from './lib/validations/auth.validations';
+export * from './lib/validations/common.validations';
+export * from './lib/validations/module.validations';
+export * from './lib/validations/organization.validations';
+export * from './lib/validations/package.validations';

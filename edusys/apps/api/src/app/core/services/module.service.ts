@@ -1,10 +1,9 @@
 import { IModuleCreateRequest, IModuleDetailResponse, IModuleEditRequest } from '@edusys/model';
 import ModuleEntity from '../entities/module.entity';
 import { moduleDetailMapper, moduleListMapper } from '../mappers/module.mapper';
-import { getCurrentLanguage } from '../middlewares/current-http-context';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
-import { createModuleSchema, editModuleSchema } from '../validations/module.validations';
+import { createModuleSchemaValidate, editModuleSchemaValidate } from '@edusys/model';
 
 // LIST OF ALL MODULES WITHOUT PAGINATION
 export const listOfModules = async (): Promise<IModuleDetailResponse[]> => {
@@ -26,7 +25,7 @@ export const detailOfModule = async (id: string): Promise<IModuleDetailResponse>
 
 // CREATE NEW MODULE
 export const createModule = async (payload: IModuleCreateRequest): Promise<IModuleDetailResponse> => {
-  const { error } = createModuleSchema(payload);
+  const { error } = createModuleSchemaValidate(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
@@ -50,7 +49,7 @@ export const createModule = async (payload: IModuleCreateRequest): Promise<IModu
 
 // EDIT MODULE
 export const editModule = async (payload: IModuleEditRequest): Promise<IModuleDetailResponse> => {
-  const { error } = editModuleSchema(payload);
+  const { error } = editModuleSchemaValidate(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }

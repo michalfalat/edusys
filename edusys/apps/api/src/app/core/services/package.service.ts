@@ -4,7 +4,7 @@ import PackageEntity, { IPackage } from '../entities/package.entity';
 import { packageDetailMapper, packageListMapper } from '../mappers/package.mapper';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
-import { createPackageSchema, editPackageSchema } from '../validations/package.validations';
+import { createPackageSchemaValidate, editPackageSchemaValidate } from '@edusys/model';
 
 // LIST OF ALL PACKAGES WITHOUT PAGINATION
 export const listOfPackages = async (): Promise<IPackageDetailResponse[]> => {
@@ -26,7 +26,7 @@ export const detailOfPackage = async (id: string): Promise<IPackageDetailRespons
 
 // CREATE NEW PACKAGE
 export const createPackage = async (payload: IPackageCreateRequest): Promise<IPackageDetailResponse> => {
-  const { error } = createPackageSchema(payload);
+  const { error } = createPackageSchemaValidate(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
@@ -53,7 +53,7 @@ export const createPackage = async (payload: IPackageCreateRequest): Promise<IPa
 
 // EDIT PACKAGE
 export const editPackage = async (payload: IPackageEditRequest): Promise<IPackageDetailResponse> => {
-  const { error } = editPackageSchema(payload);
+  const { error } = editPackageSchemaValidate(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }

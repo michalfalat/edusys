@@ -25,6 +25,7 @@ export const userDetailMappper = (user: IUser): IAuthUserInfoResponse => ({
 });
 
 export const userRegistrationMappper = (user: IUser, verificationNeeded: boolean): IAuthRegisterUserResponse => ({
+  id: user.id,
   name: user.name,
   surname: user.surname,
   email: user.email,

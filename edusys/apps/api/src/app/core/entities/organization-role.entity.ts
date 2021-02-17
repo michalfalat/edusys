@@ -34,17 +34,17 @@ const organizationRoleSchema = new Schema(
     organization: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'Organization',
+      ref: 'organization',
     },
     createdBy: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'User',
+      ref: 'user',
     },
     editedBy: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'User',
+      ref: 'user',
     },
     status: {
       required: true,
@@ -56,5 +56,5 @@ const organizationRoleSchema = new Schema(
   }
 );
 
-const OrganizationRoleEntity = model<IOrganizationRole>('OrganizationRole', organizationRoleSchema);
+const OrganizationRoleEntity = model<IOrganizationRole>('organizationRole', organizationRoleSchema);
 export default OrganizationRoleEntity;

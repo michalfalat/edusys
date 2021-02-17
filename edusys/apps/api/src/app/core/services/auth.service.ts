@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
 import { compare, genSalt, hash } from 'bcrypt';
 import UserEntity from '../entities/user.entity';
-import { changePasswordSchema, loginUserSchema, registerUserSchema } from '../validations/auth.validations';
+import { changePasswordSchemaValidate, loginUserSchemaValidate, registerUserSchemaValidate } from '@edusys/model';
 import { BadRequest, NotFound } from '../utils/errors';
 import * as jwt from 'jsonwebtoken';
 import * as uuid from 'uuid';
@@ -25,7 +24,7 @@ import { getCurrentUser } from '../middlewares/current-http-context';
 // REGISTER
 export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuthRegisterUserResponse> => {
   const verificationNeeded = Boolean(JSON.parse(process.env.APP_EMAIL_VERIFICATION));
-  const { error } = registerUserSchema(payload);
+  const { error } = registerUserSchemaValidate(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
@@ -40,6 +39,7 @@ export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuth
 
   const user = new UserEntity({
     name: payload.name || '',
+    surname: payload.surname,
     email: payload.email,
     password: hashedPassword,
     roles: [],
@@ -65,7 +65,7 @@ export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuth
 // LOGIN
 export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginUserResponse> => {
   const verificationNeeded = Boolean(JSON.parse(process.env.APP_EMAIL_VERIFICATION));
-  const { error } = loginUserSchema(payload);
+  const { error } = loginUserSchemaValidate(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
@@ -111,12 +111,12 @@ export const userInfo = async (): Promise<IAuthUserInfoResponse> => {
 
 // CHANGE PASSWORD
 export const changePassword = async (payload: IAuthUserChangePasswordRequest): Promise<IAuthUserChangePasswordResponse> => {
-  const { error } = changePasswordSchema(payload);
+  const { error } = changePasswordSchemaValidate(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
   const jwtData = getCurrentUser();
-  const user = await UserEntity.findOne({ _id: jwtData?.id });
+  const user = await UserEntity.findOne({ _id: jwtData?.id }).select('+password');
   if (!user) {
     throw new NotFound();
   }
@@ -160,4 +160,21 @@ export const listOfUsers = async (): Promise<IAuthUserInfoResponse[]> => {
     throw new NotFound();
   }
   return userListMappper(listOfEntities);
+};
+
+// DETAIL OF USER
+export const detailOfUser = async (id: string): Promise<IAuthUserInfoResponse> => {
+  const detailEntity = await UserEntity.findById(id);
+  if (!detailEntity) {
+    throw new NotFound();
+  }
+  return userDetailMappper(detailEntity);
+};
+
+export const getUserByEmail = async (email: string): Promise<IAuthUserInfoResponse> => {
+  const detailEntity = await UserEntity.findOne({ email });
+  if (!detailEntity) {
+    throw new NotFound();
+  }
+  return userDetailMappper(detailEntity);
 };

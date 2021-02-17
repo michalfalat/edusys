@@ -4,10 +4,10 @@ export const amountSchema = new Schema({ amount: { type: Number, required: true 
 
 export const addressSchema = new Schema({
   name: { type: String, required: true },
-  street: { type: String, required: true },
-  streetNumber: { type: String, required: true },
-  city: { type: Number, required: true },
-  postalCode: { type: String, required: true },
+  street: { type: String },
+  streetNumber: { type: String },
+  city: { type: String },
+  postalCode: { type: String },
   country: { type: String, required: true },
   location: { longitude: { type: Number }, latitude: { type: Number } },
 });

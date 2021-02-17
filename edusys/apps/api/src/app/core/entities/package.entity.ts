@@ -33,7 +33,7 @@ const packageSchema = new Schema(
     modules: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Module',
+        ref: 'module',
       },
     ],
   },
@@ -42,5 +42,5 @@ const packageSchema = new Schema(
   }
 );
 
-const PackageEntity = model<IPackage>('Package', packageSchema);
+const PackageEntity = model<IPackage>('package', packageSchema);
 export default PackageEntity;

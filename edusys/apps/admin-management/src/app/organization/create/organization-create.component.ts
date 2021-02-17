@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormArray, FormControl, Validators } from '@angular/forms';
-import { IOrganizationCreateRequest } from '@edusys/model';
+import { createOrganizationSchema, IOrganizationCreateRequest } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { OrganizationBaseContainer } from '../organization-base.container';
 
@@ -13,28 +13,32 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
   constructor(injector: Injector) {
     super(injector);
     this.setTitle('organization.home.title');
-    this.createForm({
-      info: this.fb.group({
-        name: new FormControl('', Validators.required),
-        description: new FormControl(''),
-        businessId: new FormControl(''),
-        registrationNumberVAT: new FormControl(''),
-        taxId: new FormControl(''),
-      }),
-      owner: this.fb.group({
-        email: new FormControl('', Validators.required),
-        name: new FormControl('', Validators.required),
-        surname: new FormControl('', Validators.required),
-      }),
-      address: this.fb.group({
-        name: new FormControl('', Validators.required),
-        street: new FormControl(''),
-        streetNumber: new FormControl(''),
-        city: new FormControl(''),
-        postalCode: new FormControl(''),
-        country: new FormControl('sk'),
-      }),
-    });
+    this.createForm(
+      {
+        info: this.fb.group({
+          name: new FormControl('Test skola'),
+          description: new FormControl('Test description'),
+          businessId: new FormControl('3215'),
+          registrationNumberVAT: new FormControl('314asd364'),
+          taxId: new FormControl('35q4wd'),
+        }),
+        owner: this.fb.group({
+          email: new FormControl('missho95@azet.sk'),
+          password: new FormControl('138543546'),
+          name: new FormControl(''),
+          surname: new FormControl(''),
+        }),
+        address: this.fb.group({
+          name: new FormControl('Adresa sidla'),
+          street: new FormControl('street'),
+          streetNumber: new FormControl('streetNumber'),
+          city: new FormControl('Blava'),
+          postalCode: new FormControl('85101'),
+          country: new FormControl('sk'),
+        }),
+      },
+      createOrganizationSchema
+    );
     this.navigationItems = [
       {
         text: 'navigation.organizations',
@@ -50,13 +54,9 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
 
   onCreateOrganization(): void {
     const request: IOrganizationCreateRequest = {
-      name: this.form?.value.name,
-      description: this.form?.value.description,
+      info: this.form?.value.info,
       owner: this.form?.value.owner,
       address: this.form?.value.address,
-      businessId: this.form?.value.businessId,
-      registrationNumberVAT: this.form?.value.registrationNumberVAT,
-      taxId: this.form?.value.taxId,
     };
     this.organizationFacade.createOrganization(request, this.navigateToOrganizationHome);
   }

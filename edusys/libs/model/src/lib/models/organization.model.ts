@@ -2,16 +2,19 @@ import { IAuthUserBasicResponse, IAuthUserInfoResponse } from './auth.model';
 import { IAddress } from './common.model';
 
 export interface IOrganizationCreateRequest {
-  name: string;
-  description: string;
-  businessId?: string;
-  taxId?: string;
-  registrationNumberVAT?: string;
+  info: {
+    name: string;
+    description: string;
+    businessId?: string;
+    taxId?: string;
+    registrationNumberVAT?: string;
+  };
   address?: IAddress;
   owner: {
     email: string;
     name: string;
     surname: string;
+    password: string;
   };
 }
 
@@ -27,10 +30,11 @@ export interface IOrganizationDetailResponse {
   id: string;
   name: string;
   description: string;
-  businessId?: string;
-  taxId?: string;
-  registrationNumberVAT?: string;
-  address?: IAddress;
+  businessId: string;
+  taxId: string;
+  registrationNumberVAT: string;
+  owner: IAuthUserBasicResponse;
+  address: IAddress;
   status: OrganizationStatus;
   users: IAuthUserInfoResponse[];
 }

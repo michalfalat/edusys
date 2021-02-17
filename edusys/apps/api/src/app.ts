@@ -17,7 +17,7 @@ import { currentHttpContext } from './app/core/middlewares/current-http-context'
 const app = express();
 dotenv.config({ path: path.join(__dirname, './../.env') });
 
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, () => {
   console.log('Connected to DB!');
 });
 

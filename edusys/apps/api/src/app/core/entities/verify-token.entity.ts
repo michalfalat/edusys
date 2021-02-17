@@ -24,8 +24,8 @@ const verifyTokenSchema = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
-const VerifyTokenEntity = model<IVerifyToken>('VerifyToken', verifyTokenSchema);
+const VerifyTokenEntity = model<IVerifyToken>('verifyToken', verifyTokenSchema);
 export default VerifyTokenEntity;

@@ -1,5 +1,6 @@
 import { IOrganizationDetailResponse, IOrganizationResponse } from '@edusys/model';
 import { IOrganization } from '../entities/organization.entity';
+import { userListMappper, userDetailMappper } from './auth.mapper';
 
 export const organizationDetailMapper = (organization: IOrganization): IOrganizationDetailResponse => ({
   id: organization.id,
@@ -10,7 +11,8 @@ export const organizationDetailMapper = (organization: IOrganization): IOrganiza
   businessId: organization.businessId,
   registrationNumberVAT: organization.registrationNumberVAT,
   taxId: organization.taxId,
-  users: organization.users,
+  users: userListMappper(organization.users),
+  owner: userDetailMappper(organization.owner),
 });
 
 export const organizationListMapper = (organizations: IOrganization[]): IOrganizationResponse[] =>

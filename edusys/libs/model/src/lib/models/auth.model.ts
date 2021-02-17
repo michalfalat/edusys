@@ -23,9 +23,11 @@ export interface IAuthRegisterUserRequest {
   email: string;
   password: string;
   name?: string;
+  surname?: string;
 }
 
 export interface IAuthRegisterUserResponse {
+  id: string;
   name: string;
   surname: string;
   email: string;

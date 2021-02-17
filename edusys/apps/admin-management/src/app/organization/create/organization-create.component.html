@@ -11,31 +11,36 @@
             <div class="row">
               <mat-form-field>
                 <mat-label>{{ 'organization.name' | translate }}</mat-label>
-                <input matInput formControlName="name" name="name" />
+                <input matInput formControlName="name" name="name" [placeholder]="'organization.name.hint' | translate" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.name'"></ui-form-error></mat-error>
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field>
                 <mat-label>{{ 'organization.description' | translate }}</mat-label>
                 <input matInput formControlName="description" name="description" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.description'"></ui-form-error></mat-error>
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field>
                 <mat-label>{{ 'organization.businessId' | translate }}</mat-label>
                 <input matInput formControlName="businessId" name="businessId" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.businessId'"></ui-form-error></mat-error>
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field>
                 <mat-label>{{ 'organization.registrationNumberVAT' | translate }}</mat-label>
                 <input matInput formControlName="registrationNumberVAT" name="registrationNumberVAT" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.registrationNumberVAT'"></ui-form-error></mat-error>
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field>
                 <mat-label>{{ 'organization.taxId' | translate }}</mat-label>
-                <input matInput formControlName="taxId" name="taxId" />
+                <input matInput formControlName="taxId" name="taxId" autocomplete="new-data" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.taxId'"></ui-form-error></mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -52,18 +57,28 @@
                 <mat-form-field>
                   <mat-label>{{ 'organization.ownerEmail' | translate }}</mat-label>
                   <input matInput formControlName="email" name="email" />
+                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.email'"></ui-form-error></mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field>
+                  <mat-label>{{ 'organization.ownerPassword' | translate }}</mat-label>
+                  <input matInput formControlName="password" name="password" type="password" />
+                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.password'"></ui-form-error></mat-error>
                 </mat-form-field>
               </div>
               <div class="row">
                 <mat-form-field>
                   <mat-label>{{ 'organization.ownerName' | translate }}</mat-label>
                   <input matInput formControlName="name" name="name" />
+                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.name'"></ui-form-error></mat-error>
                 </mat-form-field>
               </div>
               <div class="row">
                 <mat-form-field>
                   <mat-label>{{ 'organization.ownerSurname' | translate }}</mat-label>
                   <input matInput formControlName="surname" name="surname" />
+                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.surname'"></ui-form-error></mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -74,17 +89,19 @@
 
           select package for you!
         </mat-step>
-        <mat-step>
+        <!-- <mat-step>
           <ng-template matStepLabel>{{ 'organization.create.stepFinish.title' | translate }}</ng-template>
           <p>You are now done.</p>
-        </mat-step>
+        </mat-step> -->
       </mat-horizontal-stepper>
     </form>
 
     <div class="bottom-content">
       <div class="column center">
         <h3 class="mat-h3">{{ stepper.selectedIndex + 1 }} / 6</h3>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!form?.valid">{{ 'general.create.button' | translate }}</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form?.valid" (click)="onCreateOrganization()">
+          {{ 'general.create.button' | translate }}
+        </button>
       </div>
     </div>
   </div>

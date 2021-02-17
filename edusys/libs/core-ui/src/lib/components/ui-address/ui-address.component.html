@@ -1,29 +1,35 @@
 <ng-container [formGroup]="controlContainer.control">
   <div class="column">
     <mat-form-field>
-      <input matInput formControlName="name" [placeholder]="'address.name' | translate" />
+      <mat-label>{{ 'address.name' | translate }}</mat-label>
+      <input matInput formControlName="name" [placeholder]="'address.name.hint' | translate" />
+      <mat-error><ui-form-error [formGroup]="controlContainer.control" [name]="'name'"></ui-form-error></mat-error>
     </mat-form-field>
     <div class="row between">
       <mat-form-field [style.width]="'60%'">
-        <input matInput formControlName="street" [placeholder]="'address.street' | translate" />
+        <mat-label>{{ 'address.street' | translate }}</mat-label>
+        <input matInput formControlName="street" [placeholder]="'address.street.hint' | translate" />
       </mat-form-field>
       <mat-form-field [style.width]="'35%'">
-        <input matInput formControlName="streetNumber" [placeholder]="'address.streetNumber' | translate" />
+        <mat-label>{{ 'address.streetNumber' | translate }}</mat-label>
+        <input matInput formControlName="streetNumber" [placeholder]="'address.streetNumber.hint' | translate" />
       </mat-form-field>
     </div>
 
     <div class="row between">
       <mat-form-field [style.width]="'60%'">
-        <input matInput formControlName="city" [placeholder]="'address.city' | translate" />
+        <mat-label>{{ 'address.city' | translate }}</mat-label>
+        <input matInput formControlName="city" [placeholder]="'address.city.hint' | translate" />
       </mat-form-field>
       <mat-form-field [style.width]="'35%'">
-        <input matInput formControlName="postalCode" [placeholder]="'address.postalCode' | translate" />
+        <mat-label>{{ 'address.postalCode' | translate }}</mat-label>
+        <input matInput formControlName="postalCode" [placeholder]="'address.postalCode.hint' | translate" />
       </mat-form-field>
     </div>
 
     <mat-form-field>
       <mat-select formControlName="country">
-        <mat-option *ngFor="let country of countries" [value]="country.code" [placeholder]="'address.country' | translate">
+        <mat-option *ngFor="let country of countries" [value]="country.code" [placeholder]="'address.country.hint' | translate">
           {{ country.name }}
         </mat-option>
       </mat-select>

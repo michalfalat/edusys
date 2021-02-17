@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, Injector, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CoreTranslateService } from '@edusys/core-translate';
+import { Schema } from '@hapi/joi';
 
 @Component({
   template: '',
@@ -74,8 +75,14 @@ export abstract class CommonContainer implements OnDestroy {
     return input.replace(/{(\d+)}/g, (match, num) => (typeof args[num] !== 'undefined' ? args[num] : match));
   }
 
-  createForm(form: any): void {
-    this.form = this.fb.group(form);
+  createForm(form: any, schema?: Schema): void {
+    if (!!schema) {
+      this.form = this.fb.group(form, {
+        validators: this.createValidatorFromSchema(schema),
+      });
+    } else {
+      this.form = this.fb.group(form);
+    }
   }
 
   ngOnDestroy(): void {
@@ -85,4 +92,39 @@ export abstract class CommonContainer implements OnDestroy {
   abstract onSuccess = (message?: string): void => {};
 
   abstract onError = (message?: string): void => {};
+
+  private createValidatorFromSchema(schema: Schema): ValidatorFn {
+    const validator: ValidatorFn = (group: FormGroup) => {
+      // This is where the validation on the values of
+      // the form group is run.
+      const result = schema.validate(group.value, { abortEarly: false });
+
+      if (result.error) {
+        console.log(result.error.details);
+        const errorObj = result.error.details.reduce((acc, current) => {
+          console.log(current);
+          const key = current.path.join('.');
+          acc[key] = current;
+          return acc;
+        }, {});
+
+        // Set error value on each control
+        for (const key in errorObj) {
+          const control = group.get(key);
+          if (control) {
+            control.setErrors({ [key]: errorObj[key] });
+          }
+        }
+
+        // Return the error object so that we can access
+        // the form’s errors via `form.errors`.
+        console.log('errorObj :>> ', errorObj);
+        return errorObj;
+      } else {
+        return null;
+      }
+    };
+
+    return validator;
+  }
 }

@@ -1,13 +1,13 @@
-import { IOrganizationCreateRequest, IOrganizationDetailResponse, IOrganizationResponse, IOrganizationEditRequest } from '@edusys/model';
+import { IOrganizationCreateRequest, IOrganizationDetailResponse, IOrganizationResponse, IOrganizationEditRequest, OrganizationStatus } from '@edusys/model';
 import OrganizationEntity from '../entities/organization.entity';
 import { organizationDetailMapper, organizationListMapper } from '../mappers/organization.mapper';
-import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
-import { createOrganizationSchema, editOrganizationSchema } from '../validations/organization.validations';
+import { createOrganizationSchemaValidate, editOrganizationSchemaValidate } from '@edusys/model';
+import { detailOfUser, getUserByEmail, register } from './auth.service';
 
 // LIST OF ALL ORGANIZATIONS WITHOUT PAGINATION
 export const listOfOrganizations = async (): Promise<IOrganizationResponse[]> => {
-  const listOfEntities = await OrganizationEntity.find().populate('users').populate('organizationRoles');
+  const listOfEntities = await OrganizationEntity.find().populate('owner').populate('users').populate('organizationRole');
   if (!listOfEntities) {
     throw new NotFound();
   }
@@ -16,7 +16,7 @@ export const listOfOrganizations = async (): Promise<IOrganizationResponse[]> =>
 
 // DETAIL OF ORGANIZATION
 export const detailOfOrganization = async (id: string): Promise<IOrganizationDetailResponse> => {
-  const detailEntity = await OrganizationEntity.findById(id).populate('users').populate('organizationRoles');
+  const detailEntity = await OrganizationEntity.findById(id).populate('owner', ['email']).populate('users').populate('organizationRole');
   if (!detailEntity) {
     throw new NotFound();
   }
@@ -25,19 +25,24 @@ export const detailOfOrganization = async (id: string): Promise<IOrganizationDet
 
 // CREATE NEW ORGANIZATION
 export const createOrganization = async (payload: IOrganizationCreateRequest): Promise<IOrganizationDetailResponse> => {
-  const { error } = createOrganizationSchema(payload);
+  const { error } = createOrganizationSchemaValidate(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }
 
-  const existingEntity = await OrganizationEntity.findOne({ name: payload.name });
-  if (!!existingEntity) {
-    throw new BadRequest(errorLabels.EXISTING_NAME);
-  }
+  const ownerUser = await getUserByEmail(payload.owner.email); //  await register(payload.owner);
 
   const newEntity = new OrganizationEntity({
-    name: payload.name,
-    description: payload.description,
+    name: payload.info.name,
+    description: payload.info.description,
+    businessId: payload.info.businessId,
+    taxId: payload.info.taxId,
+    registrationNumberVAT: payload.info.registrationNumberVAT,
+    address: payload.address,
+    owner: ownerUser.id,
+    status: OrganizationStatus.ACTIVE,
+    organizationRoles: [],
+    users: [ownerUser?.id],
   });
   try {
     const savedEntity = await newEntity.save();
@@ -49,7 +54,7 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
 
 // EDIT ORGANIZATION
 export const editOrganization = async (payload: IOrganizationEditRequest): Promise<IOrganizationDetailResponse> => {
-  const { error } = editOrganizationSchema(payload);
+  const { error } = editOrganizationSchemaValidate(payload);
   if (!!error) {
     throw new BadRequest(error.details[0].message);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 
 @Component({
@@ -17,6 +17,7 @@ export class UiAddressComponent implements OnInit {
       code: 'cz',
     },
   ];
+  @Input() showErrors = true;
   constructor(public controlContainer: ControlContainer) {}
 
   ngOnInit(): void {}
