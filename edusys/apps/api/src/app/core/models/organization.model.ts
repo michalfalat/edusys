@@ -1,8 +1,9 @@
 import { IAddress, OrganizationStatus } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
-import { IOrganizationRole } from './organization-role.entity';
-import { IUser } from './user.entity';
-import { addressSchema } from './common.entity';
+import { IOrganizationRole } from './organization-role.model';
+import { IUser } from './user.model';
+import { addressSchema } from './common.model';
+import { ISubscription } from './subscription.model';
 
 export interface IOrganization extends Document {
   name: string;
@@ -15,6 +16,7 @@ export interface IOrganization extends Document {
   status: OrganizationStatus;
   organizationRoles?: IOrganizationRole[];
   users?: IUser['_id'][];
+  subscriptions?: ISubscription[];
 }
 
 const organizationSchema = new Schema(
@@ -22,13 +24,11 @@ const organizationSchema = new Schema(
     name: {
       type: String,
       required: true,
-      min: 2,
       max: 255,
     },
     description: {
       type: String,
-      min: 2,
-      max: 255,
+      max: 512,
     },
     businessId: {
       type: String,
@@ -62,11 +62,17 @@ const organizationSchema = new Schema(
         ref: 'user',
       },
     ],
+    subscriptions: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'subscription',
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-const OrganizationEntity = model<IOrganization>('organization', organizationSchema);
-export default OrganizationEntity;
+const OrganizationModel = model<IOrganization>('organization', organizationSchema);
+export default OrganizationModel;

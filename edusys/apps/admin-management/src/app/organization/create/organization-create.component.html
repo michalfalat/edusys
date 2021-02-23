@@ -86,8 +86,13 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>{{ 'organization.create.stepPackage.title' | translate }}</ng-template>
-
-          select package for you!
+          <mat-form-field>
+            <mat-select formControlName="packageId" [placeholder]="'organization.package' | translate">
+              <mat-option *ngFor="let package of packages" [value]="package?.id">
+                {{ package?.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </mat-step>
         <!-- <mat-step>
           <ng-template matStepLabel>{{ 'organization.create.stepFinish.title' | translate }}</ng-template>

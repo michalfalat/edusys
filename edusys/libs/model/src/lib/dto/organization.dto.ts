@@ -1,5 +1,6 @@
-import { IAuthUserBasicResponse, IAuthUserInfoResponse } from './auth.model';
-import { IAddress } from './common.model';
+import { IAuthUserBasicResponse, IAuthUserInfoResponse } from './auth.dto';
+import { IAddress } from './common.dto';
+import { ISubscriptionResponse, ISubscriptionDetailResponse } from './subscription.dto';
 
 export interface IOrganizationCreateRequest {
   info: {
@@ -16,6 +17,7 @@ export interface IOrganizationCreateRequest {
     surname: string;
     password: string;
   };
+  packageId: string;
 }
 
 export interface IOrganizationResponse {
@@ -24,6 +26,7 @@ export interface IOrganizationResponse {
   owner: IAuthUserBasicResponse;
   userCount: number;
   status: OrganizationStatus;
+  activeSubscription?: ISubscriptionResponse;
 }
 
 export interface IOrganizationDetailResponse {
@@ -37,6 +40,9 @@ export interface IOrganizationDetailResponse {
   address: IAddress;
   status: OrganizationStatus;
   users: IAuthUserInfoResponse[];
+  activeSubscription?: ISubscriptionDetailResponse;
+  subscriptions?: ISubscriptionDetailResponse[];
+  roles: any; // TODO
 }
 
 export interface IOrganizationEditRequest {

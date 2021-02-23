@@ -1,6 +1,7 @@
 import { IOrganizationDetailResponse, IOrganizationResponse } from '@edusys/model';
-import { IOrganization } from '../entities/organization.entity';
+import { IOrganization } from '../models/organization.model';
 import { userListMappper, userDetailMappper } from './auth.mapper';
+import { subscriptionMapper, subscriptionDetailMapper } from './subscription.mapper';
 
 export const organizationDetailMapper = (organization: IOrganization): IOrganizationDetailResponse => ({
   id: organization.id,
@@ -13,6 +14,9 @@ export const organizationDetailMapper = (organization: IOrganization): IOrganiza
   taxId: organization.taxId,
   users: userListMappper(organization.users),
   owner: userDetailMappper(organization.owner),
+  activeSubscription: subscriptionDetailMapper(organization.subscriptions.find((s) => s.isActive)),
+  subscriptions: organization.subscriptions.map((s) => subscriptionDetailMapper(s)),
+  roles: organization.organizationRoles,
 });
 
 export const organizationListMapper = (organizations: IOrganization[]): IOrganizationResponse[] =>
@@ -22,4 +26,5 @@ export const organizationListMapper = (organizations: IOrganization[]): IOrganiz
     status: organization.status,
     owner: organization.owner,
     userCount: organization.users?.length,
+    activeSubscription: subscriptionMapper(organization.subscriptions.find((s) => s.isActive)),
   }));

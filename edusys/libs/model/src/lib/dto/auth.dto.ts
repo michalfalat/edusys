@@ -1,4 +1,4 @@
-import { IOrganizationRoleResponse } from './organization-role.model';
+import { IOrganizationRoleResponse } from './organization-role.dto';
 
 export interface IJWTUserData {
   id: string;

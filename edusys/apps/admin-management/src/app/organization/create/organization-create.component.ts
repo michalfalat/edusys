@@ -36,6 +36,7 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
           postalCode: new FormControl('85101'),
           country: new FormControl('sk'),
         }),
+        packageId: new FormControl(),
       },
       createOrganizationSchema
     );
@@ -50,13 +51,16 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
     ];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!this.packages) this.packageFacade.fetchPackageList();
+  }
 
   onCreateOrganization(): void {
     const request: IOrganizationCreateRequest = {
       info: this.form?.value.info,
       owner: this.form?.value.owner,
       address: this.form?.value.address,
+      packageId: this.form?.value.packageId,
     };
     this.organizationFacade.createOrganization(request, this.navigateToOrganizationHome);
   }

@@ -1,6 +1,6 @@
 import { EmailTemplate, sendEmail, EmailType } from '@edusys/email-sender';
-import { IUser } from '../entities/user.entity';
-import { IVerifyToken } from '../entities/verify-token.entity';
+import { IUser } from '../models/user.model';
+import { IVerifyToken } from '../models/verify-token.model';
 import { getCurrentHostname, getCurrentLanguage } from '../middlewares/current-http-context';
 
 // SENDING TEST EMAIL

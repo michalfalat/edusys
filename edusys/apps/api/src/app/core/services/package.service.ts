@@ -1,6 +1,6 @@
 import { IPackageCreateRequest, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
-import ModuleEntity from '../entities/module.entity';
-import PackageEntity, { IPackage } from '../entities/package.entity';
+import ModuleModel from '../models/module.model';
+import PackageModel, { IPackage } from '../models/package.model';
 import { packageDetailMapper, packageListMapper } from '../mappers/package.mapper';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
@@ -8,7 +8,7 @@ import { createPackageSchemaValidate, editPackageSchemaValidate } from '@edusys/
 
 // LIST OF ALL PACKAGES WITHOUT PAGINATION
 export const listOfPackages = async (): Promise<IPackageDetailResponse[]> => {
-  const listOfEntities = await PackageEntity.find().populate('modules');
+  const listOfEntities = await PackageModel.find().populate('modules');
   if (!listOfEntities) {
     throw new NotFound();
   }
@@ -17,11 +17,11 @@ export const listOfPackages = async (): Promise<IPackageDetailResponse[]> => {
 
 // DETAIL OF PACKAGE
 export const detailOfPackage = async (id: string): Promise<IPackageDetailResponse> => {
-  const detailEntity = await PackageEntity.findById(id).populate('modules');
-  if (!detailEntity) {
+  const detailModel = await PackageModel.findById(id).populate('modules');
+  if (!detailModel) {
     throw new NotFound();
   }
-  return packageDetailMapper(detailEntity, process.env.PRIMARY_CURRENCY);
+  return packageDetailMapper(detailModel, process.env.PRIMARY_CURRENCY);
 };
 
 // CREATE NEW PACKAGE
@@ -31,21 +31,20 @@ export const createPackage = async (payload: IPackageCreateRequest): Promise<IPa
     throw new BadRequest(error.details[0].message);
   }
 
-  const existingEntity = await PackageEntity.findOne({ name: payload.name });
-  if (!!existingEntity) {
+  const existingModel = await PackageModel.findOne({ name: payload.name });
+  if (!!existingModel) {
     throw new BadRequest(errorLabels.EXISTING_NAME);
   }
-  const modules = await ModuleEntity.find().where('_id').in(payload.moduleIds).exec();
-  const newEntity = new PackageEntity({
+  const newModel = new PackageModel({
     name: payload.name,
     description: payload.description,
     annumPrices: payload.annumPrices,
     installationPrices: payload.installationPrices,
-    modules,
+    modules: payload.moduleIds,
   });
   try {
-    const savedEntity = await newEntity.save();
-    return packageDetailMapper(savedEntity, process.env.PRIMARY_CURRENCY);
+    const savedModel = await newModel.save();
+    return packageDetailMapper(savedModel, process.env.PRIMARY_CURRENCY);
   } catch (error) {
     throw new BadRequest(error);
   }
@@ -59,7 +58,7 @@ export const editPackage = async (payload: IPackageEditRequest): Promise<IPackag
   }
   try {
     const id = payload.id;
-    const modules = await ModuleEntity.find().where('_id').in(payload.moduleIds).exec();
+    const modules = await ModuleModel.find().where('_id').in(payload.moduleIds).exec();
     const editedPackage = {
       name: payload.name,
       description: payload.description,
@@ -67,8 +66,8 @@ export const editPackage = async (payload: IPackageEditRequest): Promise<IPackag
       installationPrices: payload.installationPrices,
       modules,
     };
-    const updatedEntity = await PackageEntity.findByIdAndUpdate(id, editedPackage, { new: true });
-    return packageDetailMapper(updatedEntity, process.env.PRIMARY_CURRENCY);
+    const updatedModel = await PackageModel.findByIdAndUpdate(id, editedPackage, { new: true });
+    return packageDetailMapper(updatedModel, process.env.PRIMARY_CURRENCY);
   } catch (error) {
     throw new BadRequest(error);
   }
@@ -77,7 +76,7 @@ export const editPackage = async (payload: IPackageEditRequest): Promise<IPackag
 // DELETE PACKAGE
 export const deletePackage = async (id: string): Promise<void> => {
   try {
-    await PackageEntity.findByIdAndDelete(id);
+    await PackageModel.findByIdAndDelete(id);
     return;
   } catch (error) {
     throw new BadRequest(error);

@@ -1,7 +1,7 @@
 import { IAmount } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
-import { IModule } from './module.entity';
-import { amountSchema } from './common.entity';
+import { IModule } from './module.model';
+import { amountSchema } from './common.model';
 
 export interface IPackage extends Document {
   name: string;
@@ -9,20 +9,18 @@ export interface IPackage extends Document {
   enabled: boolean;
   annumPrices: IAmount[];
   installationPrices: IAmount[];
-  modules: IModule[];
+  modules: IModule['_id'][];
 }
 const packageSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
-      min: 2,
       max: 255,
     },
     description: {
       type: String,
-      min: 2,
-      max: 1024,
+      max: 512,
     },
     enabled: {
       type: Boolean,
@@ -42,5 +40,5 @@ const packageSchema = new Schema(
   }
 );
 
-const PackageEntity = model<IPackage>('package', packageSchema);
-export default PackageEntity;
+const PackageModel = model<IPackage>('package', packageSchema);
+export default PackageModel;

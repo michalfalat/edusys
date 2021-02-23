@@ -1,5 +1,5 @@
 import { Schema, model, Document } from 'mongoose';
-import { IOrganizationRole } from './organization-role.entity';
+import { IOrganizationRole } from './organization-role.model';
 
 export interface IUser extends Document {
   name: string;
@@ -68,5 +68,5 @@ const userSchema = new Schema(
   }
 );
 
-const UserEntity = model<IUser>('user', userSchema);
-export default UserEntity;
+const UserModel = model<IUser>('user', userSchema);
+export default UserModel;

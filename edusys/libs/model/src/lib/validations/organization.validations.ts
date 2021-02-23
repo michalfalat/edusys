@@ -2,7 +2,7 @@ import * as Joi from '@hapi/joi';
 import { IOrganizationCreateRequest } from '@edusys/model';
 import { addressSchema } from './common.validations';
 import { newUserSchema } from './auth.validations';
-import { IOrganizationEditRequest } from '../models/organization.model';
+import { IOrganizationEditRequest } from '../dto/organization.dto';
 
 export const createOrganizationInfoSchema = Joi.object({
   name: Joi.string().min(2).max(255).required(),
@@ -16,6 +16,7 @@ export const createOrganizationSchema = Joi.object<IOrganizationCreateRequest>({
   info: createOrganizationInfoSchema.required(),
   address: addressSchema.optional(),
   owner: newUserSchema.required(),
+  packageId: Joi.string().required(),
 });
 
 export const editOrganizationSchema = Joi.object<IOrganizationEditRequest>({

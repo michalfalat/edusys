@@ -12,13 +12,11 @@ const moduleSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      min: 2,
       max: 255,
     },
     description: {
       type: String,
-      min: 2,
-      max: 255,
+      max: 512,
     },
     enabled: {
       type: Boolean,
@@ -30,5 +28,5 @@ const moduleSchema = new Schema(
   }
 );
 
-const ModuleEntity = model<IModule>('module', moduleSchema);
-export default ModuleEntity;
+const ModuleModel = model<IModule>('module', moduleSchema);
+export default ModuleModel;

@@ -1,5 +1,5 @@
 import { IModuleDetailResponse } from '@edusys/model';
-import { IModule } from '../entities/module.entity';
+import { IModule } from '../models/module.model';
 
 export const moduleDetailMapper = (module: IModule): IModuleDetailResponse => ({
   id: module.id,

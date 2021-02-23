@@ -1,22 +1,26 @@
 import { Injector } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonContainer, OrganizationFacade } from '@edusys/core';
-import { IOrganizationDetailResponse } from '@edusys/model';
+import { CommonContainer, OrganizationFacade, PackageFacade } from '@edusys/core';
+import { IOrganizationDetailResponse, IPackageDetailResponse } from '@edusys/model';
 import { INavigationItem } from 'libs/core-ui/src/lib/components/ui-breadcrumb/ui-breadcrumb.component';
 import { routes } from '../utils/routes';
 
 export class OrganizationBaseContainer extends CommonContainer {
   organizationFacade: OrganizationFacade;
+  packageFacade: PackageFacade;
   snackbar: MatSnackBar;
   organizationList: IOrganizationDetailResponse[];
   organizationDetail: IOrganizationDetailResponse;
   organizationId: string;
   navigationItems: INavigationItem[];
+  packages: IPackageDetailResponse[];
 
   constructor(injector: Injector) {
     super(injector);
     this.organizationFacade = injector.get(OrganizationFacade);
+    this.packageFacade = injector.get(PackageFacade);
     this.snackbar = injector.get(MatSnackBar);
+    this.subscriptions.add(this.packageFacade.getPackageList$.subscribe((data) => (this.packages = data)));
     this.subscriptions.add(this.organizationFacade.getOrganizationList$.subscribe((data) => (this.organizationList = data)));
     this.subscriptions.add(this.activatedRoute.params.subscribe((data) => (this.organizationId = data?.organizationId)));
     this.subscriptions.add(

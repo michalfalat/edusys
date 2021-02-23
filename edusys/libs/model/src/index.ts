@@ -1,13 +1,19 @@
 export * from './lib/model.module';
 
-export * from './lib/models/auth.model';
-export * from './lib/models/module.model';
-export * from './lib/models/package.model';
-export * from './lib/models/common.model';
-export * from './lib/models/permissions.model';
-export * from './lib/models/organization.model';
-export * from './lib/models/organization-role.model';
+// DTO - requests, responses etc..
+export * from './lib/dto/auth.dto';
+export * from './lib/dto/module.dto';
+export * from './lib/dto/package.dto';
+export * from './lib/dto/common.dto';
+export * from './lib/dto/organization.dto';
+export * from './lib/dto/subscription.dto';
+export * from './lib/dto/organization-role.dto';
+export * from './lib/dto/verify-token.dto';
 
+// PERMISSIONS
+export * from './lib/model/permissions.model';
+
+// JOI  VALIDATIONS
 export * from './lib/validations/auth.validations';
 export * from './lib/validations/common.validations';
 export * from './lib/validations/module.validations';

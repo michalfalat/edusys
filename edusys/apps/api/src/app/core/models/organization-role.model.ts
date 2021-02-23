@@ -1,7 +1,7 @@
 import { OrganizationRoleStatus } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
-import { IOrganization } from './organization.entity';
-import { IUser } from './user.entity';
+import { IOrganization } from './organization.model';
+import { IUser } from './user.model';
 
 export interface IOrganizationRole extends Document {
   name: string;
@@ -11,6 +11,8 @@ export interface IOrganizationRole extends Document {
   createdBy: IUser['_id'];
   editedBy: IUser['_id'];
   status: OrganizationRoleStatus;
+  permissions: string[];
+  users: IUser['_id'][];
 }
 
 const organizationRoleSchema = new Schema(
@@ -18,16 +20,14 @@ const organizationRoleSchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
-      min: 2,
       max: 255,
     },
     description: {
       type: String,
-      min: 2,
-      max: 255,
+      max: 512,
     },
     editable: {
+      type: Boolean,
       required: true,
       default: true,
     },
@@ -47,14 +47,26 @@ const organizationRoleSchema = new Schema(
       ref: 'user',
     },
     status: {
-      required: true,
+      type: String,
       default: OrganizationRoleStatus.ACTIVE,
     },
+    permissions: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+    users: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-const OrganizationRoleEntity = model<IOrganizationRole>('organizationRole', organizationRoleSchema);
-export default OrganizationRoleEntity;
+const OrganizationRoleModel = model<IOrganizationRole>('organizationRole', organizationRoleSchema);
+export default OrganizationRoleModel;

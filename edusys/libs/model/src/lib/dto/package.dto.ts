@@ -1,5 +1,5 @@
-import { IAmount } from './common.model';
-import { IModuleDetailResponse } from './module.model';
+import { IAmount } from './common.dto';
+import { IModuleDetailResponse } from './module.dto';
 
 export interface IPackageCreateRequest {
   name: string;
