@@ -29,7 +29,7 @@ export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuth
     throw new BadRequest(error.details[0].message);
   }
 
-  const existingUser = await UserModel.findOne({ email: payload.email });
+  const existingUser = await UserModel.findByEmail(payload.email);
   if (!!existingUser) {
     throw new BadRequest(errorLabels.EXISTING_USER);
   }
@@ -47,14 +47,17 @@ export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuth
   try {
     const savedUser = await user.save();
     if (verificationNeeded) {
-      const verifyToken = new VerifyTokenModel({
+      let verifyToken = new VerifyTokenModel({
         expires: Date.now(),
         user: savedUser._id,
         token: uuid.v4(),
       });
 
-      const savedToken = await verifyToken.save();
-      await sendVerifyEmail(savedUser, savedToken);
+      verifyToken = await verifyToken.save();
+      await sendVerifyEmail(savedUser?.email, {
+        name: savedUser.fullName,
+        verifyTokenUrl: `${process.env.APP_URL}/auth/verify?${verifyToken?.token}`,
+      });
     }
     return userRegistrationMappper(savedUser, verificationNeeded);
   } catch (error) {
@@ -70,7 +73,7 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
     throw new BadRequest(error.details[0].message);
   }
 
-  const user = await UserModel.findOne({ email: payload.email });
+  const user = await UserModel.findByEmail(payload.email);
   if (!user) {
     throw new BadRequest(errorLabels.INVALID_CREDENTIALS);
   }
@@ -102,7 +105,7 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
 // USER INFO
 export const userInfo = async (): Promise<IAuthUserInfoResponse> => {
   const jwtData = getCurrentUser();
-  const user = await UserModel.findOne({ _id: jwtData?.id });
+  const user = await UserModel.findById(jwtData?.id);
   if (!user) {
     throw new NotFound();
   }
@@ -116,7 +119,7 @@ export const changePassword = async (payload: IAuthUserChangePasswordRequest): P
     throw new BadRequest(error.details[0].message);
   }
   const jwtData = getCurrentUser();
-  const user = await UserModel.findOne({ _id: jwtData?.id }).select('+password');
+  const user = await UserModel.findById(jwtData?.id).select('+password');
   if (!user) {
     throw new NotFound();
   }
@@ -136,7 +139,7 @@ export const changePassword = async (payload: IAuthUserChangePasswordRequest): P
 
 // SU
 export const seedSU = async (): Promise<void> => {
-  const existingUser = await UserModel.findOne({ email: process.env.SU_EMAIL });
+  const existingUser = await UserModel.findByEmail(process.env.SU_EMAIL);
   if (!!existingUser) {
     throw new BadRequest(errorLabels.EXISTING_USER_SU);
   }
@@ -165,14 +168,6 @@ export const listOfUsers = async (): Promise<IAuthUserInfoResponse[]> => {
 // DETAIL OF USER
 export const detailOfUser = async (id: string): Promise<IAuthUserInfoResponse> => {
   const detailModel = await UserModel.findById(id);
-  if (!detailModel) {
-    throw new NotFound();
-  }
-  return userDetailMappper(detailModel);
-};
-
-export const getUserByEmail = async (email: string): Promise<IAuthUserInfoResponse> => {
-  const detailModel = await UserModel.findOne({ email });
   if (!detailModel) {
     throw new NotFound();
   }

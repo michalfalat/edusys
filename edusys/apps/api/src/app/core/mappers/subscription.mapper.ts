@@ -3,7 +3,7 @@ import { ISubscription } from '../models/subscription.model';
 import { packageDetailMapper } from './package.mapper';
 
 export const subscriptionDetailMapper = (subs: ISubscription): ISubscriptionDetailResponse => ({
-  id: subs?.id,
+  id: subs?._id,
   name: subs?.name,
   description: subs?.description,
   finalPrice: subs?.finalPrice,
@@ -17,7 +17,7 @@ export const subscriptionDetailMapper = (subs: ISubscription): ISubscriptionDeta
 });
 
 export const subscriptionMapper = (subs: ISubscription): ISubscriptionResponse => ({
-  id: subs?.id,
+  id: subs?._id,
   name: subs?.name,
   finalPrice: subs?.finalPrice,
   organizationId: subs?.organization?.id,

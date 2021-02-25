@@ -1,12 +1,15 @@
 import { Schema, model, Document } from 'mongoose';
 
-export interface IModule extends Document {
+export interface IModule {
+  _id?: any;
   name: string;
   description?: string;
   enabled?: boolean;
 }
 
-const moduleSchema = new Schema(
+export interface IModuleDocument extends IModule, Document {}
+
+const moduleSchema = new Schema<IModuleDocument>(
   {
     name: {
       type: String,
@@ -28,5 +31,5 @@ const moduleSchema = new Schema(
   }
 );
 
-const ModuleModel = model<IModule>('module', moduleSchema);
+const ModuleModel = model<IModuleDocument>('module', moduleSchema);
 export default ModuleModel;

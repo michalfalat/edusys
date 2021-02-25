@@ -2,7 +2,7 @@ import { IModuleDetailResponse } from '@edusys/model';
 import { IModule } from '../models/module.model';
 
 export const moduleDetailMapper = (module: IModule): IModuleDetailResponse => ({
-  id: module.id,
+  id: module._id,
   name: module.name,
   description: module.description,
   enabled: module.enabled,

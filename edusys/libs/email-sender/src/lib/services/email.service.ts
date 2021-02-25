@@ -15,11 +15,9 @@ export const sendEmail = (emailTemplate: EmailTemplate<EmailType>): Promise<any>
     preview: false,
   });
 
-  console.log(__filename);
-  console.log(process.cwd());
   return email
     .send({
-      template: path.resolve(`./../templates/${emailTemplate.lang}/${emailTemplate.template}`),
+      template: path.resolve(`${__dirname}/assets/templates/${emailTemplate.lang}/${emailTemplate.template}`),
       message: {
         to: emailTemplate.to,
       },

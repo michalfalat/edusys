@@ -3,7 +3,8 @@ import { Schema, model, Document } from 'mongoose';
 import { IModule } from './module.model';
 import { amountSchema } from './common.model';
 
-export interface IPackage extends Document {
+export interface IPackage {
+  _id?: any;
   name: string;
   description: string;
   enabled: boolean;
@@ -11,7 +12,10 @@ export interface IPackage extends Document {
   installationPrices: IAmount[];
   modules: IModule['_id'][];
 }
-const packageSchema = new Schema(
+
+export interface IPackageDocument extends IPackage, Document {}
+
+const packageSchema = new Schema<IPackageDocument>(
   {
     name: {
       type: String,
@@ -40,5 +44,5 @@ const packageSchema = new Schema(
   }
 );
 
-const PackageModel = model<IPackage>('package', packageSchema);
+const PackageModel = model<IPackageDocument>('package', packageSchema);
 export default PackageModel;

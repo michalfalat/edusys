@@ -5,7 +5,8 @@ import { IUser } from './user.model';
 import { addressSchema } from './common.model';
 import { ISubscription } from './subscription.model';
 
-export interface IOrganization extends Document {
+export interface IOrganization {
+  _id?: any;
   name: string;
   description?: string;
   businessId?: string;
@@ -19,7 +20,9 @@ export interface IOrganization extends Document {
   subscriptions?: ISubscription[];
 }
 
-const organizationSchema = new Schema(
+export interface IOrganizationDocument extends IOrganization, Document {}
+
+const organizationSchema = new Schema<IOrganizationDocument>(
   {
     name: {
       type: String,
@@ -74,5 +77,5 @@ const organizationSchema = new Schema(
   }
 );
 
-const OrganizationModel = model<IOrganization>('organization', organizationSchema);
+const OrganizationModel = model<IOrganizationDocument>('organization', organizationSchema);
 export default OrganizationModel;

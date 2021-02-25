@@ -3,7 +3,8 @@ import { Schema, model, Document } from 'mongoose';
 import { IOrganization } from './organization.model';
 import { IUser } from './user.model';
 
-export interface IOrganizationRole extends Document {
+export interface IOrganizationRole {
+  _id?: any;
   name: string;
   description?: string;
   editable: boolean;
@@ -15,7 +16,9 @@ export interface IOrganizationRole extends Document {
   users: IUser['_id'][];
 }
 
-const organizationRoleSchema = new Schema(
+export interface IOrganizationRoleDocument extends IOrganizationRole, Document {}
+
+const organizationRoleSchema = new Schema<IOrganizationRoleDocument>(
   {
     name: {
       type: String,
@@ -68,5 +71,5 @@ const organizationRoleSchema = new Schema(
   }
 );
 
-const OrganizationRoleModel = model<IOrganizationRole>('organizationRole', organizationRoleSchema);
+const OrganizationRoleModel = model<IOrganizationRoleDocument>('organizationRole', organizationRoleSchema);
 export default OrganizationRoleModel;

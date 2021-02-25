@@ -2,14 +2,17 @@ import { VerifyTokenType } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
 import { IUser } from './user.model';
 
-export interface IVerifyToken extends Document {
+export interface IVerifyToken {
+  _id?: any;
   user: IUser['_id'];
   token: string;
   expires: Date;
   type: VerifyTokenType;
 }
 
-const verifyTokenSchema = new Schema(
+export interface IVerifyTokenDocument extends IVerifyToken, Document {}
+
+const verifyTokenSchema = new Schema<IVerifyTokenDocument>(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -33,5 +36,5 @@ const verifyTokenSchema = new Schema(
   }
 );
 
-const VerifyTokenModel = model<IVerifyToken>('verifyToken', verifyTokenSchema);
+const VerifyTokenModel = model<IVerifyTokenDocument>('verifyToken', verifyTokenSchema);
 export default VerifyTokenModel;

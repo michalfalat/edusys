@@ -1,6 +1,8 @@
 export enum EmailType {
   VERIFY_EMAIL = 'VERIFY_EMAIL',
   TEST_EMAIL = 'TEST_EMAIL',
+  ORGANIZATION_CREATE = 'ORGANIZATION_CREATE',
+  ORGANIZATION_CREATE_VERIFY_EMAIL = 'ORGANIZATION_CREATE_VERIFY_EMAIL',
 }
 
 export type EmailTemplatesData = {
@@ -10,6 +12,17 @@ export type EmailTemplatesData = {
   };
   [EmailType.TEST_EMAIL]: {
     name: string;
+  };
+  [EmailType.ORGANIZATION_CREATE]: {
+    name: string;
+    organizationName: string;
+    loginUrl: string;
+  };
+  [EmailType.ORGANIZATION_CREATE_VERIFY_EMAIL]: {
+    name: string;
+    organizationName: string;
+    loginUrl: string;
+    verifyTokenUrl: string;
   };
 };
 

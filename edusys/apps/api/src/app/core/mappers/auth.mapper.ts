@@ -3,7 +3,7 @@ import { IAuthRegisterUserResponse, IAuthUserInfoResponse } from '@edusys/model'
 
 export const userListMappper = (users: IUser[]): IAuthUserInfoResponse[] =>
   users?.map((user) => ({
-    id: user.id,
+    id: user._id,
     name: user.name,
     surname: user.surname,
     email: user.email,
@@ -14,7 +14,7 @@ export const userListMappper = (users: IUser[]): IAuthUserInfoResponse[] =>
   }));
 
 export const userDetailMappper = (user: IUser): IAuthUserInfoResponse => ({
-  id: user.id,
+  id: user._id,
   name: user.name,
   surname: user.surname,
   email: user.email,
@@ -25,7 +25,7 @@ export const userDetailMappper = (user: IUser): IAuthUserInfoResponse => ({
 });
 
 export const userRegistrationMappper = (user: IUser, verificationNeeded: boolean): IAuthRegisterUserResponse => ({
-  id: user.id,
+  id: user._id,
   name: user.name,
   surname: user.surname,
   email: user.email,

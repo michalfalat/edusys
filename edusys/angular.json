@@ -16,10 +16,7 @@
             "polyfills": "apps/attendance-client/src/polyfills.ts",
             "tsConfig": "apps/attendance-client/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/attendance-client/src/favicon.ico",
-              "apps/attendance-client/src/assets"
-            ],
+            "assets": ["apps/attendance-client/src/favicon.ico", "apps/attendance-client/src/assets"],
             "styles": ["apps/attendance-client/src/styles.scss"],
             "scripts": []
           },
@@ -73,10 +70,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/attendance-client/src/**/*.ts",
-              "apps/attendance-client/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/attendance-client/src/**/*.ts", "apps/attendance-client/src/**/*.html"]
           }
         },
         "test": {
@@ -124,10 +118,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/core/src/**/*.ts",
-              "libs/core/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/core/src/**/*.ts", "libs/core/src/**/*.html"]
           }
         },
         "test": {
@@ -149,10 +140,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/core-translate/src/**/*.ts",
-              "libs/core-translate/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/core-translate/src/**/*.ts", "libs/core-translate/src/**/*.html"]
           }
         },
         "test": {
@@ -174,10 +162,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/app-config/src/**/*.ts",
-              "libs/app-config/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/app-config/src/**/*.ts", "libs/app-config/src/**/*.html"]
           }
         },
         "test": {
@@ -203,7 +188,14 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/server.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets",
+              {
+                "glob": "**/*",
+                "input": "libs/email-sender/src/assets/",
+                "output": "./assets/"
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -250,10 +242,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/model/src/**/*.ts",
-              "libs/model/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/model/src/**/*.ts", "libs/model/src/**/*.html"]
           }
         },
         "test": {
@@ -275,10 +264,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/email-sender/src/**/*.ts",
-              "libs/email-sender/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/email-sender/src/**/*.ts", "libs/email-sender/src/**/*.html"]
           }
         }
       }
@@ -298,10 +284,7 @@
             "polyfills": "apps/admin-management/src/polyfills.ts",
             "tsConfig": "apps/admin-management/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/admin-management/src/favicon.ico",
-              "apps/admin-management/src/assets"
-            ],
+            "assets": ["apps/admin-management/src/favicon.ico", "apps/admin-management/src/assets"],
             "styles": ["apps/admin-management/src/styles.scss"],
             "scripts": []
           },
@@ -355,10 +338,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/admin-management/src/**/*.ts",
-              "apps/admin-management/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/admin-management/src/**/*.ts", "apps/admin-management/src/**/*.html"]
           }
         },
         "test": {
@@ -406,10 +386,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/core-ui/src/**/*.ts",
-              "libs/core-ui/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/core-ui/src/**/*.ts", "libs/core-ui/src/**/*.html"]
           }
         }
       }

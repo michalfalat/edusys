@@ -4,7 +4,8 @@ import { amountSchema } from './common.model';
 import { IOrganization } from './organization.model';
 import { IPackage } from './package.model';
 
-export interface ISubscription extends Document {
+export interface ISubscription {
+  _id?: any;
   name: string;
   description?: string;
   organization: IOrganization['_id'];
@@ -18,7 +19,9 @@ export interface ISubscription extends Document {
   isActive: boolean;
 }
 
-const subscriptionSchema = new Schema(
+export interface ISubscriptionDocument extends ISubscription, Document {}
+
+const subscriptionSchema = new Schema<ISubscriptionDocument>(
   {
     name: {
       type: String,
@@ -50,5 +53,5 @@ const subscriptionSchema = new Schema(
   }
 );
 
-const SubscriptionModel = model<ISubscription>('subscription', subscriptionSchema);
+const SubscriptionModel = model<ISubscriptionDocument>('subscription', subscriptionSchema);
 export default SubscriptionModel;

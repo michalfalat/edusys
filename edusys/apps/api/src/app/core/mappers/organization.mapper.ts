@@ -4,7 +4,7 @@ import { userListMappper, userDetailMappper } from './auth.mapper';
 import { subscriptionMapper, subscriptionDetailMapper } from './subscription.mapper';
 
 export const organizationDetailMapper = (organization: IOrganization): IOrganizationDetailResponse => ({
-  id: organization.id,
+  id: organization._id,
   name: organization.name,
   description: organization.description,
   status: organization.status,
@@ -21,7 +21,7 @@ export const organizationDetailMapper = (organization: IOrganization): IOrganiza
 
 export const organizationListMapper = (organizations: IOrganization[]): IOrganizationResponse[] =>
   organizations?.map((organization) => ({
-    id: organization.id,
+    id: organization._id,
     name: organization.name,
     status: organization.status,
     owner: organization.owner,

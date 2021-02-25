@@ -1,7 +1,8 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Model } from 'mongoose';
 import { IOrganizationRole } from './organization-role.model';
 
-export interface IUser extends Document {
+export interface IUser {
+  _id?: any;
   name: string;
   surname: string;
   email: string;
@@ -13,7 +14,11 @@ export interface IUser extends Document {
   phoneVerified: boolean;
 }
 
-const userSchema = new Schema(
+export interface IUserDocument extends IUser, Document {
+  fullName: string;
+}
+
+const userSchema = new Schema<IUserDocument>(
   {
     name: {
       type: String,
@@ -68,5 +73,22 @@ const userSchema = new Schema(
   }
 );
 
-const UserModel = model<IUser>('user', userSchema);
+userSchema.statics.findByName = function (name: string) {
+  return this.find({ name: new RegExp(name, 'i') });
+};
+
+userSchema.statics.findByEmail = function (email: string) {
+  return this.findOne({ email: new RegExp(email, 'i') });
+};
+
+userSchema.virtual('fullName').get(function (this: IUserDocument) {
+  return `${this.name} ${this.surname}`;
+});
+
+export interface IUserModel extends Model<IUserDocument> {
+  findByEmail(email: string): Promise<IUserDocument>;
+  findByName(name: string): Promise<IUserDocument[]>;
+}
+
+const UserModel = model<IUserDocument, IUserModel>('user', userSchema);
 export default UserModel;

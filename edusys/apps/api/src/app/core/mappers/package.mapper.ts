@@ -3,7 +3,7 @@ import { IPackage } from '../models/package.model';
 import { moduleListMapper } from './module.mapper';
 
 export const packageDetailMapper = (pack: IPackage, primaryCurency: string): IPackageDetailResponse => ({
-  id: pack?.id,
+  id: pack?._id,
   name: pack?.name,
   description: pack?.description,
   enabled: pack?.enabled,
