@@ -194,6 +194,11 @@
                 "glob": "**/*",
                 "input": "libs/email-sender/src/assets/",
                 "output": "./assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/core-invoice/src/assets/",
+                "output": "./assets/"
               }
             ]
           },
@@ -387,6 +392,19 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/core-ui/src/**/*.ts", "libs/core-ui/src/**/*.html"]
+          }
+        }
+      }
+    },
+    "core-invoice": {
+      "root": "libs/core-invoice",
+      "sourceRoot": "libs/core-invoice/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/core-invoice/**/*.ts"]
           }
         }
       }

@@ -5,7 +5,7 @@ export interface IAmount {
 
 export interface IAddress {
   name: string;
-  street: number;
+  street: string;
   streetNumber: string;
   city: string;
   postalCode: string;

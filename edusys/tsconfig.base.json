@@ -20,7 +20,8 @@
       "@edusys/app-config": ["libs/app-config/src/index.ts"],
       "@edusys/model": ["libs/model/src/index.ts"],
       "@edusys/email-sender": ["libs/email-sender/src/index.ts"],
-      "@edusys/core-ui": ["libs/core-ui/src/index.ts"]
+      "@edusys/core-ui": ["libs/core-ui/src/index.ts"],
+      "@edusys/core-invoice": ["libs/core-invoice/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

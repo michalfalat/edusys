@@ -57,6 +57,9 @@
     },
     "core-ui": {
       "tags": []
+    },
+    "core-invoice": {
+      "tags": []
     }
   }
 }
