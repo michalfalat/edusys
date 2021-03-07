@@ -8,8 +8,16 @@ import {
   editOrganizationUrl,
   fetchOrganizationDetailUrl,
   fetchOrganizationListUrl,
+  fetchCompanyInfoDetailUrl,
+  editCompanyInfoDetailUrl,
 } from './organization.endpoints';
-import { IOrganizationCreateRequest, IOrganizationDetailResponse, IOrganizationEditRequest } from '@edusys/model';
+import {
+  ICompanyInfoDetailResponse,
+  ICompanyInfoEditRequest,
+  IOrganizationCreateRequest,
+  IOrganizationDetailResponse,
+  IOrganizationEditRequest,
+} from '@edusys/model';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +47,13 @@ export class OrganizationService {
 
   deleteOrganization = (organizationId: string): Observable<void> => {
     return this.httpClient.delete<void>(deleteOrganizationUrl(this.baseUrl(), organizationId));
+  };
+
+  fetchCompanyInfoDetail = (): Observable<ICompanyInfoDetailResponse> => {
+    return this.httpClient.get<ICompanyInfoDetailResponse>(fetchCompanyInfoDetailUrl(this.baseUrl()));
+  };
+
+  editCompanyInfoDetail = (payload: ICompanyInfoEditRequest): Observable<ICompanyInfoDetailResponse> => {
+    return this.httpClient.patch<ICompanyInfoDetailResponse>(editCompanyInfoDetailUrl(this.baseUrl()), payload);
   };
 }

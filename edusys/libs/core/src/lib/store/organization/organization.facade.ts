@@ -1,15 +1,23 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { IOrganizationCreateRequest, IOrganizationDetailResponse, IOrganizationEditRequest } from '@edusys/model';
 import {
+  ICompanyInfoDetailResponse,
+  ICompanyInfoEditRequest,
+  IOrganizationCreateRequest,
+  IOrganizationDetailResponse,
+  IOrganizationEditRequest,
+} from '@edusys/model';
+import {
+  companyInfoDetailRequestAction,
+  companyInfoEditRequestAction,
   organizationCreateRequestAction,
   organizationDeleteRequestAction,
   organizationDetailRequestAction,
   organizationEditRequestAction,
   organizationListRequestAction,
 } from './organization.actions';
-import { getOrganizationDetail, getOrganizationList } from './organization.selectors';
+import { getOrganizationDetail, getOrganizationList, getCompanyInfoDetail } from './organization.selectors';
 import IOrganizationState from './organization.reducer';
 
 @Injectable({
@@ -19,6 +27,7 @@ export class OrganizationFacade {
   constructor(private store: Store<IOrganizationState>) {}
   getOrganizationList$ = this.store.pipe(select(getOrganizationList));
   getOrganizationDetail$ = this.store.pipe(select(getOrganizationDetail));
+  getCompanyInfoDetail$ = this.store.pipe(select(getCompanyInfoDetail));
 
   fetchOrganizationList(onSucceeded?: (response: IOrganizationDetailResponse[]) => void, onError?: (response: HttpErrorResponse) => void): void {
     this.store.dispatch(organizationListRequestAction({ onSucceeded, onError }));
@@ -30,6 +39,18 @@ export class OrganizationFacade {
     onError?: (response: HttpErrorResponse) => void
   ): void {
     this.store.dispatch(organizationDetailRequestAction({ organizationId, onSucceeded, onError }));
+  }
+
+  fetchCompanyInfoDetail(onSucceeded?: (response: ICompanyInfoDetailResponse) => void, onError?: (response: HttpErrorResponse) => void): void {
+    this.store.dispatch(companyInfoDetailRequestAction({ onSucceeded, onError }));
+  }
+
+  editCompanyInfo(
+    payload: ICompanyInfoEditRequest,
+    onSucceeded?: (response: ICompanyInfoDetailResponse) => void,
+    onError?: (response: HttpErrorResponse) => void
+  ): void {
+    this.store.dispatch(companyInfoEditRequestAction({ payload, onSucceeded, onError }));
   }
 
   editOrganization(

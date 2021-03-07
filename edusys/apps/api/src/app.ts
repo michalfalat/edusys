@@ -14,6 +14,7 @@ import { moduleRouter } from './app/controllers/module.controller';
 import { organizationRouter } from './app/controllers/organization.controller';
 import { currentHttpContext } from './app/core/middlewares/current-http-context';
 import { invoiceRouter } from './app/controllers/invoice.controller';
+import { companyInfoRouter } from './app/controllers/company-info.controller';
 
 const app = express();
 dotenv.config({ path: path.join(__dirname, './../.env') });
@@ -39,6 +40,7 @@ app.use(httpContext.middleware);
 app.use(currentHttpContext);
 
 // Routes
+app.use(companyInfoRouter);
 app.use(authRouter);
 app.use(moduleRouter);
 app.use(packageRouter);

@@ -9,6 +9,7 @@ export * from './lib/dto/organization.dto';
 export * from './lib/dto/subscription.dto';
 export * from './lib/dto/organization-role.dto';
 export * from './lib/dto/verify-token.dto';
+export * from './lib/dto/company-info.dto';
 
 // PERMISSIONS
 export * from './lib/model/permissions.model';
@@ -19,3 +20,4 @@ export * from './lib/validations/common.validations';
 export * from './lib/validations/module.validations';
 export * from './lib/validations/organization.validations';
 export * from './lib/validations/package.validations';
+export * from './lib/validations/company-info.validations';

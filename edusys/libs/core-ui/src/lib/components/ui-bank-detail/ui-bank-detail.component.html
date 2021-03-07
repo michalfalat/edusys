@@ -1,0 +1,28 @@
+<ng-container [formGroup]="controlContainer.control">
+  <div class="column">
+    <mat-form-field>
+      <mat-label>{{ 'bank-detail.name' | translate }}</mat-label>
+      <input matInput formControlName="bankName" [placeholder]="'bank-detail.name.hint' | translate" [readonly]="readonly" />
+      <mat-error><ui-form-error [formGroup]="controlContainer.control" [name]="'bankName'"></ui-form-error></mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ 'bank-detail.iban' | translate }}</mat-label>
+      <input matInput formControlName="IBAN" [placeholder]="'bank-detail.iban.hint' | translate" [readonly]="readonly" />
+    </mat-form-field>
+    <div class="row between">
+      <mat-form-field [style.width]="'60%'">
+        <mat-label>{{ 'bank-detail.swift' | translate }}</mat-label>
+        <input matInput formControlName="SWIFT" [placeholder]="'address.swift.hint' | translate" [readonly]="readonly" />
+      </mat-form-field>
+      <mat-form-field [style.width]="'35%'">
+        <mat-label>{{ 'bank-detail.currency' | translate }}</mat-label>
+        <mat-select formControlName="currency" *ngIf="!readonly">
+          <mat-option *ngFor="let currency of currencies" [value]="currency.code">
+            {{ currency.name }}
+          </mat-option>
+        </mat-select>
+        <input *ngIf="readonly" matInput formControlName="currency" [readonly]="readonly" />
+      </mat-form-field>
+    </div>
+  </div>
+</ng-container>

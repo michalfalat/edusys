@@ -26,6 +26,12 @@ export type EmailTemplatesData = {
   };
 };
 
+export interface IEmailAttachment {
+  filename: string;
+  content?: string;
+  path?: string;
+}
+
 type TemplateType = keyof EmailTemplatesData;
 
 export type EmailTemplate<T extends TemplateType> = {
@@ -33,4 +39,5 @@ export type EmailTemplate<T extends TemplateType> = {
   params: EmailTemplatesData[T];
   lang: string;
   to: string;
+  attachments?: IEmailAttachment[];
 };

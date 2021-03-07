@@ -2,37 +2,39 @@
   <div class="column">
     <mat-form-field>
       <mat-label>{{ 'address.name' | translate }}</mat-label>
-      <input matInput formControlName="name" [placeholder]="'address.name.hint' | translate" />
+      <input matInput formControlName="name" [placeholder]="'address.name.hint' | translate" [readonly]="readonly" />
       <mat-error><ui-form-error [formGroup]="controlContainer.control" [name]="'name'"></ui-form-error></mat-error>
     </mat-form-field>
     <div class="row between">
       <mat-form-field [style.width]="'60%'">
         <mat-label>{{ 'address.street' | translate }}</mat-label>
-        <input matInput formControlName="street" [placeholder]="'address.street.hint' | translate" />
+        <input matInput formControlName="street" [placeholder]="'address.street.hint' | translate" [readonly]="readonly" />
       </mat-form-field>
       <mat-form-field [style.width]="'35%'">
         <mat-label>{{ 'address.streetNumber' | translate }}</mat-label>
-        <input matInput formControlName="streetNumber" [placeholder]="'address.streetNumber.hint' | translate" />
+        <input matInput formControlName="streetNumber" [placeholder]="'address.streetNumber.hint' | translate" [readonly]="readonly" />
       </mat-form-field>
     </div>
 
     <div class="row between">
       <mat-form-field [style.width]="'60%'">
         <mat-label>{{ 'address.city' | translate }}</mat-label>
-        <input matInput formControlName="city" [placeholder]="'address.city.hint' | translate" />
+        <input matInput formControlName="city" [placeholder]="'address.city.hint' | translate" [readonly]="readonly" />
       </mat-form-field>
       <mat-form-field [style.width]="'35%'">
         <mat-label>{{ 'address.postalCode' | translate }}</mat-label>
-        <input matInput formControlName="postalCode" [placeholder]="'address.postalCode.hint' | translate" />
+        <input matInput formControlName="postalCode" [placeholder]="'address.postalCode.hint' | translate" [readonly]="readonly" />
       </mat-form-field>
     </div>
 
     <mat-form-field>
-      <mat-select formControlName="country">
-        <mat-option *ngFor="let country of countries" [value]="country.code" [placeholder]="'address.country.hint' | translate">
+      <mat-label>{{ 'address.country' | translate }}</mat-label>
+      <mat-select formControlName="country" *ngIf="!readonly">
+        <mat-option *ngFor="let country of countries" [value]="country.code">
           {{ country.name }}
         </mat-option>
       </mat-select>
+      <input *ngIf="readonly" matInput formControlName="country" [readonly]="readonly" />
     </mat-form-field>
   </div>
 </ng-container>

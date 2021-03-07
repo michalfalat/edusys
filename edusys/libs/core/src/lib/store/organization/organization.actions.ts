@@ -1,4 +1,10 @@
-import { IOrganizationCreateRequest, IOrganizationDetailResponse, IOrganizationEditRequest } from '@edusys/model';
+import {
+  ICompanyInfoDetailResponse,
+  ICompanyInfoEditRequest,
+  IOrganizationCreateRequest,
+  IOrganizationDetailResponse,
+  IOrganizationEditRequest,
+} from '@edusys/model';
 import { createAction, props } from '@ngrx/store';
 
 const PREFIX = '[ORGANIZATION]';
@@ -31,6 +37,37 @@ export const organizationDetailResponseAction = createAction(
   `${PREFIX} DETAIL RESPONSE`,
   props<{
     response: IOrganizationDetailResponse;
+  }>()
+);
+
+// ORGANIZATION COMPANY INFO
+export const companyInfoDetailRequestAction = createAction(
+  `${PREFIX} COMPANY INFO DETAIL REQUEST`,
+  props<{
+    onSucceeded?: (response: ICompanyInfoDetailResponse) => void;
+    onError?: (error: any) => void;
+  }>()
+);
+export const companyInfoDetailResponseAction = createAction(
+  `${PREFIX} COMPANY INFO DETAIL RESPONSE`,
+  props<{
+    response: ICompanyInfoDetailResponse;
+  }>()
+);
+
+// EDIT COMPANY INFO
+export const companyInfoEditRequestAction = createAction(
+  `${PREFIX} COMPANY INFO EDIT REQUEST`,
+  props<{
+    payload: ICompanyInfoEditRequest;
+    onSucceeded?: (response: ICompanyInfoDetailResponse) => void;
+    onError?: (error: any) => void;
+  }>()
+);
+export const companyInfoEditResponseAction = createAction(
+  `${PREFIX} COMPANY INFO EDIT RESPONSE`,
+  props<{
+    response: ICompanyInfoDetailResponse;
   }>()
 );
 

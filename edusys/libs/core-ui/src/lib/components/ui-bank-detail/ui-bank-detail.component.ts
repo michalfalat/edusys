@@ -2,21 +2,18 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 
 @Component({
-  selector: 'ui-address',
-  templateUrl: './ui-address.component.html',
-  styleUrls: ['./ui-address.component.scss'],
+  selector: 'ui-bank-detail',
+  templateUrl: './ui-bank-detail.component.html',
+  styleUrls: ['./ui-bank-detail.component.scss'],
 })
-export class UiAddressComponent implements OnInit {
-  countries = [
+export class UiBankDetailComponent implements OnInit {
+  currencies = [
     {
-      name: 'Slovensko',
-      code: 'sk',
-    },
-    {
-      name: 'Cesko',
-      code: 'cz',
+      name: 'EUR',
+      code: 'EUR',
     },
   ];
+
   @Input() showErrors = true;
   @Input() readonly: boolean;
   constructor(public controlContainer: ControlContainer) {}

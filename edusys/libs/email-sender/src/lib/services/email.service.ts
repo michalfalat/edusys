@@ -7,6 +7,7 @@ export const sendEmail = (emailTemplate: EmailTemplate<EmailType>): Promise<any>
   const email = new Email({
     message: {
       from: `${process.env.EMAIL_USER}`,
+      attachments: emailTemplate.attachments,
     },
     transport: {
       jsonTransport: true,
@@ -44,6 +45,7 @@ const send = async (emailMessage: any): Promise<any> => {
     subject: emailMessage.originalMessage.subject,
     text: emailMessage.originalMessage.text,
     html: emailMessage.originalMessage.html,
+    attachments: emailMessage.originalMessage.attachments,
   });
   console.log(info);
 };

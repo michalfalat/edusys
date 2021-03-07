@@ -14,6 +14,7 @@ import { UiEmptyListComponent } from './components/ui-empty-list/ui-empty-list.c
 import { UiBreadcrumbComponent } from './components/ui-breadcrumb/ui-breadcrumb.component';
 import { UiAddressComponent } from './components/ui-address/ui-address.component';
 import { UiFormErrorComponent } from './components/ui-form-error/ui-form-error.component';
+import { UiBankDetailComponent } from './components/ui-bank-detail/ui-bank-detail.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,16 @@ import { UiFormErrorComponent } from './components/ui-form-error/ui-form-error.c
     MatButtonModule,
     MatTooltipModule,
   ],
-  exports: [UiAmountComponent, UiDividerComponent, UiEmptyListComponent, UiBreadcrumbComponent, UiAddressComponent, CoreTranslateModule, UiFormErrorComponent],
+  exports: [
+    UiAmountComponent,
+    UiDividerComponent,
+    UiEmptyListComponent,
+    UiBreadcrumbComponent,
+    UiAddressComponent,
+    UiBankDetailComponent,
+    CoreTranslateModule,
+    UiFormErrorComponent,
+  ],
   declarations: [
     UiAmountComponent,
     UiDividerComponent,
@@ -36,6 +46,7 @@ import { UiFormErrorComponent } from './components/ui-form-error/ui-form-error.c
     UiBreadcrumbComponent,
     UiAddressComponent,
     UiFormErrorComponent,
+    UiBankDetailComponent,
   ],
 })
 export class CoreUiModule {}

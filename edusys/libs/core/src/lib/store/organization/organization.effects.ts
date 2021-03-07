@@ -13,6 +13,10 @@ import {
   organizationListResponseAction,
   organizationDeleteRequestAction,
   organizationDeleteResponseAction,
+  companyInfoDetailRequestAction,
+  companyInfoDetailResponseAction,
+  companyInfoEditRequestAction,
+  companyInfoEditResponseAction,
 } from './organization.actions';
 import { of } from 'rxjs';
 import { OrganizationService } from '../../services/organization/organization.service';
@@ -53,6 +57,50 @@ export class OrganizationEffects {
               onSucceeded(response);
             }
             return organizationDetailResponseAction({ response });
+          }),
+          catchError((error) => {
+            if (!!onError) {
+              onError(error);
+            }
+            return of(organizationErrorAction({ error }));
+          })
+        )
+      )
+    )
+  );
+
+  fetchCompanyInfoDetail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(companyInfoDetailRequestAction),
+      mergeMap(({ onSucceeded, onError }) =>
+        this.organizationService.fetchCompanyInfoDetail().pipe(
+          map((response) => {
+            if (!!onSucceeded) {
+              onSucceeded(response);
+            }
+            return companyInfoDetailResponseAction({ response });
+          }),
+          catchError((error) => {
+            if (!!onError) {
+              onError(error);
+            }
+            return of(organizationErrorAction({ error }));
+          })
+        )
+      )
+    )
+  );
+
+  editCompanyInfo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(companyInfoEditRequestAction),
+      mergeMap(({ payload, onSucceeded, onError }) =>
+        this.organizationService.editCompanyInfoDetail(payload).pipe(
+          map((response) => {
+            if (!!onSucceeded) {
+              onSucceeded(response);
+            }
+            return companyInfoEditResponseAction({ response });
           }),
           catchError((error) => {
             if (!!onError) {

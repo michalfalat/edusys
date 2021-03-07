@@ -8,6 +8,9 @@
     </mat-action-list>
   </mat-sidenav>
   <mat-sidenav-content>
+    <div [style.height]="'4px'">
+      <mat-progress-bar mode="indeterminate" *ngIf="pendingTasks?.length > 0"></mat-progress-bar>
+    </div>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -85,6 +85,12 @@ export abstract class CommonContainer implements OnDestroy {
     }
   }
 
+  setForm(data: any): void {
+    if (!!this.form) {
+      this.form.setValue(data);
+    }
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

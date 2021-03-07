@@ -1,0 +1,74 @@
+<mat-card class="basic-card">
+  <div class="column" [style.minHeight]="'33rem'">
+    <div class="row between">
+      <ui-breadcrumb [showHome]="true" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onEditCompanyInfo()">
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab [label]="'company-info.basic' | translate">
+          <ui-divider></ui-divider>
+          <div class="row">
+            <mat-form-field>
+              <mat-label>{{ 'company-info.name' | translate }}</mat-label>
+              <input matInput formControlName="name" name="name" [readonly]="!isEditMode" />
+              <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <mat-label>{{ 'company-info.businessId' | translate }}</mat-label>
+              <input matInput formControlName="businessId" name="businessId" [readonly]="!isEditMode" />
+              <mat-error><ui-form-error [formGroup]="form" [name]="'businessId'"></ui-form-error></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <mat-label>{{ 'company-info.taxId' | translate }}</mat-label>
+              <input matInput formControlName="taxId" name="taxId" [readonly]="!isEditMode" />
+              <mat-error><ui-form-error [formGroup]="form" [name]="'taxId'"></ui-form-error></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <mat-label>{{ 'company-info.registeredVAT' | translate }}</mat-label>
+              <input matInput formControlName="registeredVAT" name="registeredVAT" [readonly]="!isEditMode" />
+              <mat-error><ui-form-error [formGroup]="form" [name]="'registeredVAT'"></ui-form-error></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <mat-label>{{ 'company-info.registrationNumberVAT' | translate }}</mat-label>
+              <input matInput formControlName="registrationNumberVAT" name="registrationNumberVAT" [readonly]="!isEditMode" />
+              <mat-error><ui-form-error [formGroup]="form" [name]="'registrationNumberVAT'"></ui-form-error></mat-error>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+
+        <mat-tab [label]="'company-info.address' | translate">
+          <ui-divider></ui-divider>
+          <ui-address formGroupName="address" [readonly]="!isEditMode"></ui-address>
+        </mat-tab>
+        <mat-tab [label]="'company-info.bank-details' | translate">
+          <ui-divider></ui-divider>
+          <ui-bank-detail formGroupName="bank" [readonly]="!isEditMode"></ui-bank-detail>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
+
+    <ui-divider></ui-divider>
+    <div class="bottom-content">
+      <div class="row between" *ngIf="isEditMode">
+        <button mat-button (click)="cancelEdit()">{{ 'general.cancel.button' | translate }}</button>
+        <button mat-raised-button color="primary" type="submit" (click)="onEditCompanyInfo()" [disabled]="!form.valid">
+          {{ 'general.save.button' | translate }}
+        </button>
+      </div>
+      <div class="row right" *ngIf="!isEditMode">
+        <button mat-raised-button color="primary" type="submit" (click)="onEdit()">{{ 'general.edit.button' | translate }}</button>
+      </div>
+    </div>
+  </div>
+
+  <ui-divider></ui-divider>
+</mat-card>

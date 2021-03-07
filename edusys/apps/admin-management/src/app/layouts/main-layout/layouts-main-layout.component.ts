@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { PERMISSION } from '@edusys/model';
 import { routes } from '../../utils/routes';
+import { LayoutBaseContainer } from '../layout-base.module';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,7 +9,7 @@ import { routes } from '../../utils/routes';
   templateUrl: './layouts-main-layout.component.html',
   styleUrls: ['./layouts-main-layout.component.scss'],
 })
-export class LayoutsMainLayoutComponent implements OnInit {
+export class LayoutsMainLayoutComponent extends LayoutBaseContainer implements OnInit {
   navigationItems = [
     {
       name: 'navigation.modules',
@@ -31,7 +32,9 @@ export class LayoutsMainLayoutComponent implements OnInit {
       permission: PERMISSION.PACKAGE.BASIC,
     },
   ];
-  constructor() {}
+  constructor(injector: Injector) {
+    super(injector);
+  }
 
   ngOnInit(): void {}
 }

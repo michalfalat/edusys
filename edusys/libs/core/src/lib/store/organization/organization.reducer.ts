@@ -1,10 +1,16 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { IOrganizationDetailResponse } from '@edusys/model';
-import { organizationDetailResponseAction, organizationListResponseAction } from './organization.actions';
+import { ICompanyInfoDetailResponse, IOrganizationDetailResponse } from '@edusys/model';
+import {
+  companyInfoDetailResponseAction,
+  companyInfoEditResponseAction,
+  organizationDetailResponseAction,
+  organizationListResponseAction,
+} from './organization.actions';
 
 export default interface IOrganizationState {
   list?: IOrganizationDetailResponse[];
   detail?: IOrganizationDetailResponse;
+  companyInfo?: ICompanyInfoDetailResponse;
 }
 
 export const initialState: IOrganizationState = {};
@@ -16,6 +22,12 @@ const _organizationReducer = createReducer(
   }),
   on(organizationDetailResponseAction, (state: IOrganizationState, payload) => {
     return { ...state, detail: payload?.response };
+  }),
+  on(companyInfoDetailResponseAction, (state: IOrganizationState, payload) => {
+    return { ...state, companyInfo: payload?.response };
+  }),
+  on(companyInfoEditResponseAction, (state: IOrganizationState, payload) => {
+    return { ...state, companyInfo: payload?.response };
   })
 );
 

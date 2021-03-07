@@ -13,6 +13,13 @@ export interface IAddress {
   location?: IPosition;
 }
 
+export interface IBankDetail {
+  bankName: string;
+  IBAN: string;
+  SWIFT?: string;
+  currency?: string;
+}
+
 export interface IPosition {
   longitude: number;
   latitude: number;

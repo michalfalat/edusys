@@ -1,5 +1,7 @@
 import { EmailTemplate, sendEmail, EmailType, EmailTemplatesData } from '@edusys/email-sender';
 import { getCurrentLanguage } from '../middlewares/current-http-context';
+import * as path from 'path';
+import { __assetsdir } from 'apps/api/src/dir';
 
 // SENDING TEST EMAIL
 export const sendTestEmail = async (to: string): Promise<void> => {
@@ -10,6 +12,12 @@ export const sendTestEmail = async (to: string): Promise<void> => {
     },
     to,
     lang: getCurrentLanguage() || 'sk',
+    attachments: [
+      {
+        path: path.join(__assetsdir, 'images/logo.png'),
+        filename: 'Our logo.png',
+      },
+    ],
   };
 
   await sendEmail(email);
