@@ -2,128 +2,149 @@ import * as PDFDocument from 'pdfkit';
 import * as fs from 'fs';
 import * as path from 'path';
 import { v4 } from 'uuid';
-import { IInvoice, IInvoiceItem, InvoiceMeasurementUnit, InvoiceStatus } from './model';
+import { IInvoiceCore, IInvoiceItem, InvoiceMeasurementUnit, InvoicePaymentType, InvoiceStatus } from './model';
 import * as moment from 'moment';
+
+const fontLargeSize = 14;
+const fontRegularSize = 10;
+const fontSmallSize = 8;
+
+const fontRegular = 'Regular';
+const fontBold = 'Bold';
 
 export const createTestInvoice = async (assetsFolder: string, pathToSave?: string): Promise<string> => {
   try {
     const name = `./test-invoice-${v4()}.pdf`;
-    const invoice: IInvoice = {
-      id: v4(),
-      VATRate: 20,
-      constantSymbol: '308',
-      variableSymbol: '6501032021',
-      invoiceNumber: '1324564',
-      createdBy: 'Michal Falat',
-      note: 'Faktura podlieha standardnej dobe splatnosti 30 dni.',
-      organization: null,
-      logoUrl: `${assetsFolder}/images/default-invoice-logo.png`,
-      status: InvoiceStatus.UNPAID,
-      VAT: {
-        amount: 100,
-        currency: 'EUR',
-      },
-      discount: {
-        amount: 0,
-        currency: 'EUR',
-      },
-      customer: {
-        name: 'ZS Rakova',
-        businessId: '4674643434',
-        registeredVAT: false,
-        IBAN: 'SK0210000054844646',
-        SWIFT: 'MBANK a.s. ',
-        bankName: 'mBank',
-        contactEmail: 'riaditel@zsrakova.net',
-        contactPhone: '0916874646',
-        address: {
-          city: 'Rakova',
-          country: 'Slovensko',
-          name: 'ZS rakova',
-          postalCode: '55674',
-          street: 'Rakova',
-          streetNumber: '25',
-        },
-      },
-      supplier: {
-        name: 'Edusys s.r.o',
-        businessId: '463438476746',
-        registeredVAT: false,
-        IBAN: 'SK0210000067434646',
-        SWIFT: 'MBANK a.s. ',
-        bankName: 'mBank',
-        contactEmail: 'system@edusys.sk',
-        contactPhone: '0916874646',
-        address: {
-          city: 'Cadca',
-          country: 'Slovensko',
-          name: 'Cadca adresa',
-          postalCode: '31268',
-          street: 'pod jednotou',
-          streetNumber: '18',
-        },
-      },
-      items: [
-        {
-          name: 'Balicek 1 - rocne predplatne',
-          description: 'dochadzkovy system',
-          unitPrice: {
-            amount: 189,
-            currency: 'EUR',
-          },
-          measurementUnit: InvoiceMeasurementUnit.QUANTITY,
-          priceWithoutVAT: {
-            amount: 189,
-            currency: 'EUR',
-          },
-          quantity: 1,
-          VAT: 20,
-        },
-        {
-          name: 'Balicek 1 - instalacia ',
-          description: 'dochadzkovy system',
-          measurementUnit: InvoiceMeasurementUnit.HOUR,
-          priceWithoutVAT: {
-            amount: 150,
-            currency: 'EUR',
-          },
-          unitPrice: {
-            amount: 30,
-            currency: 'EUR',
-          },
-          quantity: 5,
-          VAT: 20,
-        },
-      ],
-      subTotal: {
-        amount: 13485,
-        currency: 'EUR',
-      },
-      totalWithoutVAT: {
-        amount: 10000,
-        currency: 'EUR',
-      },
-      totalWithVAT: {
-        amount: 12000,
-        currency: 'EUR',
-      },
-    };
-    buildInvoice(invoice, name, assetsFolder, pathToSave || assetsFolder);
+    const invoice = testInvoice(assetsFolder);
+    fillInvoice(invoice);
+    generateInvoice(invoice, name, assetsFolder, pathToSave || assetsFolder);
     return path.join(pathToSave || assetsFolder, name);
   } catch (error) {
     return null;
   }
 };
 
-const buildInvoice = async (invoice: IInvoice, name: string, assetsFolder: string, pathToSave: string): Promise<any> => {
+export const testInvoice = (assetsFolder: string): IInvoiceCore => {
+  const invoice: IInvoiceCore = {
+    id: v4(),
+    issueDate: moment().toDate(),
+    dueDate: moment().add(30, 'days').toDate(),
+    orderNumber: '000102002020',
+    paymentType: InvoicePaymentType.BANK_TRANSFER,
+    currency: 'EUR',
+    createdOn: moment().toDate(),
+    constantSymbol: '308',
+    variableSymbol: '6501032021',
+    invoiceNumber: '1324564',
+    createdBy: 'Michal Falat',
+    note:
+      'Faktura podlieha standardnej dobe splatnosti 30 dni. V priapde nedodrzania podmienok si dodavatel uplatnuje pravo na vymahanie dlznej sumy navysenu o uroky 0.05% za kazdy den omeskania platby.',
+    logoUrl: `${assetsFolder}/images/default-invoice-logo.png`,
+    status: InvoiceStatus.UNPAID,
+    discount: {
+      amount: 0,
+      currency: 'EUR',
+    },
+    customer: {
+      name: 'ZS Rakova',
+      businessId: '4674643434',
+      registeredVAT: false,
+      contactEmail: 'riaditel@zsrakova.net',
+      contactPhone: '0916874646',
+      address: {
+        city: 'Rakova',
+        country: 'Slovensko',
+        name: 'ZS rakova',
+        postalCode: '55674',
+        street: 'Rakova',
+        streetNumber: '25',
+      },
+    },
+    supplier: {
+      name: 'Edusys s.r.o',
+      businessId: '463438476746',
+      registeredVAT: false,
+      IBAN: 'SK0210000067434646',
+      SWIFT: 'MBANK a.s. ',
+      bankName: 'mBank',
+      contactEmail: 'system@edusys.sk',
+      contactPhone: '0916874646',
+      address: {
+        city: 'Cadca',
+        country: 'Slovensko',
+        name: 'Cadca adresa',
+        postalCode: '31268',
+        street: 'pod jednotou',
+        streetNumber: '18',
+      },
+    },
+    items: [
+      {
+        name: 'Balicek 1 - rocne predplatne',
+        description: 'dochadzkovy system',
+        unitPrice: {
+          amount: 189,
+          currency: 'EUR',
+        },
+        measurementUnit: InvoiceMeasurementUnit.QUANTITY,
+        quantity: 1,
+        VAT: 20,
+      },
+      {
+        name: 'Balicek 1 - instalacia ',
+        description: 'dochadzkovy system',
+        measurementUnit: InvoiceMeasurementUnit.HOUR,
+        unitPrice: {
+          amount: 30,
+          currency: 'EUR',
+        },
+        quantity: 5,
+        VAT: 20,
+      },
+    ],
+  };
+  return invoice;
+};
+
+const fillInvoice = (invoice: IInvoiceCore): void => {
+  const currency = invoice.currency;
+
+  invoice?.items.forEach((item) => {
+    item.priceWithoutVAT = {
+      amount: item?.quantity * item.unitPrice.amount,
+      currency,
+    };
+    item.priceWithVAT = {
+      amount: item.priceWithoutVAT.amount + (item.priceWithoutVAT.amount * item.VAT) / 100,
+      currency,
+    };
+  });
+
+  invoice.totalWithoutVAT = {
+    amount: invoice.items?.map((m) => m.priceWithoutVAT.amount).reduce((acc, x) => acc + x),
+    currency,
+  };
+
+  invoice.totalWithVAT = {
+    amount: invoice.items?.map((m) => m.priceWithVAT.amount).reduce((acc, x) => acc + x),
+    currency,
+  };
+  invoice.VAT = {
+    amount: invoice.totalWithVAT.amount - invoice.totalWithoutVAT.amount,
+    currency,
+  };
+};
+
+const generateInvoice = async (invoice: IInvoiceCore, name: string, assetsFolder: string, pathToSave: string): Promise<any> => {
   let doc = new PDFDocument({ margin: 40 });
   doc.pipe(fs.createWriteStream(path.join(pathToSave, name)));
-  doc.registerFont('Regular', path.join(assetsFolder, 'fonts/Roboto-Regular.ttf')).registerFont('Bold', path.join(assetsFolder, 'fonts/Roboto-Bold.ttf'));
-  doc.font('Regular');
+  doc.registerFont(fontRegular, path.join(assetsFolder, 'fonts/Roboto-Regular.ttf')).registerFont(fontBold, path.join(assetsFolder, 'fonts/Roboto-Bold.ttf'));
+  doc.font(fontRegular);
 
   generateHeader(doc, invoice);
   generateSupplierInformation(doc, invoice);
   generateCustomerInformation(doc, invoice);
+  generateInvoiceData(doc, invoice);
   generateInvoiceTable(doc, invoice);
   generateFooter(doc, invoice);
 
@@ -131,29 +152,31 @@ const buildInvoice = async (invoice: IInvoice, name: string, assetsFolder: strin
 };
 
 //HEADER
-const generateHeader = (doc: PDFKit.PDFDocument, invoice: IInvoice): void => {
+const generateHeader = (doc: PDFKit.PDFDocument, invoice: IInvoiceCore): void => {
   doc
     .image(invoice.logoUrl, 40, 25, { width: 45 })
-    .font('Bold')
-    .text(`FAKTÚRA č. ${invoice.invoiceNumber}`, 400, 25)
-    .font('Regular')
-    .fontSize(10)
-    .text(`Stav faktúry: ${getInvoiceStatusTranslation(invoice.status)}`)
-    .text(`Dátum vystavenia faktúry: ${moment().format('D.M. YYYY')}`)
-    .text(`Dátum splatnosti faktúry: ${moment().format('D.M. YYYY')}`)
+    .font(fontBold)
+    .text(`FAKTÚRA č. ${invoice.invoiceNumber}`, 400, 25, { align: 'right' })
+    .font(fontRegular)
+    .fontSize(fontRegularSize)
+    .moveDown()
+    .text(`Objednávka č. ${invoice.orderNumber}`, 400, null, { align: 'right' })
     .moveDown();
 };
 
 // SUPPLIER
-const generateSupplierInformation = (doc: PDFKit.PDFDocument, invoice: IInvoice) => {
+const generateSupplierInformation = (doc: PDFKit.PDFDocument, invoice: IInvoiceCore) => {
   const xPos = 40;
   const yPos = 90;
   const { country, postalCode, city, street, streetNumber } = invoice.supplier.address;
 
   doc
-    .fontSize(15)
-    .text(invoice.supplier.name, xPos, yPos)
-    .fontSize(10)
+    .font(fontBold)
+    .text('Dodávateľ', xPos, yPos, { underline: true })
+    .fontSize(fontLargeSize)
+    .font(fontRegular)
+    .text(invoice.supplier.name)
+    .fontSize(fontRegularSize)
     .text(`${street} ${streetNumber}`)
     .text(`${postalCode} ${city}`)
     .text(`${country}`)
@@ -161,49 +184,82 @@ const generateSupplierInformation = (doc: PDFKit.PDFDocument, invoice: IInvoice)
 
   const { x, y } = doc;
   doc.text(`IČO:`).text(`DIČ:`).text(`Platca DPH:`).moveDown().text(`IBAN:`).text(`SWIFT:`).text(`Banka:`);
-  // .moveTo(x + 100, yPos + 100);
   doc
+    .font(fontBold)
     .text(invoice.supplier.businessId, x + 60, y)
     .text(invoice.supplier.registrationNumberVAT || '-')
     .text(`${invoice.supplier.registeredVAT ? 'áno' : 'nie'}`)
     .moveDown()
+
+    .font(fontRegular)
     .text(`${invoice.supplier.IBAN || '-'}`)
     .text(`${invoice.supplier.SWIFT || '-'}`)
     .text(`${invoice.supplier.bankName || '-'}`);
 };
 
 // CUSTOMER
-const generateCustomerInformation = (doc: PDFKit.PDFDocument, invoice: IInvoice) => {
-  const xPos = 400;
+const generateCustomerInformation = (doc: PDFKit.PDFDocument, invoice: IInvoiceCore) => {
+  const xPos = 350;
   const yPos = 90;
   const { country, postalCode, city, street, streetNumber } = invoice.customer.address;
 
   doc
-    .fontSize(15)
-    .text(invoice.customer.name, xPos, yPos)
-    .fontSize(10)
+    .font(fontBold)
+    .text('Odberateľ', xPos, yPos, { underline: true })
+    .fontSize(fontLargeSize)
+    .font(fontRegular)
+    .text(invoice.customer.name)
+    .fontSize(fontRegularSize)
     .text(`${street} ${streetNumber}`)
     .text(`${postalCode} ${city}`)
     .text(`${country}`)
-    .moveDown()
-    .text(`IČO: ${invoice.customer.businessId}`)
-    .text(`DIČ: ${invoice.customer.registrationNumberVAT || ''}`)
-    .text(`Platca DPH: ${invoice.customer.registeredVAT ? 'áno' : ''}`)
-    .moveDown()
-    .text(`IBAN: ${invoice.customer.IBAN}`)
-    .text(`SWIFT: ${invoice.customer.SWIFT}`)
-    .text(`Banka: ${invoice.customer.bankName}`)
+    .moveDown();
+
+  const { x, y } = doc;
+  doc.text(`IČO:`).text(`DIČ:`).text(`Platca DPH:`);
+  doc
+    .font(fontBold)
+    .text(invoice.customer.businessId, x + 60, y)
+    .text(invoice.customer.registrationNumberVAT || '-')
+    .text(`${invoice.customer.registeredVAT ? 'áno' : 'nie'}`)
+    .font(fontRegular)
     .moveDown();
 };
 
+// INVOCIE DATA
+const generateInvoiceData = (doc: PDFKit.PDFDocument, invoice: IInvoiceCore) => {
+  const xPos = 350;
+  const yPos = 230;
+
+  doc
+    .text(`Stav faktúry:`, xPos, yPos)
+    .text(`Dátum vystavenia faktúry:`)
+    .font(fontBold)
+    .text(`Dátum splatnosti faktúry:`)
+    .font(fontRegular)
+    .text(`Forma úhrady:`)
+    .text(`Variabilný symbol:`)
+    .text(`Konštantný symbol:`);
+
+  doc
+    .text(`${getInvoiceStatusTranslation(invoice.status)}`, xPos + 130, yPos)
+    .text(`${moment(invoice.issueDate).format('DD. MM. YYYY')}`)
+    .font(fontBold)
+    .text(`${moment(invoice.dueDate).format('DD. MM. YYYY')}`)
+    .font(fontRegular)
+    .text(`${getInvoicePayMethodTranslation(invoice.paymentType)}`)
+    .text(`${invoice.variableSymbol}`)
+    .text(`${invoice.constantSymbol}`);
+};
+
 // ITEMS
-function generateInvoiceTable(doc: PDFKit.PDFDocument, invoice: IInvoice) {
+function generateInvoiceTable(doc: PDFKit.PDFDocument, invoice: IInvoiceCore) {
   let i,
-    invoiceTableTop = 280;
+    invoiceTableTop = 330;
   generateTableHeader(doc, invoiceTableTop);
   for (i = 0; i < invoice.items.length; i++) {
     const item = invoice.items[i];
-    const position = invoiceTableTop + (i + 1) * 20;
+    const position = invoiceTableTop + (i + 1) * 18;
     generateTableRow(doc, item, position);
   }
   generateTableSummary(doc, invoice);
@@ -211,7 +267,7 @@ function generateInvoiceTable(doc: PDFKit.PDFDocument, invoice: IInvoice) {
 
 const generateTableHeader = (doc: PDFKit.PDFDocument, pos: number) => {
   doc
-    .font('Bold')
+    .font(fontBold)
     .text('Nazov', 40, pos, { width: 200 })
     .text('Množstvo', 210, pos)
     .text('MJ', 270, pos)
@@ -223,18 +279,7 @@ const generateTableHeader = (doc: PDFKit.PDFDocument, pos: number) => {
     .lineTo(doc.page.width - 40, pos + 15)
     .stroke('#bdbdbd')
     .fillColor('#444444')
-    .font('Regular');
-};
-const generateTableSummary = (doc: PDFKit.PDFDocument, invoice: IInvoice) => {
-  const posY = doc.y + 10;
-  doc
-    .moveDown()
-    .font('Bold')
-    .text('Spolu:', 300, posY)
-    .text(`${invoice.totalWithoutVAT?.amount.toFixed(2)}`, doc.page.width - 240, posY)
-    .text(`${invoice.VAT?.amount.toFixed(2)}`, doc.page.width - 145, posY)
-    .text(`${invoice.totalWithVAT?.amount.toFixed(2)}`, doc.page.width - 140, posY, { align: 'right' })
-    .font('Regular');
+    .font(fontRegular);
 };
 
 const generateTableRow = (doc: PDFKit.PDFDocument, item: IInvoiceItem, pos: number) => {
@@ -245,16 +290,40 @@ const generateTableRow = (doc: PDFKit.PDFDocument, item: IInvoiceItem, pos: numb
     .text(item.unitPrice.amount.toFixed(2), 300, pos)
     .text(`${item.priceWithoutVAT.amount.toFixed(2)}`, doc.page.width - 240, pos)
     .text(`${item.VAT}%`, doc.page.width - 145, pos)
-    .text(`${item.priceWithoutVAT.amount + (item.priceWithoutVAT.amount * item.VAT) / 100}`, doc.page.width - 140, pos, { align: 'right' });
+    .text(`${item.priceWithVAT.amount.toFixed(2)}`, doc.page.width - 140, pos, { align: 'right' });
+};
+
+const generateTableSummary = (doc: PDFKit.PDFDocument, invoice: IInvoiceCore) => {
+  const posY = doc.y + 15;
+  doc
+    .moveDown()
+    .moveTo(40, doc.y)
+    .lineTo(doc.page.width - 40, doc.y)
+    .stroke('#bdbdbd')
+    .fillColor('#444444')
+    .font(fontBold)
+    .text('Spolu:', 300, posY)
+    .text(`${invoice.totalWithoutVAT?.amount.toFixed(2)}`, doc.page.width - 240, posY)
+    .text(`${invoice.VAT?.amount.toFixed(2)}`, doc.page.width - 145, posY)
+    .text(`${invoice.totalWithVAT?.amount.toFixed(2)}`, doc.page.width - 140, posY, { align: 'right' })
+    .font(fontRegular);
+
+  doc
+    .text(`Celková fakturovaná suma k úhrade [${invoice.currency}]:`, 300, posY + 50)
+    .font(fontBold)
+    .fontSize(fontLargeSize)
+    .text(`${invoice.totalWithVAT.amount.toFixed(2)}`, 300, posY + 50, { align: 'right' })
+    .font(fontRegular)
+    .fontSize(fontRegularSize);
 };
 
 // FOOTER
-const generateFooter = (doc: PDFKit.PDFDocument, invoice: IInvoice): void => {
+const generateFooter = (doc: PDFKit.PDFDocument, invoice: IInvoiceCore): void => {
   doc
     .text(`Vyhotovil: ${invoice.createdBy || ''}`, 40, doc.page.height - 120, { align: 'left' })
     .text(`Prevzal: `, 240, doc.page.height - 120, { align: 'left' })
-    .text('Poznamka:', 40, doc.page.height - 70, { align: 'left', width: 500 })
-    .fontSize(8)
+    .text('Poznamka:', 40, doc.page.height - 85, { align: 'left', width: 500 })
+    .fontSize(fontSmallSize)
     .text(invoice.note, null, null, { align: 'left', width: 500 });
 };
 
@@ -269,6 +338,15 @@ const getInvoiceStatusTranslation = (status: InvoiceStatus): string => {
     case InvoiceStatus.OLD_VERSION:
       return 'Stará verzia';
 
+    default:
+      break;
+  }
+};
+
+const getInvoicePayMethodTranslation = (type: InvoicePaymentType): string => {
+  switch (type) {
+    case InvoicePaymentType.BANK_TRANSFER:
+      return 'Bankový prevod';
     default:
       break;
   }

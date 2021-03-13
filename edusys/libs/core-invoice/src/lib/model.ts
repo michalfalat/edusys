@@ -1,25 +1,27 @@
-import { IAddress, IAmount, IOrganizationResponse } from '@edusys/model';
+import { IAddress, IAmount } from '@edusys/model';
 
-export interface IInvoice {
+export interface IInvoiceCore {
   id: string;
   invoiceNumber: string;
+  orderNumber: string;
   variableSymbol: string;
   constantSymbol: string;
+  issueDate: Date;
+  dueDate: Date;
+  paymentType: InvoicePaymentType;
   logoUrl?: string;
   supplier: IInvoiceSupplier;
   customer: IInvoiceCustomer;
-  organization: IOrganizationResponse;
   status: InvoiceStatus;
-  invoiceHistory?: IInvoice[];
-  subTotal: IAmount;
   discount?: IAmount;
-  VATRate: number;
   VAT?: IAmount;
-  totalWithoutVAT: IAmount;
-  totalWithVAT: IAmount;
+  totalWithoutVAT?: IAmount;
+  totalWithVAT?: IAmount;
   note?: string;
   createdBy?: string;
+  createdOn?: Date;
   items: IInvoiceItem[];
+  currency: string;
 }
 
 export interface IInvoiceSupplier {
@@ -45,9 +47,6 @@ export interface IInvoiceCustomer {
   taxId?: string;
   registeredVAT: boolean;
   registrationNumberVAT?: string;
-  IBAN?: string;
-  SWIFT?: string;
-  bankName?: string;
 }
 
 export interface IInvoiceItem {
@@ -56,8 +55,9 @@ export interface IInvoiceItem {
   unitPrice: IAmount;
   quantity: number;
   measurementUnit: InvoiceMeasurementUnit;
-  priceWithoutVAT: IAmount;
+  priceWithoutVAT?: IAmount;
   VAT: number;
+  priceWithVAT?: IAmount;
 }
 
 export enum InvoiceMeasurementUnit {
@@ -70,4 +70,8 @@ export enum InvoiceStatus {
   UNPAID = 'UNPAID',
   OLD_VERSION = 'OLD_VERSION',
   CANCELED = 'CANCELED',
+}
+
+export enum InvoicePaymentType {
+  BANK_TRANSFER = 'BANK_TRANSFER',
 }

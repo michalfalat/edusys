@@ -1,33 +1,21 @@
-import { OrganizationRoleStatus } from '@edusys/model';
-import { InvoiceStatus } from '@edusys/core-invoice';
+import { IInvoiceCore } from '@edusys/core-invoice';
 import { Schema, model, Document } from 'mongoose';
 import { IOrganization } from './organization.model';
 import { IUser } from './user.model';
 
-export interface IOrganizationRole {
+export interface IInvoice {
   _id?: any;
-  name: string;
-  description?: string;
   editable: boolean;
   organization?: IOrganization['_id'];
   createdBy: IUser['_id'];
   editedBy: IUser['_id'];
-  status: InvoiceStatus;
+  invoice: IInvoiceCore;
 }
 
-export interface IOrganizationRoleDocument extends IOrganizationRole, Document {}
+export interface IInvoiceDocument extends IInvoice, Document {}
 
-const organizationRoleSchema = new Schema<IOrganizationRoleDocument>(
+const invoiceSchema = new Schema<IInvoiceDocument>(
   {
-    name: {
-      type: String,
-      required: true,
-      max: 255,
-    },
-    description: {
-      type: String,
-      max: 512,
-    },
     editable: {
       type: Boolean,
       required: true,
@@ -48,27 +36,15 @@ const organizationRoleSchema = new Schema<IOrganizationRoleDocument>(
       required: true,
       ref: 'user',
     },
-    status: {
-      type: String,
-      default: OrganizationRoleStatus.ACTIVE,
+    invoice: {
+      type: Schema.Types.Mixed,
+      required: true,
     },
-    permissions: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
-    users: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-      },
-    ],
   },
   {
     timestamps: true,
   }
 );
 
-const OrganizationRoleModel = model<IOrganizationRoleDocument>('organizationRole', organizationRoleSchema);
-export default OrganizationRoleModel;
+const InvoiceModel = model<IInvoiceDocument>('invoice', invoiceSchema);
+export default InvoiceModel;
