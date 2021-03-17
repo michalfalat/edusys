@@ -17,26 +17,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="navigateToModuleDetail(row.id)"></tr>
   </table>
-  <h3>{{ 'general.home' | translate }}</h3>
 </mat-card>
 
 <div *ngIf="moduleList?.length === 0">
-  <ui-empty-list (onAdd)="navigateToPackageCreate()"></ui-empty-list>
+  <ui-empty-list (onAdd)="navigateToModuleCreate()"></ui-empty-list>
 </div>
-
-<!-- MAT H
-<h1 class="mat-h1">Jackdaws love my big sphinx of quartz.</h1>
-<h2 class="mat-h2">The quick brown fox jumps over the lazy dog.</h2>
-<h3 class="mat-h3">Jackdaws love my big sphinx of quartz.</h3>
-<h4 class="mat-h4">Jackdaws love my big sphinx of quartz.</h4>
-
-MAT DISPLAY H :
-<h1 class="mat-display-h1">Jackdaws love my big sphinx of quartz.</h1>
-<h2 class="mat-display-h2">The quick brown fox jumps over the lazy dog.</h2>
-<h3 class="mat-display-h3">Jackdaws love my big sphinx of quartz.</h3>
-<h4 class="mat-display-h4">Jackdaws love my big sphinx of quartz.</h4>
-
-<p class="mat-body">The quick brown fox jumps over the lazy dog.</p>
-<p class="mat-body-2">The quick brown fox jumps over the lazy dog.</p>
-<p class="mat-small">The quick brown fox jumps over the lazy dog.</p>
-<p class="mat-caption">The quick brown fox jumps over the lazy dog.</p> -->

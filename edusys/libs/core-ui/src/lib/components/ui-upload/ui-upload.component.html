@@ -1,0 +1,7 @@
+<ng-container [formGroup]="controlContainer.control">
+  <div class="column center" (click)="fileInput.click()">
+    <mat-icon>upload</mat-icon>
+    <h3>Upload your files by clicking here</h3>
+  </div>
+  <input #fileInput type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx" [style.visibility]="'hidden'" />
+</ng-container>

@@ -3,6 +3,7 @@ import { IOrganizationRoleResponse } from './organization-role.dto';
 export interface IJWTUserData {
   id: string;
   name: string;
+  organizationId?: string;
   permissions: string[];
   iat?: number;
 }

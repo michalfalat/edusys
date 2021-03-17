@@ -11,7 +11,7 @@ export const sendTestEmail = async (to: string): Promise<void> => {
       name: 'random user name',
     },
     to,
-    lang: getCurrentLanguage() || 'sk',
+    lang: 'sk',
     attachments: [
       {
         path: path.join(__assetsdir, 'images/logo.png'),

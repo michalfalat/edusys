@@ -15,6 +15,7 @@ import { UiBreadcrumbComponent } from './components/ui-breadcrumb/ui-breadcrumb.
 import { UiAddressComponent } from './components/ui-address/ui-address.component';
 import { UiFormErrorComponent } from './components/ui-form-error/ui-form-error.component';
 import { UiBankDetailComponent } from './components/ui-bank-detail/ui-bank-detail.component';
+import { UiUploadComponent } from './components/ui-upload/ui-upload.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { UiBankDetailComponent } from './components/ui-bank-detail/ui-bank-detai
     UiEmptyListComponent,
     UiBreadcrumbComponent,
     UiAddressComponent,
+    UiUploadComponent,
     UiBankDetailComponent,
     CoreTranslateModule,
     UiFormErrorComponent,
@@ -45,6 +47,7 @@ import { UiBankDetailComponent } from './components/ui-bank-detail/ui-bank-detai
     UiBreadcrumbComponent,
     UiBreadcrumbComponent,
     UiAddressComponent,
+    UiUploadComponent,
     UiFormErrorComponent,
     UiBankDetailComponent,
   ],

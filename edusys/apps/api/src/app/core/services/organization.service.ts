@@ -56,7 +56,10 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
   }
 
   try {
-    const ownerUser = await UserModel.findByEmail(payload.owner.email); //  await register(payload.owner);
+    const ownerUser = await UserModel.findByEmail(payload.owner.email);
+    if (!ownerUser) {
+      await register(payload.owner);
+    }
     if (!!ownerUser) {
       sendOrganizationCreateEmail(ownerUser?.email, {
         loginUrl: `${process.env.APP_URL}/login`,

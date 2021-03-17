@@ -9,6 +9,12 @@ export const routes = {
     detail: '/module/detail/{0}',
     edit: '/module/edit/{0}',
   },
+  task: {
+    home: '/task',
+    create: '/task/create',
+    detail: '/task/detail/{0}',
+    edit: '/task/edit/{0}',
+  },
   package: {
     home: '/package',
     create: '/package/create',

@@ -30,6 +30,12 @@ const routes: Routes = [
         data: { moduleName: PERMISSION.ORGANIZATION.BASIC },
       },
       {
+        path: 'task',
+        loadChildren: () => import('../task/task.module').then((m) => m.TaskModule),
+        canActivate: [PermissionGuard],
+        data: { moduleName: PERMISSION.TASK.BASIC },
+      },
+      {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then((m) => m.ProfileModule),
       },

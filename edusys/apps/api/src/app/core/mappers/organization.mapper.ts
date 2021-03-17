@@ -13,10 +13,19 @@ export const organizationDetailMapper = (organization: IOrganization): IOrganiza
   registrationNumberVAT: organization.registrationNumberVAT,
   taxId: organization.taxId,
   users: userListMappper(organization.users),
-  owner: userDetailMappper(organization.owner),
-  activeSubscription: subscriptionDetailMapper(organization.subscriptions.find((s) => s.isActive)),
-  subscriptions: organization.subscriptions.map((s) => subscriptionDetailMapper(s)),
+  owner: !!organization.owner ? userDetailMappper(organization.owner) : null,
+  activeSubscription: !!organization.subscriptions ? subscriptionDetailMapper(organization.subscriptions.find((s) => s.isActive)) : null,
+  subscriptions: organization.subscriptions?.map((s) => subscriptionDetailMapper(s)),
   roles: organization.organizationRoles,
+});
+
+export const organizationBasicMapper = (organization: IOrganization): IOrganizationResponse => ({
+  id: organization._id,
+  name: organization.name,
+  status: organization.status,
+  owner: !!organization.owner ? userDetailMappper(organization.owner) : null,
+  userCount: organization.users?.length,
+  activeSubscription: !!organization.subscriptions ? subscriptionDetailMapper(organization.subscriptions?.find((s) => s.isActive)) : null,
 });
 
 export const organizationListMapper = (organizations: IOrganization[]): IOrganizationResponse[] =>
@@ -26,5 +35,5 @@ export const organizationListMapper = (organizations: IOrganization[]): IOrganiz
     status: organization.status,
     owner: organization.owner,
     userCount: organization.users?.length,
-    activeSubscription: subscriptionMapper(organization.subscriptions.find((s) => s.isActive)),
+    activeSubscription: !!organization.subscriptions ? subscriptionMapper(organization.subscriptions.find((s) => s.isActive)) : null,
   }));
