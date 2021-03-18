@@ -115,7 +115,6 @@ export class ModuleEffects {
       mergeMap(({ moduleId, onSucceeded, onError }) =>
         this.moduleService.deleteModule(moduleId).pipe(
           map(() => {
-            console.log(' i am sad');
             if (!!onSucceeded) {
               onSucceeded();
             }

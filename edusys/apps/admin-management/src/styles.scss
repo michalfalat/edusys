@@ -69,6 +69,10 @@ div.row {
 div.column {
   display: flex;
   flex-direction: column;
+
+  &.center {
+    align-items: center;
+  }
 }
 
 mat-card.basic-card {

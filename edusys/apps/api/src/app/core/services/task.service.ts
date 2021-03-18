@@ -34,7 +34,7 @@ export const createTask = async (payload: ITaskCreateRequest): Promise<ITaskDeta
     name: payload.name,
     description: payload.description,
     place: payload.place,
-    photos: payload.photos,
+    attachments: payload.attachments,
     type: payload.type,
     priority: payload.priority,
     organization: payload.organizationId || getCurrentUser()?.organizationId,

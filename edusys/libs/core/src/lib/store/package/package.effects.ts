@@ -115,7 +115,6 @@ export class PackageEffects {
       mergeMap(({ packageId, onSucceeded, onError }) =>
         this.packageService.deletePackage(packageId).pipe(
           map(() => {
-            console.log(' i am sad');
             if (!!onSucceeded) {
               onSucceeded();
             }

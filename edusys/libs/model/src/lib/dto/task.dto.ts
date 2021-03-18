@@ -25,7 +25,7 @@ export interface ITaskCreateRequest {
   description?: string;
   place: string;
   organizationId?: string;
-  photos?: any[];
+  attachments?: any[];
   type: TaskType;
   priority: TaskPriority;
 }
@@ -48,7 +48,7 @@ export interface ITaskDetailResponse {
   name: string;
   description?: string;
   place: string;
-  photos?: any[];
+  attachments?: any[];
   type: TaskType;
   priority: TaskPriority;
   organization?: IOrganizationResponse;
@@ -66,7 +66,7 @@ export interface ITaskEditRequest {
   name: string;
   description?: string;
   place: string;
-  photos?: any[];
+  attachments?: any[];
   type: TaskType;
   priority: TaskPriority;
   organizationId?: string;

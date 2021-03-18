@@ -1,7 +1,16 @@
-<ng-container [formGroup]="controlContainer.control">
-  <div class="column center" (click)="fileInput.click()">
-    <mat-icon>upload</mat-icon>
-    <h3>Upload your files by clicking here</h3>
-  </div>
-  <input #fileInput type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx" [style.visibility]="'hidden'" />
-</ng-container>
+<div class="upload-container" (click)="fileInput.click()">
+  <mat-icon>upload</mat-icon>
+  <h2 class="mat-h2">{{ 'upload.click-here' | translate }}</h2>
+</div>
+<ui-divider [compact]="true"></ui-divider>
+<div class="attachments">
+  <ng-container *ngFor="let attachment of attachments">
+    <div class="attachment" (click)="onAttachmentClick(attachment)">
+      <img [src]="attachment.url" />
+      <ui-divider [compact]="true"></ui-divider>
+      <p>{{ attachment.name }}</p>
+    </div>
+    <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+  </ng-container>
+</div>
+<input #fileInput type="file" (change)="fileChange($event)" placeholder="Upload file" [accept]="accept" [style.visibility]="'hidden'" />

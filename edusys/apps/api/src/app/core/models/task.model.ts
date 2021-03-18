@@ -8,7 +8,7 @@ export interface ITask {
   name: string;
   description?: string;
   place: string;
-  photos?: any[];
+  attachments?: any[];
   type: TaskType;
   priority: TaskPriority;
   organization?: IOrganization['_id'];
@@ -38,7 +38,7 @@ const taskSchema = new Schema<ITaskDocument>(
       type: String,
       max: 512,
     },
-    photos: [
+    attachments: [
       {
         type: String,
       },

@@ -163,7 +163,6 @@ export class OrganizationEffects {
       mergeMap(({ organizationId, onSucceeded, onError }) =>
         this.organizationService.deleteOrganization(organizationId).pipe(
           map(() => {
-            console.log(' i am sad');
             if (!!onSucceeded) {
               onSucceeded();
             }

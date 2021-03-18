@@ -163,7 +163,6 @@ export class TaskEffects {
       mergeMap(({ taskId, onSucceeded, onError }) =>
         this.taskService.deleteTask(taskId).pipe(
           map(() => {
-            console.log(' i am sad');
             if (!!onSucceeded) {
               onSucceeded();
             }

@@ -14,12 +14,14 @@
       <mat-form-field>
         <mat-label>{{ 'task.name' | translate }}</mat-label>
         <input matInput formControlName="name" name="name" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'task.description' | translate }}</mat-label>
         <textarea matInput formControlName="description" name="description"></textarea>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'description'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
 
@@ -27,11 +29,8 @@
       <mat-form-field>
         <mat-label>{{ 'task.place' | translate }}</mat-label>
         <input matInput formControlName="place" name="place" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'place'"></ui-form-error></mat-error>
       </mat-form-field>
-    </div>
-
-    <div class="row">
-      <ui-upload></ui-upload>
     </div>
 
     <div class="row between">
@@ -50,6 +49,7 @@
             {{ taskPriorities.ULTRA_HIGH }}
           </mat-option>
         </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'priority'"></ui-form-error></mat-error>
       </mat-form-field>
       <mat-form-field [style.width]="'45%'">
         <mat-select formControlName="type" [placeholder]="'task.type' | translate">
@@ -60,7 +60,16 @@
             {{ taskTypes.OTHER }}
           </mat-option>
         </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'type'"></ui-form-error></mat-error>
       </mat-form-field>
+    </div>
+
+    <div class="column">
+      <ui-divider></ui-divider>
+      <h4 class="mat-h4">{{ 'task.attachments' | translate }}</h4>
+
+      <ui-divider [compact]="true"></ui-divider>
+      <ui-upload (onUploadFinish)="addAttachment($event)" [attachments]="form.value.attachments"></ui-upload>
     </div>
 
     <div class="row center">

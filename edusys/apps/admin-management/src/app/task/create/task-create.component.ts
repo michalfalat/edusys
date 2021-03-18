@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { createTaskSchema, ITaskCreateRequest, TaskPriority, TaskType } from '@edusys/model';
+import { FormArray, FormControl, Validators } from '@angular/forms';
+import { createTaskSchema, IFileDetailResponse, ITaskCreateRequest, TaskPriority, TaskType } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { TaskBaseContainer } from '../task-base.container';
 
@@ -28,12 +28,22 @@ export class TaskCreateComponent extends TaskBaseContainer implements OnInit {
         description: new FormControl(''),
         place: new FormControl(''),
         organizationId: new FormControl(''),
-        photos: new FormControl(''),
+        attachments: this.fb.array([]),
         type: new FormControl(TaskType.IT),
         priority: new FormControl(TaskPriority.MEDIUM),
       },
       createTaskSchema
     );
+  }
+
+  addAttachment(file: IFileDetailResponse): void {
+    const control = <FormArray>this.form.get('attachments');
+    control.push(this.fb.group(file));
+  }
+
+  removeAttachment(index: number): void {
+    let control = <FormArray>this.form.get('attachments');
+    control.removeAt(index);
   }
 
   ngOnInit(): void {
@@ -46,7 +56,7 @@ export class TaskCreateComponent extends TaskBaseContainer implements OnInit {
       description: this.form?.value.description,
       place: this.form?.value.place,
       organizationId: this.form?.value.organizationId,
-      photos: this.form?.value.photos,
+      attachments: this.form?.value.attachments,
       type: this.form?.value.type,
       priority: this.form?.value.priority,
     };

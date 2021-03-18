@@ -8,7 +8,7 @@ export const taskDetailMapper = (data: ITask): ITaskDetailResponse => ({
   name: data.name,
   description: data.description,
   place: data.place,
-  photos: data.photos,
+  attachments: data.attachments,
   type: data.type,
   priority: data.priority,
   organization: !!data.organization ? organizationBasicMapper(data.organization) : null,

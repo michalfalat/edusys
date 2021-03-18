@@ -190,6 +190,7 @@
             "tsConfig": "apps/api/tsconfig.app.json",
             "assets": [
               "apps/api/src/assets",
+              "apps/api/src/uploads",
               {
                 "glob": "**/*",
                 "input": "libs/email-sender/src/assets/",
