@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{ data.attachments[0]?.name }}</h1>
+<div mat-dialog-content>
+  <img class="image-preview" [src]="data.attachments[0]?.url" />
+</div>
+<div mat-dialog-actions>
+  <div class="row between flex-1">
+    <button mat-button>{{ 'general.delete' | translate }}</button>
+    <button mat-button cdkFocusInitial (click)="onNoClick()">{{ 'general.close' | translate }}</button>
+  </div>
+</div>
