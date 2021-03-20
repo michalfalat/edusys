@@ -5,13 +5,13 @@ import { MatTableModule } from '@angular/material/table';
 import { OrganizationRoutingModule } from './organization-routing.module';
 import { OrganizationHomeComponent } from './home/organization-home.component';
 import { OrganizationDetailComponent } from './detail/organization-detail.component';
-import { OrganizationEditComponent } from './edit/organization-edit.component';
 import { OrganizationCreateComponent } from './create/organization-create.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SharedModule } from '../shared.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
-  declarations: [OrganizationHomeComponent, OrganizationDetailComponent, OrganizationEditComponent, OrganizationCreateComponent],
-  imports: [CommonModule, OrganizationRoutingModule, SharedModule, MatTableModule, MatStepperModule],
+  declarations: [OrganizationHomeComponent, OrganizationDetailComponent, OrganizationCreateComponent],
+  imports: [CommonModule, OrganizationRoutingModule, SharedModule, MatTableModule, MatStepperModule, MatTabsModule],
 })
 export class OrganizationModule {}

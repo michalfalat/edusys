@@ -1,22 +1,125 @@
-<mat-card class="basic-card">
-  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
-  <ui-divider></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'organization.name' | translate }}</p>
-    <h4 class="mat-display-h4">{{ organizationDetail?.name }}</h4>
-  </div>
-  <ui-divider [compact]="true"></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'organization.description' | translate }}</p>
-    <h4 class="mat-display-h4">{{ organizationDetail?.description }}</h4>
-  </div>
+<mat-card class="basic-card large">
+  <div class="column" [style.minHeight]="'32rem'">
+    <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
 
-  <ui-divider></ui-divider>
+    <ui-divider [compact]="true"></ui-divider>
+    <form [formGroup]="form">
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab [label]="'organization.basic' | translate">
+          <ui-divider></ui-divider>
+          <div formGroupName="info">
+            <div class="row">
+              <mat-form-field>
+                <mat-label>{{ 'organization.name' | translate }}</mat-label>
+                <input matInput formControlName="name" name="name" [placeholder]="'organization.name.hint' | translate" [readonly]="!isEditMode" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.name'"></ui-form-error></mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>{{ 'organization.description' | translate }}</mat-label>
+                <input matInput formControlName="description" name="description" [readonly]="!isEditMode" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.description'"></ui-form-error></mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>{{ 'organization.businessId' | translate }}</mat-label>
+                <input matInput formControlName="businessId" name="businessId" [readonly]="!isEditMode" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.businessId'"></ui-form-error></mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>{{ 'organization.registrationNumberVAT' | translate }}</mat-label>
+                <input matInput formControlName="registrationNumberVAT" name="registrationNumberVAT" [readonly]="!isEditMode" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.registrationNumberVAT'"></ui-form-error></mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>{{ 'organization.taxId' | translate }}</mat-label>
+                <input matInput formControlName="taxId" name="taxId" autocomplete="new-data" [readonly]="!isEditMode" />
+                <mat-error><ui-form-error [formGroup]="form" [name]="'info.taxId'"></ui-form-error></mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab [label]="'organization.address' | translate">
+          <ui-divider></ui-divider>
+          <ui-address formGroupName="address" [readonly]="!isEditMode"></ui-address>
+        </mat-tab>
+        <mat-tab [label]="'organization.permissions' | translate">
+          <ui-divider></ui-divider>
+        </mat-tab>
+        <mat-tab [label]="'organization.users' | translate">
+          <ui-divider></ui-divider>
+        </mat-tab>
+        <!-- <mat-step [stepControl]="form?.controls?.owner">
+          <ng-template matStepLabel>{{ 'organization.create.stepOwner.title' | translate }}</ng-template>
+          <div formGroupName="owner">
+            <div class="column">
+              <div class="row">
+                <mat-form-field>
+                  <mat-label>{{ 'organization.ownerEmail' | translate }}</mat-label>
+                  <input matInput formControlName="email" name="email" />
+                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.email'"></ui-form-error></mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field>
+                  <mat-label>{{ 'organization.ownerPassword' | translate }}</mat-label>
+                  <input matInput formControlName="password" name="password" type="password" />
+                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.password'"></ui-form-error></mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field>
+                  <mat-label>{{ 'organization.ownerName' | translate }}</mat-label>
+                  <input matInput formControlName="name" name="name" />
+                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.name'"></ui-form-error></mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field>
+                  <mat-label>{{ 'organization.ownerSurname' | translate }}</mat-label>
+                  <input matInput formControlName="surname" name="surname" />
+                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.surname'"></ui-form-error></mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-step> -->
+        <!-- <mat-step>
+          <ng-template matStepLabel>{{ 'organization.create.stepPackage.title' | translate }}</ng-template>
+          <mat-form-field>
+            <mat-select formControlName="packageId" [placeholder]="'organization.package' | translate">
+              <mat-option *ngFor="let package of packages" [value]="package?.id">
+                {{ package?.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-step> -->
+        <!-- <mat-step>
+          <ng-template matStepLabel>{{ 'organization.create.stepFinish.title' | translate }}</ng-template>
+          <p>You are now done.</p>
+        </mat-step> -->
+      </mat-tab-group>
+    </form>
 
-  <div class="row between">
-    <button mat-button (click)="deleteOrganization()">{{ 'general.delete.button' | translate }}</button>
-    <button mat-raised-button color="primary" type="submit" (click)="navigateToOrganizationEdit(organizationId)">
-      {{ 'general.edit.button' | translate }}
-    </button>
+    <div class="bottom-content">
+      <div class="row right" *ngIf="isEditMode">
+        <button mat-button (click)="navigateToOrganizationDetail(organizationDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+        <button mat-raised-button color="primary" type="button" (click)="onEditOrganization()" [disabled]="!form.valid">
+          {{ 'general.save.button' | translate }}
+        </button>
+      </div>
+      <div class="row right" *ngIf="!isEditMode">
+        <button mat-raised-button color="primary" type="button" (click)="navigateToOrganizationEdit(organizationDetail?.id)">
+          {{ 'general.edit.button' | translate }}
+        </button>
+      </div>
+    </div>
   </div>
 </mat-card>

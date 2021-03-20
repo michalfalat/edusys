@@ -33,7 +33,7 @@ export const organizationListMapper = (organizations: IOrganization[]): IOrganiz
     id: organization._id,
     name: organization.name,
     status: organization.status,
-    owner: organization.owner,
+    owner: !!organization.owner ? userDetailMappper(organization.owner) : null,
     userCount: organization.users?.length,
     activeSubscription: !!organization.subscriptions ? subscriptionMapper(organization.subscriptions.find((s) => s.isActive)) : null,
   }));

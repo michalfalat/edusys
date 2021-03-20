@@ -44,6 +44,7 @@ export interface IAuthUserInfoResponse {
   id: string;
   name: string;
   surname: string;
+  fullName: string;
   email: string;
   phone: string;
   roles: IOrganizationRoleResponse[];
@@ -55,6 +56,7 @@ export interface IAuthUserBasicResponse {
   id: string;
   name: string;
   surname: string;
+  fullName: string;
   email: string;
   phone: string;
 }

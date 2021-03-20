@@ -4,7 +4,6 @@ import { PermissionGuard } from '@edusys/core';
 import { PERMISSION } from '@edusys/model';
 import { OrganizationCreateComponent } from './create/organization-create.component';
 import { OrganizationDetailComponent } from './detail/organization-detail.component';
-import { OrganizationEditComponent } from './edit/organization-edit.component';
 import { OrganizationHomeComponent } from './home/organization-home.component';
 
 const routes: Routes = [
@@ -18,13 +17,13 @@ const routes: Routes = [
     path: 'detail/:organizationId',
     component: OrganizationDetailComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.ORGANIZATION.DETAIL },
+    data: { moduleName: PERMISSION.ORGANIZATION.DETAIL, isEditMode: false },
   },
   {
     path: 'edit/:organizationId',
-    component: OrganizationEditComponent,
+    component: OrganizationDetailComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.ORGANIZATION.EDIT },
+    data: { moduleName: PERMISSION.ORGANIZATION.EDIT, isEditMode: true },
   },
   {
     path: 'create',
