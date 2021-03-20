@@ -1,10 +1,14 @@
-<div class="upload-container" (click)="fileInput.click()">
+<div class="upload-container" (click)="fileInput.click()" *ngIf="!readonly">
+  <mat-icon>upload</mat-icon>
+  <h2 class="mat-h2">{{ 'upload.click-here' | translate }}</h2>
+</div>
+<div class="upload-container disabled" *ngIf="readonly">
   <mat-icon>upload</mat-icon>
   <h2 class="mat-h2">{{ 'upload.click-here' | translate }}</h2>
 </div>
 <ui-divider [compact]="true"></ui-divider>
 <div class="attachments">
-  <ng-container *ngFor="let attachment of attachments">
+  <ng-container *ngFor="let attachment of attachments; trackBy: trackByFileId">
     <div class="attachment" (click)="onAttachmentClick(attachment)">
       <img [src]="attachment.url" />
       <ui-divider [compact]="true"></ui-divider>

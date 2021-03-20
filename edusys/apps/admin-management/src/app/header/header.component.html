@@ -5,7 +5,8 @@
       <div *ngIf="!!userInfo">
         <button mat-button [matMenuTriggerFor]="menu">{{ userInfo?.email }}</button>
         <mat-menu #menu="matMenu">
-          <button mat-button (click)="onLogout()">{{ 'general.logout' | translate }}</button>
+          <button mat-menu-item (click)="navigateToProfile()">{{ 'general.profile' | translate }}</button>
+          <button mat-menu-item (click)="onLogout()">{{ 'general.logout' | translate }}</button>
         </mat-menu>
       </div>
 

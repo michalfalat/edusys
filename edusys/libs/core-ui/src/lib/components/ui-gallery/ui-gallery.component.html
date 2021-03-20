@@ -4,7 +4,9 @@
 </div>
 <div mat-dialog-actions>
   <div class="row between flex-1">
-    <button mat-button>{{ 'general.delete' | translate }}</button>
-    <button mat-button cdkFocusInitial (click)="onNoClick()">{{ 'general.close' | translate }}</button>
+    <div>
+      <button mat-button *ngIf="data?.canDelete" (click)="onDelete(data.attachments[0])">{{ 'general.delete' | translate }}</button>
+    </div>
+    <button mat-button cdkFocusInitial (click)="onClose()">{{ 'general.close' | translate }}</button>
   </div>
 </div>

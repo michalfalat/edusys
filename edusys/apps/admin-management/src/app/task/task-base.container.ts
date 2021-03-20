@@ -1,14 +1,13 @@
 import { Injector } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonContainer, OrganizationFacade, TaskFacade } from '@edusys/core';
 import { IOrganizationDetailResponse, ITaskDetailResponse, TaskPriority, TaskType } from '@edusys/model';
 import { INavigationItem } from 'libs/core-ui/src/lib/components/ui-breadcrumb/ui-breadcrumb.component';
+import { NotificationService } from '../utils/notification.service';
 import { routes } from '../utils/routes';
 
 export class TaskBaseContainer extends CommonContainer {
   taskFacade: TaskFacade;
   organizationFacade: OrganizationFacade;
-  snackbar: MatSnackBar;
   taskList: ITaskDetailResponse[];
   taskDetail: ITaskDetailResponse;
   taskId: string;
@@ -16,12 +15,13 @@ export class TaskBaseContainer extends CommonContainer {
   taskTypes = TaskType;
   taskPriorities = TaskPriority;
   organizations: IOrganizationDetailResponse[];
+  notificationService: NotificationService;
 
   constructor(injector: Injector) {
     super(injector);
     this.taskFacade = injector.get(TaskFacade);
     this.organizationFacade = injector.get(OrganizationFacade);
-    this.snackbar = injector.get(MatSnackBar);
+    this.notificationService = injector.get(NotificationService);
 
     this.subscriptions.add(this.organizationFacade.getOrganizationList$.subscribe((data) => (this.organizations = data)));
     this.subscriptions.add(this.taskFacade.getTaskList$.subscribe((data) => (this.taskList = data)));
@@ -35,10 +35,10 @@ export class TaskBaseContainer extends CommonContainer {
 
   onError = (message?: string): void => {
     console.log('error :>> ', message);
-    this.snackbar.open(message);
+    this.notificationService.showError(message);
   };
   onSuccess = (message?: string): void => {
-    this.snackbar.open(message);
+    this.notificationService.showSuccess(message);
   };
 
   navigateToTaskHome = (): void => {

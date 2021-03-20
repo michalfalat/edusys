@@ -48,7 +48,7 @@ export class PackageEditComponent extends PackageBaseContainer implements OnInit
   }
 
   fillForm = (pack: IPackageDetailResponse): void => {
-    this.form?.patchValue({ name: pack?.name, description: pack?.description });
+    this.form?.patchValue({ name: pack?.name, description: pack?.description }); //TODO
   };
 
   addAnnumPrice(): void {

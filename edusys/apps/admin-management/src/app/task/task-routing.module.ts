@@ -17,13 +17,13 @@ const routes: Routes = [
     path: 'detail/:taskId',
     component: TaskDetailComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.TASK.DETAIL },
+    data: { moduleName: PERMISSION.TASK.DETAIL, isEditMode: false },
   },
   {
     path: 'edit/:taskId',
     component: TaskDetailComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.TASK.EDIT },
+    data: { moduleName: PERMISSION.TASK.EDIT, isEditMode: true },
   },
   {
     path: 'create',

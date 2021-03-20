@@ -10,6 +10,7 @@ export class PackageHomeComponent extends PackageBaseContainer implements OnInit
   displayedColumns: string[] = ['name', 'description'];
   constructor(injector: Injector) {
     super(injector);
+    this.setTitle('package.home.title');
     this.navigationItems = [
       {
         text: 'navigation.packages',

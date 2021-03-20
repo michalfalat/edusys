@@ -1,4 +1,5 @@
 import { IAuthUserBasicResponse } from './auth.dto';
+import { IFileDetailResponse } from './file.dto';
 import { IOrganizationResponse } from './organization.dto';
 
 export enum TaskStatus {
@@ -25,7 +26,7 @@ export interface ITaskCreateRequest {
   description?: string;
   place: string;
   organizationId?: string;
-  attachments?: any[];
+  attachments?: IFileDetailResponse[];
   type: TaskType;
   priority: TaskPriority;
 }
@@ -46,9 +47,10 @@ export interface ITaskFinishRequest {
 export interface ITaskDetailResponse {
   id: string;
   name: string;
+  createdAt: string;
   description?: string;
   place: string;
-  attachments?: any[];
+  attachments?: IFileDetailResponse[];
   type: TaskType;
   priority: TaskPriority;
   organization?: IOrganizationResponse;
@@ -73,7 +75,7 @@ export interface ITaskEditRequest {
   status: TaskStatus;
   estimatedDescription?: string;
   estimatedFixOn?: Date;
-  createdBy: string;
+  createdBy?: string;
   fixedBy?: string;
   fixedOn?: Date;
   finalDescription?: string;

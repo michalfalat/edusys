@@ -10,6 +10,7 @@ export class OrganizationHomeComponent extends OrganizationBaseContainer impleme
   displayedColumns: string[] = ['name', 'description'];
   constructor(injector: Injector) {
     super(injector);
+    this.setTitle('organziation.home.title');
     this.navigationItems = [
       {
         text: 'navigation.organizations',

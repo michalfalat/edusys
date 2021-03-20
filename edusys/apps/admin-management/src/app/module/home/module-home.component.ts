@@ -10,6 +10,7 @@ export class ModuleHomeComponent extends ModuleBaseContainer implements OnInit {
   displayedColumns: string[] = ['name', 'description'];
   constructor(injector: Injector) {
     super(injector);
+    this.setTitle('module.home.title');
     this.navigationItems = [
       {
         text: 'navigation.modules',

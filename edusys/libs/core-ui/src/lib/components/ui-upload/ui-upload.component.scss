@@ -7,11 +7,15 @@ div.upload-container {
   padding: 1rem;
   border: 1px dashed #dedede;
   border-radius: 0.5rem;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  &.disabled {
+    cursor: unset;
+    color: #cecece;
+  }
 }
 
 div.attachments {
@@ -20,7 +24,7 @@ div.attachments {
 
   img {
     width: 8rem;
-    height: auto;
+    height: 6rem;
     object-fit: contain;
   }
 

@@ -4,7 +4,13 @@ import { IFileDetailResponse } from '@edusys/model';
 
 export interface IGalleryDialogData {
   activeAttachment: any;
+  canDelete: boolean;
   attachments: IFileDetailResponse[];
+}
+
+export interface IDialogCloseResult {
+  action: 'DELETE';
+  data: IFileDetailResponse;
 }
 
 @Component({
@@ -15,8 +21,12 @@ export interface IGalleryDialogData {
 export class UiGalleryComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<UiGalleryComponent>, @Inject(MAT_DIALOG_DATA) public data: IGalleryDialogData) {}
 
-  onNoClick(): void {
+  onClose(): void {
     this.dialogRef.close();
+  }
+
+  onDelete(data: IFileDetailResponse): void {
+    this.dialogRef.close({ action: 'DELETE', data });
   }
 
   ngOnInit(): void {}

@@ -119,3 +119,31 @@ p, h1, h2, h3, h4 {
   margin-bottom: 0;
 }
 
+
+.notification-info {
+  background-color: #2a9e51;
+  color: rgba(255, 255, 255, 0.836)
+}
+
+.notification-info  .mat-simple-snackbar-action  {
+  color: white
+}
+
+.notification-warning {
+  background-color: #e99516;
+  color: white;
+}
+
+.notification-warning  .mat-simple-snackbar-action  {
+  color: white
+}
+
+.notification-error {
+  background-color: #dd4646;
+  color: white;
+}
+
+.notification-error  .mat-simple-snackbar-action  {
+  color: white
+}
+

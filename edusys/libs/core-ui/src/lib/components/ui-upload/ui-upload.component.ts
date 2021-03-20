@@ -19,6 +19,7 @@ export class UiUploadComponent implements OnInit {
   @Input() accept: string = 'image/*';
 
   @Output() onUploadFinish = new EventEmitter<IFileDetailResponse>();
+  @Output() onRemoveFile = new EventEmitter<IFileDetailResponse>();
 
   constructor(public dialog: MatDialog, private overlay: Overlay, public controlContainer: ControlContainer, private fileFacade: FileFacade) {}
 
@@ -32,6 +33,7 @@ export class UiUploadComponent implements OnInit {
       formData.append('type', this.type);
       formData.append('file', file, file.name);
       this.fileFacade.uploadFile(formData, (response: IFileDetailResponse) => {
+        event.srcElement.value = null;
         this.onUploadFinish.emit(response);
       });
     }
@@ -40,12 +42,19 @@ export class UiUploadComponent implements OnInit {
   onAttachmentClick(attachment: IFileDetailResponse): void {
     const dialogRef = this.dialog.open(UiGalleryComponent, {
       scrollStrategy: this.overlay.scrollStrategies.noop(),
-      maxHeight: '80vh', //you can adjust the value as per your view
-      data: { attachments: [attachment] },
+      maxHeight: '70vh',
+      data: { attachments: [attachment], canDelete: !this.readonly },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      if (result?.action === 'DELETE') {
+        this.onRemoveFile.emit(result?.data);
+      }
+      console.log('The dialog was closed', result);
     });
+  }
+
+  trackByFileId(index: number, item: IFileDetailResponse) {
+    return item.id;
   }
 }

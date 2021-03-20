@@ -108,7 +108,7 @@ export abstract class CommonContainer implements OnDestroy {
       if (result.error) {
         console.log(result.error.details);
         const errorObj = result.error.details.reduce((acc, current) => {
-          console.log(current);
+          // console.log(current);
           const key = current.path.join('.');
           acc[key] = current;
           return acc;
@@ -124,7 +124,7 @@ export abstract class CommonContainer implements OnDestroy {
 
         // Return the error object so that we can access
         // the form’s errors via `form.errors`.
-        console.log('errorObj :>> ', errorObj);
+        //  console.log('errorObj :>> ', errorObj);
         return errorObj;
       } else {
         return null;

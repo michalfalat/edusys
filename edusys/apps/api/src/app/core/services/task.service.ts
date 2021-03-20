@@ -16,7 +16,7 @@ export const listOfTasks = async (): Promise<ITaskDetailResponse[]> => {
 
 // DETAIL OF TASK
 export const detailOfTask = async (id: string): Promise<ITaskDetailResponse> => {
-  const detailModel = await TaskModel.findById(id);
+  const detailModel = await TaskModel.findById(id).populate('organization').populate('createdBy').populate('attachments');
   if (!detailModel) {
     throw new NotFound();
   }
@@ -34,7 +34,7 @@ export const createTask = async (payload: ITaskCreateRequest): Promise<ITaskDeta
     name: payload.name,
     description: payload.description,
     place: payload.place,
-    attachments: payload.attachments,
+    attachments: payload.attachments.map((a) => a.id),
     type: payload.type,
     priority: payload.priority,
     organization: payload.organizationId || getCurrentUser()?.organizationId,
@@ -116,7 +116,7 @@ export const editTask = async (payload: ITaskEditRequest): Promise<ITaskDetailRe
   }
   try {
     const id = payload.id;
-    const updatedModel = await TaskModel.findByIdAndUpdate(id, payload, { new: true });
+    const updatedModel = await TaskModel.findByIdAndUpdate(id, { ...payload, attachments: payload.attachments?.map((a) => a.id) }, { new: true });
     return taskDetailMapper(updatedModel);
   } catch (error) {
     throw new BadRequest(error);

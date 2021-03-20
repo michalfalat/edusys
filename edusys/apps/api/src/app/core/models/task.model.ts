@@ -1,5 +1,6 @@
-import { TaskPriority, TaskStatus, TaskType } from '@edusys/model';
+import { fileSchema, TaskPriority, TaskStatus, TaskType } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
+import { IFile } from './file.model';
 import { IOrganization } from './organization.model';
 import { IUser } from './user.model';
 
@@ -8,7 +9,7 @@ export interface ITask {
   name: string;
   description?: string;
   place: string;
-  attachments?: any[];
+  attachments?: IFile['_id'][];
   type: TaskType;
   priority: TaskPriority;
   organization?: IOrganization['_id'];
@@ -19,6 +20,8 @@ export interface ITask {
   fixedBy?: IUser['_id'];
   fixedOn?: Date;
   finalDescription?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ITaskDocument extends ITask, Document {}
@@ -40,7 +43,8 @@ const taskSchema = new Schema<ITaskDocument>(
     },
     attachments: [
       {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'file',
       },
     ],
     type: {
