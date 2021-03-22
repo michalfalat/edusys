@@ -18,7 +18,7 @@ export class TaskCreateComponent extends TaskBaseContainer implements OnInit {
         route: routes.task.home,
       },
       {
-        text: 'Create',
+        text: 'general.new',
       },
     ];
     this.setTitle('task.home.title');

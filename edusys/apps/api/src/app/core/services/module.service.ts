@@ -38,6 +38,7 @@ export const createModule = async (payload: IModuleCreateRequest): Promise<IModu
   const newModel = new ModuleModel({
     name: payload.name,
     description: payload.description,
+    permissions: payload.permissions,
   });
   try {
     const savedModel = await newModel.save();

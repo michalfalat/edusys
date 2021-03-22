@@ -14,6 +14,8 @@ export interface IOrganizationRoleDetailResponse {
   description: string;
   organizationName: string;
   organizationId: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IOrganizationRoleEditRequest {

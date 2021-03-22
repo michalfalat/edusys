@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{ data?.title | translate }}</h1>
+<div mat-dialog-content>
+  <ui-divider [compact]="true"></ui-divider>
+  <p>{{ data?.text }}</p>
+</div>
+<div mat-dialog-actions>
+  <div class="row between flex-1">
+    <button mat-button (click)="onClose()">{{ 'general.cancel.button' | translate }}</button>
+    <ui-divider [vertical]="true"></ui-divider>
+    <button mat-button cdkFocusInitial (click)="onDelete()">{{ 'general.delete' | translate }}</button>
+  </div>
+</div>

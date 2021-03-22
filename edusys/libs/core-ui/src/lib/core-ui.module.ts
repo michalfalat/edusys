@@ -18,6 +18,7 @@ import { UiFormErrorComponent } from './components/ui-form-error/ui-form-error.c
 import { UiBankDetailComponent } from './components/ui-bank-detail/ui-bank-detail.component';
 import { UiUploadComponent } from './components/ui-upload/ui-upload.component';
 import { UiGalleryComponent } from './components/ui-gallery/ui-gallery.component';
+import { UiConfirmModalComponent } from './components/ui-confirm-modal/ui-confirm-modal.component';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { UiGalleryComponent } from './components/ui-gallery/ui-gallery.component
     UiBankDetailComponent,
     CoreTranslateModule,
     UiFormErrorComponent,
+    UiConfirmModalComponent,
   ],
   declarations: [
     UiAmountComponent,
@@ -55,6 +57,7 @@ import { UiGalleryComponent } from './components/ui-gallery/ui-gallery.component
     UiGalleryComponent,
     UiFormErrorComponent,
     UiBankDetailComponent,
+    UiConfirmModalComponent,
   ],
 })
 export class CoreUiModule {}

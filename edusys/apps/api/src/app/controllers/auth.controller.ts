@@ -5,6 +5,7 @@ import { BadRequest } from '../core/utils/errors';
 import * as authService from './../core/services/auth.service';
 import * as emailService from './../core/services/email.service';
 import * as httpContext from 'express-http-context';
+import { EmailType } from '@edusys/email-sender';
 
 // REGISTER
 export const register = async (req: Request, res: Response, next: NextFunction) => {
@@ -46,16 +47,6 @@ export const changePassword = async (req: Request, res: Response, next: NextFunc
   }
 };
 
-// LIST OF USERS
-export const listOfUsers = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const users = await authService.listOfUsers();
-    res.send(users);
-  } catch (err) {
-    next(err);
-  }
-};
-
 // SEED SU
 export const seedSU = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -72,7 +63,8 @@ export const testEmail = async (req: Request, res: Response, next: NextFunction)
     if (!req.query.to) {
       throw new BadRequest("Missing email property 'to' ");
     }
-    await emailService.sendTestEmail(req.query.to as string);
+    await emailService.ssendEmail(EmailType.TEST_EMAIL, req.query.to as string, { name: 'hello' });
+    // await emailService.sendTestEmail(req.query.to as string);
     res.send({ status: 'OK' });
   } catch (err) {
     next(err);

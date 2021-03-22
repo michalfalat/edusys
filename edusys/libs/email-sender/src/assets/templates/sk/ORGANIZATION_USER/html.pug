@@ -1,0 +1,17 @@
+extends ../layout.pug
+
+block content
+  p Vitajte, #{name},
+  p Táto emailová adresa bola zaregistrovaná cez aplikáciu Edusys v organizácii #{organizationName}.
+  p Prosím prihláste sa kliknutím na nasledujúci odkaz:
+
+  button
+    a.small(href='#{loginUrl}') Prihlásenie
+  br
+  p.small Ak sa vám odkaz nezobrazuje správne, použite nasledujúci link:
+  a.small(href='#{loginUrl}') Prihlásenie
+
+  br
+  br
+
+  p S pozdravom, Vaša aplikácia.

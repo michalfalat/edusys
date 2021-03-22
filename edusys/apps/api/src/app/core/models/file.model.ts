@@ -1,9 +1,9 @@
 import { FileType } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
+import { IEntity } from './entity.model';
 import { IUser } from './user.model';
 
-export interface IFile {
-  _id?: any;
+export interface IFile extends IEntity {
   name: string;
   url: string;
   obsolete?: boolean;

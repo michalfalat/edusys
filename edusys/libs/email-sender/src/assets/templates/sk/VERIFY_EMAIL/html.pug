@@ -1,4 +1,7 @@
-p Vitajte, #{name},
-p Táto emailová adresa bola zaregistrovaná v našej aplikácii. Pre overenie emailovej adresy prosím kliknite na nasledujúci odkaz:
-<h3>#{verifyTokenUrl}</h3>
-p S pozdravom, Vaša aplikácia.
+extends ../layout.pug
+
+block content
+  p Vitajte, #{name},
+  p Táto emailová adresa bola zaregistrovaná v našej aplikácii. Pre overenie emailovej adresy prosím kliknite na nasledujúci odkaz:
+  <h3>#{verifyTokenUrl}</h3>
+  p S pozdravom, Vaša aplikácia.

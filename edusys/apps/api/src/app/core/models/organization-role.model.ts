@@ -1,10 +1,10 @@
 import { OrganizationRoleStatus } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
+import { IEntity } from './entity.model';
 import { IOrganization } from './organization.model';
 import { IUser } from './user.model';
 
-export interface IOrganizationRole {
-  _id?: any;
+export interface IOrganizationRole extends IEntity {
   name: string;
   description?: string;
   editable: boolean;

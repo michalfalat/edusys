@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormArray, FormControl, Validators } from '@angular/forms';
-import { IPackageCreateRequest } from '@edusys/model';
+import { createPackageSchema, IPackageCreateRequest } from '@edusys/model';
+import { routes } from '../../utils/routes';
 import { PackageBaseContainer } from '../package-base.container';
 
 @Component({
@@ -11,14 +12,26 @@ import { PackageBaseContainer } from '../package-base.container';
 export class PackageCreateComponent extends PackageBaseContainer implements OnInit {
   constructor(injector: Injector) {
     super(injector);
+    this.navigationItems = [
+      {
+        text: 'navigation.packages',
+        route: routes.package.home,
+      },
+      {
+        text: 'general.new',
+      },
+    ];
     this.setTitle('package.home.title');
-    this.createForm({
-      name: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      annumPrices: this.fb.array([], Validators.required),
-      installationPrices: this.fb.array([], Validators.required),
-      moduleIds: new FormControl([], Validators.required),
-    });
+    this.createForm(
+      {
+        name: new FormControl(''),
+        description: new FormControl(''),
+        annumPrices: this.fb.array([]),
+        installationPrices: this.fb.array([]),
+        moduleIds: new FormControl([]),
+      },
+      createPackageSchema
+    );
   }
 
   addAnnumPrice(): void {

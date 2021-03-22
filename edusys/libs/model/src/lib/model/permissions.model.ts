@@ -45,3 +45,5 @@ export const PERMISSION = {
     VIEW_ALL: 'PM_TASK_VIEW_ALL',
   },
 };
+
+export const PERMISSIONS_GROUPS = Object.keys(PERMISSION);

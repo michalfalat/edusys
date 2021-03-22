@@ -23,6 +23,19 @@ export const sendTestEmail = async (to: string): Promise<void> => {
   await sendEmail(email);
 };
 
+export const ssendEmail = async <T extends EmailType>(type: T, to: string, params: EmailTemplatesData[T]): Promise<void> => {
+  const email: EmailTemplate<T> = {
+    template: type,
+    params: {
+      ...params,
+    },
+    to,
+    lang: getCurrentLanguage() || 'sk',
+  };
+
+  await sendEmail(email);
+};
+
 // EMAIL ADDRESS VERIFICATION
 export const sendVerifyEmail = async (to: string, params: EmailTemplatesData[EmailType.VERIFY_EMAIL]): Promise<void> => {
   const email: EmailTemplate<EmailType.VERIFY_EMAIL> = {

@@ -1,9 +1,9 @@
 import { VerifyTokenType } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
+import { IEntity } from './entity.model';
 import { IUser } from './user.model';
 
-export interface IVerifyToken {
-  _id?: any;
+export interface IVerifyToken extends IEntity {
   user: IUser['_id'];
   token: string;
   expires: Date;

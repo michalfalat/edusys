@@ -7,7 +7,7 @@ import { PackageBaseContainer } from '../package-base.container';
   styleUrls: ['./package-home.component.scss'],
 })
 export class PackageHomeComponent extends PackageBaseContainer implements OnInit {
-  displayedColumns: string[] = ['name', 'description'];
+  displayedColumns: string[] = ['createdAt', 'name', 'annualPrice'];
   constructor(injector: Injector) {
     super(injector);
     this.setTitle('package.home.title');

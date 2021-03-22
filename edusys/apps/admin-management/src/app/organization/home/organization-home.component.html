@@ -4,6 +4,10 @@
     <button mat-raised-button color="primary" (click)="navigateToOrganizationCreate()">{{ 'organization.add.button' | translate }}</button>
   </div>
   <table mat-table [dataSource]="organizationList" class="mat-elevation-z0">
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>{{ 'general.created_at' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+    </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>{{ 'organization.name' | translate }}</th>
       <td mat-cell *matCellDef="let element">{{ element.name }}</td>

@@ -1,8 +1,8 @@
 import { Schema, model, Document, Model } from 'mongoose';
+import { IEntity } from './entity.model';
 import { IOrganizationRole } from './organization-role.model';
 
-export interface IUser {
-  _id?: any;
+export interface IUser extends IEntity {
   name: string;
   surname: string;
   email: string;

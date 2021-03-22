@@ -27,6 +27,8 @@ export interface IOrganizationResponse {
   userCount: number;
   status: OrganizationStatus;
   activeSubscription?: ISubscriptionResponse;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IOrganizationDetailResponse {
@@ -43,6 +45,8 @@ export interface IOrganizationDetailResponse {
   activeSubscription?: ISubscriptionDetailResponse;
   subscriptions?: ISubscriptionDetailResponse[];
   roles: any; // TODO
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IOrganizationEditRequest {

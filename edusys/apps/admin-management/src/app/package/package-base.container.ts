@@ -1,4 +1,5 @@
 import { Injector } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonContainer, ModuleFacade, PackageFacade } from '@edusys/core';
 import { IModuleDetailResponse, IPackageDetailResponse } from '@edusys/model';
@@ -8,6 +9,7 @@ import { routes } from '../utils/routes';
 export class PackageBaseContainer extends CommonContainer {
   packageFacade: PackageFacade;
   moduleFacade: ModuleFacade;
+  dialogService: MatDialog;
   snackbar: MatSnackBar;
   packageList: IPackageDetailResponse[];
   packageDetail: IPackageDetailResponse;
@@ -20,6 +22,7 @@ export class PackageBaseContainer extends CommonContainer {
     this.packageFacade = injector.get(PackageFacade);
     this.moduleFacade = injector.get(ModuleFacade);
     this.snackbar = injector.get(MatSnackBar);
+    this.dialogService = injector.get(MatDialog);
     this.subscriptions.add(this.moduleFacade.getModuleList$.subscribe((data) => (this.moduleList = data)));
     this.subscriptions.add(this.packageFacade.getPackageList$.subscribe((data) => (this.packageList = data)));
     this.subscriptions.add(this.activatedRoute.params.subscribe((data) => (this.packageId = data?.packageId)));

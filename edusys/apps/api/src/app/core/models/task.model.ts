@@ -1,11 +1,11 @@
-import { fileSchema, TaskPriority, TaskStatus, TaskType } from '@edusys/model';
+import { TaskPriority, TaskStatus, TaskType } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
+import { IEntity } from './entity.model';
 import { IFile } from './file.model';
 import { IOrganization } from './organization.model';
 import { IUser } from './user.model';
 
-export interface ITask {
-  _id?: any;
+export interface ITask extends IEntity {
   name: string;
   description?: string;
   place: string;
@@ -20,8 +20,6 @@ export interface ITask {
   fixedBy?: IUser['_id'];
   fixedOn?: Date;
   finalDescription?: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface ITaskDocument extends ITask, Document {}

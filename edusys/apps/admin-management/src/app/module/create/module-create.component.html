@@ -1,16 +1,29 @@
 <mat-card class="basic-card">
   <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider [compact]="true"></ui-divider>
   <form [formGroup]="form" (ngSubmit)="onCreateModule()">
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'module.name' | translate }}</mat-label>
         <input matInput formControlName="name" name="name" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'module.description' | translate }}</mat-label>
         <input matInput formControlName="description" name="description" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'description'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-select multiple formControlName="permissions" [placeholder]="'module.permissions' | translate">
+          <mat-optgroup *ngFor="let group of permissionsGroups" [label]="group">
+            <mat-option *ngFor="let permission of permissions[group] | keyvalue" [value]="permission.value"> {{ permission.value }} </mat-option>
+          </mat-optgroup>
+        </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'permissions'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
 

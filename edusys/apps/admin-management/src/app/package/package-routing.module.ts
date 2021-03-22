@@ -4,7 +4,6 @@ import { PermissionGuard } from '@edusys/core';
 import { PERMISSION } from '@edusys/model';
 import { PackageCreateComponent } from './create/package-create.component';
 import { PackageDetailComponent } from './detail/package-detail.component';
-import { PackageEditComponent } from './edit/package-edit.component';
 import { PackageHomeComponent } from './home/package-home.component';
 
 const routes: Routes = [
@@ -18,13 +17,13 @@ const routes: Routes = [
     path: 'detail/:packageId',
     component: PackageDetailComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.PACKAGE.DETAIL },
+    data: { moduleName: PERMISSION.PACKAGE.DETAIL, isEditMode: false },
   },
   {
     path: 'edit/:packageId',
-    component: PackageEditComponent,
+    component: PackageDetailComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.PACKAGE.EDIT },
+    data: { moduleName: PERMISSION.PACKAGE.EDIT, isEditMode: true },
   },
   {
     path: 'create',

@@ -4,14 +4,18 @@
     <button mat-raised-button color="primary" (click)="navigateToModuleCreate()">{{ 'module.add.button' | translate }}</button>
   </div>
   <table mat-table [dataSource]="moduleList" class="mat-elevation-z0">
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>{{ 'general.created_at' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+    </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>{{ 'module.name' | translate }}</th>
       <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef>{{ 'module.description' | translate }}</th>
-      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    <ng-container matColumnDef="permissionCount">
+      <th mat-header-cell *matHeaderCellDef>{{ 'module.permission_count' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.permissions?.length }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

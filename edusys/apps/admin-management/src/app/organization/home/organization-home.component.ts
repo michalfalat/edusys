@@ -7,7 +7,7 @@ import { OrganizationBaseContainer } from '../organization-base.container';
   styleUrls: ['./organization-home.component.scss'],
 })
 export class OrganizationHomeComponent extends OrganizationBaseContainer implements OnInit {
-  displayedColumns: string[] = ['name', 'owner', 'status', 'userCount'];
+  displayedColumns: string[] = ['createdAt', 'name', 'owner', 'status', 'userCount'];
   constructor(injector: Injector) {
     super(injector);
     this.setTitle('organziation.home.title');

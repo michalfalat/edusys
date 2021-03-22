@@ -1,25 +1,51 @@
 <mat-card class="basic-card">
   <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
-  <ui-divider></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'module.name' | translate }}</p>
-    <h4 class="mat-display-h4">{{ moduleDetail?.name }}</h4>
-  </div>
   <ui-divider [compact]="true"></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'module.description' | translate }}</p>
-    <h4 class="mat-display-h4">{{ moduleDetail?.description }}</h4>
-  </div>
-  <ui-divider [compact]="true"></ui-divider>
-  <div class="column">
-    <p class="mat-vody">{{ 'module.enabled' | translate }}</p>
-    <h4 class="mat-display-h4">{{ moduleDetail?.enabled }}</h4>
-  </div>
+  <form [formGroup]="form" (ngSubmit)="onEditModule()">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'module.name' | translate }}</mat-label>
+        <input matInput formControlName="name" name="name" [readonly]="!isEditMode" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'module.description' | translate }}</mat-label>
+        <input matInput formControlName="description" name="description" [readonly]="!isEditMode" />
+      </mat-form-field>
+    </div>
 
-  <ui-divider></ui-divider>
+    <div class="row">
+      <mat-form-field *ngIf="isEditMode">
+        <mat-select multiple formControlName="permissions" [placeholder]="'module.permissions' | translate">
+          <mat-optgroup *ngFor="let group of permissionsGroups" [label]="group">
+            <mat-option *ngFor="let permission of permissions[group] | keyvalue" [value]="permission.value"> {{ permission.value }} </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="!isEditMode">
+        <mat-label>{{ 'module.permissions' | translate }}</mat-label>
+        <input matInput formControlName="permissions" name="permissions" [readonly]="true" />
+      </mat-form-field>
+    </div>
 
-  <div class="row between">
-    <button mat-button (click)="deleteModule()">{{ 'general.delete.button' | translate }}</button>
-    <button mat-raised-button color="primary" type="submit" (click)="navigateToModuleEdit(moduleId)">{{ 'general.edit.button' | translate }}</button>
-  </div>
+    <div class="bottom-content">
+      <div class="row between" *ngIf="isEditMode">
+        <button mat-button type="button" (click)="showDeleteDialog()">{{ 'general.delete.button' | translate }}</button>
+        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+        <div class="row right">
+          <button mat-button type="button" (click)="navigateToModuleDetail(moduleDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+          <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+          <button mat-raised-button color="primary" type="button" (click)="onEditModule()" [disabled]="!form.valid">
+            {{ 'general.save.button' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="row right" *ngIf="!isEditMode">
+        <button mat-raised-button color="primary" type="button" (click)="navigateToModuleEdit(moduleDetail?.id)">
+          {{ 'general.edit.button' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
 </mat-card>

@@ -1,10 +1,10 @@
 import { IInvoiceCore } from '@edusys/core-invoice';
 import { Schema, model, Document } from 'mongoose';
+import { IEntity } from './entity.model';
 import { IOrganization } from './organization.model';
 import { IUser } from './user.model';
 
-export interface IInvoice {
-  _id?: any;
+export interface IInvoice extends IEntity {
   editable: boolean;
   organization?: IOrganization['_id'];
   createdBy: IUser['_id'];

@@ -7,7 +7,7 @@ import { ModuleBaseContainer } from '../module-base.container';
   styleUrls: ['./module-home.component.scss'],
 })
 export class ModuleHomeComponent extends ModuleBaseContainer implements OnInit {
-  displayedColumns: string[] = ['name', 'description'];
+  displayedColumns: string[] = ['createdAt', 'name', 'permissionCount'];
   constructor(injector: Injector) {
     super(injector);
     this.setTitle('module.home.title');

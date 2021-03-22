@@ -1,9 +1,10 @@
 import { Schema, model, Document } from 'mongoose';
+import { IEntity } from './entity.model';
 
-export interface IModule {
-  _id?: any;
+export interface IModule extends IEntity {
   name: string;
   description?: string;
+  permissions: string[];
   enabled?: boolean;
 }
 
@@ -21,6 +22,11 @@ const moduleSchema = new Schema<IModuleDocument>(
       type: String,
       max: 512,
     },
+    permissions: [
+      {
+        type: String,
+      },
+    ],
     enabled: {
       type: Boolean,
       default: true,

@@ -155,21 +155,3 @@ export const seedSU = async (): Promise<void> => {
   });
   await user.save();
 };
-
-// LIST OF USERS
-export const listOfUsers = async (): Promise<IAuthUserInfoResponse[]> => {
-  const listOfEntities = await UserModel.find();
-  if (!listOfEntities) {
-    throw new NotFound();
-  }
-  return userListMappper(listOfEntities);
-};
-
-// DETAIL OF USER
-export const detailOfUser = async (id: string): Promise<IAuthUserInfoResponse> => {
-  const detailModel = await UserModel.findById(id);
-  if (!detailModel) {
-    throw new NotFound();
-  }
-  return userDetailMappper(detailModel);
-};

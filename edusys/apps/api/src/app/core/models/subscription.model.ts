@@ -1,11 +1,11 @@
 import { IAmount, SubscriptionStatus } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
 import { amountSchema } from './common.model';
+import { IEntity } from './entity.model';
 import { IOrganization } from './organization.model';
 import { IPackage } from './package.model';
 
-export interface ISubscription {
-  _id?: any;
+export interface ISubscription extends IEntity {
   name: string;
   description?: string;
   organization: IOrganization['_id'];

@@ -1,4 +1,7 @@
-p Vitajte, #{name},
-p Táto emailová adresa bola zaregistrovaná ako hlavný kontakt pre novú organizáciu s názvom #{organizationName} v systéme Edusys. Pre prihlásenie do aplikácie prosím pokračujte kliknutím na nasledujúci odkaz:
-<h3>#{loginUrl}</h3>
-p S pozdravom, Vaša aplikácia Edusys.
+extends ../layout.pug
+
+block content
+  p Vitajte, #{name},
+  p Táto emailová adresa bola zaregistrovaná ako hlavný kontakt pre novú organizáciu s názvom #{organizationName} v systéme Edusys. Pre prihlásenie do aplikácie prosím pokračujte kliknutím na nasledujúci odkaz:
+  <h3>#{loginUrl}</h3>
+  p S pozdravom, Vaša aplikácia Edusys.

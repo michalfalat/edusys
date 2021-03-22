@@ -1,39 +1,78 @@
 <mat-card class="basic-card">
   <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
-  <ui-divider></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'package.name' | translate }}</p>
-    <h4 class="mat-display-h4">{{ packageDetail?.name }}</h4>
-  </div>
-  <ui-divider [compact]="true"></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'package.description' | translate }}</p>
-    <h4 class="mat-display-h4">{{ packageDetail?.description }}</h4>
-  </div>
-  <ui-divider [compact]="true"></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'package.enabled' | translate }}</p>
-    <h4 class="mat-display-h4">{{ packageDetail?.enabled }}</h4>
-  </div>
-  <ui-divider [compact]="true"></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'package.modules' | translate }}</p>
-    <h4 class="mat-display-h4">{{ packageDetail?.modules | json }}</h4>
-  </div>
-  <ui-divider [compact]="true"></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'package.annumPrices' | translate }}</p>
-    <h4 class="mat-display-h4">{{ packageDetail?.annumPrices | json }}</h4>
-  </div>
-  <ui-divider [compact]="true"></ui-divider>
-  <div class="column">
-    <p class="mat-body">{{ 'package.installationPrices' | translate }}</p>
-    <h4 class="mat-display-h4">{{ packageDetail?.installationPrices | json }}</h4>
-  </div>
-  <ui-divider></ui-divider>
 
-  <div class="row between">
-    <button mat-button (click)="deletePackage()">{{ 'general.delete.button' | translate }}</button>
-    <button mat-raised-button color="primary" type="submit" (click)="navigateToPackageEdit(packageId)">{{ 'general.edit.button' | translate }}</button>
-  </div>
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form" (ngSubmit)="onEditPackage()">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'package.name' | translate }}</mat-label>
+        <input matInput formControlName="name" name="name" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'package.description' | translate }}</mat-label>
+        <input matInput formControlName="description" name="description" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-select multiple formControlName="moduleIds" placeholder="select module">
+          <mat-option *ngFor="let module of moduleList" [value]="module?.id">
+            {{ module?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <ui-divider [solid]="true" [compact]="true"></ui-divider>
+
+    <div class="column">
+      <div class="row vertical-align">
+        <h4 class="mat-display-h4">{{ 'package.annumPrices' | translate }}</h4>
+        <button mat-icon-button type="button" (click)="addAnnumPrice()" [matTooltip]="'package.addAnnumPrice.button' | translate">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div formArrayName="annumPrices">
+        <div *ngFor="let control of form?.get('annumPrices')['controls']; let i = index">
+          <ui-amount [label]="('package.annumPrice' | translate) + ' ' + i" [formGroupName]="i" (onDelete)="deleteAnnumPrice(i)"></ui-amount>
+        </div>
+      </div>
+    </div>
+
+    <ui-divider [solid]="true" [compact]="true"></ui-divider>
+
+    <div class="column">
+      <div class="row vertical-align">
+        <h4 class="mat-display-h4">{{ 'package.installationPrices' | translate }}</h4>
+        <button mat-icon-button type="button" (click)="addInstallationPrice()" [matTooltip]="'package.addInstallationPrices.button' | translate">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div formArrayName="installationPrices">
+        <div *ngFor="let control of form?.get('installationPrices')['controls']; let i = index">
+          <ui-amount [label]="('package.installationPrices' | translate) + ' ' + i" [formGroupName]="i" (onDelete)="deleteInstallationPrice(i)"></ui-amount>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-content">
+      <div class="row between" *ngIf="isEditMode">
+        <button mat-button type="button" (click)="showDeleteDialog()">{{ 'general.delete.button' | translate }}</button>
+        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+        <div class="row right">
+          <button mat-button (click)="navigateToPackageDetail(packageDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+          <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+          <button mat-raised-button color="primary" type="button" (click)="onEditPackage()" [disabled]="!form.valid">
+            {{ 'general.save.button' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="row right" *ngIf="!isEditMode">
+        <button mat-raised-button color="primary" type="button" (click)="navigateToPackageEdit(packageDetail?.id)">
+          {{ 'general.edit.button' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
 </mat-card>

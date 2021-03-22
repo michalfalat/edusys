@@ -4,9 +4,9 @@ import { IOrganizationRole } from './organization-role.model';
 import { IUser } from './user.model';
 import { addressSchema } from './common.model';
 import { ISubscription } from './subscription.model';
+import { IEntity } from './entity.model';
 
-export interface IOrganization {
-  _id?: any;
+export interface IOrganization extends IEntity {
   name: string;
   description?: string;
   businessId?: string;

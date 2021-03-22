@@ -3,6 +3,7 @@ export enum EmailType {
   TEST_EMAIL = 'TEST_EMAIL',
   ORGANIZATION_CREATE = 'ORGANIZATION_CREATE',
   ORGANIZATION_CREATE_VERIFY_EMAIL = 'ORGANIZATION_CREATE_VERIFY_EMAIL',
+  TASK_NEW = 'TASK_NEW',
 }
 
 export type EmailTemplatesData = {
@@ -23,6 +24,15 @@ export type EmailTemplatesData = {
     organizationName: string;
     loginUrl: string;
     verifyTokenUrl: string;
+  };
+  [EmailType.TASK_NEW]: {
+    taskName: string;
+    taskOrganziation: string;
+    taskDescription: string;
+    taskPlace: string;
+    taskPriority: string;
+    createdBy: string;
+    url: string;
   };
 };
 

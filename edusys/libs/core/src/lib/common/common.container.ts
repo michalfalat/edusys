@@ -37,10 +37,10 @@ export abstract class CommonContainer implements OnDestroy {
     );
   }
 
-  setTitle(title: string): void {
+  setTitle(title: string, param?: string): void {
     this.titleKey = title;
     this.translateService.getTranslation$(title).subscribe((translated) => {
-      this.titleService.setTitle(translated);
+      this.titleService.setTitle(`${translated} ${!!param ? param : ''}`);
     });
   }
   getTitle(): string {

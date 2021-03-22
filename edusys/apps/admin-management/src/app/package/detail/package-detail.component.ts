@@ -1,5 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { IPackageDetailResponse } from '@edusys/model';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { IAmount, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
+import { UiConfirmModalComponent } from 'libs/core-ui/src/lib/components/ui-confirm-modal/ui-confirm-modal.component';
 import { routes } from '../../utils/routes';
 import { PackageBaseContainer } from '../package-base.container';
 
@@ -9,28 +11,112 @@ import { PackageBaseContainer } from '../package-base.container';
   styleUrls: ['./package-detail.component.scss'],
 })
 export class PackageDetailComponent extends PackageBaseContainer implements OnInit {
+  isEditMode: boolean;
   constructor(injector: Injector) {
     super(injector);
+    this.isEditMode = this.activatedRoute.snapshot.data.isEditMode;
     this.setBreadcrumbNavigation();
+    this.createForm({
+      name: new FormControl(this.packageDetail?.name, Validators.required),
+      description: new FormControl(this.packageDetail?.description, Validators.required),
+      annumPrices: this.fb.array(this.packageDetail?.annumPrices?.map((price) => this.buildAmountFormGroup(price)) || [], Validators.required),
+      installationPrices: this.fb.array(this.packageDetail?.installationPrices?.map((price) => this.buildAmountFormGroup(price)) || [], Validators.required),
+      moduleIds: new FormControl(
+        this.packageDetail?.modules?.map((m) => m.id),
+        Validators.required
+      ),
+    });
   }
 
   ngOnInit(): void {
+    this.moduleFacade.fetchModuleList();
     this.packageFacade.fetchPackageDetail(this.packageId, this.setBreadcrumbNavigation, this.navigateToPackageHome);
   }
 
-  deletePackage(): void {
-    this.packageFacade.deletePackage(this.packageId, this.navigateToPackageHome);
+  buildAmountFormGroup(data: IAmount): FormGroup {
+    return new FormGroup({
+      currency: new FormControl(data?.currency, Validators.required),
+      amount: new FormControl(data?.amount, Validators.required),
+    });
+  }
+
+  fillForm = (data: IPackageDetailResponse): void => {
+    this.form?.patchValue({ name: data?.name, description: data?.description, moduleIds: data.modules?.map((m) => m.id) }); //TODO
+
+    this.form?.setControl('annumPrices', this.fb.array(data.annumPrices?.map((price) => this.buildAmountFormGroup(price)) || []));
+    this.form?.setControl('installationPrices', this.fb.array(data.installationPrices?.map((price) => this.buildAmountFormGroup(price)) || []));
+  };
+
+  addAnnumPrice(): void {
+    const control = <FormArray>this.form.get('annumPrices');
+    control.push(
+      this.fb.group({
+        currency: new FormControl('EUR', Validators.required),
+        amount: new FormControl('', Validators.required),
+      })
+    );
+  }
+
+  deleteAnnumPrice(index: number): void {
+    let control = <FormArray>this.form.get('annumPrices');
+    control.removeAt(index);
+  }
+
+  addInstallationPrice(): void {
+    const control = <FormArray>this.form.get('installationPrices');
+    control.push(
+      this.fb.group({
+        currency: new FormControl('EUR', Validators.required),
+        amount: new FormControl('', Validators.required),
+      })
+    );
+  }
+
+  deleteInstallationPrice(index: number): void {
+    let control = <FormArray>this.form.get('installationPrices');
+    control.removeAt(index);
+  }
+
+  onEditPackage(): void {
+    const request: IPackageEditRequest = {
+      id: this.packageId,
+      name: this.form?.value.name,
+      description: this.form?.value.description,
+      annumPrices: this.form?.value.annumPrices,
+      installationPrices: this.form?.value.installationPrices,
+      moduleIds: this.form?.value.moduleIds,
+    };
+    this.packageFacade.editPackage(this.packageId, request, () => {
+      this.navigateToPackageDetail(this.packageId);
+    });
   }
 
   setBreadcrumbNavigation = (response?: IPackageDetailResponse): void => {
+    const screenType = this.isEditMode ? 'package.edit.title' : 'package.detail.title';
+    const detailName = this.packageDetail?.name || response?.name || screenType;
+    this.setTitle(screenType);
+    this.fillForm(response);
     this.navigationItems = [
       {
         text: 'navigation.packages',
         route: routes.package.home,
       },
       {
-        text: this.packageDetail?.name || response?.name || 'Detail',
+        text: detailName,
       },
     ];
   };
+
+  showDeleteDialog(): void {
+    const dialogRef = this.dialogService.open(UiConfirmModalComponent, {
+      data: { title: 'general.delete.title', text: 'package.delete.text' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!!result)
+        this.packageFacade.deletePackage(this.packageId, () => {
+          this.navigateToPackageHome();
+        });
+    });
+  }
 }

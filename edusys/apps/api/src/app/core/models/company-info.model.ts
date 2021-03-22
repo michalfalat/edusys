@@ -1,9 +1,9 @@
 import { IAddress, IBankDetail } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
 import { addressSchema, bankDetailSchema } from './common.model';
+import { IEntity } from './entity.model';
 
-export interface ICompanyInfo {
-  _id?: any;
+export interface ICompanyInfo extends IEntity {
   name: string;
   businessId?: string;
   taxId?: string;

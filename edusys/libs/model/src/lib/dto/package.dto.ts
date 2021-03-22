@@ -18,6 +18,8 @@ export interface IPackageDetailResponse {
   installationPricePrimary: IAmount;
   installationPrices: IAmount[];
   modules: IModuleDetailResponse[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IPackageEditRequest {

@@ -1,15 +1,19 @@
 <mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider [compact]="true"></ui-divider>
   <form [formGroup]="form" (ngSubmit)="onCreatePackage()">
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'package.name' | translate }}</mat-label>
         <input matInput formControlName="name" name="name" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'package.description' | translate }}</mat-label>
         <input matInput formControlName="description" name="description" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'description'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
     <div class="row">
@@ -19,13 +23,14 @@
             {{ module?.name }}
           </mat-option>
         </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'moduleIds'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
     <ui-divider [solid]="true" [compact]="true"></ui-divider>
 
     <div class="column">
       <div class="row vertical-align">
-        <h4 class="mat-display-h4">{{ 'package.annumPrices' | translate }}</h4>
+        <h4 class="mat-display-h4">{{ 'package.annum_prices' | translate }}</h4>
         <button mat-icon-button type="button" (click)="addAnnumPrice()" [matTooltip]="'package.addAnnumPrice.button' | translate">
           <mat-icon>add</mat-icon>
         </button>

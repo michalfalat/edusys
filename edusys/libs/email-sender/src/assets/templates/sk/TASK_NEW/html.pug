@@ -1,0 +1,21 @@
+extends ../layout.pug
+
+block content
+  h1 V systéme pribudla nová úloha - #{taskName}
+  div.left
+    p Dobrý deň,
+    p Používateľ #{createdBy} pridal do systému novú úlohu.
+    p Miesto:
+    h3 #{taskOrganziation}
+    h3 #{taskPlace}
+    p Popis problému:
+    h3 #{taskDescription}
+    p Priorita:
+    h3 #{taskPriority}
+    br
+  p Prosíme o kontrolu a rýchle vyriešenie vzniknutého problému. Úlohu možete zobraziť kluknutím na nasledujúci odkaz:
+  button
+    a(href='' + url) DETAIL ÚLOHY
+  br
+  p.small Ak sa vám odkaz nezobrazuje správne, použite nasledujúci link:
+  a.small(href='' + url) #{url}

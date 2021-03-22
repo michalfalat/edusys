@@ -1,14 +1,14 @@
 <div class="row left">
   <ng-container *ngIf="showHome">
     <h3 class="mat-h3 pointer" (click)="onItemClick({ name: 'home', route: '/home' })">{{ 'general.home' | translate }}</h3>
-    <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+    &nbsp;
     <h3 class="mat-h3" *ngIf="navigationItems?.length">></h3>
-    <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+    &nbsp;
   </ng-container>
   <ng-container *ngFor="let item of navigationItems; let last = last">
     <h3 class="mat-h3" [class.pointer]="!!item.route" (click)="onItemClick(item)">{{ item?.text | translate }}</h3>
-    <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+    &nbsp;
     <h3 class="mat-h3" *ngIf="!last">></h3>
-    <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+    &nbsp;
   </ng-container>
 </div>

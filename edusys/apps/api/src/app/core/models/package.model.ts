@@ -2,9 +2,9 @@ import { IAmount } from '@edusys/model';
 import { Schema, model, Document } from 'mongoose';
 import { IModule } from './module.model';
 import { amountSchema } from './common.model';
+import { IEntity } from './entity.model';
 
-export interface IPackage {
-  _id?: any;
+export interface IPackage extends IEntity {
   name: string;
   description: string;
   enabled: boolean;

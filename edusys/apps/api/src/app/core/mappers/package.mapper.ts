@@ -2,17 +2,20 @@ import { IPackageDetailResponse } from '@edusys/model';
 import { IPackage } from '../models/package.model';
 import { moduleListMapper } from './module.mapper';
 
-export const packageDetailMapper = (pack: IPackage, primaryCurency: string): IPackageDetailResponse => ({
-  id: pack?._id,
-  name: pack?.name,
-  description: pack?.description,
-  enabled: pack?.enabled,
-  annumPricePrimary: pack?.annumPrices?.find((price) => price.currency === primaryCurency) || pack?.annumPrices?.length ? pack?.annumPrices[0] : null,
-  annumPrices: pack?.annumPrices,
+export const packageDetailMapper = (data: IPackage, primaryCurency: string): IPackageDetailResponse => ({
+  id: data?._id,
+  name: data?.name,
+  description: data?.description,
+  enabled: data?.enabled,
+  annumPricePrimary: data?.annumPrices?.find((price) => price.currency === primaryCurency) || data?.annumPrices?.length ? data?.annumPrices[0] : null,
+  annumPrices: data?.annumPrices,
   installationPricePrimary:
-    pack?.installationPrices?.find((price) => price.currency === primaryCurency) || pack?.installationPrices?.length ? pack?.installationPrices[0] : null,
-  installationPrices: pack?.installationPrices,
-  modules: moduleListMapper(pack?.modules),
+    data?.installationPrices?.find((price) => price.currency === primaryCurency) || data?.installationPrices?.length ? data?.installationPrices[0] : null,
+  installationPrices: data?.installationPrices,
+  modules: moduleListMapper(data?.modules),
+
+  createdAt: data?.createdAt,
+  updatedAt: data?.updatedAt,
 });
 
 export const packageListMapper = (packages: IPackage[], primaryCurency: string): IPackageDetailResponse[] =>

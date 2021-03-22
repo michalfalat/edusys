@@ -3,7 +3,11 @@ import TaskModel from '../models/task.model';
 import { taskDetailMapper, taskListMapper } from '../mappers/task.mapper';
 import { BadRequest, NotFound } from '../utils/errors';
 import { createTaskSchemaValidate, editTaskSchemaValidate, assignTaskSchemaValidate, finishTaskSchemaValidate } from '@edusys/model';
-import { getCurrentUser } from '../middlewares/current-http-context';
+import { getCurrentHostname, getCurrentUser } from '../middlewares/current-http-context';
+import { ssendEmail } from './email.service';
+import { EmailType } from '@edusys/email-sender';
+import UserModel from '../models/user.model';
+import OrganizationModel from '../models/organization.model';
 
 // LIST OF ALL TASKS WITHOUT PAGINATION
 export const listOfTasks = async (): Promise<ITaskDetailResponse[]> => {
@@ -41,8 +45,22 @@ export const createTask = async (payload: ITaskCreateRequest): Promise<ITaskDeta
     status: TaskStatus.NEW,
     createdBy: getCurrentUser()?.id,
   });
+
+  const recipient = (await UserModel.findById(getCurrentUser()?.id))?.email;
+
   try {
-    const savedModel = await newModel.save();
+    const savedModel = await (await newModel.save()).populate('organization').execPopulate();
+    console.log('ORGANIZATION: ', savedModel.organization);
+    let url = 'www.edusys.sk/task/detail/131'; //`${getCurrentHostname()}/task/detail/${savedModel?.id}`;
+    ssendEmail(EmailType.TASK_NEW, recipient, {
+      createdBy: recipient,
+      taskDescription: savedModel.description,
+      taskName: savedModel.name,
+      taskPlace: savedModel.place,
+      taskOrganziation: savedModel?.organization?.name,
+      taskPriority: savedModel.priority,
+      url,
+    });
     return taskDetailMapper(savedModel);
   } catch (error) {
     throw new BadRequest(error);

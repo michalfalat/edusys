@@ -1,6 +1,6 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { IModuleCreateRequest } from '@edusys/model';
+import { createModuleSchema, IModuleCreateRequest } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { ModuleBaseContainer } from '../module-base.container';
 
@@ -8,6 +8,7 @@ import { ModuleBaseContainer } from '../module-base.container';
   selector: 'edusys-module-create',
   templateUrl: './module-create.component.html',
   styleUrls: ['./module-create.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ModuleCreateComponent extends ModuleBaseContainer implements OnInit {
   constructor(injector: Injector) {
@@ -18,14 +19,18 @@ export class ModuleCreateComponent extends ModuleBaseContainer implements OnInit
         route: routes.module.home,
       },
       {
-        text: 'Create',
+        text: 'general.new',
       },
     ];
     this.setTitle('module.home.title');
-    this.createForm({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-    });
+    this.createForm(
+      {
+        name: new FormControl(''),
+        description: new FormControl(''),
+        permissions: new FormControl([]),
+      },
+      createModuleSchema
+    );
   }
 
   ngOnInit(): void {}
@@ -34,6 +39,7 @@ export class ModuleCreateComponent extends ModuleBaseContainer implements OnInit
     const request: IModuleCreateRequest = {
       name: this.form?.value.name,
       description: this.form?.value.description,
+      permissions: this.form?.value?.permissions,
     };
     this.moduleFacade.createModule(request, this.navigateToModuleHome);
   }

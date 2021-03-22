@@ -14,6 +14,7 @@ export class OrganizationDetailComponent extends OrganizationBaseContainer imple
   constructor(injector: Injector) {
     super(injector);
     this.isEditMode = this.activatedRoute.snapshot.data.isEditMode;
+    this.setTitle(this.isEditMode ? 'organization.edit.title' : 'organization.detail.title');
     this.setBreadcrumbNavigation();
     this.createForm(
       {
@@ -52,14 +53,22 @@ export class OrganizationDetailComponent extends OrganizationBaseContainer imple
     this.organizationFacade.deleteOrganization(this.organizationId, this.navigateToOrganizationHome);
   }
 
+  fillForm = (data: IOrganizationDetailResponse): void => {
+    this.form?.patchValue({ info: { name: data?.name, description: data?.description } }); //TODO
+  };
+
   setBreadcrumbNavigation = (response?: IOrganizationDetailResponse): void => {
+    const screenType = this.isEditMode ? 'organization.edit.title' : 'organization.detail.title';
+    const detailName = this.organizationDetail?.name || response?.name || screenType;
+    this.setTitle(screenType);
+    this.fillForm(response);
     this.navigationItems = [
       {
         text: 'navigation.organizations',
         route: routes.organization.home,
       },
       {
-        text: this.organizationDetail?.name || response?.name || 'Detail',
+        text: detailName,
       },
     ];
   };

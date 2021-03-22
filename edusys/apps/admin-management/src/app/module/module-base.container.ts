@@ -1,22 +1,27 @@
 import { Injector } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { CommonContainer, ModuleFacade } from '@edusys/core';
-import { IModuleDetailResponse } from '@edusys/model';
+import { IModuleDetailResponse, PERMISSION, PERMISSIONS_GROUPS } from '@edusys/model';
 import { INavigationItem } from 'libs/core-ui/src/lib/components/ui-breadcrumb/ui-breadcrumb.component';
+import { NotificationService } from '../utils/notification.service';
 import { routes } from '../utils/routes';
 
 export class ModuleBaseContainer extends CommonContainer {
   moduleFacade: ModuleFacade;
-  snackbar: MatSnackBar;
+  notificationService: NotificationService;
+  dialogService: MatDialog;
   moduleList: IModuleDetailResponse[];
   moduleDetail: IModuleDetailResponse;
   moduleId: string;
   navigationItems: INavigationItem[];
+  permissionsGroups = PERMISSIONS_GROUPS;
+  permissions = PERMISSION;
 
   constructor(injector: Injector) {
     super(injector);
     this.moduleFacade = injector.get(ModuleFacade);
-    this.snackbar = injector.get(MatSnackBar);
+    this.notificationService = injector.get(NotificationService);
+    this.dialogService = injector.get(MatDialog);
     this.subscriptions.add(this.moduleFacade.getModuleList$.subscribe((data) => (this.moduleList = data)));
     this.subscriptions.add(this.activatedRoute.params.subscribe((data) => (this.moduleId = data?.moduleId)));
     this.subscriptions.add(
@@ -27,11 +32,10 @@ export class ModuleBaseContainer extends CommonContainer {
   }
 
   onError = (message?: string): void => {
-    console.log('error :>> ', message);
-    this.snackbar.open(message);
+    this.notificationService.showError(message);
   };
   onSuccess = (message?: string): void => {
-    this.snackbar.open(message);
+    this.notificationService.showSuccess(message);
   };
 
   navigateToModuleHome = (): void => {
