@@ -1,7 +1,7 @@
 import { IAddress, OrganizationStatus } from '@edusys/model';
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Model } from 'mongoose';
 import { IOrganizationRole } from './organization-role.model';
-import { IUser } from './user.model';
+import { IUser, IUserModel } from './user.model';
 import { addressSchema } from './common.model';
 import { ISubscription } from './subscription.model';
 import { IEntity } from './entity.model';
@@ -63,12 +63,14 @@ const organizationSchema = new Schema<IOrganizationDocument>(
       {
         type: Schema.Types.ObjectId,
         ref: 'user',
+        default: [],
       },
     ],
     subscriptions: [
       {
         type: Schema.Types.ObjectId,
         ref: 'subscription',
+        default: [],
       },
     ],
   },
@@ -77,5 +79,22 @@ const organizationSchema = new Schema<IOrganizationDocument>(
   }
 );
 
-const OrganizationModel = model<IOrganizationDocument>('organization', organizationSchema);
+organizationSchema.statics.addUserToOrganization = function (organizationId: any, userId: any): Promise<IOrganizationDocument> {
+  return this.findByIdAndUpdate(organizationId, { $push: { users: userId } }, { new: true }).exec();
+};
+
+organizationSchema.statics.removeUserFromOrganization = function (organizationId: any, userId: any): Promise<IOrganizationDocument> {
+  return this.findByIdAndUpdate(organizationId, { $pull: { users: userId } }, { new: true }).exec();
+};
+organizationSchema.statics.findByOrganizationIds = function (organizationIds: any[]): Promise<IOrganizationDocument[]> {
+  return this.find().where('_id').in(organizationIds).exec();
+};
+
+export interface IOrganizationModel extends Model<IOrganizationDocument> {
+  addUserToOrganization(organizationId: any, userId: any): Promise<IOrganizationDocument>;
+  removeUserFromOrganization(organizationId: any, userId: any): Promise<IOrganizationDocument>;
+  findByOrganizationIds(organizationIds: any[]): Promise<IOrganizationDocument[]>;
+}
+
+const OrganizationModel = model<IOrganizationDocument, IOrganizationModel>('organization', organizationSchema);
 export default OrganizationModel;

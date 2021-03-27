@@ -24,6 +24,12 @@ const routes: Routes = [
         data: { moduleName: PERMISSION.PACKAGE.BASIC },
       },
       {
+        path: 'user',
+        loadChildren: () => import('../user/user.module').then((m) => m.UserModule),
+        canActivate: [PermissionGuard],
+        data: { moduleName: PERMISSION.USER.BASIC },
+      },
+      {
         path: 'organization',
         loadChildren: () => import('../organization/organization.module').then((m) => m.OrganizationModule),
         canActivate: [PermissionGuard],

@@ -1,0 +1,80 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form" (ngSubmit)="onEditUser()">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.created_at' | translate }}</mat-label>
+        <input matInput [value]="userDetail?.createdAt | date" [disabled]="true" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'user.edited_at' | translate }}</mat-label>
+        <input matInput [value]="userDetail?.updatedAt | date" [disabled]="true" />
+      </mat-form-field>
+    </div>
+
+    <ui-divider [compact]="true"></ui-divider>
+    <div class="row">
+      <mat-form-field *ngIf="isEditMode">
+        <mat-select multiple formControlName="organizations" [placeholder]="'user.organizations' | translate">
+          <mat-option *ngFor="let org of organizationList" [value]="org?.id">
+            {{ org?.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'organizations'"></ui-form-error></mat-error>
+      </mat-form-field>
+      <!-- <mat-form-field *ngIf="!isEditMode">
+        <mat-label>{{ 'user.organizations' | translate }}</mat-label>
+        <input matInput [ngModel]="'userDetail?.organizations'" [readonly]="true" />
+      </mat-form-field> -->
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.email' | translate }}</mat-label>
+        <input matInput formControlName="email" name="email" [readonly]="!isEditMode" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'email'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.phone' | translate }}</mat-label>
+        <input matInput formControlName="phone" name="phone" [readonly]="!isEditMode" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'phone'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.name' | translate }}</mat-label>
+        <input matInput formControlName="name" name="name" [readonly]="!isEditMode" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.surname' | translate }}</mat-label>
+        <input matInput formControlName="surname" name="surname" [readonly]="!isEditMode" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'surname'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="bottom-content">
+      <div class="row between" *ngIf="isEditMode">
+        <button mat-button type="button" (click)="showDeleteDialog()">{{ 'general.delete.button' | translate }}</button>
+        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+        <div class="row right">
+          <button mat-button (click)="navigateToUserDetail(userDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+          <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+          <button mat-raised-button color="primary" type="button" (click)="onEditUser()" [disabled]="!form.valid">
+            {{ 'general.save.button' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="row right" *ngIf="!isEditMode">
+        <button mat-raised-button color="primary" type="button" (click)="navigateToUserEdit(userDetail?.id)">
+          {{ 'general.edit.button' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-card>

@@ -1,0 +1,48 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form" (ngSubmit)="onCreateUser()">
+    <div class="row">
+      <mat-form-field>
+        <mat-select multiple formControlName="organizations" [placeholder]="'user.organizations' | translate">
+          <mat-option *ngFor="let org of organizationList" [value]="org?.id">
+            {{ org?.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'organizations'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.email' | translate }}</mat-label>
+        <input matInput formControlName="email" name="email" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'email'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.phone' | translate }}</mat-label>
+        <input matInput formControlName="phone" name="phone" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'phone'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.name' | translate }}</mat-label>
+        <input matInput formControlName="name" name="name" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.surname' | translate }}</mat-label>
+        <input matInput formControlName="surname" name="surname" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'surname'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row center">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form?.valid">{{ 'general.create.button' | translate }}</button>
+    </div>
+  </form>
+</mat-card>

@@ -1,10 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { IAuthLoginUserResponse, IAuthRegisterUserResponse, IAuthUserInfoResponse } from '@edusys/model';
-import { authLoginResponseAction, authLogoutAction, authRegisterResponseAction, authUserInfoResponseAction } from './auth.actions';
+import { IAuthLoginUserResponse, IAuthUserInfoResponse } from '@edusys/model';
+import { authLoginResponseAction, authLogoutAction, authUserInfoResponseAction } from './auth.actions';
 
 export default interface IAuthState {
   loggedUser?: IAuthLoginUserResponse;
-  registerUser?: IAuthRegisterUserResponse;
   userInfo?: IAuthUserInfoResponse;
 }
 
@@ -15,9 +14,7 @@ const _authReducer = createReducer(
   on(authLoginResponseAction, (state: IAuthState, payload) => {
     return { ...state, loggedUser: payload?.response };
   }),
-  on(authRegisterResponseAction, (state: IAuthState, payload) => {
-    return { ...state, registerUser: payload?.response };
-  }),
+
   on(authUserInfoResponseAction, (state: IAuthState, payload) => {
     return { ...state, userInfo: payload?.response };
   }),

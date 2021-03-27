@@ -1,4 +1,4 @@
-import { IAuthUserBasicResponse } from './auth.dto';
+import { IAuthUserBasicResponse } from './user.dto';
 import { IFileDetailResponse } from './file.dto';
 import { IOrganizationResponse } from './organization.dto';
 

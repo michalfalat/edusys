@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IAuthLoginUserRequest, IAuthLoginUserResponse, IAuthRegisterUserRequest, IAuthRegisterUserResponse, IAuthUserInfoResponse } from '@edusys/model';
+import { IAuthLoginUserRequest, IAuthLoginUserResponse, IAuthUserInfoResponse } from '@edusys/model';
 
 const PREFIX = '[AUTH]';
 
@@ -16,22 +16,6 @@ export const authLoginResponseAction = createAction(
   `${PREFIX} LOGIN RESPONSE`,
   props<{
     response: IAuthLoginUserResponse;
-  }>()
-);
-
-// REGISTER
-export const authRegisterRequestAction = createAction(
-  `${PREFIX} REGISTER REQUEST`,
-  props<{
-    payload: IAuthRegisterUserRequest;
-    onSucceeded?: (response: IAuthRegisterUserResponse) => void;
-    onError?: (error: any) => void;
-  }>()
-);
-export const authRegisterResponseAction = createAction(
-  `${PREFIX} REGISTER RESPONSE`,
-  props<{
-    response: IAuthRegisterUserResponse;
   }>()
 );
 

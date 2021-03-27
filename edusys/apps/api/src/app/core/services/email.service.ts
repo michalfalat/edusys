@@ -1,4 +1,4 @@
-import { EmailTemplate, sendEmail, EmailType, EmailTemplatesData } from '@edusys/email-sender';
+import { EmailTemplate, buildAndSendEmail, EmailType, EmailTemplatesData } from '@edusys/email-sender';
 import { getCurrentLanguage } from '../middlewares/current-http-context';
 import * as path from 'path';
 import { __assetsdir } from 'apps/api/src/dir';
@@ -20,10 +20,10 @@ export const sendTestEmail = async (to: string): Promise<void> => {
     ],
   };
 
-  await sendEmail(email);
+  await buildAndSendEmail(email);
 };
 
-export const ssendEmail = async <T extends EmailType>(type: T, to: string, params: EmailTemplatesData[T]): Promise<void> => {
+export const sendEmail = async <T extends EmailType>(type: T, to: string, params: EmailTemplatesData[T]): Promise<void> => {
   const email: EmailTemplate<T> = {
     template: type,
     params: {
@@ -33,7 +33,7 @@ export const ssendEmail = async <T extends EmailType>(type: T, to: string, param
     lang: getCurrentLanguage() || 'sk',
   };
 
-  await sendEmail(email);
+  await buildAndSendEmail(email);
 };
 
 // EMAIL ADDRESS VERIFICATION
@@ -47,7 +47,7 @@ export const sendVerifyEmail = async (to: string, params: EmailTemplatesData[Ema
     lang: getCurrentLanguage() || 'sk',
   };
 
-  await sendEmail(email);
+  await buildAndSendEmail(email);
 };
 
 // EMAIL ORGANIZATION CREATION
@@ -61,7 +61,7 @@ export const sendOrganizationCreateEmail = async (to: string, params: EmailTempl
     lang: getCurrentLanguage() || 'sk',
   };
 
-  await sendEmail(email);
+  await buildAndSendEmail(email);
 };
 
 // EMAIL ORGANIZATION CREATION WITH VERIFICATION
@@ -78,5 +78,5 @@ export const sendOrganizationCreateEmailWithVerification = async (
     lang: getCurrentLanguage() || 'sk',
   };
 
-  await sendEmail(email);
+  await buildAndSendEmail(email);
 };

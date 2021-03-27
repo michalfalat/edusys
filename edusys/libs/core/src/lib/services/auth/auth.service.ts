@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IAuthLoginUserRequest, IAuthLoginUserResponse, IAuthRegisterUserRequest, IAuthRegisterUserResponse, IAuthUserInfoResponse } from '@edusys/model';
+import { IAuthLoginUserRequest, IAuthLoginUserResponse, IAuthUserInfoResponse } from '@edusys/model';
 import { loginUrl, registerUrl, userInfoUrl, logoutUrl } from './auth.endpoints';
 import { APP_CONFIG } from '@edusys/app-config';
 import { LocalStorageService } from '../local-storage/local-storage.service';
@@ -49,10 +49,6 @@ export class AuthService {
 
   logout = (): Observable<void> => {
     return this.httpClient.post<void>(logoutUrl(this.baseUrl()), {});
-  };
-
-  register = (payload: IAuthRegisterUserRequest): Observable<IAuthRegisterUserResponse> => {
-    return this.httpClient.post<IAuthRegisterUserResponse>(registerUrl(this.baseUrl()), payload);
   };
 
   userInfo = (): Observable<IAuthUserInfoResponse> => {

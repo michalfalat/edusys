@@ -1,7 +1,7 @@
 export * from './lib/model.module';
 
 // DTO - requests, responses etc..
-export * from './lib/dto/auth.dto';
+export * from './lib/dto/user.dto';
 export * from './lib/dto/module.dto';
 export * from './lib/dto/package.dto';
 export * from './lib/dto/common.dto';
@@ -18,6 +18,7 @@ export * from './lib/model/permissions.model';
 
 // JOI  VALIDATIONS
 export * from './lib/validations/auth.validations';
+export * from './lib/validations/user.validations';
 export * from './lib/validations/common.validations';
 export * from './lib/validations/module.validations';
 export * from './lib/validations/file.validations';

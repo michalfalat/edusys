@@ -12,13 +12,14 @@ import OrganizationModel from '../models/organization.model';
 import { organizationDetailMapper, organizationListMapper } from '../mappers/organization.mapper';
 import { BadRequest, NotFound } from '../utils/errors';
 import { createOrganizationSchemaValidate, editOrganizationSchemaValidate } from '@edusys/model';
-import { detailOfUser, register } from './auth.service';
+// import { register } from './auth.service';
 import SubscriptionModel from '../models/subscription.model';
-import PackageModel from '../models/package.model';
+import PackageModel, { IPackage } from '../models/package.model';
 import OrganizationRoleModel from '../models/organization-role.model';
 import { getCurrentUser } from '../middlewares/current-http-context';
 import UserModel from '../models/user.model';
 import { sendOrganizationCreateEmail } from './email.service';
+import { flatten, uniq } from 'lodash';
 
 // LIST OF ALL ORGANIZATIONS WITHOUT PAGINATION
 export const listOfOrganizations = async (): Promise<IOrganizationResponse[]> => {
@@ -56,18 +57,6 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
   }
 
   try {
-    const ownerUser = await UserModel.findByEmail(payload.owner.email);
-    if (!ownerUser) {
-      await register(payload.owner);
-    }
-    if (!!ownerUser) {
-      sendOrganizationCreateEmail(ownerUser?.email, {
-        loginUrl: `${process.env.APP_URL}/login`,
-        name: ownerUser.fullName,
-        organizationName: payload.info.name,
-      });
-    }
-
     const newModel = new OrganizationModel({
       name: payload.info.name,
       description: payload.info.description,
@@ -75,12 +64,18 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
       taxId: payload.info.taxId,
       registrationNumberVAT: payload.info.registrationNumberVAT,
       address: payload.address,
-      owner: ownerUser.id,
+      owner: payload.owner,
       status: OrganizationStatus.ACTIVE,
       organizationRoles: [],
-      users: [ownerUser?.id],
+      users: [payload.owner],
     });
     let savedOrganization = await newModel.save();
+
+    // sendOrganizationCreateEmail(ownerUser?.email, {
+    //   loginUrl: `${process.env.APP_URL}/login`,
+    //   name: ownerUser.fullName,
+    //   organizationName: payload.info.name,
+    // }); // TODO
 
     const subscriptionExpiration = new Date();
     subscriptionExpiration.setFullYear(subscriptionExpiration.getFullYear() + 1);
@@ -108,8 +103,8 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
       createdBy: getCurrentUser()?.id,
       editedBy: getCurrentUser()?.id,
       status: OrganizationRoleStatus.ACTIVE,
-      permissions: [PERMISSION.USER.BASIC], // TODO  improve permissions based on package.modules..
-      users: [ownerUser.id],
+      permissions: buildPermissions(payload.packageId),
+      users: [payload.owner],
     });
     ownerRole = await ownerRole.save();
 
@@ -144,4 +139,10 @@ export const deleteOrganization = async (id: string): Promise<void> => {
   } catch (error) {
     throw new BadRequest(error);
   }
+};
+
+const buildPermissions = async (packageId: any): Promise<string[]> => {
+  const pack: IPackage = await PackageModel.findById(packageId).populate('modules');
+  const permissions = uniq(flatten([...pack?.modules?.map((mod) => mod?.permissions as string[])]));
+  return permissions;
 };

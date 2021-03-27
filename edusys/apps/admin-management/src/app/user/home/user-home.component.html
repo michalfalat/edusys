@@ -1,0 +1,28 @@
+<mat-card class="basic-card" *ngIf="userList?.length > 0">
+  <div class="row between">
+    <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+    <button mat-raised-button color="primary" (click)="navigateToUserCreate()">{{ 'user.add.button' | translate }}</button>
+  </div>
+  <table mat-table [dataSource]="userList" class="mat-elevation-z0">
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>{{ 'general.created_at' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+    </ng-container>
+    <ng-container matColumnDef="fullname">
+      <th mat-header-cell *matHeaderCellDef>{{ 'user.fullname' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.fullName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>{{ 'user.email' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="navigateToUserDetail(row.id)"></tr>
+  </table>
+</mat-card>
+
+<div *ngIf="userList?.length === 0">
+  <ui-empty-list (onAdd)="navigateToUserCreate()"></ui-empty-list>
+</div>

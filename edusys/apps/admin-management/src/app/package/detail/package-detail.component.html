@@ -6,13 +6,13 @@
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'package.name' | translate }}</mat-label>
-        <input matInput formControlName="name" name="name" />
+        <input matInput formControlName="name" name="name" [readonly]="!isEditMode" />
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'package.description' | translate }}</mat-label>
-        <input matInput formControlName="description" name="description" />
+        <input matInput formControlName="description" name="description" [readonly]="!isEditMode" />
       </mat-form-field>
     </div>
     <div class="row">

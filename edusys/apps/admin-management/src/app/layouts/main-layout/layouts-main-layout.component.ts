@@ -28,8 +28,8 @@ export class LayoutsMainLayoutComponent extends LayoutBaseContainer implements O
     },
     {
       name: 'navigation.users',
-      route: routes.package.home,
-      permission: PERMISSION.PACKAGE.BASIC,
+      route: routes.user.home,
+      permission: PERMISSION.USER.BASIC,
     },
     {
       name: 'navigation.tasks',

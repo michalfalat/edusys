@@ -1,7 +1,6 @@
 import * as Joi from '@hapi/joi';
 import { IOrganizationCreateRequest } from '@edusys/model';
 import { addressSchema } from './common.validations';
-import { newUserSchema } from './auth.validations';
 import { IOrganizationEditRequest } from '../dto/organization.dto';
 
 export const createOrganizationInfoSchema = Joi.object({
@@ -15,7 +14,7 @@ export const createOrganizationInfoSchema = Joi.object({
 export const createOrganizationSchema = Joi.object<IOrganizationCreateRequest>({
   info: createOrganizationInfoSchema.required(),
   address: addressSchema.optional(),
-  owner: newUserSchema.required(),
+  owner: Joi.required(),
   packageId: Joi.string().required(),
 });
 

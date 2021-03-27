@@ -4,10 +4,10 @@ import { taskDetailMapper, taskListMapper } from '../mappers/task.mapper';
 import { BadRequest, NotFound } from '../utils/errors';
 import { createTaskSchemaValidate, editTaskSchemaValidate, assignTaskSchemaValidate, finishTaskSchemaValidate } from '@edusys/model';
 import { getCurrentHostname, getCurrentUser } from '../middlewares/current-http-context';
-import { ssendEmail } from './email.service';
 import { EmailType } from '@edusys/email-sender';
 import UserModel from '../models/user.model';
 import OrganizationModel from '../models/organization.model';
+import { sendEmail } from './email.service';
 
 // LIST OF ALL TASKS WITHOUT PAGINATION
 export const listOfTasks = async (): Promise<ITaskDetailResponse[]> => {
@@ -51,8 +51,8 @@ export const createTask = async (payload: ITaskCreateRequest): Promise<ITaskDeta
   try {
     const savedModel = await (await newModel.save()).populate('organization').execPopulate();
     console.log('ORGANIZATION: ', savedModel.organization);
-    let url = 'www.edusys.sk/task/detail/131'; //`${getCurrentHostname()}/task/detail/${savedModel?.id}`;
-    ssendEmail(EmailType.TASK_NEW, recipient, {
+    let url = 'www.edusys.sk/task/detail/131'; //`${getCurrentHostname()}/task/detail/${savedModel?.id}`; //TODO
+    sendEmail(EmailType.TASK_NEW, recipient, {
       createdBy: recipient,
       taskDescription: savedModel.description,
       taskName: savedModel.name,

@@ -1,4 +1,5 @@
 import { IOrganizationRoleResponse } from './organization-role.dto';
+import { IOrganizationResponse } from './organization.dto';
 
 export interface IJWTUserData {
   id: string;
@@ -8,7 +9,6 @@ export interface IJWTUserData {
   iat?: number;
 }
 
-//LOGIN
 export interface IAuthLoginUserRequest {
   remember?: boolean;
   email: string;
@@ -19,27 +19,6 @@ export interface IAuthLoginUserResponse {
   token: string;
 }
 
-// REGISTER
-export interface IAuthRegisterUserRequest {
-  email: string;
-  password: string;
-  name?: string;
-  surname?: string;
-}
-
-export interface IAuthRegisterUserResponse {
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
-  roles: IOrganizationRoleResponse[];
-  emailVerified: boolean;
-  phoneVerified: boolean;
-  verificationNeeded: boolean;
-}
-
-// USER INFO
 export interface IAuthUserInfoResponse {
   id: string;
   name: string;
@@ -61,7 +40,6 @@ export interface IAuthUserBasicResponse {
   phone: string;
 }
 
-// CHANGE PASSWORD
 export interface IAuthUserChangePasswordRequest {
   oldPassword: string;
   newPassword: string;
@@ -69,4 +47,36 @@ export interface IAuthUserChangePasswordRequest {
 
 export interface IAuthUserChangePasswordResponse {
   success: boolean;
+}
+
+export interface IUserCreateRequest {
+  email: string;
+  name: string;
+  surname: string;
+  phone: string;
+  organizations: string[];
+}
+
+export interface IUserEditRequest {
+  id: string;
+  email: string;
+  name: string;
+  surname: string;
+  phone: string;
+  organizations: string[];
+}
+
+export interface IUserDetailResponse {
+  id: string;
+  name: string;
+  surname: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  organizations: IOrganizationResponse[];
+  roles: IOrganizationRoleResponse[];
+  emailVerified: boolean;
+  phoneVerified: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }

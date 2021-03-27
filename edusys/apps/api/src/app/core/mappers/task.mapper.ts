@@ -1,6 +1,6 @@
 import { ITaskDetailResponse } from '@edusys/model';
 import { ITask } from '../models/task.model';
-import { userDetailMappper } from './auth.mapper';
+import { userDetailMapper } from './user.mapper';
 import { fileDetailMapper } from './file.mapper';
 import { organizationBasicMapper } from './organization.mapper';
 
@@ -17,8 +17,8 @@ export const taskDetailMapper = (data: ITask): ITaskDetailResponse => ({
   status: data.status,
   estimatedDescription: data.estimatedDescription,
   estimatedFixOn: data.estimatedFixOn,
-  createdBy: !!data.createdBy ? userDetailMappper(data.createdBy) : null,
-  fixedBy: !!data.fixedBy ? userDetailMappper(data.fixedBy) : null,
+  createdBy: !!data.createdBy ? userDetailMapper(data.createdBy) : null,
+  fixedBy: !!data.fixedBy ? userDetailMapper(data.fixedBy) : null,
   fixedOn: data.fixedOn,
   finalDescription: data.finalDescription,
 });

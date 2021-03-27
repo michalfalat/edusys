@@ -10,8 +10,9 @@ import { EmailType } from '@edusys/email-sender';
 // REGISTER
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const registerResponse = await authService.register(req.body);
-    res.send(registerResponse);
+    // const registerResponse = await authService.register(req.body);
+    // res.send(registerResponse);
+    res.send({});
   } catch (err) {
     next(err);
   }
@@ -63,8 +64,7 @@ export const testEmail = async (req: Request, res: Response, next: NextFunction)
     if (!req.query.to) {
       throw new BadRequest("Missing email property 'to' ");
     }
-    await emailService.ssendEmail(EmailType.TEST_EMAIL, req.query.to as string, { name: 'hello' });
-    // await emailService.sendTestEmail(req.query.to as string);
+    await emailService.sendEmail(EmailType.TEST_EMAIL, req.query.to as string, { name: 'hello' });
     res.send({ status: 'OK' });
   } catch (err) {
     next(err);

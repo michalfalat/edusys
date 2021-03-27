@@ -1,4 +1,4 @@
-import { IAuthUserBasicResponse, IAuthUserInfoResponse } from './auth.dto';
+import { IAuthUserBasicResponse, IAuthUserInfoResponse } from './user.dto';
 import { IAddress } from './common.dto';
 import { ISubscriptionResponse, ISubscriptionDetailResponse } from './subscription.dto';
 
@@ -11,12 +11,7 @@ export interface IOrganizationCreateRequest {
     registrationNumberVAT?: string;
   };
   address?: IAddress;
-  owner: {
-    email: string;
-    name: string;
-    surname: string;
-    password: string;
-  };
+  owner: string;
   packageId: string;
 }
 

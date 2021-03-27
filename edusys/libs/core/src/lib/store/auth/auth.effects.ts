@@ -6,8 +6,6 @@ import {
   authLoginRequestAction,
   authLoginResponseAction,
   authLogoutAction,
-  authRegisterRequestAction,
-  authRegisterResponseAction,
   authUserInfoRequestAction,
   authUserInfoResponseAction,
 } from './auth.actions';
@@ -23,22 +21,22 @@ export class AuthEffects {
       ofType(authLoginRequestAction),
       mergeMap(({ payload, onSucceeded, onError }) =>
         this.authService.login(payload).pipe(
-          map(response => {
+          map((response) => {
             this.authService.saveAuthToken(response?.token);
             if (!!onSucceeded) {
               onSucceeded(response);
             }
             return authLoginResponseAction({ response });
           }),
-          catchError(error => {
+          catchError((error) => {
             if (!!onError) {
               onError(error);
             }
             return of(authErrorAction({ error }));
-          }),
-        ),
-      ),
-    ),
+          })
+        )
+      )
+    )
   );
 
   logout$ = createEffect(
@@ -52,33 +50,11 @@ export class AuthEffects {
               if (!!onSucceeded) {
                 onSucceeded();
               }
-            }),
-          ),
-        ),
+            })
+          )
+        )
       ),
-    { dispatch: false },
-  );
-
-  register$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(authRegisterRequestAction),
-      mergeMap(({ payload, onSucceeded, onError }) =>
-        this.authService.register(payload).pipe(
-          map(response => {
-            if (!!onSucceeded) {
-              onSucceeded(response);
-            }
-            return authRegisterResponseAction({ response });
-          }),
-          catchError(error => {
-            if (!!onError) {
-              onError(error);
-            }
-            return of(authErrorAction({ error }));
-          }),
-        ),
-      ),
-    ),
+    { dispatch: false }
   );
 
   userInfo$ = createEffect(() =>
@@ -86,20 +62,20 @@ export class AuthEffects {
       ofType(authUserInfoRequestAction),
       mergeMap(({ onSucceeded, onError }) =>
         this.authService.userInfo().pipe(
-          map(response => {
+          map((response) => {
             if (!!onSucceeded) {
               onSucceeded(response);
             }
             return authUserInfoResponseAction({ response });
           }),
-          catchError(error => {
+          catchError((error) => {
             if (!!onError) {
               onError(error);
             }
             return of(authErrorAction({ error }));
-          }),
-        ),
-      ),
-    ),
+          })
+        )
+      )
+    )
   );
 }

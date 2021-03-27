@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import { EmailTemplate, EmailType } from '../model/email.model';
 
-export const sendEmail = (emailTemplate: EmailTemplate<EmailType>): Promise<any> => {
+export const buildAndSendEmail = (emailTemplate: EmailTemplate<EmailType>): Promise<any> => {
   const email = new Email({
     message: {
       from: `${process.env.EMAIL_USER}`,

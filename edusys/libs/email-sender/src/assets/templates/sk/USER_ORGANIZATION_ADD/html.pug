@@ -1,0 +1,23 @@
+extends ../layout.pug
+
+block content
+  div.left
+    p Dobrý deň,
+    if isNewUser
+      p Vitajte v aplikácii edusys. Táto emailová adresa bola zaregistrovaná v našom systéme pod nasledujúcimi organizáciami:
+      ul
+      each org in organizations
+        li= org
+      p Pre potvrdenie emailovej adresy a nastavenie Vášho nového hesla do systému prosím pokračujte kliknutím na nasledujúci odkaz:
+    else
+      p Táto emailová adresa bola zaregistrovaná v našom systéme pod nasledujúcimi organizáciami:
+      ul
+      each org in organizations
+        li= org
+      p Pre prihlásenie do systému pokračujte kliknutím na nasledujúci odkaz:
+    br
+  button
+    a(href='' + url) PRIHLÁSENIE
+  br
+  p.small Ak sa vám odkaz nezobrazuje správne, použite nasledujúci link:
+  a.small(href='' + url) #{url}

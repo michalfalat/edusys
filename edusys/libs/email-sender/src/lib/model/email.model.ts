@@ -4,6 +4,7 @@ export enum EmailType {
   ORGANIZATION_CREATE = 'ORGANIZATION_CREATE',
   ORGANIZATION_CREATE_VERIFY_EMAIL = 'ORGANIZATION_CREATE_VERIFY_EMAIL',
   TASK_NEW = 'TASK_NEW',
+  USER_ORGANIZATION_ADD = 'USER_ORGANIZATION_ADD',
 }
 
 export type EmailTemplatesData = {
@@ -32,6 +33,11 @@ export type EmailTemplatesData = {
     taskPlace: string;
     taskPriority: string;
     createdBy: string;
+    url: string;
+  };
+  [EmailType.USER_ORGANIZATION_ADD]: {
+    isNewUser: boolean;
+    organizations: string[];
     url: string;
   };
 };
