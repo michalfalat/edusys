@@ -21,3 +21,4 @@ export { UserFacade } from './lib/store/user/user.facade';
 export { TaskFacade } from './lib/store/task/task.facade';
 export { PackageFacade } from './lib/store/package/package.facade';
 export { OrganizationFacade } from './lib/store/organization/organization.facade';
+export { OrganizationRoleFacade } from './lib/store/organization-role/organization-role.facade';

@@ -40,6 +40,22 @@ export const organizationDetailResponseAction = createAction(
   }>()
 );
 
+// ORGANIZATION DETAIL
+export const organizationAvailablePermissionsRequestAction = createAction(
+  `${PREFIX} AVAILABLE PERMISSIONS REQUEST`,
+  props<{
+    organizationId: string;
+    onSucceeded?: (response: string[]) => void;
+    onError?: (error: any) => void;
+  }>()
+);
+export const organizationAvailablePermissionsResponseAction = createAction(
+  `${PREFIX} AVAILABLE PERMISSIONS  RESPONSE`,
+  props<{
+    response: string[];
+  }>()
+);
+
 // ORGANIZATION COMPANY INFO
 export const companyInfoDetailRequestAction = createAction(
   `${PREFIX} COMPANY INFO DETAIL REQUEST`,

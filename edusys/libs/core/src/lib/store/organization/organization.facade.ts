@@ -11,6 +11,7 @@ import {
 import {
   companyInfoDetailRequestAction,
   companyInfoEditRequestAction,
+  organizationAvailablePermissionsRequestAction,
   organizationCreateRequestAction,
   organizationDeleteRequestAction,
   organizationDetailRequestAction,
@@ -39,6 +40,14 @@ export class OrganizationFacade {
     onError?: (response: HttpErrorResponse) => void
   ): void {
     this.store.dispatch(organizationDetailRequestAction({ organizationId, onSucceeded, onError }));
+  }
+
+  fetchOrganizationAvailablePermissions(
+    organizationId: string,
+    onSucceeded?: (response: string[]) => void,
+    onError?: (response: HttpErrorResponse) => void
+  ): void {
+    this.store.dispatch(organizationAvailablePermissionsRequestAction({ organizationId, onSucceeded, onError }));
   }
 
   fetchCompanyInfoDetail(onSucceeded?: (response: ICompanyInfoDetailResponse) => void, onError?: (response: HttpErrorResponse) => void): void {

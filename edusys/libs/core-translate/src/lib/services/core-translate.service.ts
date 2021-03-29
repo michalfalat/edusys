@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CoreTranslateService {
   constructor(private translateService: TranslateService) {
-    this.translateService.addLangs(['en', 'sk', 'cs']);
+    this.translateService.addLangs(['sk']);
   }
 
   changeLanguage(lang: string): void {
@@ -16,7 +16,7 @@ export class CoreTranslateService {
 
   getTranslation(key: string): string {
     let result: string;
-    this.translateService.get(key).subscribe(translatedKey => (result = translatedKey));
+    this.translateService.get(key).subscribe((translatedKey) => (result = translatedKey));
     return result;
   }
 

@@ -17,6 +17,8 @@ import {
   companyInfoDetailResponseAction,
   companyInfoEditRequestAction,
   companyInfoEditResponseAction,
+  organizationAvailablePermissionsRequestAction,
+  organizationAvailablePermissionsResponseAction,
 } from './organization.actions';
 import { of } from 'rxjs';
 import { OrganizationService } from '../../services/organization/organization.service';
@@ -57,6 +59,28 @@ export class OrganizationEffects {
               onSucceeded(response);
             }
             return organizationDetailResponseAction({ response });
+          }),
+          catchError((error) => {
+            if (!!onError) {
+              onError(error);
+            }
+            return of(organizationErrorAction({ error }));
+          })
+        )
+      )
+    )
+  );
+
+  fetchOrganizationAvailablePermissions$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(organizationAvailablePermissionsRequestAction),
+      mergeMap(({ organizationId, onSucceeded, onError }) =>
+        this.organizationService.fetchOrganizationAvailablePermissions(organizationId).pipe(
+          map((response) => {
+            if (!!onSucceeded) {
+              onSucceeded(response);
+            }
+            return organizationAvailablePermissionsResponseAction({ response });
           }),
           catchError((error) => {
             if (!!onError) {

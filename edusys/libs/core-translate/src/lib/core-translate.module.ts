@@ -31,7 +31,7 @@ export class MyMissingTranslationHandler implements MissingTranslationHandler {
         useFactory: createTranslateLoader,
         deps: [HttpClient, APP_CONFIG],
       },
-      defaultLanguage: 'en',
+      defaultLanguage: 'sk',
     }),
   ],
   exports: [TranslateModule],

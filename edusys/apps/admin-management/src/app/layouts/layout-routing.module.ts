@@ -49,6 +49,12 @@ const routes: Routes = [
         path: 'home',
         loadChildren: () => import('../home/home.module').then((m) => m.HomeModule),
       },
+      {
+        path: 'organization-role',
+        loadChildren: () => import('../organization-role/organization-role.module').then((m) => m.OrganizationRoleModule),
+        canActivate: [PermissionGuard],
+        data: { moduleName: PERMISSION.ORGANIZATION_ROLE.BASIC },
+      },
     ],
   },
   {

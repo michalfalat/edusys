@@ -18,6 +18,7 @@ import { companyInfoRouter } from './app/controllers/company-info.controller';
 import { taskRouter } from './app/controllers/task.controller';
 import { fileRouter } from './app/controllers/file.controller';
 import { userRouter } from './app/controllers/user.controller';
+import { organizationRoleRouter } from './app/controllers/organization-role.controller';
 
 const app = express();
 dotenv.config({ path: path.join(__dirname, './../.env') });
@@ -51,6 +52,7 @@ app.use(userRouter);
 app.use(moduleRouter);
 app.use(packageRouter);
 app.use(organizationRouter);
+app.use(organizationRoleRouter);
 app.use(invoiceRouter);
 app.use(taskRouter);
 

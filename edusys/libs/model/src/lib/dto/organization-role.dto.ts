@@ -1,6 +1,8 @@
 export interface IOrganizationRoleCreateRequest {
   name: string;
   description: string;
+  organizationId: string;
+  permissions: string[];
 }
 
 export interface IOrganizationRoleResponse {
@@ -14,14 +16,19 @@ export interface IOrganizationRoleDetailResponse {
   description: string;
   organizationName: string;
   organizationId: string;
+  permissions: string[];
   createdAt?: string;
   updatedAt?: string;
+  editable: boolean;
+  status: OrganizationRoleStatus;
 }
 
 export interface IOrganizationRoleEditRequest {
   id: string;
   name?: string;
   description?: string;
+  permissions: string[];
+  status: OrganizationRoleStatus;
 }
 
 export enum OrganizationRoleStatus {

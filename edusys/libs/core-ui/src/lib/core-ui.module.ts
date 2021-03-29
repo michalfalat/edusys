@@ -19,6 +19,10 @@ import { UiBankDetailComponent } from './components/ui-bank-detail/ui-bank-detai
 import { UiUploadComponent } from './components/ui-upload/ui-upload.component';
 import { UiGalleryComponent } from './components/ui-gallery/ui-gallery.component';
 import { UiConfirmModalComponent } from './components/ui-confirm-modal/ui-confirm-modal.component';
+import { SelectByIdPipe } from './pipes/select-by-id.pipe';
+import { DurationPipe } from './pipes/duration.pipe';
+
+const pipes = [SelectByIdPipe, DurationPipe];
 
 @NgModule({
   imports: [
@@ -34,6 +38,7 @@ import { UiConfirmModalComponent } from './components/ui-confirm-modal/ui-confir
     MatDialogModule,
   ],
   exports: [
+    ...pipes,
     UiAmountComponent,
     UiDividerComponent,
     UiEmptyListComponent,
@@ -47,6 +52,7 @@ import { UiConfirmModalComponent } from './components/ui-confirm-modal/ui-confir
     UiConfirmModalComponent,
   ],
   declarations: [
+    ...pipes,
     UiAmountComponent,
     UiDividerComponent,
     UiEmptyListComponent,

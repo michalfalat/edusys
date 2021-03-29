@@ -10,6 +10,7 @@ import {
   fetchOrganizationListUrl,
   fetchCompanyInfoDetailUrl,
   editCompanyInfoDetailUrl,
+  fetchOrganizationAvailablePermissionsUrl,
 } from './organization.endpoints';
 import {
   ICompanyInfoDetailResponse,
@@ -35,6 +36,10 @@ export class OrganizationService {
 
   fetchOrganizationDetail = (organizationId: string): Observable<IOrganizationDetailResponse> => {
     return this.httpClient.get<IOrganizationDetailResponse>(fetchOrganizationDetailUrl(this.baseUrl(), organizationId));
+  };
+
+  fetchOrganizationAvailablePermissions = (organizationId: string): Observable<string[]> => {
+    return this.httpClient.get<string[]>(fetchOrganizationAvailablePermissionsUrl(this.baseUrl(), organizationId));
   };
 
   createOrganization = (payload: IOrganizationCreateRequest): Observable<IOrganizationDetailResponse> => {

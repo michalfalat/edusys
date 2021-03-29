@@ -15,7 +15,7 @@ export interface IOrganization extends IEntity {
   address?: IAddress;
   owner?: IUser['_id'];
   status: OrganizationStatus;
-  organizationRoles?: IOrganizationRole[];
+  organizationRoles?: IOrganizationRole['_id'][];
   users?: IUser['_id'][];
   subscriptions?: ISubscription[];
 }
@@ -86,6 +86,15 @@ organizationSchema.statics.addUserToOrganization = function (organizationId: any
 organizationSchema.statics.removeUserFromOrganization = function (organizationId: any, userId: any): Promise<IOrganizationDocument> {
   return this.findByIdAndUpdate(organizationId, { $pull: { users: userId } }, { new: true }).exec();
 };
+
+organizationSchema.statics.addRoleToOrganization = function (organizationId: any, organizationRoleId: any): Promise<IOrganizationDocument> {
+  return this.findByIdAndUpdate(organizationId, { $push: { organizationRoles: organizationRoleId } }, { new: true }).exec();
+};
+
+organizationSchema.statics.removeRoleFromOrganization = function (organizationId: any, organizationRoleId: any): Promise<IOrganizationDocument> {
+  return this.findByIdAndUpdate(organizationId, { $pull: { organizationRoles: organizationRoleId } }, { new: true }).exec();
+};
+
 organizationSchema.statics.findByOrganizationIds = function (organizationIds: any[]): Promise<IOrganizationDocument[]> {
   return this.find().where('_id').in(organizationIds).exec();
 };
@@ -93,6 +102,8 @@ organizationSchema.statics.findByOrganizationIds = function (organizationIds: an
 export interface IOrganizationModel extends Model<IOrganizationDocument> {
   addUserToOrganization(organizationId: any, userId: any): Promise<IOrganizationDocument>;
   removeUserFromOrganization(organizationId: any, userId: any): Promise<IOrganizationDocument>;
+  addRoleToOrganization(organizationId: any, organizationRoleId: any): Promise<IOrganizationDocument>;
+  removeRoleFromOrganization(organizationId: any, organizationRoleId: any): Promise<IOrganizationDocument>;
   findByOrganizationIds(organizationIds: any[]): Promise<IOrganizationDocument[]>;
 }
 

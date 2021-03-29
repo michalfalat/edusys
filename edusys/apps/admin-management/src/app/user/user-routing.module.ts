@@ -11,25 +11,25 @@ const routes: Routes = [
     path: '',
     component: UserHomeComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.PACKAGE.BASIC },
+    data: { moduleName: PERMISSION.USER.BASIC },
   },
   {
     path: 'detail/:userId',
     component: UserDetailComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.PACKAGE.DETAIL, isEditMode: false },
+    data: { moduleName: PERMISSION.USER.DETAIL, isEditMode: false },
   },
   {
     path: 'edit/:userId',
     component: UserDetailComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.PACKAGE.EDIT, isEditMode: true },
+    data: { moduleName: PERMISSION.USER.EDIT, isEditMode: true },
   },
   {
     path: 'create',
     component: UserCreateComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.PACKAGE.CREATE },
+    data: { moduleName: PERMISSION.USER.CREATE },
   },
 ];
 

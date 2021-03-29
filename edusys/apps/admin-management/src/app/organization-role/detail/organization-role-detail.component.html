@@ -1,0 +1,97 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form" (ngSubmit)="onEditOrganizationRole()">
+    <mat-tab-group animationDuration="0ms" (selectedTabChange)="saveActiveTab($event)" [selectedIndex]="activeTab">
+      <mat-tab [label]="'organization_role.basic' | translate">
+        <ui-divider [compact]="true"></ui-divider>
+        <div class="row">
+          <mat-form-field>
+            <mat-label>{{ 'organization_role.created_at' | translate }}</mat-label>
+            <input matInput [value]="organizationRoleDetail?.createdAt | date" [disabled]="true" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{ 'organization_role.edited_at' | translate }}</mat-label>
+            <input matInput [value]="organizationRoleDetail?.updatedAt | date" [disabled]="true" />
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field>
+            <mat-label>{{ 'organization_role.organization' | translate }}</mat-label>
+            <input matInput [value]="organizationRoleDetail?.organizationName" [readonly]="true" />
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field>
+            <mat-label>{{ 'organization_role.name' | translate }}</mat-label>
+            <input matInput formControlName="name" name="name" [readonly]="!isEditMode" />
+            <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field>
+            <mat-label>{{ 'organization_role.description' | translate }}</mat-label>
+            <input matInput formControlName="description" name="description" [readonly]="!isEditMode" />
+            <mat-error><ui-form-error [formGroup]="form" [name]="'description'"></ui-form-error></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field *ngIf="isEditMode">
+            <mat-select formControlName="status" [placeholder]="'organization_role.status' | translate">
+              <mat-option [value]="organizationRoleStatuses.ACTIVE">
+                {{ organizationRoleStatuses.ACTIVE }}
+              </mat-option>
+              <mat-option [value]="organizationRoleStatuses.CANCELED">
+                {{ organizationRoleStatuses.CANCELED }}
+              </mat-option>
+            </mat-select>
+            <mat-error><ui-form-error [formGroup]="form" [name]="'organizations'"></ui-form-error></mat-error>
+          </mat-form-field>
+          <mat-form-field *ngIf="!isEditMode">
+            <mat-label>{{ 'organization_role.status' | translate }}</mat-label>
+            <input matInput formControlName="status" name="status" [readonly]="true" />
+          </mat-form-field>
+        </div>
+      </mat-tab>
+
+      <mat-tab [label]="'organization_role.permissions' | translate">
+        <ui-divider [compact]="true"></ui-divider>
+        <div class="column">
+          <ng-container *ngFor="let perm of availablePermissions">
+            <mat-checkbox (change)="permissionChange($event, perm)" [checked]="organizationRoleDetail?.permissions?.includes(perm)" [disabled]="!isEditMode">{{
+              perm
+            }}</mat-checkbox>
+          </ng-container>
+        </div>
+      </mat-tab>
+
+      <mat-tab [label]="'organization_role.users' | translate">
+        <ui-divider [compact]="true"></ui-divider>
+      </mat-tab>
+    </mat-tab-group>
+
+    <ui-divider [compact]="true"></ui-divider>
+
+    <div class="bottom-content">
+      <div class="row between" *ngIf="isEditMode">
+        <button mat-button type="button" (click)="showDeleteDialog()">{{ 'general.delete.button' | translate }}</button>
+        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+        <div class="row right">
+          <button mat-button (click)="navigateToOrganizationRoleDetail(organizationRoleDetail?.id, activeTab)">
+            {{ 'general.cancel.button' | translate }}
+          </button>
+          <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+          <button mat-raised-button color="primary" type="button" (click)="onEditOrganizationRole()" [disabled]="!form.valid">
+            {{ 'general.save.button' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="row right" *ngIf="!isEditMode">
+        <button mat-raised-button color="primary" type="button" (click)="navigateToOrganizationRoleEdit(organizationRoleDetail?.id, activeTab)">
+          {{ 'general.edit.button' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-card>

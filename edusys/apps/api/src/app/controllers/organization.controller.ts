@@ -41,6 +41,15 @@ export const editOrganization = async (req: Request, res: Response, next: NextFu
   }
 };
 
+export const availablePermissions = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const editOrganizationResponse = await organizationService.getAvailablePermissions(req.params.id);
+    res.send(editOrganizationResponse);
+  } catch (err) {
+    next(err);
+  }
+};
+
 // DELETE ORGANIZATION
 export const deleteOrganization = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -54,6 +63,7 @@ export const deleteOrganization = async (req: Request, res: Response, next: Next
 export const organizationRouter = Router();
 organizationRouter.get('/api/organization', listOfOrganizations);
 organizationRouter.get('/api/organization/:id', detailOfOrganization);
+organizationRouter.get('/api/organization/:id/available-permissions', availablePermissions);
 organizationRouter.post('/api/organization', createOrganization);
 organizationRouter.patch('/api/organization/:id', editOrganization);
 organizationRouter.delete('/api/organization/:id', deleteOrganization);

@@ -1,0 +1,34 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form" (ngSubmit)="onCreateOrganizationRole()">
+    <div class="row">
+      <mat-form-field>
+        <mat-select formControlName="organizationId" [placeholder]="'organization_role.organization' | translate">
+          <mat-option *ngFor="let org of organizationList" [value]="org?.id">
+            {{ org?.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'organizations'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'organization_role.name' | translate }}</mat-label>
+        <input matInput formControlName="name" name="name" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'organization_role.description' | translate }}</mat-label>
+        <input matInput formControlName="description" name="description" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'description'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row center">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form?.valid">{{ 'general.create.button' | translate }}</button>
+    </div>
+  </form>
+</mat-card>

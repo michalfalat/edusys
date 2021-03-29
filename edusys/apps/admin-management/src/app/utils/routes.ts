@@ -33,4 +33,10 @@ export const routes = {
     detail: '/organization/detail/{0}',
     edit: '/organization/edit/{0}',
   },
+  organizationRole: {
+    home: '/organization-role',
+    create: '/organization-role/create',
+    detail: '/organization-role/detail/{0}',
+    edit: '/organization-role/edit/{0}',
+  },
 };

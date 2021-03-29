@@ -141,8 +141,26 @@ export const deleteOrganization = async (id: string): Promise<void> => {
   }
 };
 
+// DELETE ORGANIZATION
+export const getAvailablePermissions = async (id: string): Promise<string[]> => {
+  try {
+    const detailModel = await OrganizationModel.findById(id).populate({ path: 'subscriptions', populate: { path: 'package' } });
+    if (!detailModel) {
+      throw new NotFound();
+    }
+    const activeSubscription = detailModel?.subscriptions.find((s) => s.isActive);
+    if (!activeSubscription) {
+      return [];
+    }
+    return buildPermissions(activeSubscription.package._id);
+  } catch (error) {
+    throw new BadRequest(error);
+  }
+};
+
 const buildPermissions = async (packageId: any): Promise<string[]> => {
   const pack: IPackage = await PackageModel.findById(packageId).populate('modules');
+  console.log(pack);
   const permissions = uniq(flatten([...pack?.modules?.map((mod) => mod?.permissions as string[])]));
   return permissions;
 };
