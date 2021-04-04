@@ -55,6 +55,10 @@ const routes: Routes = [
         canActivate: [PermissionGuard],
         data: { moduleName: PERMISSION.ORGANIZATION_ROLE.BASIC },
       },
+      {
+        path: 'log',
+        loadChildren: () => import('../log/log.module').then((m) => m.LogModule),
+      },
     ],
   },
   {

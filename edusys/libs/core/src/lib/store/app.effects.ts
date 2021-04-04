@@ -1,6 +1,7 @@
 import { AppEffects } from './app/app.effects';
 import { AuthEffects } from './auth/auth.effects';
 import { FileEffects } from './file/file.effects';
+import { LogEffects } from './log/log.effects';
 import { ModuleEffects } from './module/module.effects';
 import { OrganizationRoleEffects } from './organization-role/organization-role.effects';
 import { OrganizationEffects } from './organization/organization.effects';
@@ -18,4 +19,5 @@ export const appEffects = [
   FileEffects,
   UserEffects,
   OrganizationRoleEffects,
+  LogEffects,
 ];

@@ -5,7 +5,7 @@
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'task.createdAt' | translate }}</mat-label>
-        <input matInput formControlName="createdAt" name="createdAt" [readonly]="true" />
+        <input matInput [value]="taskDetail?.createdAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
       </mat-form-field>
     </div>
     <div class="row">

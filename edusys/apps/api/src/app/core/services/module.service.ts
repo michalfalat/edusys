@@ -4,6 +4,7 @@ import { moduleDetailMapper, moduleListMapper } from '../mappers/module.mapper';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
 import { createModuleSchemaValidate, editModuleSchemaValidate } from '@edusys/model';
+import { logInfo } from '../utils/logger';
 
 // LIST OF ALL MODULES WITHOUT PAGINATION
 export const listOfModules = async (): Promise<IModuleDetailResponse[]> => {
@@ -42,6 +43,7 @@ export const createModule = async (payload: IModuleCreateRequest): Promise<IModu
   });
   try {
     const savedModel = await newModel.save();
+    logInfo(`[MODULE_SERVICE] module '${payload.name}' created`);
     return moduleDetailMapper(savedModel);
   } catch (error) {
     throw new BadRequest(error);
@@ -57,6 +59,7 @@ export const editModule = async (payload: IModuleEditRequest): Promise<IModuleDe
   try {
     const id = payload.id;
     const updatedModel = await ModuleModel.findByIdAndUpdate(id, payload, { new: true });
+    logInfo(`[MODULE_SERVICE] module '${updatedModel.name}' edited`);
     return moduleDetailMapper(updatedModel);
   } catch (error) {
     throw new BadRequest(error);
@@ -67,6 +70,7 @@ export const editModule = async (payload: IModuleEditRequest): Promise<IModuleDe
 export const deleteModule = async (id: string): Promise<void> => {
   try {
     await ModuleModel.findByIdAndDelete(id);
+    logInfo(`[MODULE_SERVICE] module '${id}' deleted`);
     return;
   } catch (error) {
     throw new BadRequest(error);

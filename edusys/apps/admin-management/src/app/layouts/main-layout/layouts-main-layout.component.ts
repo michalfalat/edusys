@@ -41,6 +41,11 @@ export class LayoutsMainLayoutComponent extends LayoutBaseContainer implements O
       route: routes.organizationRole.home,
       permission: PERMISSION.ORGANIZATION_ROLE.BASIC,
     },
+    {
+      name: 'navigation.logs',
+      route: routes.log.home,
+      permission: PERMISSION.LOG.BASIC,
+    },
   ];
   constructor(injector: Injector) {
     super(injector);

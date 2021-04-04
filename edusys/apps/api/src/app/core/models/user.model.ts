@@ -4,6 +4,7 @@ import { IOrganizationRole } from './organization-role.model';
 import { compare, genSalt, hash } from 'bcrypt';
 import { IOrganization } from './organization.model';
 import { generate } from 'generate-password';
+import { Query } from 'mongoose';
 
 export interface IUser extends IEntity {
   name: string;
@@ -22,7 +23,7 @@ export interface IUser extends IEntity {
 }
 
 export interface IUserDocument extends IUser, Document {
-  comparePassword: comparePasswordFunction;
+  comparePassword: (password: string) => Promise<boolean>;
 }
 
 const userSchema = new Schema<IUserDocument>(
@@ -93,13 +94,11 @@ const userSchema = new Schema<IUserDocument>(
   }
 );
 
-type comparePasswordFunction = (candidatePassword: string) => Promise<boolean>;
-
-userSchema.statics.findByName = function (name: string) {
+userSchema.statics.findByName = function (name: string): Query<any, IUserDocument> {
   return this.find({ name: new RegExp(name, 'i') });
 };
 
-userSchema.statics.findByEmail = function (email: string) {
+userSchema.statics.findByEmail = function (email: string): Query<any, IUserDocument> {
   return this.findOne({ email: new RegExp(email, 'i') });
 };
 
@@ -107,7 +106,7 @@ userSchema.virtual('fullName').get(function (this: IUserDocument) {
   return `${this.name || ''} ${this.surname || ''}`;
 });
 
-const comparePassword: comparePasswordFunction = function (candidatePassword) {
+const comparePassword = function (candidatePassword): Promise<boolean> {
   return compare(candidatePassword, this.password);
 };
 
@@ -116,7 +115,6 @@ userSchema.methods.comparePassword = comparePassword;
 userSchema.pre('save', function save(next) {
   const user = this as IUserDocument;
   let userPassword = user.password;
-  console.log('USEER', user);
   if (user.isNew || user.isModified('password')) {
     console.log('user password is modified!');
     genSalt(10, (err, salt) => {
@@ -148,8 +146,8 @@ userSchema.pre('save', function save(next) {
 });
 
 export interface IUserModel extends Model<IUserDocument> {
-  findByEmail(email: string): Promise<IUserDocument>;
-  findByName(name: string): Promise<IUserDocument[]>;
+  findByEmail(email: string): Query<any, IUserDocument>;
+  findByName(name: string): Query<any, IUserDocument>;
 }
 
 const UserModel = model<IUserDocument, IUserModel>('user', userSchema);

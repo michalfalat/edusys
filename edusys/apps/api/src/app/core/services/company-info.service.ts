@@ -4,12 +4,12 @@ import { BadRequest } from '../utils/errors';
 import { editCompanyInfoSchemaValidate } from '@edusys/model';
 import { companyInfoDetailMapper } from '../mappers/company-info-mapper';
 import { companyInfoSeed } from './../../seeders/basic';
+import { logInfo } from '../utils/logger';
 
 // DETAIL OF COMPANY INFO
 export const detailOfCompanyInfo = async (): Promise<ICompanyInfoDetailResponse> => {
   let detailModel = await CompanyInfoModel.findOne();
   if (!detailModel) {
-    console.log(detailModel);
     return createCompanyInfo();
   }
   return companyInfoDetailMapper(detailModel);
@@ -37,6 +37,7 @@ export const editCompanyInfo = async (payload: ICompanyInfoEditRequest): Promise
   try {
     const id = payload.id;
     const updatedModel = await CompanyInfoModel.findByIdAndUpdate(id, payload, { new: true });
+    logInfo(`[COMPANY_INFO_SERVICE] edited successfully`);
     return companyInfoDetailMapper(updatedModel);
   } catch (error) {
     throw new BadRequest(error);

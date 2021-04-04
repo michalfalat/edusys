@@ -8,6 +8,7 @@ import { EmailType } from '@edusys/email-sender';
 import UserModel from '../models/user.model';
 import OrganizationModel from '../models/organization.model';
 import { sendEmail } from './email.service';
+import { logInfo } from '../utils/logger';
 
 // LIST OF ALL TASKS WITHOUT PAGINATION
 export const listOfTasks = async (): Promise<ITaskDetailResponse[]> => {
@@ -61,6 +62,8 @@ export const createTask = async (payload: ITaskCreateRequest): Promise<ITaskDeta
       taskPriority: savedModel.priority,
       url,
     });
+
+    logInfo(`[TASK_SERVICE] task '${savedModel.name}' created with ${savedModel.priority} priority`);
     return taskDetailMapper(savedModel);
   } catch (error) {
     throw new BadRequest(error);
@@ -91,6 +94,7 @@ export const assignTask = async (payload: ITaskAssignRequest): Promise<ITaskDeta
       { new: true }
     );
 
+    logInfo(`[TASK_SERVICE] task '${result.name}' assigned to with ${payload.fixedBy}`);
     return taskDetailMapper(result);
   } catch (error) {
     throw new BadRequest(error);
@@ -120,6 +124,7 @@ export const finishTask = async (payload: ITaskFinishRequest): Promise<ITaskDeta
       { new: true }
     );
 
+    logInfo(`[TASK_SERVICE] task '${result.name}' finished`);
     return taskDetailMapper(result);
   } catch (error) {
     throw new BadRequest(error);
@@ -135,6 +140,7 @@ export const editTask = async (payload: ITaskEditRequest): Promise<ITaskDetailRe
   try {
     const id = payload.id;
     const updatedModel = await TaskModel.findByIdAndUpdate(id, { ...payload, attachments: payload.attachments?.map((a) => a.id) }, { new: true });
+    logInfo(`[TASK_SERVICE] task '${updatedModel.name}' edited`);
     return taskDetailMapper(updatedModel);
   } catch (error) {
     throw new BadRequest(error);
@@ -144,7 +150,8 @@ export const editTask = async (payload: ITaskEditRequest): Promise<ITaskDetailRe
 // CANCEL TASK
 export const deleteTask = async (id: string): Promise<void> => {
   try {
-    await TaskModel.findByIdAndUpdate(id, { status: TaskStatus.CANCELED }, { new: true });
+    const result = await TaskModel.findByIdAndUpdate(id, { status: TaskStatus.CANCELED }, { new: true });
+    logInfo(`[TASK_SERVICE] task '${result.name}' changed status to CANCELED`);
     return;
   } catch (error) {
     throw new BadRequest(error);

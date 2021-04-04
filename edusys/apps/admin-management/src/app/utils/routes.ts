@@ -15,6 +15,10 @@ export const routes = {
     detail: '/task/detail/{0}',
     edit: '/task/edit/{0}',
   },
+  log: {
+    home: '/log',
+    detail: '/log/detail/{0}',
+  },
   user: {
     home: '/user',
     create: '/user/create',

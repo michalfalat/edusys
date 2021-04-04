@@ -12,6 +12,7 @@ export * from './lib/dto/verify-token.dto';
 export * from './lib/dto/company-info.dto';
 export * from './lib/dto/task.dto';
 export * from './lib/dto/file.dto';
+export * from './lib/dto/log.dto';
 
 // PERMISSIONS
 export * from './lib/model/permissions.model';

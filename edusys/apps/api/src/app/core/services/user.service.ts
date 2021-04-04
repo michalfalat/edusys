@@ -7,6 +7,7 @@ import { createUserSchemaValidate, editUserSchemaValidate } from '@edusys/model'
 import OrganizationModel from '../models/organization.model';
 import { sendEmail } from './email.service';
 import { EmailType } from '@edusys/email-sender';
+import { logger, logInfo } from '../utils/logger';
 
 export const listOfUsers = async (): Promise<IUserDetailResponse[]> => {
   const listOfEntities = await UserModel.find();
@@ -54,6 +55,8 @@ export const createUser = async (payload: IUserCreateRequest): Promise<IUserDeta
       const url = `${process.env.CLIENT_APP_URL}/login`; // TODO
       sendEmail(EmailType.USER_ORGANIZATION_ADD, payload.email, { isNewUser: true, organizations: organizations?.map((o) => o.name), url });
     }
+
+    logInfo(`[USER_SERVICE] user '${payload.email}' created with id '${savedModel._id}'`);
     return userDetailMapper(savedModel);
   } catch (error) {
     throw new BadRequest(error);
@@ -69,6 +72,7 @@ export const editUser = async (payload: IUserEditRequest): Promise<IUserDetailRe
   try {
     const id = payload.id;
     const updatedModel = await UserModel.findByIdAndUpdate(id, payload, { new: true });
+    logInfo(`[USER_SERVICE] user '${payload.email}' edited`);
     return userDetailMapper(updatedModel);
   } catch (error) {
     throw new BadRequest(error);
@@ -83,6 +87,7 @@ export const deleteUser = async (id: string): Promise<void> => {
       throw new BadRequest(errorLabels.ACCESS_DENIED);
     }
     await UserModel.findByIdAndDelete(id);
+    logInfo(`[USER_SERVICE] user '${id}' deleted`);
     return;
   } catch (error) {
     throw new BadRequest(error);

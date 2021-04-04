@@ -14,6 +14,7 @@ import {
 } from '@edusys/model';
 import { errorLabels } from '../utils/error-labels';
 import { getCurrentUser } from '../middlewares/current-http-context';
+import { logInfo } from '../utils/logger';
 
 // // REGISTER
 // export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuthRegisterUserResponse> => {
@@ -64,7 +65,7 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
     throw new BadRequest(error.details[0].message);
   }
 
-  const user = await UserModel.findByEmail(payload.email);
+  const user = await UserModel.findByEmail(payload.email).select('+password');
   if (!user) {
     throw new BadRequest(errorLabels.INVALID_CREDENTIALS);
   }
@@ -72,7 +73,6 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
   if (verificationNeeded && !user.emailVerified) {
     throw new BadRequest(errorLabels.VERIFICATION_NEEDED);
   }
-
   const validPassword = await user.comparePassword(payload.password);
   if (!validPassword) {
     throw new BadRequest(errorLabels.INVALID_CREDENTIALS);
@@ -85,11 +85,13 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
 
   const jwtData: IJWTUserData = {
     id: user._id,
-    name: user.name,
+    name: user.fullName,
+    email: user.email,
     permissions,
   };
 
   const token = jwt.sign(jwtData, process.env.TOKEN_SECRET);
+  logInfo(`[AUTH_SERVICE] user ${user.email} logged in successfully`);
   return { token };
 };
 
@@ -120,6 +122,7 @@ export const changePassword = async (payload: IAuthUserChangePasswordRequest): P
     throw new BadRequest(errorLabels.INVALID_CREDENTIALS);
   }
   await UserModel.updateOne({ _id: jwtData?.id }, { $set: { password: payload.newPassword } });
+  logInfo(`[AUTH_SERVICE] user ${user.email} changed password successfully`);
 
   return { success: true };
 };
@@ -139,4 +142,5 @@ export const seedSU = async (): Promise<void> => {
     emailVerified: true,
   });
   await user.save();
+  logInfo(`[AUTH_SERVICE] data seed success`);
 };

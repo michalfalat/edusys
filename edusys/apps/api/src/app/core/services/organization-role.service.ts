@@ -5,6 +5,7 @@ import { BadRequest, NotFound } from '../utils/errors';
 import { createOrganizationRoleSchemaValidate, editOrganizationRoleSchemaValidate } from '@edusys/model';
 import OrganizationModel from '../models/organization.model';
 import { getCurrentUser } from '../middlewares/current-http-context';
+import { logInfo } from '../utils/logger';
 
 export const listOfOrganizationRoles = async (): Promise<IOrganizationRoleDetailResponse[]> => {
   const listOfEntities = await OrganizationRoleModel.find().populate('organization');
@@ -43,6 +44,7 @@ export const createOrganizationRole = async (payload: IOrganizationRoleCreateReq
     });
     newModel = await newModel.save();
     await OrganizationModel.addRoleToOrganization(payload.organizationId, newModel._id);
+    logInfo(`[ORGANIZATION_ROLE_SERVICE] role '${payload.name}' created`);
     return organizationRoleDetailMapper(newModel);
   } catch (error) {
     throw new BadRequest(error);
@@ -58,6 +60,7 @@ export const editOrganizationRole = async (payload: IOrganizationRoleEditRequest
   try {
     const id = payload.id;
     const updatedModel = await OrganizationRoleModel.findByIdAndUpdate(id, payload, { new: true });
+    logInfo(`[ORGANIZATION_ROLE_SERVICE] role '${payload.name}' edited`);
     return organizationRoleDetailMapper(updatedModel);
   } catch (error) {
     throw new BadRequest(error);
@@ -68,6 +71,7 @@ export const editOrganizationRole = async (payload: IOrganizationRoleEditRequest
 export const deleteOrganizationRole = async (id: string): Promise<void> => {
   try {
     await OrganizationRoleModel.findByIdAndDelete(id);
+    logInfo(`[ORGANIZATION_ROLE_SERVICE] role '${id}' deleted`);
     return;
   } catch (error) {
     throw new BadRequest(error);

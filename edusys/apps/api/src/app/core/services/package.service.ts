@@ -5,6 +5,7 @@ import { packageDetailMapper, packageListMapper } from '../mappers/package.mappe
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
 import { createPackageSchemaValidate, editPackageSchemaValidate } from '@edusys/model';
+import { logInfo } from '../utils/logger';
 
 // LIST OF ALL PACKAGES WITHOUT PAGINATION
 export const listOfPackages = async (): Promise<IPackageDetailResponse[]> => {
@@ -44,6 +45,7 @@ export const createPackage = async (payload: IPackageCreateRequest): Promise<IPa
   });
   try {
     const savedModel = await newModel.save();
+    logInfo(`[PACKAGE_SERVICE] package '${payload.name}' created with ${payload.moduleIds?.length} modules`);
     return packageDetailMapper(savedModel, process.env.PRIMARY_CURRENCY);
   } catch (error) {
     throw new BadRequest(error);
@@ -67,6 +69,7 @@ export const editPackage = async (payload: IPackageEditRequest): Promise<IPackag
       modules,
     };
     const updatedModel = await PackageModel.findByIdAndUpdate(id, editedPackage, { new: true });
+    logInfo(`[PACKAGE_SERVICE] package '${payload.name}' edited`);
     return packageDetailMapper(updatedModel, process.env.PRIMARY_CURRENCY);
   } catch (error) {
     throw new BadRequest(error);
@@ -77,6 +80,7 @@ export const editPackage = async (payload: IPackageEditRequest): Promise<IPackag
 export const deletePackage = async (id: string): Promise<void> => {
   try {
     await PackageModel.findByIdAndDelete(id);
+    logInfo(`[PACKAGE_SERVICE] package '${id}' deleted`);
     return;
   } catch (error) {
     throw new BadRequest(error);

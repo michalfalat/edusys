@@ -1,6 +1,7 @@
 import { appReducer } from './app/app.reducer';
 import { authReducer } from './auth/auth.reducer';
 import { fileReducer } from './file/file.reducer';
+import { logReducer } from './log/log.reducer';
 import { moduleReducer } from './module/module.reducer';
 import { organizationRoleReducer } from './organization-role/organization-role.reducer';
 import { organizationReducer } from './organization/organization.reducer';
@@ -18,4 +19,5 @@ export const appReducers = {
   task: taskReducer,
   file: fileReducer,
   user: userReducer,
+  log: logReducer,
 };

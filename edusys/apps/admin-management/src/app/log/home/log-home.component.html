@@ -1,0 +1,96 @@
+<mat-card class="basic-card large">
+  <div class="row between">
+    <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  </div>
+
+  <ui-divider [compact]="true"></ui-divider>
+  <mat-accordion>
+    <mat-expansion-panel class="mat-elevation-z1" [expanded]="!!(filterData?.filter | keyvalue)?.length">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{ 'general.filter' | translate }}</mat-panel-title>
+        <mat-panel-description></mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="form">
+        <div class="row between">
+          <mat-form-field [style.width]="'45%'">
+            <mat-label>{{ 'log.from_date' | translate }}</mat-label>
+            <input matInput [matDatepicker]="fromDatePicker" formControlName="fromDate" [placeholder]="'log.from_date' | translate" />
+            <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromDatePicker></mat-datepicker>
+
+            <button *ngIf="form?.value?.fromDate" matSuffix mat-icon-button type="button" (click)="clearFilter('fromDate'); $event.stopPropagation()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field [style.width]="'45%'">
+            <mat-label>{{ 'log.to_date' | translate }}</mat-label>
+            <input matInput [matDatepicker]="toDatePicker" formControlName="toDate" [placeholder]="'log.to_date' | translate" />
+            <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #toDatePicker></mat-datepicker>
+
+            <button *ngIf="form?.value?.toDate" matSuffix mat-icon-button type="button" (click)="clearFilter('toDate'); $event.stopPropagation()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <mat-form-field>
+          <mat-label>{{ 'log.level' | translate }}</mat-label>
+          <mat-select formControlName="level" [placeholder]="'log.level' | translate">
+            <mat-option [value]="'error'"> ERROR </mat-option>
+            <mat-option [value]="'info'"> INFO </mat-option>
+          </mat-select>
+          <button *ngIf="form?.value?.level" matSuffix mat-icon-button type="button" (click)="clearFilter('level'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'log.keyword' | translate }}</mat-label>
+          <input matInput formControlName="keyword" [placeholder]="'log.keyword' | translate" />
+
+          <button *ngIf="form?.value?.keyword" matSuffix mat-icon-button type="button" (click)="clearFilter('keyword'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+      <mat-action-row>
+        <button mat-button (click)="clearFilter()">{{ 'general.filter.cancel' | translate }}</button>
+        <button mat-raised-button color="primary" (click)="filter(true)">{{ 'general.filter.button' | translate }}</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <ui-divider [compact]="true"></ui-divider>
+  <table mat-table [dataSource]="logList?.docs" class="mat-elevation-z0">
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>{{ 'general.created_at' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.createdAt | date: 'MMM dd YYYY HH:mm' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="level">
+      <th mat-header-cell *matHeaderCellDef>{{ 'log.level' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.level }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="message">
+      <th mat-header-cell *matHeaderCellDef>{{ 'log.message' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.message | slice: 0:200 }}{{ element.message?.length > 200 ? '...' : '' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="meta">
+      <th mat-header-cell *matHeaderCellDef>{{ 'log.meta' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.meta | json }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      class="row-clickable"
+      [ngClass]="{ 'row-error': row.level === 'error', 'row-info': row.level === 'info' }"
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="navigateToLogDetail(row.id)"
+    ></tr>
+  </table>
+  <mat-paginator (page)="onPaginatorEvent($event)" #paginator [length]="logList?.totalDocs" [pageSize]="pageSize" [pageSizeOptions]="[20, 50, 100]">
+  </mat-paginator>
+</mat-card>

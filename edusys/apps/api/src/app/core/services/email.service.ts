@@ -2,6 +2,7 @@ import { EmailTemplate, buildAndSendEmail, EmailType, EmailTemplatesData } from 
 import { getCurrentLanguage } from '../middlewares/current-http-context';
 import * as path from 'path';
 import { __assetsdir } from 'apps/api/src/dir';
+import { logInfo } from '../utils/logger';
 
 // SENDING TEST EMAIL
 export const sendTestEmail = async (to: string): Promise<void> => {
@@ -34,6 +35,8 @@ export const sendEmail = async <T extends EmailType>(type: T, to: string, params
   };
 
   await buildAndSendEmail(email);
+
+  logInfo(`[EMAIL_SERVICE] email '${type}' sent to ${to}`);
 };
 
 // EMAIL ADDRESS VERIFICATION

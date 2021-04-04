@@ -2,10 +2,10 @@ import { IFileUploadRequest, IFileDetailResponse } from '@edusys/model';
 import FileModel from '../models/file.model';
 import { fileDetailMapper } from '../mappers/file.mapper';
 import { BadRequest, NotFound } from '../utils/errors';
-import { uploadFileSchemaValidate } from '@edusys/model';
 import { getCurrentUser } from '../middlewares/current-http-context';
 import * as fs from 'fs';
 import * as path from 'path';
+import { logInfo } from '../utils/logger';
 
 export const detailOfFile = async (id: string): Promise<IFileDetailResponse> => {
   const detailModel = await FileModel.findById(id);
@@ -37,6 +37,7 @@ export const uploadFile = async (payload: IFileUploadRequest, file: Express.Mult
     savedModel.url = newUrl;
     savedModel = await savedModel.save();
 
+    logInfo(`[FILE_SERVICE] file '${file.originalname}' uploaded`);
     return fileDetailMapper(savedModel, process.env.APP_URL);
   } catch (error) {
     throw new BadRequest(error);
@@ -47,6 +48,7 @@ export const uploadFile = async (payload: IFileUploadRequest, file: Express.Mult
 export const deleteFile = async (id: string): Promise<void> => {
   try {
     await FileModel.findByIdAndDelete(id);
+    logInfo(`[FILE_SERVICE] file '${id}' was deleted`);
     return;
   } catch (error) {
     throw new BadRequest(error);

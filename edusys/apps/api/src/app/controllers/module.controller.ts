@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as moduleService from './../core/services/module.service';
 
-// CREATE MODULE
 export const listOfModules = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const listOfModulesResponse = await moduleService.listOfModules();
@@ -11,7 +10,6 @@ export const listOfModules = async (req: Request, res: Response, next: NextFunct
   }
 };
 
-// CREATE MODULE
 export const detailOfModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailModuleResponse = await moduleService.detailOfModule(req.params.id);
@@ -21,7 +19,6 @@ export const detailOfModule = async (req: Request, res: Response, next: NextFunc
   }
 };
 
-// CREATE MODULE
 export const createModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createModuleResponse = await moduleService.createModule(req.body);
@@ -31,7 +28,6 @@ export const createModule = async (req: Request, res: Response, next: NextFuncti
   }
 };
 
-// EDIT MODULE
 export const editModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const editModuleResponse = await moduleService.editModule(req.body);
@@ -41,7 +37,6 @@ export const editModule = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-// DELETE MODULE
 export const deleteModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await moduleService.deleteModule(req.params.id);

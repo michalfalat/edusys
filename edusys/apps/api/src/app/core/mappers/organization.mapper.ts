@@ -2,6 +2,7 @@ import { IOrganizationDetailResponse, IOrganizationResponse } from '@edusys/mode
 import { IOrganization } from '../models/organization.model';
 import { userListMapper, userDetailMapper } from './user.mapper';
 import { subscriptionMapper, subscriptionDetailMapper } from './subscription.mapper';
+import { organizationRoleListMapper } from './organization-role.mapper';
 
 export const organizationDetailMapper = (data: IOrganization): IOrganizationDetailResponse => ({
   id: data._id,
@@ -16,7 +17,7 @@ export const organizationDetailMapper = (data: IOrganization): IOrganizationDeta
   owner: !!data.owner ? userDetailMapper(data.owner) : null,
   activeSubscription: !!data.subscriptions ? subscriptionDetailMapper(data.subscriptions.find((s) => s.isActive)) : null,
   subscriptions: data.subscriptions?.map((s) => subscriptionDetailMapper(s)),
-  roles: data.organizationRoles,
+  roles: organizationRoleListMapper(data.organizationRoles),
   createdAt: data.createdAt,
   updatedAt: data.updatedAt,
 });

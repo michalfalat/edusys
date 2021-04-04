@@ -147,3 +147,18 @@ p, h1, h2, h3, h4 {
   color: white
 }
 
+tr.mat-row.row-clickable:hover {
+  background-color: #80808029;
+  transition: 0.15s all linear;
+  cursor: pointer;
+ }
+
+ tr.mat-row.row-error {
+  background-color: #f8a9a929;
+ }
+
+ tr.mat-row.row-info {
+  background-color:  #aaf8a929;
+ }
+
+
