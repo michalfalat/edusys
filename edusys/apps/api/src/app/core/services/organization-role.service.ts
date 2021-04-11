@@ -1,10 +1,16 @@
-import { IOrganizationRoleCreateRequest, IOrganizationRoleDetailResponse, IOrganizationRoleEditRequest, OrganizationRoleStatus } from '@edusys/model';
-import OrganizationRoleModel from '../models/organization-role.model';
+import {
+  createOrganizationRoleSchemaValidate,
+  editOrganizationRoleSchemaValidate,
+  IOrganizationRoleCreateRequest,
+  IOrganizationRoleDetailResponse,
+  IOrganizationRoleEditRequest,
+  OrganizationRoleStatus,
+} from '@edusys/model';
 import { organizationRoleDetailMapper, organizationRoleListMapper } from '../mappers/organization-role.mapper';
-import { BadRequest, NotFound } from '../utils/errors';
-import { createOrganizationRoleSchemaValidate, editOrganizationRoleSchemaValidate } from '@edusys/model';
-import OrganizationModel from '../models/organization.model';
 import { getCurrentUser } from '../middlewares/current-http-context';
+import OrganizationRoleModel from '../models/organization-role.model';
+import OrganizationModel from '../models/organization.model';
+import { BadRequest, NotFound } from '../utils/errors';
 import { logInfo } from '../utils/logger';
 
 export const listOfOrganizationRoles = async (): Promise<IOrganizationRoleDetailResponse[]> => {

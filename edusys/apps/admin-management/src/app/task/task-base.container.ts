@@ -1,6 +1,6 @@
 import { Injector } from '@angular/core';
 import { CommonContainer, OrganizationFacade, TaskFacade } from '@edusys/core';
-import { IOrganizationDetailResponse, ITaskDetailResponse, TaskPriority, TaskType } from '@edusys/model';
+import { IOrganizationDetailResponse, ITaskDetailResponse, TaskPriority, TaskStatus, TaskType } from '@edusys/model';
 import { INavigationItem } from 'libs/core-ui/src/lib/components/ui-breadcrumb/ui-breadcrumb.component';
 import { NotificationService } from '../utils/notification.service';
 import { routes } from '../utils/routes';
@@ -14,6 +14,7 @@ export class TaskBaseContainer extends CommonContainer {
   navigationItems: INavigationItem[];
   taskTypes = TaskType;
   taskPriorities = TaskPriority;
+  taskStatuses = TaskStatus;
   organizations: IOrganizationDetailResponse[];
   notificationService: NotificationService;
 
@@ -34,7 +35,6 @@ export class TaskBaseContainer extends CommonContainer {
   }
 
   onError = (message?: string): void => {
-    console.log('error :>> ', message);
     this.notificationService.showError(message);
   };
   onSuccess = (message?: string): void => {

@@ -2,11 +2,11 @@ table {
   width: 100%;
 }
 
-.mat-column-message {
+.mat-column-message, .mat-column-meta {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 45% !important;
-  width: 45% !important;
+  flex: 0 0 35% !important;
+  width: 35% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
 

@@ -12,21 +12,17 @@ import { OrganizationBaseContainer } from '../organization-base.container';
 export class OrganizationCreateComponent extends OrganizationBaseContainer implements OnInit {
   constructor(injector: Injector) {
     super(injector);
+
     this.setTitle('organization.home.title');
     this.createForm(
       {
         info: this.fb.group({
+          owner: new FormControl(''),
           name: new FormControl('Test skola'),
           description: new FormControl('Test description'),
           businessId: new FormControl('3215'),
           registrationNumberVAT: new FormControl('314asd364'),
           taxId: new FormControl('35q4wd'),
-        }),
-        owner: this.fb.group({
-          email: new FormControl('missho95@azet.sk'),
-          password: new FormControl('138543546'),
-          name: new FormControl(''),
-          surname: new FormControl(''),
         }),
         address: this.fb.group({
           name: new FormControl('Adresa sidla'),
@@ -53,15 +49,22 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
 
   ngOnInit(): void {
     if (!this.packages) this.packageFacade.fetchPackageList();
+    if (!this.users) this.userFacade.fetchUserList();
   }
 
   onCreateOrganization(): void {
     const request: IOrganizationCreateRequest = {
       info: this.form?.value.info,
-      owner: this.form?.value.owner,
       address: this.form?.value.address,
       packageId: this.form?.value.packageId,
     };
-    this.organizationFacade.createOrganization(request, this.navigateToOrganizationHome);
+    this.organizationFacade.createOrganization(
+      request,
+      () => {
+        this.onSuccess('general.saved.success');
+        this.navigateToOrganizationHome;
+      },
+      this.onError
+    );
   }
 }

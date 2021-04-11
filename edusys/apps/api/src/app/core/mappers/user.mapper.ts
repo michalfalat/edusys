@@ -7,7 +7,7 @@ export const userListMapper = (data: IUser[]): IUserDetailResponse[] =>
     id: user._id,
     name: user.name,
     surname: user.surname,
-    fullName: `${user.fullName}`,
+    fullname: user.fullname,
     organizations: !!user.organizations ? user.organizations.map((o) => organizationBasicMapper(o)) : [],
     email: user.email,
     phone: user.phone,
@@ -15,13 +15,14 @@ export const userListMapper = (data: IUser[]): IUserDetailResponse[] =>
     emailVerified: user.emailVerified,
     phoneVerified: user.phoneVerified,
     createdAt: user.createdAt,
+    passwordChangedAt: user.passwordChangedAt?.toISOString(),
   }));
 
 export const userDetailMapper = (data: IUser): IUserDetailResponse => ({
   id: data._id,
   name: data.name,
   surname: data.surname,
-  fullName: `${data.fullName}`,
+  fullname: data.fullname,
   organizations: !!data.organizations ? data.organizations.map((o) => organizationBasicMapper(o)) : [],
   email: data.email,
   phone: data.phone,
@@ -30,4 +31,5 @@ export const userDetailMapper = (data: IUser): IUserDetailResponse => ({
   phoneVerified: data.phoneVerified,
   createdAt: data.createdAt,
   updatedAt: data.updatedAt,
+  passwordChangedAt: data.passwordChangedAt?.toISOString(),
 });

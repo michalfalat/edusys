@@ -2,16 +2,18 @@ import { IAuthUserBasicResponse, IAuthUserInfoResponse } from './user.dto';
 import { IAddress } from './common.dto';
 import { ISubscriptionResponse, ISubscriptionDetailResponse } from './subscription.dto';
 
-export interface IOrganizationCreateRequest {
-  info: {
-    name: string;
-    description: string;
-    businessId?: string;
-    taxId?: string;
-    registrationNumberVAT?: string;
-  };
-  address?: IAddress;
+export interface IOrganizationInfo {
   owner: string;
+  name: string;
+  description: string;
+  businessId?: string;
+  taxId?: string;
+  registrationNumberVAT?: string;
+}
+
+export interface IOrganizationCreateRequest {
+  info: IOrganizationInfo;
+  address?: IAddress;
   packageId: string;
 }
 
@@ -42,16 +44,15 @@ export interface IOrganizationDetailResponse {
   roles: any; // TODO
   createdAt?: string;
   updatedAt?: string;
+  packageId: string;
+  packageName: string;
 }
 
 export interface IOrganizationEditRequest {
   id: string;
-  name?: string;
-  description?: string;
-  businessId?: string;
-  taxId?: string;
-  registrationNumberVAT?: string;
+  info: IOrganizationInfo;
   address?: IAddress;
+  packageId: string;
 }
 
 export enum OrganizationStatus {

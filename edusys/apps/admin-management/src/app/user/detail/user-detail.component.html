@@ -13,6 +13,16 @@
         <input matInput [value]="userDetail?.updatedAt | date" [disabled]="true" />
       </mat-form-field>
     </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'user.email_verified' | translate }}</mat-label>
+        <input matInput [value]="userDetail?.emailVerified | translate" [disabled]="true" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'user.password_changed_at' | translate }}</mat-label>
+        <input matInput [value]="userDetail?.passwordChangedAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
+      </mat-form-field>
+    </div>
 
     <ui-divider [compact]="true"></ui-divider>
     <div class="row">
@@ -24,10 +34,10 @@
         </mat-select>
         <mat-error><ui-form-error [formGroup]="form" [name]="'organizations'"></ui-form-error></mat-error>
       </mat-form-field>
-      <!-- <mat-form-field *ngIf="!isEditMode">
+      <mat-form-field *ngIf="!isEditMode">
         <mat-label>{{ 'user.organizations' | translate }}</mat-label>
-        <input matInput [ngModel]="'userDetail?.organizations'" [readonly]="true" />
-      </mat-form-field> -->
+        <input matInput [value]="organizationList | selectById: userDetail?.organizations:'name'" [readonly]="true" />
+      </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>

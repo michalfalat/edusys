@@ -18,7 +18,7 @@ export interface IUser extends IEntity {
   emailVerified: boolean;
   phoneVerified: boolean;
   passwordSet: boolean;
-  fullName?: string;
+  fullname?: string;
   passwordChangedAt?: Date;
 }
 
@@ -102,8 +102,8 @@ userSchema.statics.findByEmail = function (email: string): Query<any, IUserDocum
   return this.findOne({ email: new RegExp(email, 'i') });
 };
 
-userSchema.virtual('fullName').get(function (this: IUserDocument) {
-  return `${this.name || ''} ${this.surname || ''}`;
+userSchema.virtual('fullname').get(function (this: IUserDocument) {
+  return !!this.name && !!this.surname ? `${this.name || ''} ${this.surname || ''}` : null;
 });
 
 const comparePassword = function (candidatePassword): Promise<boolean> {

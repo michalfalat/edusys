@@ -1,19 +1,20 @@
-import UserModel from '../models/user.model';
-import { changePasswordSchemaValidate, loginUserSchemaValidate } from '@edusys/model';
-import { BadRequest, NotFound } from '../utils/errors';
-import * as jwt from 'jsonwebtoken';
-import { userDetailMapper } from '../mappers/user.mapper';
 import {
-  IAuthUserChangePasswordRequest,
-  IAuthUserChangePasswordResponse,
+  changePasswordSchemaValidate,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
+  IAuthUserChangePasswordRequest,
+  IAuthUserChangePasswordResponse,
   IAuthUserInfoResponse,
   IJWTUserData,
+  loginUserSchemaValidate,
   PERMISSION,
 } from '@edusys/model';
-import { errorLabels } from '../utils/error-labels';
+import * as jwt from 'jsonwebtoken';
+import { userDetailMapper } from '../mappers/user.mapper';
 import { getCurrentUser } from '../middlewares/current-http-context';
+import UserModel from '../models/user.model';
+import { errorLabels } from '../utils/error-labels';
+import { BadRequest, NotFound } from '../utils/errors';
 import { logInfo } from '../utils/logger';
 
 // // REGISTER
@@ -85,7 +86,7 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
 
   const jwtData: IJWTUserData = {
     id: user._id,
-    name: user.fullName,
+    name: user.fullname,
     email: user.email,
     permissions,
   };

@@ -65,7 +65,7 @@ export class UserDetailComponent extends UserBaseContainer implements OnInit {
 
   setBreadcrumbNavigation = (response?: IUserDetailResponse): void => {
     const screenType = this.isEditMode ? 'user.edit.title' : 'user.detail.title';
-    const detailName = this.userDetail?.fullName || response?.fullName || screenType;
+    const detailName = this.userDetail?.fullname || response?.fullname || screenType;
     this.setTitle(screenType);
     this.fillForm(response);
     this.navigationItems = [

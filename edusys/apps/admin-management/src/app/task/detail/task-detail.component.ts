@@ -18,8 +18,6 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
     this.createForm(
       {
         id: new FormControl(this.taskDetail?.id),
-        createdAt: new FormControl(this.taskDetail?.createdAt),
-        createdBy: new FormControl(this.taskDetail?.createdBy?.email),
         name: new FormControl(this.taskDetail?.name),
         description: new FormControl(this.taskDetail?.description),
         place: new FormControl(this.taskDetail?.place),
@@ -41,8 +39,6 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
   fillForm = (data: ITaskDetailResponse): void => {
     this.form?.patchValue({
       id: data.id,
-      createdBy: data.createdBy?.email,
-      createdAt: data?.createdAt,
       name: data.name,
       description: data.description,
       place: data.place,

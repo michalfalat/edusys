@@ -48,6 +48,7 @@ export interface ITaskDetailResponse {
   id: string;
   name: string;
   createdAt: string;
+  updatedAt?: string;
   description?: string;
   place: string;
   attachments?: IFileDetailResponse[];

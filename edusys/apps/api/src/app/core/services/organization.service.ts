@@ -1,22 +1,22 @@
 import {
+  createOrganizationSchemaValidate,
+  editOrganizationSchemaValidate,
   IOrganizationCreateRequest,
   IOrganizationDetailResponse,
-  IOrganizationResponse,
   IOrganizationEditRequest,
+  IOrganizationResponse,
+  OrganizationRoleStatus,
   OrganizationStatus,
   SubscriptionStatus,
-  OrganizationRoleStatus,
-  PERMISSION,
 } from '@edusys/model';
-import OrganizationModel from '../models/organization.model';
-import { organizationDetailMapper, organizationListMapper } from '../mappers/organization.mapper';
-import { BadRequest, NotFound } from '../utils/errors';
-import { createOrganizationSchemaValidate, editOrganizationSchemaValidate } from '@edusys/model';
-import SubscriptionModel from '../models/subscription.model';
-import PackageModel, { IPackage } from '../models/package.model';
-import OrganizationRoleModel from '../models/organization-role.model';
-import { getCurrentUser } from '../middlewares/current-http-context';
 import { flatten, uniq } from 'lodash';
+import { organizationDetailMapper, organizationListMapper } from '../mappers/organization.mapper';
+import { getCurrentUser } from '../middlewares/current-http-context';
+import OrganizationRoleModel from '../models/organization-role.model';
+import OrganizationModel from '../models/organization.model';
+import PackageModel, { IPackage } from '../models/package.model';
+import SubscriptionModel from '../models/subscription.model';
+import { BadRequest, NotFound } from '../utils/errors';
 import { logInfo } from '../utils/logger';
 
 // LIST OF ALL ORGANIZATIONS WITHOUT PAGINATION
@@ -35,7 +35,7 @@ export const listOfOrganizations = async (): Promise<IOrganizationResponse[]> =>
 // DETAIL OF ORGANIZATION
 export const detailOfOrganization = async (id: string): Promise<IOrganizationDetailResponse> => {
   const detailModel = await OrganizationModel.findById(id)
-    .populate('owner', ['email'])
+    .populate('owner')
     .populate('users')
     .populate({ path: 'organizationRoles', populate: { path: 'users' } })
     .populate({ path: 'subscriptions', populate: { path: 'package' } });
@@ -65,10 +65,10 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
       taxId: payload.info.taxId,
       registrationNumberVAT: payload.info.registrationNumberVAT,
       address: payload.address,
-      owner: payload.owner,
+      owner: payload.info.owner,
       status: OrganizationStatus.ACTIVE,
       organizationRoles: [],
-      users: [payload.owner],
+      users: [payload.info.owner],
     });
     let savedOrganization = await newModel.save();
 
@@ -95,6 +95,7 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
       isActive: true,
     });
     const savedSubscription = await subscription.save();
+    const permissions = await buildPermissions(payload.packageId);
 
     let ownerRole = new OrganizationRoleModel({
       name: 'ORGANIZATION_CREATOR',
@@ -104,8 +105,8 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
       createdBy: getCurrentUser()?.id,
       editedBy: getCurrentUser()?.id,
       status: OrganizationRoleStatus.ACTIVE,
-      permissions: buildPermissions(payload.packageId),
-      users: [payload.owner],
+      permissions,
+      users: [payload.info.owner],
     });
     ownerRole = await ownerRole.save();
 
@@ -128,7 +129,7 @@ export const editOrganization = async (payload: IOrganizationEditRequest): Promi
   try {
     const id = payload.id;
     const updatedModel = await OrganizationModel.findByIdAndUpdate(id, payload, { new: true });
-    logInfo(`[ORGANIZATION_SERVICE] organization created '${payload.name}' edited`);
+    logInfo(`[ORGANIZATION_SERVICE] organization '${payload.info?.name}' edited`);
     return organizationDetailMapper(updatedModel);
   } catch (error) {
     throw new BadRequest(error);
@@ -139,7 +140,7 @@ export const editOrganization = async (payload: IOrganizationEditRequest): Promi
 export const deleteOrganization = async (id: string): Promise<void> => {
   try {
     await OrganizationModel.findByIdAndDelete(id);
-    logInfo(`[ORGANIZATION_SERVICE] organization created '${id}' deleted `);
+    logInfo(`[ORGANIZATION_SERVICE] organization '${id}' deleted `);
     return;
   } catch (error) {
     throw new BadRequest(error);
@@ -165,7 +166,6 @@ export const getAvailablePermissions = async (id: string): Promise<string[]> => 
 
 const buildPermissions = async (packageId: any): Promise<string[]> => {
   const pack: IPackage = await PackageModel.findById(packageId).populate('modules');
-  console.log(pack);
   const permissions = uniq(flatten([...pack?.modules?.map((mod) => mod?.permissions as string[])]));
   return permissions;
 };

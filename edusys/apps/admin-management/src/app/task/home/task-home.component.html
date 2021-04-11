@@ -10,7 +10,7 @@
     </ng-container>
     <ng-container matColumnDef="organization">
       <th mat-header-cell *matHeaderCellDef>{{ 'task.organization' | translate }}</th>
-      <td mat-cell *matCellDef="let element">{{ element.organization.name }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.organization?.name }}</td>
     </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>{{ 'task.name' | translate }}</th>
@@ -18,7 +18,11 @@
     </ng-container>
     <ng-container matColumnDef="priority">
       <th mat-header-cell *matHeaderCellDef>{{ 'task.priority' | translate }}</th>
-      <td mat-cell *matCellDef="let element">{{ element.priority }}</td>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip-list>
+          <mat-chip [class]="element.priority">{{ element.priority }}</mat-chip>
+        </mat-chip-list>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="status">

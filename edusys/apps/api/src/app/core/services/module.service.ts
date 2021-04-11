@@ -1,9 +1,8 @@
-import { IModuleCreateRequest, IModuleDetailResponse, IModuleEditRequest } from '@edusys/model';
-import ModuleModel from '../models/module.model';
+import { createModuleSchemaValidate, editModuleSchemaValidate, IModuleCreateRequest, IModuleDetailResponse, IModuleEditRequest } from '@edusys/model';
 import { moduleDetailMapper, moduleListMapper } from '../mappers/module.mapper';
+import ModuleModel from '../models/module.model';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
-import { createModuleSchemaValidate, editModuleSchemaValidate } from '@edusys/model';
 import { logInfo } from '../utils/logger';
 
 // LIST OF ALL MODULES WITHOUT PAGINATION

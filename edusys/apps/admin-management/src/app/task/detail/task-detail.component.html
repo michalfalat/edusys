@@ -4,23 +4,31 @@
   <form [formGroup]="form" (ngSubmit)="onEditTask()">
     <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'task.createdAt' | translate }}</mat-label>
+        <mat-label>{{ 'task.created_at' | translate }}</mat-label>
         <input matInput [value]="taskDetail?.createdAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
       </mat-form-field>
-    </div>
-    <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'task.createdBy' | translate }}</mat-label>
-        <input matInput formControlName="createdBy" name="createdBy" [readonly]="true" />
+        <mat-label>{{ 'task.edited_at' | translate }}</mat-label>
+        <input matInput [value]="taskDetail?.updatedAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
+        <mat-label>{{ 'task.created_by' | translate }}</mat-label>
+        <input matInput [value]="taskDetail?.createdBy?.email" [readonly]="true" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field *ngIf="isEditMode">
         <mat-select formControlName="organizationId" [placeholder]="'task.organization' | translate">
           <mat-option *ngFor="let organization of organizations" [value]="organization?.id">
             {{ organization?.name }}
           </mat-option>
         </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="!isEditMode">
+        <mat-label>{{ 'task.organization' | translate }}</mat-label>
+        <input matInput [value]="organizations | selectById: taskDetail?.organization:'name'" [readonly]="true" />
       </mat-form-field>
     </div>
     <div class="row">
@@ -47,7 +55,7 @@
     </div>
 
     <div class="row between">
-      <mat-form-field [style.width]="'45%'">
+      <mat-form-field [style.width]="'30%'">
         <mat-select formControlName="priority" [placeholder]="'task.priority' | translate" *ngIf="isEditMode">
           <mat-option [value]="taskPriorities.LOW">
             {{ taskPriorities.LOW }}
@@ -65,7 +73,7 @@
         <input matInput formControlName="priority" name="priority" *ngIf="!isEditMode" [placeholder]="'task.priority' | translate" [readonly]="true" />
         <mat-error><ui-form-error [formGroup]="form" [name]="'priority'"></ui-form-error></mat-error>
       </mat-form-field>
-      <mat-form-field [style.width]="'45%'">
+      <mat-form-field [style.width]="'30%'">
         <mat-select formControlName="type" [placeholder]="'task.type' | translate" *ngIf="isEditMode">
           <mat-option [value]="taskTypes.IT">
             {{ taskTypes.IT }}
@@ -76,6 +84,24 @@
         </mat-select>
         <input matInput formControlName="type" name="type" *ngIf="!isEditMode" [placeholder]="'task.type' | translate" [readonly]="true" />
         <mat-error><ui-form-error [formGroup]="form" [name]="'type'"></ui-form-error></mat-error>
+      </mat-form-field>
+      <mat-form-field [style.width]="'30%'">
+        <mat-select formControlName="status" [placeholder]="'task.status' | translate" *ngIf="isEditMode">
+          <mat-option [value]="taskStatuses.NEW">
+            {{ taskStatuses.NEW }}
+          </mat-option>
+          <mat-option [value]="taskStatuses.ASSIGNED">
+            {{ taskStatuses.ASSIGNED }}
+          </mat-option>
+          <mat-option [value]="taskStatuses.FIXED">
+            {{ taskStatuses.FIXED }}
+          </mat-option>
+          <mat-option [value]="taskStatuses.CANCELED">
+            {{ taskStatuses.CANCELED }}
+          </mat-option>
+        </mat-select>
+        <input matInput formControlName="status" name="status" *ngIf="!isEditMode" [placeholder]="'task.status' | translate" [readonly]="true" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'status'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
 

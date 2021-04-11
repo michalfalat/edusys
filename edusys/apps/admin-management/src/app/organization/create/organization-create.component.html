@@ -10,6 +10,15 @@
           <div formGroupName="info">
             <div class="row">
               <mat-form-field>
+                <mat-select formControlName="owner" [placeholder]="'organization.owner' | translate">
+                  <mat-option *ngFor="let user of users" [value]="user?.id">
+                    {{ user?.fullname || user?.email }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
                 <mat-label>{{ 'organization.name' | translate }}</mat-label>
                 <input matInput formControlName="name" name="name" [placeholder]="'organization.name.hint' | translate" />
                 <mat-error><ui-form-error [formGroup]="form" [name]="'info.name'"></ui-form-error></mat-error>
@@ -49,41 +58,7 @@
           <ng-template matStepLabel>{{ 'organization.create.stepAddress.title' | translate }}</ng-template>
           <ui-address formGroupName="address"></ui-address>
         </mat-step>
-        <mat-step [stepControl]="form?.controls?.owner">
-          <ng-template matStepLabel>{{ 'organization.create.stepOwner.title' | translate }}</ng-template>
-          <div formGroupName="owner">
-            <div class="column">
-              <div class="row">
-                <mat-form-field>
-                  <mat-label>{{ 'organization.ownerEmail' | translate }}</mat-label>
-                  <input matInput formControlName="email" name="email" />
-                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.email'"></ui-form-error></mat-error>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field>
-                  <mat-label>{{ 'organization.ownerPassword' | translate }}</mat-label>
-                  <input matInput formControlName="password" name="password" type="password" />
-                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.password'"></ui-form-error></mat-error>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field>
-                  <mat-label>{{ 'organization.ownerName' | translate }}</mat-label>
-                  <input matInput formControlName="name" name="name" />
-                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.name'"></ui-form-error></mat-error>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field>
-                  <mat-label>{{ 'organization.ownerSurname' | translate }}</mat-label>
-                  <input matInput formControlName="surname" name="surname" />
-                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.surname'"></ui-form-error></mat-error>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-        </mat-step>
+
         <mat-step>
           <ng-template matStepLabel>{{ 'organization.create.stepPackage.title' | translate }}</ng-template>
           <mat-form-field>

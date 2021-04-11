@@ -88,7 +88,13 @@
         </div>
       </div>
       <div class="row right" *ngIf="!isEditMode">
-        <button mat-raised-button color="primary" type="button" (click)="navigateToOrganizationRoleEdit(organizationRoleDetail?.id, activeTab)">
+        <button
+          [disabled]="!organizationRoleDetail?.editable"
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="navigateToOrganizationRoleEdit(organizationRoleDetail?.id, activeTab)"
+        >
           {{ 'general.edit.button' | translate }}
         </button>
       </div>

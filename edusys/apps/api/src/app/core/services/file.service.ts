@@ -1,10 +1,10 @@
-import { IFileUploadRequest, IFileDetailResponse } from '@edusys/model';
-import FileModel from '../models/file.model';
-import { fileDetailMapper } from '../mappers/file.mapper';
-import { BadRequest, NotFound } from '../utils/errors';
-import { getCurrentUser } from '../middlewares/current-http-context';
+import { IFileDetailResponse, IFileUploadRequest } from '@edusys/model';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileDetailMapper } from '../mappers/file.mapper';
+import { getCurrentUser } from '../middlewares/current-http-context';
+import FileModel from '../models/file.model';
+import { BadRequest, NotFound } from '../utils/errors';
 import { logInfo } from '../utils/logger';
 
 export const detailOfFile = async (id: string): Promise<IFileDetailResponse> => {

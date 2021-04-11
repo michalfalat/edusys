@@ -18,6 +18,8 @@ export const organizationDetailMapper = (data: IOrganization): IOrganizationDeta
   activeSubscription: !!data.subscriptions ? subscriptionDetailMapper(data.subscriptions.find((s) => s.isActive)) : null,
   subscriptions: data.subscriptions?.map((s) => subscriptionDetailMapper(s)),
   roles: organizationRoleListMapper(data.organizationRoles),
+  packageId: data.subscriptions.find((s) => s.isActive)?.package?.id,
+  packageName: data.subscriptions.find((s) => s.isActive)?.package?.name,
   createdAt: data.createdAt,
   updatedAt: data.updatedAt,
 });

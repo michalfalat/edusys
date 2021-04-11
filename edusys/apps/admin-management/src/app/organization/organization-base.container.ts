@@ -1,28 +1,35 @@
 import { Injector } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonContainer, OrganizationFacade, PackageFacade } from '@edusys/core';
-import { IOrganizationDetailResponse, IPackageDetailResponse } from '@edusys/model';
+import { MatDialog } from '@angular/material/dialog';
+import { CommonContainer, OrganizationFacade, PackageFacade, UserFacade } from '@edusys/core';
+import { IOrganizationDetailResponse, IPackageDetailResponse, IUserDetailResponse } from '@edusys/model';
 import { INavigationItem } from 'libs/core-ui/src/lib/components/ui-breadcrumb/ui-breadcrumb.component';
+import { NotificationService } from '../utils/notification.service';
 import { routes } from '../utils/routes';
 
 export class OrganizationBaseContainer extends CommonContainer {
   organizationFacade: OrganizationFacade;
   packageFacade: PackageFacade;
-  snackbar: MatSnackBar;
+  userFacade: UserFacade;
+  dialogService: MatDialog;
+  notificationService: NotificationService;
   organizationList: IOrganizationDetailResponse[];
   organizationDetail: IOrganizationDetailResponse;
   organizationId: string;
   navigationItems: INavigationItem[];
   packages: IPackageDetailResponse[];
+  users: IUserDetailResponse[];
 
   constructor(injector: Injector) {
     super(injector);
     this.organizationFacade = injector.get(OrganizationFacade);
+    this.userFacade = injector.get(UserFacade);
     this.packageFacade = injector.get(PackageFacade);
-    this.snackbar = injector.get(MatSnackBar);
+    this.notificationService = injector.get(NotificationService);
+    this.dialogService = injector.get(MatDialog);
     this.subscriptions.add(this.packageFacade.getPackageList$.subscribe((data) => (this.packages = data)));
     this.subscriptions.add(this.organizationFacade.getOrganizationList$.subscribe((data) => (this.organizationList = data)));
     this.subscriptions.add(this.activatedRoute.params.subscribe((data) => (this.organizationId = data?.organizationId)));
+    this.subscriptions.add(this.userFacade.getUserList$.subscribe((data) => (this.users = data)));
     this.subscriptions.add(
       this.organizationFacade.getOrganizationDetail$.subscribe((data) => {
         this.organizationDetail = data?.id === this.organizationId ? data : null;
@@ -30,12 +37,11 @@ export class OrganizationBaseContainer extends CommonContainer {
     );
   }
 
-  onError = (message?: string): void => {
-    console.log('error :>> ', message);
-    this.snackbar.open(message);
+  onError = (message?: any): void => {
+    this.notificationService.showError(message);
   };
   onSuccess = (message?: string): void => {
-    this.snackbar.open(message);
+    this.notificationService.showSuccess(message);
   };
 
   navigateToOrganizationHome = (): void => {

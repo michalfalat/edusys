@@ -76,6 +76,9 @@ export class PackageCreateComponent extends PackageBaseContainer implements OnIn
       installationPrices: this.form?.value.installationPrices,
       moduleIds: this.form?.value.moduleIds,
     };
-    this.packageFacade.createPackage(request, this.navigateToPackageHome);
+    this.packageFacade.createPackage(request, () => {
+      this.onSuccess('general.saved.success');
+      this.navigateToPackageHome;
+    });
   }
 }

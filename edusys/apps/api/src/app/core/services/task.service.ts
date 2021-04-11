@@ -1,14 +1,23 @@
-import { ITaskCreateRequest, ITaskDetailResponse, ITaskEditRequest, TaskStatus, ITaskAssignRequest, ITaskFinishRequest } from '@edusys/model';
-import TaskModel from '../models/task.model';
-import { taskDetailMapper, taskListMapper } from '../mappers/task.mapper';
-import { BadRequest, NotFound } from '../utils/errors';
-import { createTaskSchemaValidate, editTaskSchemaValidate, assignTaskSchemaValidate, finishTaskSchemaValidate } from '@edusys/model';
-import { getCurrentHostname, getCurrentUser } from '../middlewares/current-http-context';
 import { EmailType } from '@edusys/email-sender';
+import {
+  assignTaskSchemaValidate,
+  createTaskSchemaValidate,
+  editTaskSchemaValidate,
+  finishTaskSchemaValidate,
+  ITaskAssignRequest,
+  ITaskCreateRequest,
+  ITaskDetailResponse,
+  ITaskEditRequest,
+  ITaskFinishRequest,
+  TaskStatus,
+} from '@edusys/model';
+import { taskDetailMapper, taskListMapper } from '../mappers/task.mapper';
+import { getCurrentUser } from '../middlewares/current-http-context';
+import TaskModel from '../models/task.model';
 import UserModel from '../models/user.model';
-import OrganizationModel from '../models/organization.model';
-import { sendEmail } from './email.service';
+import { BadRequest, NotFound } from '../utils/errors';
 import { logInfo } from '../utils/logger';
+import { sendEmail } from './email.service';
 
 // LIST OF ALL TASKS WITHOUT PAGINATION
 export const listOfTasks = async (): Promise<ITaskDetailResponse[]> => {

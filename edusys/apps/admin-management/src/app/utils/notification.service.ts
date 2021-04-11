@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { transformError } from './error-transform';
 
 @Injectable({
   providedIn: 'root',
@@ -29,9 +30,10 @@ export class NotificationService {
       .subscribe(() => this.snackBar.dismiss());
   }
 
-  showError(message: string, action: string = 'OK', duration = 10000) {
+  showError(error: string, action: string = 'OK', duration = 10000) {
+    const errorMessage = transformError(error);
     this.snackBar
-      .open(message, action, {
+      .open(errorMessage, action, {
         duration: duration,
         verticalPosition: 'top',
         panelClass: ['notification-error'],

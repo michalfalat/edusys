@@ -1,16 +1,16 @@
 import { Injector } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonContainer, ModuleFacade, PackageFacade } from '@edusys/core';
 import { IModuleDetailResponse, IPackageDetailResponse } from '@edusys/model';
 import { INavigationItem } from 'libs/core-ui/src/lib/components/ui-breadcrumb/ui-breadcrumb.component';
+import { NotificationService } from '../utils/notification.service';
 import { routes } from '../utils/routes';
 
 export class PackageBaseContainer extends CommonContainer {
   packageFacade: PackageFacade;
   moduleFacade: ModuleFacade;
   dialogService: MatDialog;
-  snackbar: MatSnackBar;
+  notificationService: NotificationService;
   packageList: IPackageDetailResponse[];
   packageDetail: IPackageDetailResponse;
   moduleList: IModuleDetailResponse[];
@@ -21,7 +21,7 @@ export class PackageBaseContainer extends CommonContainer {
     super(injector);
     this.packageFacade = injector.get(PackageFacade);
     this.moduleFacade = injector.get(ModuleFacade);
-    this.snackbar = injector.get(MatSnackBar);
+    this.notificationService = injector.get(NotificationService);
     this.dialogService = injector.get(MatDialog);
     this.subscriptions.add(this.moduleFacade.getModuleList$.subscribe((data) => (this.moduleList = data)));
     this.subscriptions.add(this.packageFacade.getPackageList$.subscribe((data) => (this.packageList = data)));
@@ -34,11 +34,10 @@ export class PackageBaseContainer extends CommonContainer {
   }
 
   onError = (message?: string): void => {
-    console.log('error :>> ', message);
-    this.snackbar.open(message);
+    this.notificationService.showError(message);
   };
   onSuccess = (message?: string): void => {
-    this.snackbar.open(message);
+    this.notificationService.showSuccess(message);
   };
 
   navigateToPackageHome = (): void => {

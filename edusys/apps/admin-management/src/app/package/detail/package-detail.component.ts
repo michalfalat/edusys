@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IAmount, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
+import { editPackageSchema, IAmount, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
 import { UiConfirmModalComponent } from 'libs/core-ui/src/lib/components/ui-confirm-modal/ui-confirm-modal.component';
 import { routes } from '../../utils/routes';
 import { PackageBaseContainer } from '../package-base.container';
@@ -16,16 +16,17 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
     super(injector);
     this.isEditMode = this.activatedRoute.snapshot.data.isEditMode;
     this.setBreadcrumbNavigation();
-    this.createForm({
-      name: new FormControl(this.packageDetail?.name, Validators.required),
-      description: new FormControl(this.packageDetail?.description, Validators.required),
-      annumPrices: this.fb.array(this.packageDetail?.annumPrices?.map((price) => this.buildAmountFormGroup(price)) || [], Validators.required),
-      installationPrices: this.fb.array(this.packageDetail?.installationPrices?.map((price) => this.buildAmountFormGroup(price)) || [], Validators.required),
-      moduleIds: new FormControl(
-        this.packageDetail?.modules?.map((m) => m.id),
-        Validators.required
-      ),
-    });
+    this.createForm(
+      {
+        id: new FormControl(this.packageDetail?.id),
+        name: new FormControl(this.packageDetail?.name),
+        description: new FormControl(this.packageDetail?.description),
+        annumPrices: this.fb.array(this.packageDetail?.annumPrices?.map((price) => this.buildAmountFormGroup(price)) || []),
+        installationPrices: this.fb.array(this.packageDetail?.installationPrices?.map((price) => this.buildAmountFormGroup(price)) || []),
+        moduleIds: new FormControl(this.packageDetail?.modules?.map((m) => m.id)),
+      },
+      editPackageSchema
+    );
   }
 
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
   }
 
   fillForm = (data: IPackageDetailResponse): void => {
-    this.form?.patchValue({ name: data?.name, description: data?.description, moduleIds: data.modules?.map((m) => m.id) }); //TODO
+    this.form?.patchValue({ id: data?.id, name: data?.name, description: data?.description, moduleIds: data.modules?.map((m) => m.id) }); //TODO
 
     this.form?.setControl('annumPrices', this.fb.array(data.annumPrices?.map((price) => this.buildAmountFormGroup(price)) || []));
     this.form?.setControl('installationPrices', this.fb.array(data.installationPrices?.map((price) => this.buildAmountFormGroup(price)) || []));

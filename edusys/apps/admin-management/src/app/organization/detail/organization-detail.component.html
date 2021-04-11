@@ -9,6 +9,19 @@
           <ui-divider></ui-divider>
           <div formGroupName="info">
             <div class="row">
+              <mat-form-field *ngIf="isEditMode">
+                <mat-select formControlName="owner" [placeholder]="'organization.owner' | translate">
+                  <mat-option *ngFor="let user of users" [value]="user?.id">
+                    {{ user?.fullname || user?.email }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field *ngIf="!isEditMode">
+                <mat-label>{{ 'organization.owner' | translate }}</mat-label>
+                <input matInput [value]="organizationDetail?.owner?.fullname || organizationDetail?.owner?.email" [readonly]="true" />
+              </mat-form-field>
+            </div>
+            <div class="row">
               <mat-form-field>
                 <mat-label>{{ 'organization.name' | translate }}</mat-label>
                 <input matInput formControlName="name" name="name" [placeholder]="'organization.name.hint' | translate" [readonly]="!isEditMode" />
@@ -55,66 +68,22 @@
         <mat-tab [label]="'organization.users' | translate">
           <ui-divider></ui-divider>
         </mat-tab>
-        <!-- <mat-step [stepControl]="form?.controls?.owner">
-          <ng-template matStepLabel>{{ 'organization.create.stepOwner.title' | translate }}</ng-template>
-          <div formGroupName="owner">
-            <div class="column">
-              <div class="row">
-                <mat-form-field>
-                  <mat-label>{{ 'organization.ownerEmail' | translate }}</mat-label>
-                  <input matInput formControlName="email" name="email" />
-                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.email'"></ui-form-error></mat-error>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field>
-                  <mat-label>{{ 'organization.ownerPassword' | translate }}</mat-label>
-                  <input matInput formControlName="password" name="password" type="password" />
-                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.password'"></ui-form-error></mat-error>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field>
-                  <mat-label>{{ 'organization.ownerName' | translate }}</mat-label>
-                  <input matInput formControlName="name" name="name" />
-                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.name'"></ui-form-error></mat-error>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field>
-                  <mat-label>{{ 'organization.ownerSurname' | translate }}</mat-label>
-                  <input matInput formControlName="surname" name="surname" />
-                  <mat-error><ui-form-error [formGroup]="form" [name]="'owner.surname'"></ui-form-error></mat-error>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-        </mat-step> -->
-        <!-- <mat-step>
-          <ng-template matStepLabel>{{ 'organization.create.stepPackage.title' | translate }}</ng-template>
-          <mat-form-field>
-            <mat-select formControlName="packageId" [placeholder]="'organization.package' | translate">
-              <mat-option *ngFor="let package of packages" [value]="package?.id">
-                {{ package?.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-step> -->
-        <!-- <mat-step>
-          <ng-template matStepLabel>{{ 'organization.create.stepFinish.title' | translate }}</ng-template>
-          <p>You are now done.</p>
-        </mat-step> -->
       </mat-tab-group>
     </form>
 
     <div class="bottom-content">
-      <div class="row right" *ngIf="isEditMode">
-        <button mat-button (click)="navigateToOrganizationDetail(organizationDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+      <div class="row between" *ngIf="isEditMode">
+        <button mat-button type="button" (click)="showDeleteDialog()">{{ 'general.delete.button' | translate }}</button>
         <ui-divider [compact]="true" [vertical]="true"></ui-divider>
-        <button mat-raised-button color="primary" type="button" (click)="onEditOrganization()" [disabled]="!form.valid">
-          {{ 'general.save.button' | translate }}
-        </button>
+        <div class="row right">
+          <button mat-button (click)="navigateToOrganizationDetail(organizationDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+          <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+          <button mat-raised-button color="primary" type="button" (click)="onEditOrganization()" [disabled]="!form.valid">
+            {{ 'general.save.button' | translate }}
+          </button>
+        </div>
       </div>
+
       <div class="row right" *ngIf="!isEditMode">
         <button mat-raised-button color="primary" type="button" (click)="navigateToOrganizationEdit(organizationDetail?.id)">
           {{ 'general.edit.button' | translate }}

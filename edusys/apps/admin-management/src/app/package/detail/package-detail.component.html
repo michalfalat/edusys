@@ -32,14 +32,14 @@
 
     <div class="column">
       <div class="row vertical-align">
-        <h4 class="mat-display-h4">{{ 'package.annumPrices' | translate }}</h4>
-        <button mat-icon-button type="button" (click)="addAnnumPrice()" [matTooltip]="'package.addAnnumPrice.button' | translate">
+        <h4 class="mat-display-h4">{{ 'package.annum_prices' | translate }}</h4>
+        <button mat-icon-button type="button" (click)="addAnnumPrice()" [matTooltip]="'package.add_annum_price.button' | translate">
           <mat-icon>add</mat-icon>
         </button>
       </div>
       <div formArrayName="annumPrices">
         <div *ngFor="let control of form?.get('annumPrices')['controls']; let i = index">
-          <ui-amount [label]="('package.annumPrice' | translate) + ' ' + i" [formGroupName]="i" (onDelete)="deleteAnnumPrice(i)"></ui-amount>
+          <ui-amount [label]="('package.annum_price_no' | translate) + ' ' + i + 1" [formGroupName]="i" (onDelete)="deleteAnnumPrice(i)"></ui-amount>
         </div>
       </div>
     </div>
@@ -48,14 +48,18 @@
 
     <div class="column">
       <div class="row vertical-align">
-        <h4 class="mat-display-h4">{{ 'package.installationPrices' | translate }}</h4>
-        <button mat-icon-button type="button" (click)="addInstallationPrice()" [matTooltip]="'package.addInstallationPrices.button' | translate">
+        <h4 class="mat-display-h4">{{ 'package.installation_prices' | translate }}</h4>
+        <button mat-icon-button type="button" (click)="addInstallationPrice()" [matTooltip]="'package.add_installation_price.button' | translate">
           <mat-icon>add</mat-icon>
         </button>
       </div>
       <div formArrayName="installationPrices">
         <div *ngFor="let control of form?.get('installationPrices')['controls']; let i = index">
-          <ui-amount [label]="('package.installationPrices' | translate) + ' ' + i" [formGroupName]="i" (onDelete)="deleteInstallationPrice(i)"></ui-amount>
+          <ui-amount
+            [label]="('package.installation_price_no' | translate) + ' ' + i + 1"
+            [formGroupName]="i"
+            (onDelete)="deleteInstallationPrice(i)"
+          ></ui-amount>
         </div>
       </div>
     </div>

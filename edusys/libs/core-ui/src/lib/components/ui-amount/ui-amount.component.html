@@ -5,7 +5,7 @@
     <ui-divider [vertical]="true"></ui-divider>
     <div class="row vertical-align">
       <mat-form-field [style.width]="'12rem'">
-        <input matInput formControlName="amount" placeholder="Enter amount e.g. 250" />
+        <input matInput formControlName="amount" [placeholder]="'general.enter_amount' | translate" />
       </mat-form-field>
 
       <mat-form-field [style.width]="'3rem'">

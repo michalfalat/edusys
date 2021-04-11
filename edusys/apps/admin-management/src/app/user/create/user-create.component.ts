@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormArray, FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { createUserSchema, IUserCreateRequest } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { UserBaseContainer } from '../user-base.container';
@@ -27,7 +27,7 @@ export class UserCreateComponent extends UserBaseContainer implements OnInit {
         email: new FormControl(''),
         name: new FormControl(''),
         surname: new FormControl(''),
-        organizations: new FormControl(''),
+        organizations: new FormControl([]),
         phone: new FormControl(''),
       },
       createUserSchema

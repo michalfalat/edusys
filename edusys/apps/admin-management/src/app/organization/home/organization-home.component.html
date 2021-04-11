@@ -15,7 +15,7 @@
 
     <ng-container matColumnDef="owner">
       <th mat-header-cell *matHeaderCellDef>{{ 'organization.owner' | translate }}</th>
-      <td mat-cell *matCellDef="let element">{{ element.owner?.fullName }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.owner?.fullname || element.owner?.email }}</td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -24,7 +24,7 @@
     </ng-container>
 
     <ng-container matColumnDef="userCount">
-      <th mat-header-cell *matHeaderCellDef>{{ 'organization.userCount' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'organization.user_count' | translate }}</th>
       <td mat-cell *matCellDef="let element">{{ element.userCount }}</td>
     </ng-container>
 

@@ -1,10 +1,9 @@
-import { ICompanyInfoDetailResponse, ICompanyInfoEditRequest } from '@edusys/model';
+import { editCompanyInfoSchemaValidate, ICompanyInfoDetailResponse, ICompanyInfoEditRequest } from '@edusys/model';
+import { companyInfoDetailMapper } from '../mappers/company-info-mapper';
 import CompanyInfoModel from '../models/company-info.model';
 import { BadRequest } from '../utils/errors';
-import { editCompanyInfoSchemaValidate } from '@edusys/model';
-import { companyInfoDetailMapper } from '../mappers/company-info-mapper';
-import { companyInfoSeed } from './../../seeders/basic';
 import { logInfo } from '../utils/logger';
+import { companyInfoSeed } from './../../seeders/basic';
 
 // DETAIL OF COMPANY INFO
 export const detailOfCompanyInfo = async (): Promise<ICompanyInfoDetailResponse> => {

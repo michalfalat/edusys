@@ -80,7 +80,7 @@ const organizationSchema = new Schema<IOrganizationDocument>(
 );
 
 organizationSchema.statics.addUserToOrganization = function (organizationId: any, userId: any): Promise<IOrganizationDocument> {
-  return this.findByIdAndUpdate(organizationId, { $push: { users: userId } }, { new: true }).exec();
+  return this.findByIdAndUpdate(organizationId, { $addToSet: { users: userId } }, { new: true }).exec();
 };
 
 organizationSchema.statics.removeUserFromOrganization = function (organizationId: any, userId: any): Promise<IOrganizationDocument> {
@@ -88,7 +88,7 @@ organizationSchema.statics.removeUserFromOrganization = function (organizationId
 };
 
 organizationSchema.statics.addRoleToOrganization = function (organizationId: any, organizationRoleId: any): Promise<IOrganizationDocument> {
-  return this.findByIdAndUpdate(organizationId, { $push: { organizationRoles: organizationRoleId } }, { new: true }).exec();
+  return this.findByIdAndUpdate(organizationId, { $addToSet: { organizationRoles: organizationRoleId } }, { new: true }).exec();
 };
 
 organizationSchema.statics.removeRoleFromOrganization = function (organizationId: any, organizationRoleId: any): Promise<IOrganizationDocument> {

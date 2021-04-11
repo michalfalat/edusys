@@ -1,9 +1,9 @@
 import { ILogDetailResponse, ILogFilterCriteria, ILogFilterRequest } from '@edusys/model';
-import LogModel from '../models/log.model';
-import { logDetailMapper, logPaginatedListMapper } from '../mappers/log.mapper';
-import { BadRequest, NotFound } from '../utils/errors';
-import { PaginateResult } from 'mongoose';
 import { identity, pickBy } from 'lodash';
+import { PaginateResult } from 'mongoose';
+import { logDetailMapper, logPaginatedListMapper } from '../mappers/log.mapper';
+import LogModel from '../models/log.model';
+import { BadRequest, NotFound } from '../utils/errors';
 
 export const listOfLogs = async (data: ILogFilterRequest): Promise<PaginateResult<ILogDetailResponse>> => {
   const listOfEntities = await LogModel.paginate(buildFilterCriteria(data?.filter), {

@@ -24,7 +24,7 @@ export interface IAuthUserInfoResponse {
   id: string;
   name: string;
   surname: string;
-  fullName: string;
+  fullname: string;
   email: string;
   phone: string;
   roles: IOrganizationRoleResponse[];
@@ -36,7 +36,7 @@ export interface IAuthUserBasicResponse {
   id: string;
   name: string;
   surname: string;
-  fullName: string;
+  fullname: string;
   email: string;
   phone: string;
 }
@@ -71,7 +71,7 @@ export interface IUserDetailResponse {
   id: string;
   name: string;
   surname: string;
-  fullName: string;
+  fullname: string;
   email: string;
   phone: string;
   organizations: IOrganizationResponse[];
@@ -80,4 +80,5 @@ export interface IUserDetailResponse {
   phoneVerified: boolean;
   createdAt?: string;
   updatedAt?: string;
+  passwordChangedAt: string;
 }

@@ -9,6 +9,7 @@ export const taskDetailMapper = (data: ITask): ITaskDetailResponse => ({
   name: data.name,
   description: data.description,
   createdAt: data.createdAt,
+  updatedAt: data.updatedAt,
   place: data.place,
   attachments: data.attachments?.map((a) => fileDetailMapper(a, process.env.APP_URL)),
   type: data.type,

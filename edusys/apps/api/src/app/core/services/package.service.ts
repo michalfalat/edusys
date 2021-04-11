@@ -1,10 +1,9 @@
-import { IPackageCreateRequest, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
-import ModuleModel from '../models/module.model';
-import PackageModel, { IPackage } from '../models/package.model';
+import { createPackageSchemaValidate, editPackageSchemaValidate, IPackageCreateRequest, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
 import { packageDetailMapper, packageListMapper } from '../mappers/package.mapper';
+import ModuleModel from '../models/module.model';
+import PackageModel from '../models/package.model';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
-import { createPackageSchemaValidate, editPackageSchemaValidate } from '@edusys/model';
 import { logInfo } from '../utils/logger';
 
 // LIST OF ALL PACKAGES WITHOUT PAGINATION

@@ -292,6 +292,9 @@
             "aot": true,
             "assets": ["apps/admin-management/src/favicon.ico", "apps/admin-management/src/assets"],
             "styles": ["apps/admin-management/src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["apps/admin-management/src/assets/styles"]
+            },
             "scripts": []
           },
           "configurations": {
