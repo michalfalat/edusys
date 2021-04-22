@@ -30,6 +30,12 @@ export class LayoutsMainLayoutComponent extends LayoutBaseContainer implements O
       icon: 'domain',
     },
     {
+      name: 'navigation.subscriptions',
+      route: routes.subscription.home,
+      permission: PERMISSION.SUBSCRIPTION.BASIC,
+      icon: 'domain',
+    },
+    {
       name: 'navigation.users',
       route: routes.user.home,
       permission: PERMISSION.USER.BASIC,

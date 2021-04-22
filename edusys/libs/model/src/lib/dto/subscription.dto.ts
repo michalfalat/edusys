@@ -5,10 +5,14 @@ export interface ISubscriptionResponse {
   id: string;
   name: string;
   organizationId: string;
-  package: IPackageDetailResponse;
+  organizationName: string;
+  packageId: string;
+  packageName: string;
   status: SubscriptionStatus;
   validUntil: string;
   finalPrice: IAmount;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ISubscriptionFilterRequest extends IPaginable {
@@ -26,6 +30,19 @@ export interface ISubscriptionDetailResponse {
   reference: string;
   status: SubscriptionStatus;
   validUntil: string;
+  discount?: IAmount;
+  discountPercentage?: number;
+  finalPrice: IAmount;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface ISubscriptionCreateRequest {
+  name: string;
+  description: string;
+  organizationId: string;
+  package: IPackageDetailResponse;
+  reference: string;
   discount?: IAmount;
   discountPercentage?: number;
   finalPrice: IAmount;

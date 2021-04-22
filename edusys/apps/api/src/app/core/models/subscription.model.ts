@@ -1,9 +1,10 @@
 import { IAmount, SubscriptionStatus } from '@edusys/model';
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, PaginateModel } from 'mongoose';
 import { amountSchema } from './common.model';
 import { IEntity } from './entity.model';
 import { IOrganization } from './organization.model';
 import { IPackage } from './package.model';
+import * as paginate from 'mongoose-paginate-v2';
 
 export interface ISubscription extends IEntity {
   name: string;
@@ -53,5 +54,12 @@ const subscriptionSchema = new Schema<ISubscriptionDocument>(
   }
 );
 
-const SubscriptionModel = model<ISubscriptionDocument>('subscription', subscriptionSchema);
+subscriptionSchema.plugin(paginate);
+
+type SubscriptionModel<T extends Document> = PaginateModel<T>;
+
+const SubscriptionModel: SubscriptionModel<ISubscriptionDocument> = model<ISubscriptionDocument>(
+  'subscription',
+  subscriptionSchema
+) as SubscriptionModel<ISubscriptionDocument>;
 export default SubscriptionModel;

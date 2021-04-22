@@ -25,6 +25,7 @@ export * from './lib/validations/module.validations';
 export * from './lib/validations/file.validations';
 export * from './lib/validations/organization.validations';
 export * from './lib/validations/package.validations';
+export * from './lib/validations/subscription.validations';
 export * from './lib/validations/task.validations';
 export * from './lib/validations/company-info.validations';
 export * from './lib/validations/organization-role.validations';

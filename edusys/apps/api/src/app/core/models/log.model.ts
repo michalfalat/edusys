@@ -22,7 +22,7 @@ const logSchema = new Schema<ILogDocument>(
 );
 logSchema.plugin(paginate);
 
-interface LogModel<T extends Document> extends PaginateModel<T> {}
+type LogModel<T extends Document> = PaginateModel<T>;
 
 const LogModel: LogModel<ILogDocument> = model<ILogDocument>('log', logSchema) as LogModel<ILogDocument>;
 export default LogModel;

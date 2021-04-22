@@ -1,0 +1,31 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'subscription.created_at' | translate }}</mat-label>
+        <input matInput [value]="subscriptionDetail?.createdAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'subscription.level' | translate }}</mat-label>
+        <input matInput formControlName="level" name="level" [readonly]="true" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'subscription.message' | translate }}</mat-label>
+        <textarea matInput formControlName="message" name="message" [rows]="10" [readonly]="true"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="bottom-content">
+      <div class="row between">
+        <button mat-button type="button" (click)="showDeleteDiasubscription()">{{ 'general.delete.button' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</mat-card>

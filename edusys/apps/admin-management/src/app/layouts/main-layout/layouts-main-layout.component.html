@@ -3,7 +3,7 @@
   <mat-sidenav [opened]="sidenavOpened" [mode]="sidenavMode">
     <mat-action-list>
       <ng-container *ngFor="let item of navigationItems">
-        <mat-list-item [routerLink]="item.route">
+        <mat-list-item [routerLink]="item.route" [routerLinkActive]="'selected'">
           <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
           <div mat-line>{{ item.name | translate }}</div>
         </mat-list-item>

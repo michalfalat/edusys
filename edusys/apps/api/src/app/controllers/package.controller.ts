@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as packageService from './../core/services/package.service';
 
-// CREATE PACKAGE
 export const listOfPackages = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const listOfPackagesResponse = await packageService.listOfPackages();
@@ -11,7 +10,6 @@ export const listOfPackages = async (req: Request, res: Response, next: NextFunc
   }
 };
 
-// CREATE PACKAGE
 export const detailOfPackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailPackageResponse = await packageService.detailOfPackage(req.params.id);
@@ -21,7 +19,6 @@ export const detailOfPackage = async (req: Request, res: Response, next: NextFun
   }
 };
 
-// CREATE PACKAGE
 export const createPackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createPackageResponse = await packageService.createPackage(req.body);
@@ -31,7 +28,6 @@ export const createPackage = async (req: Request, res: Response, next: NextFunct
   }
 };
 
-// EDIT PACKAGE
 export const editPackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const editPackageResponse = await packageService.editPackage(req.body);
@@ -41,7 +37,6 @@ export const editPackage = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-// DELETE PACKAGE
 export const deletePackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await packageService.deletePackage(req.params.id);

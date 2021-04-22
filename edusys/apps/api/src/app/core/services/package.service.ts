@@ -27,12 +27,12 @@ export const detailOfPackage = async (id: string): Promise<IPackageDetailRespons
 // CREATE NEW PACKAGE
 export const createPackage = async (payload: IPackageCreateRequest): Promise<IPackageDetailResponse> => {
   const { error } = createPackageSchemaValidate(payload);
-  if (!!error) {
+  if (error) {
     throw new BadRequest(error.details[0].message);
   }
 
   const existingModel = await PackageModel.findOne({ name: payload.name });
-  if (!!existingModel) {
+  if (existingModel) {
     throw new BadRequest(errorLabels.EXISTING_NAME);
   }
   const newModel = new PackageModel({
@@ -54,7 +54,7 @@ export const createPackage = async (payload: IPackageCreateRequest): Promise<IPa
 // EDIT PACKAGE
 export const editPackage = async (payload: IPackageEditRequest): Promise<IPackageDetailResponse> => {
   const { error } = editPackageSchemaValidate(payload);
-  if (!!error) {
+  if (error) {
     throw new BadRequest(error.details[0].message);
   }
   try {

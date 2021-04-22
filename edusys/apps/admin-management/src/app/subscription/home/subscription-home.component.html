@@ -1,0 +1,54 @@
+<mat-card class="basic-card large">
+  <div class="row between">
+    <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  </div>
+
+  <ui-divider [compact]="true"></ui-divider>
+  <subscription-filter (onFilter)="filter($event)"></subscription-filter>
+
+  <ui-divider [compact]="true"></ui-divider>
+  <table mat-table [dataSource]="subscriptionList?.docs" class="mat-elevation-z0">
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>{{ 'general.created_at' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.createdAt | date: 'MMM dd YYYY HH:mm' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="organization">
+      <th mat-header-cell *matHeaderCellDef>{{ 'subscription.organization' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.organizationName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="package">
+      <th mat-header-cell *matHeaderCellDef>{{ 'subscription.package' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.packageName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>{{ 'subscription.status' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="validUntil">
+      <th mat-header-cell *matHeaderCellDef>{{ 'subscription.valid_until' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.validUntil | date: 'MMM dd YYYY' }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      class="row-clickable"
+      [ngClass]="{ 'row-error': row.level === 'error', 'row-info': row.level === 'info' }"
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="navigateToSubscriptionDetail(row.id)"
+    ></tr>
+  </table>
+  <mat-paginator
+    #paginator
+    [length]="subscriptionList?.totalDocs"
+    [pageSize]="filterData?.pageSize"
+    [pageIndex]="filterData?.page"
+    [pageSizeOptions]="[20, 50, 100]"
+    (page)="onPaginatorEvent($event)"
+  >
+  </mat-paginator>
+</mat-card>

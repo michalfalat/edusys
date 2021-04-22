@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 mat-sidenav-container {
   position: absolute;
   top: 60px;
@@ -12,4 +14,8 @@ mat-sidenav {
     justify-content: center;
     width: 15rem;
 
+}
+
+.selected {
+  background: $grey1;
 }

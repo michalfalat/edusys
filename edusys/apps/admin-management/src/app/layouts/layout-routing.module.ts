@@ -36,6 +36,12 @@ const routes: Routes = [
         data: { moduleName: PERMISSION.ORGANIZATION.BASIC },
       },
       {
+        path: 'subscription',
+        loadChildren: () => import('../subscription/subscription.module').then((m) => m.SubscriptionModule),
+        canActivate: [PermissionGuard],
+        data: { moduleName: PERMISSION.SUBSCRIPTION.BASIC },
+      },
+      {
         path: 'task',
         loadChildren: () => import('../task/task.module').then((m) => m.TaskModule),
         canActivate: [PermissionGuard],

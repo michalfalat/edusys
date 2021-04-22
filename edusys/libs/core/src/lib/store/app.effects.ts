@@ -6,6 +6,7 @@ import { ModuleEffects } from './module/module.effects';
 import { OrganizationRoleEffects } from './organization-role/organization-role.effects';
 import { OrganizationEffects } from './organization/organization.effects';
 import { PackageEffects } from './package/package.effects';
+import { SubscriptionEffects } from './subscription/subscription.effects';
 import { TaskEffects } from './task/task.effects';
 import { UserEffects } from './user/user.effects';
 
@@ -20,4 +21,5 @@ export const appEffects = [
   UserEffects,
   OrganizationRoleEffects,
   LogEffects,
+  SubscriptionEffects,
 ];
