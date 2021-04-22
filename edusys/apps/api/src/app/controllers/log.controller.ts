@@ -28,7 +28,17 @@ export const deleteLog = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
+export const serverStats = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = await logService.serverStats();
+    res.send(data);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const logRouter = Router();
 logRouter.post('/api/log', listOfLogs);
 logRouter.get('/api/log/:id', detailOfLog);
 logRouter.delete('/api/log/:id', deleteLog);
+logRouter.get('/api/server-stats', serverStats);

@@ -48,7 +48,7 @@ export const detailOfOrganization = async (id: string): Promise<IOrganizationDet
 // CREATE NEW ORGANIZATION
 export const createOrganization = async (payload: IOrganizationCreateRequest): Promise<IOrganizationDetailResponse> => {
   const { error } = createOrganizationSchemaValidate(payload);
-  if (!!error) {
+  if (error) {
     throw new BadRequest(error.details[0].message);
   }
 
@@ -123,7 +123,7 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
 // EDIT ORGANIZATION
 export const editOrganization = async (payload: IOrganizationEditRequest): Promise<IOrganizationDetailResponse> => {
   const { error } = editOrganizationSchemaValidate(payload);
-  if (!!error) {
+  if (error) {
     throw new BadRequest(error.details[0].message);
   }
   try {

@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormArray, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
 import { createTaskSchema, IFileDetailResponse, ITaskCreateRequest, TaskPriority, TaskType } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { TaskBaseContainer } from '../task-base.container';

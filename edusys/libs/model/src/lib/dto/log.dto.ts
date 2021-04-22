@@ -1,3 +1,5 @@
+import { IPaginable } from './common.dto';
+
 export interface ILogDetailResponse {
   id: string;
   message: string;
@@ -6,13 +8,7 @@ export interface ILogDetailResponse {
   createdAt?: string;
 }
 
-export interface ILogFilterRequest {
-  page: number;
-  pageSize: number;
-  filter?: ILogFilterCriteria;
-}
-
-export interface ILogFilterCriteria {
+export interface ILogFilterRequest extends IPaginable {
   level?: string;
   keyword?: string;
   fromDate?: string;

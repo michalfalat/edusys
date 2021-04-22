@@ -1,4 +1,4 @@
-import { isString } from 'lodash';
+import isString from 'lodash-es/isString';
 
 export const transformError = (error: string | any): string => {
   console.log(error);

@@ -27,13 +27,13 @@ export class OrganizationRoleEffects {
       mergeMap(({ onSucceeded, onError }) =>
         this.organizationRoleService.fetchOrganizationRoleList().pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return organizationRoleListResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));
@@ -49,13 +49,13 @@ export class OrganizationRoleEffects {
       mergeMap(({ organizationRoleId, onSucceeded, onError }) =>
         this.organizationRoleService.fetchOrganizationRoleDetail(organizationRoleId).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return organizationRoleDetailResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));
@@ -71,13 +71,13 @@ export class OrganizationRoleEffects {
       mergeMap(({ payload, onSucceeded, onError }) =>
         this.organizationRoleService.createOrganizationRole(payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return organizationRoleCreateResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));
@@ -93,13 +93,13 @@ export class OrganizationRoleEffects {
       mergeMap(({ payload, organizationRoleId, onSucceeded, onError }) =>
         this.organizationRoleService.editOrganizationRole(organizationRoleId, payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return organizationRoleEditResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));
@@ -115,13 +115,13 @@ export class OrganizationRoleEffects {
       mergeMap(({ organizationRoleId, onSucceeded, onError }) =>
         this.organizationRoleService.deleteOrganizationRole(organizationRoleId).pipe(
           map(() => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded();
             }
             return organizationRoleDeleteResponseAction();
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));

@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { routes } from '../utils/routes';
 import { HeaderBaseContainer } from './header-base.container';
 
@@ -10,6 +10,7 @@ import { HeaderBaseContainer } from './header-base.container';
 })
 export class HeaderComponent extends HeaderBaseContainer implements OnInit {
   languages: string[];
+  @Output() onSidenavToogle = new EventEmitter<void>();
   constructor(injector: Injector) {
     super(injector);
   }

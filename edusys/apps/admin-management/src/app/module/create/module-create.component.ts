@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { createModuleSchema, IModuleCreateRequest } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { ModuleBaseContainer } from '../module-base.container';

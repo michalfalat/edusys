@@ -2,12 +2,12 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IAuthLoginUserRequest, IAuthLoginUserResponse, IAuthUserInfoResponse } from '@edusys/model';
-import { loginUrl, registerUrl, userInfoUrl, logoutUrl } from './auth.endpoints';
+import { loginUrl, userInfoUrl, logoutUrl } from './auth.endpoints';
 import { APP_CONFIG } from '@edusys/app-config';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AppLocalStorageKeys } from '../../model/app/app.model';
 import jwt_decode from 'jwt-decode';
-import memoize from 'memoizee';
+import memoize from 'lodash-es/memoize';
 
 @Injectable({
   providedIn: 'root',

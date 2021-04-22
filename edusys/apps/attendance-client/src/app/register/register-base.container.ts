@@ -1,5 +1,4 @@
 import { Injector } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthFacade, CommonContainer, CookieService } from '@edusys/core';
 import { routes } from '../utils/routes';

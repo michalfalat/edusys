@@ -27,13 +27,13 @@ export class UserEffects {
       mergeMap(({ onSucceeded, onError }) =>
         this.userService.fetchUserList().pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return userListResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(userErrorAction({ error }));
@@ -49,13 +49,13 @@ export class UserEffects {
       mergeMap(({ userId, onSucceeded, onError }) =>
         this.userService.fetchUserDetail(userId).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return userDetailResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(userErrorAction({ error }));
@@ -71,13 +71,13 @@ export class UserEffects {
       mergeMap(({ payload, onSucceeded, onError }) =>
         this.userService.createUser(payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return userCreateResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(userErrorAction({ error }));
@@ -93,13 +93,13 @@ export class UserEffects {
       mergeMap(({ payload, userId, onSucceeded, onError }) =>
         this.userService.editUser(userId, payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return userEditResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(userErrorAction({ error }));
@@ -115,13 +115,13 @@ export class UserEffects {
       mergeMap(({ userId, onSucceeded, onError }) =>
         this.userService.deleteUser(userId).pipe(
           map(() => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded();
             }
             return userDeleteResponseAction();
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(userErrorAction({ error }));

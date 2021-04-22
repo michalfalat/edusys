@@ -27,13 +27,13 @@ export class PackageEffects {
       mergeMap(({ onSucceeded, onError }) =>
         this.packageService.fetchPackageList().pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return packageListResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(packageErrorAction({ error }));
@@ -49,13 +49,13 @@ export class PackageEffects {
       mergeMap(({ packageId, onSucceeded, onError }) =>
         this.packageService.fetchPackageDetail(packageId).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return packageDetailResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(packageErrorAction({ error }));
@@ -71,13 +71,13 @@ export class PackageEffects {
       mergeMap(({ payload, onSucceeded, onError }) =>
         this.packageService.createPackage(payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return packageCreateResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(packageErrorAction({ error }));
@@ -93,13 +93,13 @@ export class PackageEffects {
       mergeMap(({ payload, packageId, onSucceeded, onError }) =>
         this.packageService.editPackage(packageId, payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return packageEditResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(packageErrorAction({ error }));
@@ -115,13 +115,13 @@ export class PackageEffects {
       mergeMap(({ packageId, onSucceeded, onError }) =>
         this.packageService.deletePackage(packageId).pipe(
           map(() => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded();
             }
             return packageDeleteResponseAction();
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(packageErrorAction({ error }));

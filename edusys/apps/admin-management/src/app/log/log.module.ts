@@ -11,9 +11,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { LogFilterComponent } from './filter/log-filter.component';
 
 @NgModule({
-  declarations: [LogHomeComponent, LogDetailComponent],
+  declarations: [LogHomeComponent, LogFilterComponent, LogDetailComponent],
   imports: [
     CommonModule,
     LogRoutingModule,

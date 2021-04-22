@@ -28,12 +28,12 @@ export const detailOfUser = async (id: string): Promise<IUserDetailResponse> => 
 
 export const createUser = async (payload: IUserCreateRequest): Promise<IUserDetailResponse> => {
   const { error } = createUserSchemaValidate(payload);
-  if (!!error) {
+  if (error) {
     throw new BadRequest(error.details[0].message);
   }
 
   const existingModel = await UserModel.findByEmail(payload.email);
-  if (!!existingModel) {
+  if (existingModel) {
     throw new BadRequest(errorLabels.EXISTING_USER);
   }
 
@@ -42,7 +42,7 @@ export const createUser = async (payload: IUserCreateRequest): Promise<IUserDeta
     name: payload.name,
     surname: payload.surname,
     phone: payload.phone,
-    organizations: !!payload.organizations ? [...payload.organizations] : [],
+    organizations: payload.organizations ? [...payload.organizations] : [],
   });
   try {
     const savedModel = await newModel.save();
@@ -50,7 +50,7 @@ export const createUser = async (payload: IUserCreateRequest): Promise<IUserDeta
       const organizationId = payload.organizations[i];
       await OrganizationModel.addUserToOrganization(organizationId, savedModel._id);
     }
-    if (!!payload.organizations?.length) {
+    if (payload.organizations?.length) {
       const organizations = await OrganizationModel.findByOrganizationIds(payload.organizations);
       const url = `${process.env.CLIENT_APP_URL}/login`; // TODO
       sendEmail(EmailType.USER_ORGANIZATION_ADD, payload.email, { isNewUser: true, organizations: organizations?.map((o) => o.name), url });
@@ -66,7 +66,7 @@ export const createUser = async (payload: IUserCreateRequest): Promise<IUserDeta
 // EDIT USER
 export const editUser = async (payload: IUserEditRequest): Promise<IUserDetailResponse> => {
   const { error } = editUserSchemaValidate(payload);
-  if (!!error) {
+  if (error) {
     throw new BadRequest(error.details[0].message);
   }
   try {
@@ -76,7 +76,7 @@ export const editUser = async (payload: IUserEditRequest): Promise<IUserDetailRe
       const organizationId = payload.organizations[i];
       await OrganizationModel.addUserToOrganization(organizationId, updatedModel._id);
     }
-    if (!!payload.organizations?.length) {
+    if (payload.organizations?.length) {
       const organizations = await OrganizationModel.findByOrganizationIds(payload.organizations);
       const url = `${process.env.CLIENT_APP_URL}/login`; // TODO
       // sendEmail(EmailType.USER_ORGANIZATION_ADD, payload.email, { isNewUser: true, organizations: organizations?.map((o) => o.name), url });

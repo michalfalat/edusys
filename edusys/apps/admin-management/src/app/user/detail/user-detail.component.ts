@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { editUserSchema, IAmount, IUserDetailResponse, IUserEditRequest } from '@edusys/model';
+import { FormControl } from '@angular/forms';
+import { editUserSchema, IUserDetailResponse, IUserEditRequest } from '@edusys/model';
 import { UiConfirmModalComponent } from 'libs/core-ui/src/lib/components/ui-confirm-modal/ui-confirm-modal.component';
 import { routes } from '../../utils/routes';
 import { UserBaseContainer } from '../user-base.container';

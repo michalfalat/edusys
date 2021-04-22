@@ -33,13 +33,13 @@ export class OrganizationEffects {
       mergeMap(({ onSucceeded, onError }) =>
         this.organizationService.fetchOrganizationList().pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return organizationListResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
@@ -55,13 +55,13 @@ export class OrganizationEffects {
       mergeMap(({ organizationId, onSucceeded, onError }) =>
         this.organizationService.fetchOrganizationDetail(organizationId).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return organizationDetailResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
@@ -77,13 +77,13 @@ export class OrganizationEffects {
       mergeMap(({ organizationId, onSucceeded, onError }) =>
         this.organizationService.fetchOrganizationAvailablePermissions(organizationId).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return organizationAvailablePermissionsResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
@@ -99,13 +99,13 @@ export class OrganizationEffects {
       mergeMap(({ onSucceeded, onError }) =>
         this.organizationService.fetchCompanyInfoDetail().pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return companyInfoDetailResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
@@ -121,13 +121,13 @@ export class OrganizationEffects {
       mergeMap(({ payload, onSucceeded, onError }) =>
         this.organizationService.editCompanyInfoDetail(payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return companyInfoEditResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
@@ -143,13 +143,13 @@ export class OrganizationEffects {
       mergeMap(({ payload, onSucceeded, onError }) =>
         this.organizationService.createOrganization(payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return organizationCreateResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
@@ -165,13 +165,13 @@ export class OrganizationEffects {
       mergeMap(({ payload, organizationId, onSucceeded, onError }) =>
         this.organizationService.editOrganization(organizationId, payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return organizationEditResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
@@ -187,13 +187,13 @@ export class OrganizationEffects {
       mergeMap(({ organizationId, onSucceeded, onError }) =>
         this.organizationService.deleteOrganization(organizationId).pipe(
           map(() => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded();
             }
             return organizationDeleteResponseAction();
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(organizationErrorAction({ error }));

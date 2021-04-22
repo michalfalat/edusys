@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ILogDetailResponse } from '@edusys/model';
-import { UiConfirmModalComponent } from 'libs/core-ui/src/lib/components/ui-confirm-modal/ui-confirm-modal.component';
+import { UiConfirmModalComponent } from '@edusys/core-ui';
 import { routes } from '../../utils/routes';
 import { LogBaseContainer } from '../log-base.container';
 
@@ -52,7 +52,7 @@ export class LogDetailComponent extends LogBaseContainer implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (!!result)
+      if (result)
         this.logFacade.deleteLog(this.logId, () => {
           this.navigateToLogHome();
         });

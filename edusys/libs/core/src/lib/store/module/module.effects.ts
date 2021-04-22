@@ -27,13 +27,13 @@ export class ModuleEffects {
       mergeMap(({ onSucceeded, onError }) =>
         this.moduleService.fetchModuleList().pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return moduleListResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(moduleErrorAction({ error }));
@@ -49,13 +49,13 @@ export class ModuleEffects {
       mergeMap(({ moduleId, onSucceeded, onError }) =>
         this.moduleService.fetchModuleDetail(moduleId).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return moduleDetailResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(moduleErrorAction({ error }));
@@ -71,13 +71,13 @@ export class ModuleEffects {
       mergeMap(({ payload, onSucceeded, onError }) =>
         this.moduleService.createModule(payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return moduleCreateResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(moduleErrorAction({ error }));
@@ -93,13 +93,13 @@ export class ModuleEffects {
       mergeMap(({ payload, moduleId, onSucceeded, onError }) =>
         this.moduleService.editModule(moduleId, payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return moduleEditResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(moduleErrorAction({ error }));
@@ -115,13 +115,13 @@ export class ModuleEffects {
       mergeMap(({ moduleId, onSucceeded, onError }) =>
         this.moduleService.deleteModule(moduleId).pipe(
           map(() => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded();
             }
             return moduleDeleteResponseAction();
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(moduleErrorAction({ error }));

@@ -23,13 +23,13 @@ export class FileEffects {
       mergeMap(({ fileId, onSucceeded, onError }) =>
         this.fileService.fetchFileDetail(fileId).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return fileDetailResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(fileErrorAction({ error }));
@@ -45,13 +45,13 @@ export class FileEffects {
       mergeMap(({ payload, onSucceeded, onError }) =>
         this.fileService.uploadFile(payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return fileUploadResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(fileErrorAction({ error }));
@@ -67,13 +67,13 @@ export class FileEffects {
       mergeMap(({ fileId, onSucceeded, onError }) =>
         this.fileService.deleteFile(fileId).pipe(
           map(() => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded();
             }
             return fileDeleteResponseAction();
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(fileErrorAction({ error }));

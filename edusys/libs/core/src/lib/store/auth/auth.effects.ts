@@ -23,13 +23,13 @@ export class AuthEffects {
         this.authService.login(payload).pipe(
           map((response) => {
             this.authService.saveAuthToken(response?.token);
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return authLoginResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(authErrorAction({ error }));
@@ -47,7 +47,7 @@ export class AuthEffects {
           this.authService.logout().pipe(
             map(() => {
               this.authService.clearAuthToken();
-              if (!!onSucceeded) {
+              if (onSucceeded) {
                 onSucceeded();
               }
             })
@@ -63,13 +63,13 @@ export class AuthEffects {
       mergeMap(({ onSucceeded, onError }) =>
         this.authService.userInfo().pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return authUserInfoResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(authErrorAction({ error }));

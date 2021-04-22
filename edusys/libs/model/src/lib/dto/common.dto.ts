@@ -39,3 +39,8 @@ export interface Pagination<T> {
   meta?: any;
   [customLabel: string]: T[] | number | boolean | null | undefined;
 }
+
+export interface IPaginable {
+  page: number;
+  pageSize: number;
+}

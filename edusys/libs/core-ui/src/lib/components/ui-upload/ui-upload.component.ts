@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileFacade } from '@edusys/core';
-import { FileType, IFileDetailResponse, IFileUploadRequest } from '@edusys/model';
+import { FileType, IFileDetailResponse } from '@edusys/model';
 import { UiGalleryComponent } from '../ui-gallery/ui-gallery.component';
 
 @Component({

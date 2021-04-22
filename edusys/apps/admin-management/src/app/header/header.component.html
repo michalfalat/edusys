@@ -1,7 +1,13 @@
 <mat-toolbar color="primary">
   <div class="row flex-1 between">
-    <div>{{ getTitle() }}</div>
-    <div class="row right">
+    <div class="row left center vertical-align">
+      <button mat-icon-button (click)="onSidenavToogle.emit()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+      <div>{{ getTitle() }}</div>
+    </div>
+    <div class="row right sm-hide">
       <div *ngIf="!!userInfo">
         <button mat-button [matMenuTriggerFor]="menu">{{ userInfo?.email }}</button>
         <mat-menu #menu="matMenu">
@@ -9,13 +15,15 @@
           <button mat-menu-item (click)="onLogout()">{{ 'general.logout' | translate }}</button>
         </mat-menu>
       </div>
-
-      <div>
-        <button mat-button [matMenuTriggerFor]="menu">{{ 'general.language' | translate }}</button>
+    </div>
+    <div class="row right sm-show">
+      <div *ngIf="!!userInfo">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
         <mat-menu #menu="matMenu">
-          <div class="row" *ngFor="let lang of languages">
-            <button mat-button (click)="setLanguage(lang)">{{ lang | uppercase }}</button>
-          </div>
+          <button mat-menu-item (click)="navigateToProfile()">{{ 'general.profile' | translate }}</button>
+          <button mat-menu-item (click)="onLogout()">{{ 'general.logout' | translate }}</button>
         </mat-menu>
       </div>
     </div>

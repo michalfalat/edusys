@@ -1,12 +1,13 @@
-import { ILogDetailResponse, ILogFilterCriteria, ILogFilterRequest } from '@edusys/model';
-import { identity, pickBy } from 'lodash';
+import { ILogDetailResponse, ILogFilterRequest } from '@edusys/model';
+import { pickBy, identity } from 'lodash';
 import { PaginateResult } from 'mongoose';
 import { logDetailMapper, logPaginatedListMapper } from '../mappers/log.mapper';
 import LogModel from '../models/log.model';
 import { BadRequest, NotFound } from '../utils/errors';
+import * as mongoose from 'mongoose';
 
 export const listOfLogs = async (data: ILogFilterRequest): Promise<PaginateResult<ILogDetailResponse>> => {
-  const listOfEntities = await LogModel.paginate(buildFilterCriteria(data?.filter), {
+  const listOfEntities = await LogModel.paginate(buildFilterCriteria(data), {
     page: data?.page || 1,
     limit: data?.pageSize || 5,
     offset: data?.page * data?.pageSize || 0,
@@ -35,7 +36,7 @@ export const deleteLog = async (id: string): Promise<void> => {
   }
 };
 
-const buildFilterCriteria = (data: ILogFilterCriteria): any => {
+const buildFilterCriteria = (data: ILogFilterRequest): any => {
   const filter = {
     $and: [],
   };
@@ -50,4 +51,16 @@ const buildFilterCriteria = (data: ILogFilterCriteria): any => {
   }
 
   return filter.$and.length ? filter : {};
+};
+
+export const serverStats = async (): Promise<any> => {
+  try {
+    mongoose.connection.db
+      .listCollections()
+      .toArray()
+      .then((data) => console.log(data));
+    return await mongoose.connection.db.stats();
+  } catch (error) {
+    throw new BadRequest(error);
+  }
 };

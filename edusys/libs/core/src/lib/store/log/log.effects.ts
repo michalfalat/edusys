@@ -23,13 +23,13 @@ export class LogEffects {
       mergeMap(({ request, onSucceeded, onError }) =>
         this.logService.fetchLogList(request).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return logListResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(logErrorAction({ error }));
@@ -45,13 +45,13 @@ export class LogEffects {
       mergeMap(({ logId, onSucceeded, onError }) =>
         this.logService.fetchLogDetail(logId).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return logDetailResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(logErrorAction({ error }));
@@ -67,13 +67,13 @@ export class LogEffects {
       mergeMap(({ logId, onSucceeded, onError }) =>
         this.logService.deleteLog(logId).pipe(
           map(() => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded();
             }
             return logDeleteResponseAction();
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(logErrorAction({ error }));

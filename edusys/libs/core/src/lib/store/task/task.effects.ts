@@ -31,13 +31,13 @@ export class TaskEffects {
       mergeMap(({ onSucceeded, onError }) =>
         this.taskService.fetchTaskList().pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return taskListResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(taskErrorAction({ error }));
@@ -53,13 +53,13 @@ export class TaskEffects {
       mergeMap(({ taskId, onSucceeded, onError }) =>
         this.taskService.fetchTaskDetail(taskId).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return taskDetailResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(taskErrorAction({ error }));
@@ -75,13 +75,13 @@ export class TaskEffects {
       mergeMap(({ payload, onSucceeded, onError }) =>
         this.taskService.createTask(payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return taskCreateResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(taskErrorAction({ error }));
@@ -97,13 +97,13 @@ export class TaskEffects {
       mergeMap(({ payload, taskId, onSucceeded, onError }) =>
         this.taskService.editTask(taskId, payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return taskEditResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(taskErrorAction({ error }));
@@ -119,13 +119,13 @@ export class TaskEffects {
       mergeMap(({ payload, taskId, onSucceeded, onError }) =>
         this.taskService.assignTask(taskId, payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return taskAssignResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(taskErrorAction({ error }));
@@ -141,13 +141,13 @@ export class TaskEffects {
       mergeMap(({ payload, taskId, onSucceeded, onError }) =>
         this.taskService.finishTask(taskId, payload).pipe(
           map((response) => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded(response);
             }
             return taskFinishResponseAction({ response });
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(taskErrorAction({ error }));
@@ -163,13 +163,13 @@ export class TaskEffects {
       mergeMap(({ taskId, onSucceeded, onError }) =>
         this.taskService.deleteTask(taskId).pipe(
           map(() => {
-            if (!!onSucceeded) {
+            if (onSucceeded) {
               onSucceeded();
             }
             return taskDeleteResponseAction();
           }),
           catchError((error) => {
-            if (!!onError) {
+            if (onError) {
               onError(error);
             }
             return of(taskErrorAction({ error }));
