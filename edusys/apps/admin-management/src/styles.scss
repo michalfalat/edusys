@@ -13,17 +13,19 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $client-app-primary: mat-palette($mat-blue-grey);
-$client-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$client-app-accent: mat-palette($mat-pink, a200, a100, a400);
 
 // The warn palette is optional (defaults to red).
 $client-app-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$client-app-theme: mat-light-theme((color: (primary: $client-app-primary,
-      accent: $client-app-accent,
-      warn: $client-app-warn,
-    )));
+$client-app-theme: mat-light-theme(
+  (color: (primary: $client-app-primary,
+  accent: $client-app-accent,
+  warn: $client-app-warn,
+))
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -139,14 +141,13 @@ h4 {
   margin-bottom: 0;
 }
 
-
 .notification-info {
   background-color: #2a9e51;
-  color: rgba(255, 255, 255, 0.836)
+  color: rgba(255, 255, 255, 0.836);
 }
 
 .notification-info .mat-simple-snackbar-action {
-  color: white
+  color: white;
 }
 
 .notification-warning {
@@ -155,7 +156,7 @@ h4 {
 }
 
 .notification-warning .mat-simple-snackbar-action {
-  color: white
+  color: white;
 }
 
 .notification-error {
@@ -164,7 +165,7 @@ h4 {
 }
 
 .notification-error .mat-simple-snackbar-action {
-  color: white
+  color: white;
 }
 
 tr.mat-row.row-clickable:hover {
@@ -180,7 +181,6 @@ tr.mat-row.row-error {
 tr.mat-row.row-info {
   background-color: #aaf8a929;
 }
-
 
 mat-icon {
   opacity: 0.74;
@@ -198,7 +198,7 @@ mat-icon {
   display: none !important;
 }
 
-@media(max-width: 700px) {
+@media (max-width: 700px) {
   .sm-hide {
     display: none !important;
   }
@@ -218,19 +218,18 @@ mat-icon {
     overflow: hidden;
     padding: 8px 24px;
     margin: 2rem auto;
-    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     border-radius: 3px;
     height: auto !important;
   }
 
   .mat-cell {
     border-bottom-style: none !important;
-    padding: .5rem !important;
+    padding: 0.5rem !important;
     width: 100% !important;
 
     &:first-child {
       padding: 0.5rem !important;
-
     }
 
     &.sm-bold {
