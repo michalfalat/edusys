@@ -25,7 +25,7 @@ const _taskReducer = createReducer(
   }),
   on(taskDetailResponseAction, (state: ITaskState, payload) => {
     return { ...state, detail: payload?.response };
-  })
+  }),
 );
 
 export function taskReducer(state: ITaskState, action: Action): any {

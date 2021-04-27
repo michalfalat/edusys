@@ -37,10 +37,10 @@ export class ModuleEffects {
               onError(error);
             }
             return of(moduleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchModuleDetail$ = createEffect(() =>
@@ -59,10 +59,10 @@ export class ModuleEffects {
               onError(error);
             }
             return of(moduleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   createModule$ = createEffect(() =>
@@ -81,10 +81,10 @@ export class ModuleEffects {
               onError(error);
             }
             return of(moduleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   editModule$ = createEffect(() =>
@@ -103,10 +103,10 @@ export class ModuleEffects {
               onError(error);
             }
             return of(moduleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deleteModule$ = createEffect(() =>
@@ -125,9 +125,9 @@ export class ModuleEffects {
               onError(error);
             }
             return of(moduleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

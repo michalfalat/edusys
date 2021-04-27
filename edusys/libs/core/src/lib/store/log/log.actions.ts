@@ -9,13 +9,13 @@ export const logListRequestAction = createAction(
     request: ILogFilterRequest;
     onSucceeded?: (response: Pagination<ILogDetailResponse>) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const logListResponseAction = createAction(
   `${PREFIX} LIST RESPONSE`,
   props<{
     response: Pagination<ILogDetailResponse>;
-  }>()
+  }>(),
 );
 
 export const logDetailRequestAction = createAction(
@@ -24,13 +24,13 @@ export const logDetailRequestAction = createAction(
     logId: string;
     onSucceeded?: (response: ILogDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const logDetailResponseAction = createAction(
   `${PREFIX} DETAIL RESPONSE`,
   props<{
     response: ILogDetailResponse;
-  }>()
+  }>(),
 );
 
 export const logDeleteRequestAction = createAction(
@@ -39,7 +39,7 @@ export const logDeleteRequestAction = createAction(
     logId: string;
     onSucceeded?: () => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const logDeleteResponseAction = createAction(`${PREFIX} DELETE RESPONSE`);
 
@@ -48,5 +48,5 @@ export const logErrorAction = createAction(
   `${PREFIX} ERROR RESPONSE`,
   props<{
     error: any;
-  }>()
+  }>(),
 );

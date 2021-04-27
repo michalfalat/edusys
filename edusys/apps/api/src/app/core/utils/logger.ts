@@ -1,8 +1,10 @@
 import * as winston from 'winston';
 import { MongoDBTransportInstance } from 'winston-mongodb';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { DailyRotateFileTransportOptions } from 'winston-daily-rotate-file';
 import { getCurrentUser } from '../middlewares/current-http-context';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { MongoDB }: { MongoDB: MongoDBTransportInstance } = require('winston-mongodb');
 const {}: { MongoDB: MongoDBTransportInstance } = require('winston-daily-rotate-file');
 
@@ -51,7 +53,7 @@ export const logger = winston.createLogger({
         winston.format.metadata({ key: 'metadata' }),
         winston.format.timestamp({ format: 'MMM-DD-YYYY HH:mm:ss' }),
         winston.format.align(),
-        winston.format.printf((info) => `${info.level}: ${[info.timestamp]}: ${info.message} ${JSON.stringify(info.metadata?.metadata)}`)
+        winston.format.printf((info) => `${info.level}: ${[info.timestamp]}: ${info.message} ${JSON.stringify(info.metadata?.metadata)}`),
       ),
     }),
   ],

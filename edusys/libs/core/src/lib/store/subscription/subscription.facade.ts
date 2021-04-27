@@ -30,7 +30,7 @@ export class SubscriptionFacade {
   fetchSubscriptionList(
     request: ISubscriptionFilterRequest,
     onSucceeded?: (response: Pagination<ISubscriptionResponse>) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(subscriptionListRequestAction({ request, onSucceeded, onError }));
   }
@@ -38,7 +38,7 @@ export class SubscriptionFacade {
   fetchSubscriptionDetail(
     subscriptionId: string,
     onSucceeded?: (response: ISubscriptionDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(subscriptionDetailRequestAction({ subscriptionId, onSucceeded, onError }));
   }
@@ -47,7 +47,7 @@ export class SubscriptionFacade {
     subscriptionId: string,
     payload: ISubscriptionEditRequest,
     onSucceeded?: (response: ISubscriptionDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(subscriptionEditRequestAction({ subscriptionId, payload, onSucceeded, onError }));
   }
@@ -55,7 +55,7 @@ export class SubscriptionFacade {
   createSubscription(
     payload: ISubscriptionCreateRequest,
     onSucceeded?: (response: ISubscriptionDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(subscriptionCreateRequestAction({ payload, onSucceeded, onError }));
   }

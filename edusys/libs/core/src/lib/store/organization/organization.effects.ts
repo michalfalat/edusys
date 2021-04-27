@@ -43,10 +43,10 @@ export class OrganizationEffects {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchOrganizationDetail$ = createEffect(() =>
@@ -65,10 +65,10 @@ export class OrganizationEffects {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchOrganizationAvailablePermissions$ = createEffect(() =>
@@ -87,10 +87,10 @@ export class OrganizationEffects {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchCompanyInfoDetail$ = createEffect(() =>
@@ -109,10 +109,10 @@ export class OrganizationEffects {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   editCompanyInfo$ = createEffect(() =>
@@ -131,10 +131,10 @@ export class OrganizationEffects {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   createOrganization$ = createEffect(() =>
@@ -153,10 +153,10 @@ export class OrganizationEffects {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   editOrganization$ = createEffect(() =>
@@ -175,10 +175,10 @@ export class OrganizationEffects {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deleteOrganization$ = createEffect(() =>
@@ -197,9 +197,9 @@ export class OrganizationEffects {
               onError(error);
             }
             return of(organizationErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

@@ -25,7 +25,7 @@ export class UserDetailComponent extends UserBaseContainer implements OnInit {
         phone: new FormControl(this.userDetail?.phone),
         organizations: new FormControl(this.userDetail?.organizations?.map((o) => o.id)),
       },
-      editUserSchema
+      editUserSchema,
     );
   }
 
@@ -59,7 +59,7 @@ export class UserDetailComponent extends UserBaseContainer implements OnInit {
       },
       (err) => {
         this.onError(err.error?.message?.message);
-      }
+      },
     );
   }
 
@@ -94,7 +94,7 @@ export class UserDetailComponent extends UserBaseContainer implements OnInit {
           },
           (err) => {
             this.onError(err.error?.message?.message);
-          }
+          },
         );
     });
   }

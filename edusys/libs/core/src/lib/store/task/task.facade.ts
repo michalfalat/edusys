@@ -26,7 +26,7 @@ export class TaskFacade {
     taskId: string,
     payload: ITaskEditRequest,
     onSucceeded?: (response: ITaskDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(taskEditRequestAction({ taskId, payload, onSucceeded, onError }));
   }

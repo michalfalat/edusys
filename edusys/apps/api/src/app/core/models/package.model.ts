@@ -41,7 +41,7 @@ const packageSchema = new Schema<IPackageDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const PackageModel = model<IPackageDocument>('package', packageSchema);

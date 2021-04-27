@@ -27,7 +27,7 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
         status: new FormControl(this.taskDetail?.status),
         priority: new FormControl(this.taskDetail?.priority),
       },
-      editTaskSchema
+      editTaskSchema,
     );
   }
 
@@ -60,7 +60,7 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
   }
 
   removeAttachment(file: IFileDetailResponse): void {
-    let control = <FormArray>this.form.get('attachments');
+    const control = <FormArray>this.form.get('attachments');
     control.removeAt(control.value.findIndex((a) => a.id === file.id));
   }
 

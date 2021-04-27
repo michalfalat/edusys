@@ -14,7 +14,7 @@ const _appReducer = createReducer(
   }),
   on(removePendingRequestAction, (state: IAppState, payload) => {
     return { ...state, pendingRequests: state.pendingRequests.filter((p) => p !== payload.id) };
-  })
+  }),
 );
 
 export function appReducer(state: IAppState, action: Action): any {

@@ -27,7 +27,7 @@ export class OrganizationRoleFacade {
   fetchOrganizationRoleDetail(
     organizationRoleId: string,
     onSucceeded?: (response: IOrganizationRoleDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(organizationRoleDetailRequestAction({ organizationRoleId, onSucceeded, onError }));
   }
@@ -36,7 +36,7 @@ export class OrganizationRoleFacade {
     organizationRoleId: string,
     payload: IOrganizationRoleEditRequest,
     onSucceeded?: (response: IOrganizationRoleDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(organizationRoleEditRequestAction({ organizationRoleId, payload, onSucceeded, onError }));
   }
@@ -44,7 +44,7 @@ export class OrganizationRoleFacade {
   createOrganizationRole(
     payload: IOrganizationRoleCreateRequest,
     onSucceeded?: (response: IOrganizationRoleDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(organizationRoleCreateRequestAction({ payload, onSucceeded, onError }));
   }

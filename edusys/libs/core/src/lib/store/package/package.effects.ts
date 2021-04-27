@@ -37,10 +37,10 @@ export class PackageEffects {
               onError(error);
             }
             return of(packageErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchPackageDetail$ = createEffect(() =>
@@ -59,10 +59,10 @@ export class PackageEffects {
               onError(error);
             }
             return of(packageErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   createPackage$ = createEffect(() =>
@@ -81,10 +81,10 @@ export class PackageEffects {
               onError(error);
             }
             return of(packageErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   editPackage$ = createEffect(() =>
@@ -103,10 +103,10 @@ export class PackageEffects {
               onError(error);
             }
             return of(packageErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deletePackage$ = createEffect(() =>
@@ -125,9 +125,9 @@ export class PackageEffects {
               onError(error);
             }
             return of(packageErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

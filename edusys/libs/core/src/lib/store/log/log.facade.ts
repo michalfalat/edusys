@@ -18,7 +18,7 @@ export class LogFacade {
   fetchLogList(
     request: ILogFilterRequest,
     onSucceeded?: (response: Pagination<ILogDetailResponse>) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(logListRequestAction({ request, onSucceeded, onError }));
   }

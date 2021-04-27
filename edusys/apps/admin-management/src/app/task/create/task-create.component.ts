@@ -32,7 +32,7 @@ export class TaskCreateComponent extends TaskBaseContainer implements OnInit {
         type: new FormControl(TaskType.IT),
         priority: new FormControl(TaskPriority.MEDIUM),
       },
-      createTaskSchema
+      createTaskSchema,
     );
   }
 
@@ -42,7 +42,7 @@ export class TaskCreateComponent extends TaskBaseContainer implements OnInit {
   }
 
   removeAttachment(index: number): void {
-    let control = <FormArray>this.form.get('attachments');
+    const control = <FormArray>this.form.get('attachments');
     control.removeAt(index);
   }
 

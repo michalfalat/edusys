@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 
 @Component({
@@ -6,11 +6,7 @@ import { ControlContainer } from '@angular/forms';
   templateUrl: './ui-form-error.component.html',
   styleUrls: ['./ui-form-error.component.scss'],
 })
-export class UiFormErrorComponent implements OnInit {
+export class UiFormErrorComponent {
   @Input() name: string;
   constructor(public controlContainer: ControlContainer) {}
-
-  ngOnInit(): void {
-    // console.log(this.controlContainer.control.get(this.name));
-  }
 }

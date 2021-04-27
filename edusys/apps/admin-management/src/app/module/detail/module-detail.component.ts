@@ -24,7 +24,7 @@ export class ModuleDetailComponent extends ModuleBaseContainer implements OnInit
         description: new FormControl(this.moduleDetail?.description),
         permissions: new FormControl(this.moduleDetail?.permissions),
       },
-      editModuleSchema
+      editModuleSchema,
     );
   }
 

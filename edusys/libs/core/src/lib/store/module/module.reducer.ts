@@ -16,7 +16,7 @@ const _moduleReducer = createReducer(
   }),
   on(moduleDetailResponseAction, (state: IModuleState, payload) => {
     return { ...state, detail: payload?.response };
-  })
+  }),
 );
 
 export function moduleReducer(state: IModuleState, action: Action): any {

@@ -16,7 +16,7 @@ const _subscriptionReducer = createReducer(
   }),
   on(subscriptionDetailResponseAction, (state: ISubscriptionState, payload) => {
     return { ...state, detail: payload?.response };
-  })
+  }),
 );
 
 export function subscriptionReducer(state: ISubscriptionState, action: Action): any {

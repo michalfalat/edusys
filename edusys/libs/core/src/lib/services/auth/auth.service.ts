@@ -33,6 +33,7 @@ export class AuthService {
   }
 
   decodeJwt = (token: string) => jwt_decode(token);
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   memoizedDecodeJwt = memoize(this.decodeJwt);
 
   saveAuthToken(token: string): void {

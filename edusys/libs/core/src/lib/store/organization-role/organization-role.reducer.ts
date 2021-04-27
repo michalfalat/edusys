@@ -16,7 +16,7 @@ const _organizationRoleReducer = createReducer(
   }),
   on(organizationRoleDetailResponseAction, (state: IOrganizationRoleState, payload) => {
     return { ...state, detail: payload?.response };
-  })
+  }),
 );
 
 export function organizationRoleReducer(state: IOrganizationRoleState, action: Action): any {

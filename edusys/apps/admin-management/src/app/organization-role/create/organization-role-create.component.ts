@@ -29,7 +29,7 @@ export class OrganizationRoleCreateComponent extends OrganizationRoleBaseContain
         organizationId: new FormControl(''),
         permissions: new FormControl([]),
       },
-      createOrganizationRoleSchema
+      createOrganizationRoleSchema,
     );
   }
 
@@ -53,7 +53,7 @@ export class OrganizationRoleCreateComponent extends OrganizationRoleBaseContain
       (err) => {
         console.log(err);
         this.onError(err.error?.message?.message);
-      }
+      },
     );
   }
 }

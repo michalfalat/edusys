@@ -30,7 +30,7 @@ export class TaskBaseContainer extends CommonContainer {
     this.subscriptions.add(
       this.taskFacade.getTaskDetail$.subscribe((data) => {
         this.taskDetail = data?.id === this.taskId ? data : null;
-      })
+      }),
     );
   }
 

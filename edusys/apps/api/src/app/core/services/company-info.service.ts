@@ -7,7 +7,7 @@ import { companyInfoSeed } from './../../seeders/basic';
 
 // DETAIL OF COMPANY INFO
 export const detailOfCompanyInfo = async (): Promise<ICompanyInfoDetailResponse> => {
-  let detailModel = await CompanyInfoModel.findOne();
+  const detailModel = await CompanyInfoModel.findOne();
   if (!detailModel) {
     return createCompanyInfo();
   }

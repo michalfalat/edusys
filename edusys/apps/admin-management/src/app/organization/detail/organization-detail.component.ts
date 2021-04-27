@@ -38,7 +38,7 @@ export class OrganizationDetailComponent extends OrganizationBaseContainer imple
         }),
         packageId: new FormControl(this.organizationDetail?.packageId),
       },
-      editOrganizationSchema
+      editOrganizationSchema,
     );
   }
 
@@ -99,7 +99,7 @@ export class OrganizationDetailComponent extends OrganizationBaseContainer imple
           },
           (err) => {
             this.onError(err);
-          }
+          },
         );
     });
   }
@@ -121,7 +121,7 @@ export class OrganizationDetailComponent extends OrganizationBaseContainer imple
       },
       (err) => {
         this.onError(err);
-      }
+      },
     );
   }
 }

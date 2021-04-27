@@ -33,10 +33,10 @@ export class FileEffects {
               onError(error);
             }
             return of(fileErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   uploadFile$ = createEffect(() =>
@@ -55,10 +55,10 @@ export class FileEffects {
               onError(error);
             }
             return of(fileErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deleteFile$ = createEffect(() =>
@@ -77,9 +77,9 @@ export class FileEffects {
               onError(error);
             }
             return of(fileErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

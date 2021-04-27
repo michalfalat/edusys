@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { LoginBaseContainer } from '../login-base.container';
 
@@ -8,7 +8,7 @@ import { LoginBaseContainer } from '../login-base.container';
   templateUrl: './login-home.component.html',
   styleUrls: ['./login-home.component.scss'],
 })
-export class LoginHomeComponent extends LoginBaseContainer implements OnInit {
+export class LoginHomeComponent extends LoginBaseContainer {
   constructor(injector: Injector) {
     super(injector);
     this.setTitle('general.login.title');
@@ -17,8 +17,6 @@ export class LoginHomeComponent extends LoginBaseContainer implements OnInit {
       password: new FormControl('', Validators.required),
     });
   }
-
-  ngOnInit(): void {}
 
   onLogin(): void {
     this.authFacade.login(
@@ -31,7 +29,7 @@ export class LoginHomeComponent extends LoginBaseContainer implements OnInit {
         this.authFacade.userInfo();
         this.navigateToProfile();
       },
-      error => {
+      (error) => {
         this.onError(error.error?.message || error.error);
       },
     );

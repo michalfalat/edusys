@@ -34,7 +34,7 @@ export class IdentifierHomeComponent extends IdentifierBaseContainer {
       this.filterData = filterData;
     }
 
-    const filterRequest: IIdentifierFilterRequest = {
+    const filterRequest: any = {
       ...pickBy(filterData, identity),
     };
 

@@ -86,7 +86,7 @@ const taskSchema = new Schema<ITaskDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const TaskModel = model<ITaskDocument>('task', taskSchema);

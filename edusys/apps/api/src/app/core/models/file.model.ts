@@ -42,7 +42,7 @@ const fileSchema = new Schema<IFileDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const FileModel = model<IFileDocument>('file', fileSchema);

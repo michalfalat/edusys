@@ -30,7 +30,7 @@ export class PackageCreateComponent extends PackageBaseContainer implements OnIn
         installationPrices: this.fb.array([]),
         moduleIds: new FormControl([]),
       },
-      createPackageSchema
+      createPackageSchema,
     );
   }
 
@@ -40,12 +40,12 @@ export class PackageCreateComponent extends PackageBaseContainer implements OnIn
       this.fb.group({
         currency: new FormControl('EUR', Validators.required),
         amount: new FormControl('', Validators.required),
-      })
+      }),
     );
   }
 
   deleteAnnumPrice(index: number): void {
-    let control = <FormArray>this.form.get('annumPrices');
+    const control = <FormArray>this.form.get('annumPrices');
     control.removeAt(index);
   }
 
@@ -55,12 +55,12 @@ export class PackageCreateComponent extends PackageBaseContainer implements OnIn
       this.fb.group({
         currency: new FormControl('EUR', Validators.required),
         amount: new FormControl('', Validators.required),
-      })
+      }),
     );
   }
 
   deleteInstallationPrice(index: number): void {
-    let control = <FormArray>this.form.get('installationPrices');
+    const control = <FormArray>this.form.get('installationPrices');
     control.removeAt(index);
   }
 

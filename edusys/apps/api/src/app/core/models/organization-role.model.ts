@@ -68,7 +68,7 @@ const organizationRoleSchema = new Schema<IOrganizationRoleDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const OrganizationRoleModel = model<IOrganizationRoleDocument>('organizationRole', organizationRoleSchema);

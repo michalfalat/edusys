@@ -34,7 +34,7 @@ const moduleSchema = new Schema<IModuleDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const ModuleModel = model<IModuleDocument>('module', moduleSchema);

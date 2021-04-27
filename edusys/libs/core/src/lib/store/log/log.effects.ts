@@ -33,10 +33,10 @@ export class LogEffects {
               onError(error);
             }
             return of(logErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchLogDetail$ = createEffect(() =>
@@ -55,10 +55,10 @@ export class LogEffects {
               onError(error);
             }
             return of(logErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deleteLog$ = createEffect(() =>
@@ -77,9 +77,9 @@ export class LogEffects {
               onError(error);
             }
             return of(logErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

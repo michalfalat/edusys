@@ -91,7 +91,7 @@ const userSchema = new Schema<IUserDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 userSchema.statics.findByName = function (name: string): Query<any, IUserDocument> {

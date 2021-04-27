@@ -51,7 +51,7 @@ const subscriptionSchema = new Schema<ISubscriptionDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 subscriptionSchema.plugin(paginate);
@@ -60,6 +60,6 @@ type SubscriptionModel<T extends Document> = PaginateModel<T>;
 
 const SubscriptionModel: SubscriptionModel<ISubscriptionDocument> = model<ISubscriptionDocument>(
   'subscription',
-  subscriptionSchema
+  subscriptionSchema,
 ) as SubscriptionModel<ISubscriptionDocument>;
 export default SubscriptionModel;

@@ -16,7 +16,7 @@ const _userReducer = createReducer(
   }),
   on(userDetailResponseAction, (state: IUserState, payload) => {
     return { ...state, detail: payload?.response };
-  })
+  }),
 );
 
 export function userReducer(state: IUserState, action: Action): any {

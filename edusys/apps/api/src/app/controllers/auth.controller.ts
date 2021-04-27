@@ -62,7 +62,7 @@ export const seedSU = async (req: Request, res: Response, next: NextFunction) =>
 export const testEmail = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.query.to) {
-      throw new BadRequest("Missing email property 'to' ");
+      throw new BadRequest(`Missing email property \'to\' `);
     }
     await emailService.sendEmail(EmailType.TEST_EMAIL, req.query.to as string, { name: 'hello' });
     res.send({ status: 'OK' });

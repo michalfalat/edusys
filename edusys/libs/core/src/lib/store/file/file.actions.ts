@@ -1,4 +1,4 @@
-import { IFileUploadRequest, IFileDetailResponse } from '@edusys/model';
+import { IFileDetailResponse } from '@edusys/model';
 import { createAction, props } from '@ngrx/store';
 
 const PREFIX = '[FILE]';
@@ -10,13 +10,13 @@ export const fileDetailRequestAction = createAction(
     fileId: string;
     onSucceeded?: (response: IFileDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const fileDetailResponseAction = createAction(
   `${PREFIX} DETAIL RESPONSE`,
   props<{
     response: IFileDetailResponse;
-  }>()
+  }>(),
 );
 
 // UPLOAD FILE
@@ -26,13 +26,13 @@ export const fileUploadRequestAction = createAction(
     payload: FormData;
     onSucceeded?: (response: IFileDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const fileUploadResponseAction = createAction(
   `${PREFIX} UPLOAD RESPONSE`,
   props<{
     response: IFileDetailResponse;
-  }>()
+  }>(),
 );
 
 // DELETE FILE
@@ -42,7 +42,7 @@ export const fileDeleteRequestAction = createAction(
     fileId: string;
     onSucceeded?: () => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const fileDeleteResponseAction = createAction(`${PREFIX} DELETE RESPONSE`);
 
@@ -51,5 +51,5 @@ export const fileErrorAction = createAction(
   `${PREFIX} ERROR RESPONSE`,
   props<{
     error: any;
-  }>()
+  }>(),
 );

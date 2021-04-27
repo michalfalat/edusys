@@ -37,10 +37,10 @@ export class UserEffects {
               onError(error);
             }
             return of(userErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchUserDetail$ = createEffect(() =>
@@ -59,10 +59,10 @@ export class UserEffects {
               onError(error);
             }
             return of(userErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   createUser$ = createEffect(() =>
@@ -81,10 +81,10 @@ export class UserEffects {
               onError(error);
             }
             return of(userErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   editUser$ = createEffect(() =>
@@ -103,10 +103,10 @@ export class UserEffects {
               onError(error);
             }
             return of(userErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deleteUser$ = createEffect(() =>
@@ -125,9 +125,9 @@ export class UserEffects {
               onError(error);
             }
             return of(userErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

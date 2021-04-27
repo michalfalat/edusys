@@ -29,7 +29,7 @@ export class PackageBaseContainer extends CommonContainer {
     this.subscriptions.add(
       this.packageFacade.getPackageDetail$.subscribe((data) => {
         this.packageDetail = data?.id === this.packageId ? data : null;
-      })
+      }),
     );
   }
 

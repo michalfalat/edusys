@@ -31,7 +31,7 @@ export class IdentifierBaseContainer extends CommonContainer {
     this.subscriptions.add(
       this.identifierFacade.getIdentifierDetail$.subscribe((data) => {
         this.identifierDetail = data?.id === this.identifierId ? data : null;
-      })
+      }),
     );
   }
 

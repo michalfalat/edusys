@@ -41,10 +41,10 @@ export class TaskEffects {
               onError(error);
             }
             return of(taskErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchTaskDetail$ = createEffect(() =>
@@ -63,10 +63,10 @@ export class TaskEffects {
               onError(error);
             }
             return of(taskErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   createTask$ = createEffect(() =>
@@ -85,10 +85,10 @@ export class TaskEffects {
               onError(error);
             }
             return of(taskErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   editTask$ = createEffect(() =>
@@ -107,10 +107,10 @@ export class TaskEffects {
               onError(error);
             }
             return of(taskErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   assignTask$ = createEffect(() =>
@@ -129,10 +129,10 @@ export class TaskEffects {
               onError(error);
             }
             return of(taskErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   finishTask$ = createEffect(() =>
@@ -151,10 +151,10 @@ export class TaskEffects {
               onError(error);
             }
             return of(taskErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deleteTask$ = createEffect(() =>
@@ -173,9 +173,9 @@ export class TaskEffects {
               onError(error);
             }
             return of(taskErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

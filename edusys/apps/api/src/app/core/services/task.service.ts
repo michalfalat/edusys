@@ -61,7 +61,7 @@ export const createTask = async (payload: ITaskCreateRequest): Promise<ITaskDeta
   try {
     const savedModel = await (await newModel.save()).populate('organization').execPopulate();
     console.log('ORGANIZATION: ', savedModel.organization);
-    let url = 'www.edusys.sk/task/detail/131'; //`${getCurrentHostname()}/task/detail/${savedModel?.id}`; //TODO
+    const url = 'www.edusys.sk/task/detail/131'; //`${getCurrentHostname()}/task/detail/${savedModel?.id}`; //TODO
     sendEmail(EmailType.TASK_NEW, recipient, {
       createdBy: recipient,
       taskDescription: savedModel.description,
@@ -100,7 +100,7 @@ export const assignTask = async (payload: ITaskAssignRequest): Promise<ITaskDeta
         fixedBy: payload.fixedBy,
         status: TaskStatus.ASSIGNED,
       },
-      { new: true }
+      { new: true },
     );
 
     logInfo(`[TASK_SERVICE] task '${result.name}' assigned to with ${payload.fixedBy}`);
@@ -130,7 +130,7 @@ export const finishTask = async (payload: ITaskFinishRequest): Promise<ITaskDeta
         fixedOn: payload.fixedOn,
         status: TaskStatus.FIXED,
       },
-      { new: true }
+      { new: true },
     );
 
     logInfo(`[TASK_SERVICE] task '${result.name}' finished`);

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IFileDetailResponse } from '@edusys/model';
 
@@ -18,7 +18,7 @@ export interface IDialogCloseResult {
   templateUrl: './ui-gallery.component.html',
   styleUrls: ['./ui-gallery.component.scss'],
 })
-export class UiGalleryComponent implements OnInit {
+export class UiGalleryComponent {
   constructor(public dialogRef: MatDialogRef<UiGalleryComponent>, @Inject(MAT_DIALOG_DATA) public data: IGalleryDialogData) {}
 
   onClose(): void {
@@ -28,6 +28,4 @@ export class UiGalleryComponent implements OnInit {
   onDelete(data: IFileDetailResponse): void {
     this.dialogRef.close({ action: 'DELETE', data });
   }
-
-  ngOnInit(): void {}
 }

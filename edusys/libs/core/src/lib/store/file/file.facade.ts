@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IFileDetailResponse } from '@edusys/model';
 import { Store } from '@ngrx/store';
-import { IFileDetailResponse, IFileUploadRequest } from '@edusys/model';
-import { fileUploadRequestAction, fileDeleteRequestAction, fileDetailRequestAction } from './file.actions';
+import { fileDeleteRequestAction, fileDetailRequestAction, fileUploadRequestAction } from './file.actions';
 import IFileState from './file.reducer';
 
 @Injectable({

@@ -29,7 +29,7 @@ export class IdentifierDetailComponent extends IdentifierBaseContainer implement
         validUntil: new FormControl(this.identifierDetail?.validUntil),
         hasExpiration: new FormControl(!!this.identifierDetail?.validUntil),
       },
-      editIdentifierSchema
+      editIdentifierSchema,
     );
   }
 
@@ -113,7 +113,7 @@ export class IdentifierDetailComponent extends IdentifierBaseContainer implement
       },
       (err) => {
         this.onError(err);
-      }
+      },
     );
   }
 }

@@ -37,10 +37,10 @@ export class OrganizationRoleEffects {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchOrganizationRoleDetail$ = createEffect(() =>
@@ -59,10 +59,10 @@ export class OrganizationRoleEffects {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   createOrganizationRole$ = createEffect(() =>
@@ -81,10 +81,10 @@ export class OrganizationRoleEffects {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   editOrganizationRole$ = createEffect(() =>
@@ -103,10 +103,10 @@ export class OrganizationRoleEffects {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deleteOrganizationRole$ = createEffect(() =>
@@ -125,9 +125,9 @@ export class OrganizationRoleEffects {
               onError(error);
             }
             return of(organizationRoleErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

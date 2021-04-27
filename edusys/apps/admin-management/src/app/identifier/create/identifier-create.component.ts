@@ -33,7 +33,7 @@ export class IdentifierCreateComponent extends IdentifierBaseContainer implement
         userId: new FormControl(''),
         validUntil: new FormControl(),
       },
-      createIdentifierSchema
+      createIdentifierSchema,
     );
   }
 
@@ -61,7 +61,7 @@ export class IdentifierCreateComponent extends IdentifierBaseContainer implement
         this.onSuccess('general.saved.success');
         this.navigateToIdentifierHome();
       },
-      (err) => this.onError(err)
+      (err) => this.onError(err),
     );
   }
 

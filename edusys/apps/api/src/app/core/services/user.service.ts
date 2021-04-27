@@ -77,8 +77,8 @@ export const editUser = async (payload: IUserEditRequest): Promise<IUserDetailRe
       await OrganizationModel.addUserToOrganization(organizationId, updatedModel._id);
     }
     if (payload.organizations?.length) {
-      const organizations = await OrganizationModel.findByOrganizationIds(payload.organizations);
-      const url = `${process.env.CLIENT_APP_URL}/login`; // TODO
+      // const organizations = await OrganizationModel.findByOrganizationIds(payload.organizations);
+      // const url = `${process.env.CLIENT_APP_URL}/login`; // TODO
       // sendEmail(EmailType.USER_ORGANIZATION_ADD, payload.email, { isNewUser: true, organizations: organizations?.map((o) => o.name), url });
     }
     logInfo(`[USER_SERVICE] user '${payload.email}' edited`);

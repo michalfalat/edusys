@@ -43,7 +43,7 @@ const invoiceSchema = new Schema<IInvoiceDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const InvoiceModel = model<IInvoiceDocument>('invoice', invoiceSchema);

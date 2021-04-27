@@ -10,19 +10,16 @@ const routes: Routes = [
     children: [
       {
         path: 'register',
-        loadChildren: () =>
-          import('../register/register.module').then((m) => m.RegisterModule),
+        loadChildren: () => import('../register/register.module').then((m) => m.RegisterModule),
       },
       {
         path: 'login',
-        loadChildren: () =>
-          import('../login/login.module').then((m) => m.LoginModule),
+        loadChildren: () => import('../login/login.module').then((m) => m.LoginModule),
       },
       {
         canActivate: [AuthGuard],
         path: 'profile',
-        loadChildren: () =>
-          import('../profile/profile.module').then((m) => m.ProfileModule),
+        loadChildren: () => import('../profile/profile.module').then((m) => m.ProfileModule),
       },
     ],
   },

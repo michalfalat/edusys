@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthFacade } from '@edusys/core';
 import { RegisterBaseContainer } from '../register-base.container';
@@ -9,9 +9,7 @@ import { RegisterBaseContainer } from '../register-base.container';
   templateUrl: './register-home.component.html',
   styleUrls: ['./register-home.component.scss'],
 })
-export class RegisterHomeComponent
-  extends RegisterBaseContainer
-  implements OnInit {
+export class RegisterHomeComponent extends RegisterBaseContainer {
   authFacade: AuthFacade;
   constructor(injector: Injector) {
     super(injector);
@@ -23,8 +21,6 @@ export class RegisterHomeComponent
       password: new FormControl('', Validators.required),
     });
   }
-
-  ngOnInit(): void {}
 
   onRegister(): void {
     this.authFacade.register(
@@ -38,7 +34,7 @@ export class RegisterHomeComponent
       },
       (error) => {
         this.onError(error.error?.message || error.error);
-      }
+      },
     );
   }
 }

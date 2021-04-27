@@ -31,7 +31,7 @@ export const deleteFile = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, callback) {
     const dir = `${__basedir}\\uploads\\${req.body.type}`;
     if (!fs.existsSync(dir)) {

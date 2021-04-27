@@ -33,10 +33,10 @@ export class AuthEffects {
               onError(error);
             }
             return of(authErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   logout$ = createEffect(
@@ -50,11 +50,11 @@ export class AuthEffects {
               if (onSucceeded) {
                 onSucceeded();
               }
-            })
-          )
-        )
+            }),
+          ),
+        ),
       ),
-    { dispatch: false }
+    { dispatch: false },
   );
 
   userInfo$ = createEffect(() =>
@@ -73,9 +73,9 @@ export class AuthEffects {
               onError(error);
             }
             return of(authErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

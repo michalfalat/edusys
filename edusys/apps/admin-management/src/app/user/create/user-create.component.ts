@@ -30,7 +30,7 @@ export class UserCreateComponent extends UserBaseContainer implements OnInit {
         organizations: new FormControl([]),
         phone: new FormControl(''),
       },
-      createUserSchema
+      createUserSchema,
     );
   }
 
@@ -55,7 +55,7 @@ export class UserCreateComponent extends UserBaseContainer implements OnInit {
       (err) => {
         console.log(err);
         this.onError(err.error?.message?.message);
-      }
+      },
     );
   }
 }

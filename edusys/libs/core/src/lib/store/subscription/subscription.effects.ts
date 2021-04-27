@@ -37,10 +37,10 @@ export class SubscriptionEffects {
               onError(error);
             }
             return of(subscriptionErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchSubscriptionDetail$ = createEffect(() =>
@@ -59,10 +59,10 @@ export class SubscriptionEffects {
               onError(error);
             }
             return of(subscriptionErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   createSubscription$ = createEffect(() =>
@@ -81,10 +81,10 @@ export class SubscriptionEffects {
               onError(error);
             }
             return of(subscriptionErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   editSubscription$ = createEffect(() =>
@@ -103,10 +103,10 @@ export class SubscriptionEffects {
               onError(error);
             }
             return of(subscriptionErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deleteSubscription$ = createEffect(() =>
@@ -125,9 +125,9 @@ export class SubscriptionEffects {
               onError(error);
             }
             return of(subscriptionErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

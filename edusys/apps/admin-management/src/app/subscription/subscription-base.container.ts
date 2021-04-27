@@ -25,7 +25,7 @@ export class SubscriptionBaseContainer extends CommonContainer {
     this.subscriptions.add(
       this.subscriptionFacade.getSubscriptionDetail$.subscribe((data) => {
         this.subscriptionDetail = data?.id === this.subscriptionId ? data : null;
-      })
+      }),
     );
   }
 

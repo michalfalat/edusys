@@ -18,7 +18,7 @@ const logSchema = new Schema<ILogDocument>(
     message: String,
     meta: SchemaTypes.Mixed,
   },
-  {}
+  {},
 );
 logSchema.plugin(paginate);
 

@@ -9,13 +9,13 @@ export const packageListRequestAction = createAction(
   props<{
     onSucceeded?: (response: IPackageDetailResponse[]) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const packageListResponseAction = createAction(
   `${PREFIX} LIST RESPONSE`,
   props<{
     response: IPackageDetailResponse[];
-  }>()
+  }>(),
 );
 
 // PACKAGE DETAIL
@@ -25,13 +25,13 @@ export const packageDetailRequestAction = createAction(
     packageId: string;
     onSucceeded?: (response: IPackageDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const packageDetailResponseAction = createAction(
   `${PREFIX} DETAIL RESPONSE`,
   props<{
     response: IPackageDetailResponse;
-  }>()
+  }>(),
 );
 
 // CREATE PACKAGE
@@ -41,13 +41,13 @@ export const packageCreateRequestAction = createAction(
     payload: IPackageCreateRequest;
     onSucceeded?: (response: IPackageDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const packageCreateResponseAction = createAction(
   `${PREFIX} CREATE RESPONSE`,
   props<{
     response: IPackageDetailResponse;
-  }>()
+  }>(),
 );
 
 // EDIT PACKAGE
@@ -58,13 +58,13 @@ export const packageEditRequestAction = createAction(
     payload: IPackageEditRequest;
     onSucceeded?: (response: IPackageDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const packageEditResponseAction = createAction(
   `${PREFIX} EDIT RESPONSE`,
   props<{
     response: IPackageDetailResponse;
-  }>()
+  }>(),
 );
 
 // DELETE PACKAGE
@@ -74,7 +74,7 @@ export const packageDeleteRequestAction = createAction(
     packageId: string;
     onSucceeded?: () => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const packageDeleteResponseAction = createAction(`${PREFIX} DELETE RESPONSE`);
 
@@ -83,5 +83,5 @@ export const packageErrorAction = createAction(
   `${PREFIX} ERROR RESPONSE`,
   props<{
     error: any;
-  }>()
+  }>(),
 );

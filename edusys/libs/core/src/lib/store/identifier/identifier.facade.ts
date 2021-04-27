@@ -23,7 +23,7 @@ export class IdentifierFacade {
   fetchIdentifierList(
     request: IIdentifierFilterRequest,
     onSucceeded?: (response: Pagination<IIdentifierDetailResponse>) => void,
-    onError?: (response: any) => void
+    onError?: (response: any) => void,
   ): void {
     this.store.dispatch(identifierListRequestAction({ request, onSucceeded, onError }));
   }
@@ -36,7 +36,7 @@ export class IdentifierFacade {
     identifierId: string,
     payload: IIdentifierEditRequest,
     onSucceeded?: (response: IIdentifierDetailResponse) => void,
-    onError?: (response: any) => void
+    onError?: (response: any) => void,
   ): void {
     this.store.dispatch(identifierEditRequestAction({ identifierId, payload, onSucceeded, onError }));
   }

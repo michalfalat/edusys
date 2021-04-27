@@ -17,13 +17,13 @@ export const subscriptionListRequestAction = createAction(
     request: ISubscriptionFilterRequest;
     onSucceeded?: (response: Pagination<ISubscriptionResponse>) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const subscriptionListResponseAction = createAction(
   `${PREFIX} LIST RESPONSE`,
   props<{
     response: Pagination<ISubscriptionResponse>;
-  }>()
+  }>(),
 );
 
 // SUBSCRIPTION DETAIL
@@ -33,13 +33,13 @@ export const subscriptionDetailRequestAction = createAction(
     subscriptionId: string;
     onSucceeded?: (response: ISubscriptionDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const subscriptionDetailResponseAction = createAction(
   `${PREFIX} DETAIL RESPONSE`,
   props<{
     response: ISubscriptionDetailResponse;
-  }>()
+  }>(),
 );
 
 // CREATE SUBSCRIPTION
@@ -49,13 +49,13 @@ export const subscriptionCreateRequestAction = createAction(
     payload: ISubscriptionCreateRequest;
     onSucceeded?: (response: ISubscriptionDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const subscriptionCreateResponseAction = createAction(
   `${PREFIX} CREATE RESPONSE`,
   props<{
     response: ISubscriptionDetailResponse;
-  }>()
+  }>(),
 );
 
 // EDIT SUBSCRIPTION
@@ -66,13 +66,13 @@ export const subscriptionEditRequestAction = createAction(
     payload: ISubscriptionEditRequest;
     onSucceeded?: (response: ISubscriptionDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const subscriptionEditResponseAction = createAction(
   `${PREFIX} EDIT RESPONSE`,
   props<{
     response: ISubscriptionDetailResponse;
-  }>()
+  }>(),
 );
 
 // DELETE SUBSCRIPTION
@@ -82,7 +82,7 @@ export const subscriptionDeleteRequestAction = createAction(
     subscriptionId: string;
     onSucceeded?: () => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const subscriptionDeleteResponseAction = createAction(`${PREFIX} DELETE RESPONSE`);
 
@@ -91,5 +91,5 @@ export const subscriptionErrorAction = createAction(
   `${PREFIX} ERROR RESPONSE`,
   props<{
     error: any;
-  }>()
+  }>(),
 );

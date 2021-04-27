@@ -25,7 +25,7 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
         installationPrices: this.fb.array(this.packageDetail?.installationPrices?.map((price) => this.buildAmountFormGroup(price)) || []),
         moduleIds: new FormControl(this.packageDetail?.modules?.map((m) => m.id)),
       },
-      editPackageSchema
+      editPackageSchema,
     );
   }
 
@@ -54,7 +54,7 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
       this.fb.group({
         currency: new FormControl('EUR', Validators.required),
         amount: new FormControl('', Validators.required),
-      })
+      }),
     );
   }
 
@@ -69,7 +69,7 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
       this.fb.group({
         currency: new FormControl('EUR', Validators.required),
         amount: new FormControl('', Validators.required),
-      })
+      }),
     );
   }
 
@@ -96,7 +96,7 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
       },
       (err) => {
         this.onError(err);
-      }
+      },
     );
   }
 

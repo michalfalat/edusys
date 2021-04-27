@@ -26,7 +26,7 @@ export class UserFacade {
     userId: string,
     payload: IUserEditRequest,
     onSucceeded?: (response: IUserDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(userEditRequestAction({ userId, payload, onSucceeded, onError }));
   }

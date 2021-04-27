@@ -1,4 +1,3 @@
-import { request } from 'express';
 import { errorLabels } from './error-labels';
 
 export class GeneralError extends Error {

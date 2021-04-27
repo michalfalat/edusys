@@ -33,7 +33,7 @@ const verifyTokenSchema = new Schema<IVerifyTokenDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const VerifyTokenModel = model<IVerifyTokenDocument>('verifyToken', verifyTokenSchema);

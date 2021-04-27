@@ -15,6 +15,6 @@ export class HeaderBaseContainer extends CommonContainer {
     this.subscriptions.add(this.authFacade.getUserInfo$.subscribe((data) => (this.userInfo = data)));
   }
 
-  onError = (message?: string): void => {};
-  onSuccess = (message?: string): void => {};
+  onError = (): void => {};
+  onSuccess = (): void => {};
 }

@@ -30,7 +30,7 @@ export class UserBaseContainer extends CommonContainer {
     this.subscriptions.add(
       this.userFacade.getUserDetail$.subscribe((data) => {
         this.userDetail = data?.id === this.userId ? data : null;
-      })
+      }),
     );
   }
 

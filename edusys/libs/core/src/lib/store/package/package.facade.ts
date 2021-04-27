@@ -31,7 +31,7 @@ export class PackageFacade {
     packageId: string,
     payload: IPackageEditRequest,
     onSucceeded?: (response: IPackageDetailResponse) => void,
-    onError?: (response: any) => void
+    onError?: (response: any) => void,
   ): void {
     this.store.dispatch(packageEditRequestAction({ packageId, payload, onSucceeded, onError }));
   }

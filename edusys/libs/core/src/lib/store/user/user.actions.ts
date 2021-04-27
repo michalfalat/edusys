@@ -8,13 +8,13 @@ export const userListRequestAction = createAction(
   props<{
     onSucceeded?: (response: IUserDetailResponse[]) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const userListResponseAction = createAction(
   `${PREFIX} LIST RESPONSE`,
   props<{
     response: IUserDetailResponse[];
-  }>()
+  }>(),
 );
 
 export const userDetailRequestAction = createAction(
@@ -23,13 +23,13 @@ export const userDetailRequestAction = createAction(
     userId: string;
     onSucceeded?: (response: IUserDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const userDetailResponseAction = createAction(
   `${PREFIX} DETAIL RESPONSE`,
   props<{
     response: IUserDetailResponse;
-  }>()
+  }>(),
 );
 
 export const userCreateRequestAction = createAction(
@@ -38,13 +38,13 @@ export const userCreateRequestAction = createAction(
     payload: IUserCreateRequest;
     onSucceeded?: (response: IUserDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const userCreateResponseAction = createAction(
   `${PREFIX} CREATE RESPONSE`,
   props<{
     response: IUserDetailResponse;
-  }>()
+  }>(),
 );
 
 export const userEditRequestAction = createAction(
@@ -54,13 +54,13 @@ export const userEditRequestAction = createAction(
     payload: IUserEditRequest;
     onSucceeded?: (response: IUserDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const userEditResponseAction = createAction(
   `${PREFIX} EDIT RESPONSE`,
   props<{
     response: IUserDetailResponse;
-  }>()
+  }>(),
 );
 
 export const userDeleteRequestAction = createAction(
@@ -69,7 +69,7 @@ export const userDeleteRequestAction = createAction(
     userId: string;
     onSucceeded?: () => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const userDeleteResponseAction = createAction(`${PREFIX} DELETE RESPONSE`);
 
@@ -78,5 +78,5 @@ export const userErrorAction = createAction(
   `${PREFIX} ERROR RESPONSE`,
   props<{
     error: any;
-  }>()
+  }>(),
 );

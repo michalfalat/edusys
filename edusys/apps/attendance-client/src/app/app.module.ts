@@ -22,10 +22,7 @@ import { appConfig } from '../environments/environment';
     CoreTranslateModule,
     LayoutModule,
   ],
-  providers: [
-    { provide: APP_CONFIG, useValue: appConfig },
-    httpInterceptorProviders,
-  ],
+  providers: [{ provide: APP_CONFIG, useValue: appConfig }, httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

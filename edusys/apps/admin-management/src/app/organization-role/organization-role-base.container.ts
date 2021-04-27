@@ -31,7 +31,7 @@ export class OrganizationRoleBaseContainer extends CommonContainer {
     this.subscriptions.add(
       this.organizationRoleFacade.getOrganizationRoleDetail$.subscribe((data) => {
         this.organizationRoleDetail = data?.id === this.organizationRoleId ? data : null;
-      })
+      }),
     );
   }
 

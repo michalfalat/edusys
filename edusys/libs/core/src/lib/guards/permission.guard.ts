@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
 import { PERMISSION } from '@edusys/model';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth/auth.service';
 export class PermissionGuard implements CanActivate {
   token: string;
   constructor(private authService: AuthService, private router: Router) {}
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!!this.authService.getAuthToken()) {
       const moduleName = route.data.moduleName;
       const redirectUrl = route.data.redirectUrl || '/';

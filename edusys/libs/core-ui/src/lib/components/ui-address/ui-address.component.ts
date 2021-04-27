@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { ControlContainer } from '@angular/forms';
   templateUrl: './ui-address.component.html',
   styleUrls: ['./ui-address.component.scss'],
 })
-export class UiAddressComponent implements OnInit {
+export class UiAddressComponent {
   countries = [
     {
       name: 'Slovensko',
@@ -20,6 +20,4 @@ export class UiAddressComponent implements OnInit {
   @Input() showErrors = true;
   @Input() readonly: boolean;
   constructor(public controlContainer: ControlContainer) {}
-
-  ngOnInit(): void {}
 }

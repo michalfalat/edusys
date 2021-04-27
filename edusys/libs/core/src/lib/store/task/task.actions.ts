@@ -9,13 +9,13 @@ export const taskListRequestAction = createAction(
   props<{
     onSucceeded?: (response: ITaskDetailResponse[]) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const taskListResponseAction = createAction(
   `${PREFIX} LIST RESPONSE`,
   props<{
     response: ITaskDetailResponse[];
-  }>()
+  }>(),
 );
 
 // TASK DETAIL
@@ -25,13 +25,13 @@ export const taskDetailRequestAction = createAction(
     taskId: string;
     onSucceeded?: (response: ITaskDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const taskDetailResponseAction = createAction(
   `${PREFIX} DETAIL RESPONSE`,
   props<{
     response: ITaskDetailResponse;
-  }>()
+  }>(),
 );
 
 // CREATE TASK
@@ -41,13 +41,13 @@ export const taskCreateRequestAction = createAction(
     payload: ITaskCreateRequest;
     onSucceeded?: (response: ITaskDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const taskCreateResponseAction = createAction(
   `${PREFIX} CREATE RESPONSE`,
   props<{
     response: ITaskDetailResponse;
-  }>()
+  }>(),
 );
 
 // EDIT TASK
@@ -58,13 +58,13 @@ export const taskEditRequestAction = createAction(
     payload: ITaskEditRequest;
     onSucceeded?: (response: ITaskDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const taskEditResponseAction = createAction(
   `${PREFIX} EDIT RESPONSE`,
   props<{
     response: ITaskDetailResponse;
-  }>()
+  }>(),
 );
 
 // ASSIGN TASK
@@ -75,13 +75,13 @@ export const taskAssignRequestAction = createAction(
     payload: ITaskAssignRequest;
     onSucceeded?: (response: ITaskDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const taskAssignResponseAction = createAction(
   `${PREFIX} ASSIGN RESPONSE`,
   props<{
     response: ITaskDetailResponse;
-  }>()
+  }>(),
 );
 
 // FINISH TASK
@@ -92,13 +92,13 @@ export const taskFinishRequestAction = createAction(
     payload: ITaskFinishRequest;
     onSucceeded?: (response: ITaskDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const taskFinishResponseAction = createAction(
   `${PREFIX} FINISH RESPONSE`,
   props<{
     response: ITaskDetailResponse;
-  }>()
+  }>(),
 );
 
 // DELETE TASK
@@ -108,7 +108,7 @@ export const taskDeleteRequestAction = createAction(
     taskId: string;
     onSucceeded?: () => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const taskDeleteResponseAction = createAction(`${PREFIX} DELETE RESPONSE`);
 
@@ -117,5 +117,5 @@ export const taskErrorAction = createAction(
   `${PREFIX} ERROR RESPONSE`,
   props<{
     error: any;
-  }>()
+  }>(),
 );

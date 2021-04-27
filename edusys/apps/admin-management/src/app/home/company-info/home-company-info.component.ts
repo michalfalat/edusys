@@ -36,7 +36,7 @@ export class HomeCompanyInfoComponent extends HomeBaseContainer implements OnIni
           currency: new FormControl(this.companyInfo?.bank?.currency),
         }),
       },
-      editCompanyInfoSchema
+      editCompanyInfoSchema,
     );
   }
 

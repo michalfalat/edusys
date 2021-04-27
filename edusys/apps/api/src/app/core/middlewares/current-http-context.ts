@@ -7,6 +7,7 @@ export const currentHttpContext = (req: Request, res: Response, next: NextFuncti
   try {
     const token = req.headers?.authorization?.split(' ')[1];
     if (!!token) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const verifiedToken = jwt.verify(token, process.env.TOKEN_SECRET);
       httpContext.set('currentUser', jwt.decode(token));
     }

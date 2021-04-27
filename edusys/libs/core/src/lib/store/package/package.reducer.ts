@@ -16,7 +16,7 @@ const _packageReducer = createReducer(
   }),
   on(packageDetailResponseAction, (state: IPackageState, payload) => {
     return { ...state, detail: payload?.response };
-  })
+  }),
 );
 
 export function packageReducer(state: IPackageState, action: Action): any {

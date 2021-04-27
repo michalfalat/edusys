@@ -42,7 +42,7 @@ const companyInfoSchema = new Schema<ICompanyInfoDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const CompanyInfoModel = model<ICompanyInfoDocument>('companyInfo', companyInfoSchema);

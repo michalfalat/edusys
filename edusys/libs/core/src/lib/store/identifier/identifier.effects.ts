@@ -37,10 +37,10 @@ export class IdentifierEffects {
               onError(error);
             }
             return of(identifierErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   fetchIdentifierDetail$ = createEffect(() =>
@@ -59,10 +59,10 @@ export class IdentifierEffects {
               onError(error);
             }
             return of(identifierErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   createIdentifier$ = createEffect(() =>
@@ -81,10 +81,10 @@ export class IdentifierEffects {
               onError(error);
             }
             return of(identifierErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   editIdentifier$ = createEffect(() =>
@@ -103,10 +103,10 @@ export class IdentifierEffects {
               onError(error);
             }
             return of(identifierErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   deleteIdentifier$ = createEffect(() =>
@@ -125,9 +125,9 @@ export class IdentifierEffects {
               onError(error);
             }
             return of(identifierErrorAction({ error }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

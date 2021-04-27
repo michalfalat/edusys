@@ -25,7 +25,7 @@ export class LogBaseContainer extends CommonContainer {
     this.subscriptions.add(
       this.logFacade.getLogDetail$.subscribe((data) => {
         this.logDetail = data?.id === this.logId ? data : null;
-      })
+      }),
     );
   }
 

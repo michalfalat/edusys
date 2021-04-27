@@ -9,9 +9,9 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    "tsconfig.base.json": "*",
+    "tsconfig.json": "*",
     "tslint.json": "*",
-    ".eslintrc.json": "*",
+    ".eslintrc.js": "*",
     "nx.json": "*"
   },
   "tasksRunnerOptions": {

@@ -33,7 +33,7 @@ export class OrganizationBaseContainer extends CommonContainer {
     this.subscriptions.add(
       this.organizationFacade.getOrganizationDetail$.subscribe((data) => {
         this.organizationDetail = data?.id === this.organizationId ? data : null;
-      })
+      }),
     );
   }
 

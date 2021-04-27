@@ -1,10 +1,10 @@
 import { IAddress, OrganizationStatus } from '@edusys/model';
-import { Schema, model, Document, Model } from 'mongoose';
-import { IOrganizationRole } from './organization-role.model';
-import { IUser, IUserModel } from './user.model';
+import { Document, model, Model, Schema } from 'mongoose';
 import { addressSchema } from './common.model';
-import { ISubscription } from './subscription.model';
 import { IEntity } from './entity.model';
+import { IOrganizationRole } from './organization-role.model';
+import { ISubscription } from './subscription.model';
+import { IUser } from './user.model';
 
 export interface IOrganization extends IEntity {
   name: string;
@@ -76,7 +76,7 @@ const organizationSchema = new Schema<IOrganizationDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 organizationSchema.statics.addUserToOrganization = function (organizationId: any, userId: any): Promise<IOrganizationDocument> {

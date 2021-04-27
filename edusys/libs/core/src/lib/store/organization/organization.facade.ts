@@ -37,7 +37,7 @@ export class OrganizationFacade {
   fetchOrganizationDetail(
     organizationId: string,
     onSucceeded?: (response: IOrganizationDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(organizationDetailRequestAction({ organizationId, onSucceeded, onError }));
   }
@@ -45,7 +45,7 @@ export class OrganizationFacade {
   fetchOrganizationAvailablePermissions(
     organizationId: string,
     onSucceeded?: (response: string[]) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(organizationAvailablePermissionsRequestAction({ organizationId, onSucceeded, onError }));
   }
@@ -57,7 +57,7 @@ export class OrganizationFacade {
   editCompanyInfo(
     payload: ICompanyInfoEditRequest,
     onSucceeded?: (response: ICompanyInfoDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(companyInfoEditRequestAction({ payload, onSucceeded, onError }));
   }
@@ -66,7 +66,7 @@ export class OrganizationFacade {
     organizationId: string,
     payload: IOrganizationEditRequest,
     onSucceeded?: (response: IOrganizationDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(organizationEditRequestAction({ organizationId, payload, onSucceeded, onError }));
   }
@@ -74,7 +74,7 @@ export class OrganizationFacade {
   createOrganization(
     payload: IOrganizationCreateRequest,
     onSucceeded?: (response: IOrganizationDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(organizationCreateRequestAction({ payload, onSucceeded, onError }));
   }

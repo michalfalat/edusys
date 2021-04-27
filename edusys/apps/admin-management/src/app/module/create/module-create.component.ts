@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Injector, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { createModuleSchema, IModuleCreateRequest } from '@edusys/model';
 import { routes } from '../../utils/routes';
@@ -10,7 +10,7 @@ import { ModuleBaseContainer } from '../module-base.container';
   styleUrls: ['./module-create.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ModuleCreateComponent extends ModuleBaseContainer implements OnInit {
+export class ModuleCreateComponent extends ModuleBaseContainer {
   constructor(injector: Injector) {
     super(injector);
     this.navigationItems = [
@@ -29,11 +29,9 @@ export class ModuleCreateComponent extends ModuleBaseContainer implements OnInit
         description: new FormControl(''),
         permissions: new FormControl([]),
       },
-      createModuleSchema
+      createModuleSchema,
     );
   }
-
-  ngOnInit(): void {}
 
   onCreateModule(): void {
     const request: IModuleCreateRequest = {

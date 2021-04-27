@@ -1,5 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FileFacade } from '@edusys/core';
@@ -11,25 +11,23 @@ import { UiGalleryComponent } from '../ui-gallery/ui-gallery.component';
   templateUrl: './ui-upload.component.html',
   styleUrls: ['./ui-upload.component.scss'],
 })
-export class UiUploadComponent implements OnInit {
+export class UiUploadComponent {
   @Input() showErrors = true;
   @Input() attachments: IFileDetailResponse[];
   @Input() type: FileType = FileType.OTHER;
   @Input() readonly: boolean;
-  @Input() accept: string = 'image/*';
+  @Input() accept = 'image/*';
 
   @Output() onUploadFinish = new EventEmitter<IFileDetailResponse>();
   @Output() onRemoveFile = new EventEmitter<IFileDetailResponse>();
 
   constructor(public dialog: MatDialog, private overlay: Overlay, public controlContainer: ControlContainer, private fileFacade: FileFacade) {}
 
-  ngOnInit(): void {}
-
   fileChange(event: any) {
-    let fileList: FileList = event.target.files;
+    const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
+      const file: File = fileList[0];
+      const formData: FormData = new FormData();
       formData.append('type', this.type);
       formData.append('file', file, file.name);
       this.fileFacade.uploadFile(formData, (response: IFileDetailResponse) => {

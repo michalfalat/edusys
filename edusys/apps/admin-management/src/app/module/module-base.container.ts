@@ -27,7 +27,7 @@ export class ModuleBaseContainer extends CommonContainer {
     this.subscriptions.add(
       this.moduleFacade.getModuleDetail$.subscribe((data) => {
         this.moduleDetail = data?.id === this.moduleId ? data : null;
-      })
+      }),
     );
   }
 

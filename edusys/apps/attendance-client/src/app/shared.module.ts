@@ -9,14 +9,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatInputModule,
-    MatButtonModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, MatToolbarModule, MatMenuModule, MatInputModule, MatButtonModule],
   declarations: [],
   exports: [
     FormsModule,

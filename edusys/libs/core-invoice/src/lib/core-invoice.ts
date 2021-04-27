@@ -136,7 +136,7 @@ const fillInvoice = (invoice: IInvoiceCore): void => {
 };
 
 const generateInvoice = async (invoice: IInvoiceCore, name: string, assetsFolder: string, pathToSave: string): Promise<any> => {
-  let doc = new PDFDocument({ margin: 40 });
+  const doc = new PDFDocument({ margin: 40 });
   doc.pipe(fs.createWriteStream(path.join(pathToSave, name)));
   doc.registerFont(fontRegular, path.join(assetsFolder, 'fonts/Roboto-Regular.ttf')).registerFont(fontBold, path.join(assetsFolder, 'fonts/Roboto-Bold.ttf'));
   doc.font(fontRegular);
@@ -254,10 +254,9 @@ const generateInvoiceData = (doc: PDFKit.PDFDocument, invoice: IInvoiceCore) => 
 
 // ITEMS
 function generateInvoiceTable(doc: PDFKit.PDFDocument, invoice: IInvoiceCore) {
-  let i,
-    invoiceTableTop = 330;
+  const invoiceTableTop = 330;
   generateTableHeader(doc, invoiceTableTop);
-  for (i = 0; i < invoice.items.length; i++) {
+  for (let i = 0; i < invoice.items.length; i++) {
     const item = invoice.items[i];
     const position = invoiceTableTop + (i + 1) * 18;
     generateTableRow(doc, item, position);

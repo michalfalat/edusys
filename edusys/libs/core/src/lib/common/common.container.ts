@@ -10,6 +10,7 @@ import { Schema } from '@hapi/joi';
 @Component({
   template: '',
 })
+// eslint-disable-next-line @angular-eslint/component-class-suffix
 export abstract class CommonContainer implements OnDestroy {
   subscriptions = new Subscription();
   router: Router;
@@ -29,11 +30,11 @@ export abstract class CommonContainer implements OnDestroy {
     this.translateService = injector.get(CoreTranslateService);
     this.activatedRoute = injector.get(ActivatedRoute);
     this.subscriptions.add(
-      this.translateService.onLangChange().subscribe((langChange) => {
+      this.translateService.onLangChange().subscribe(() => {
         if (!!this.titleKey) {
           this.setTitle(this.titleKey);
         }
-      })
+      }),
     );
   }
 
@@ -95,8 +96,10 @@ export abstract class CommonContainer implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   abstract onSuccess = (message?: string): void => {};
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   abstract onError = (message?: string): void => {};
 
   private createValidatorFromSchema(schema: Schema): ValidatorFn {

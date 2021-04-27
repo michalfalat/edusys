@@ -8,13 +8,13 @@ export const organizationRoleListRequestAction = createAction(
   props<{
     onSucceeded?: (response: IOrganizationRoleDetailResponse[]) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const organizationRoleListResponseAction = createAction(
   `${PREFIX} LIST RESPONSE`,
   props<{
     response: IOrganizationRoleDetailResponse[];
-  }>()
+  }>(),
 );
 
 export const organizationRoleDetailRequestAction = createAction(
@@ -23,13 +23,13 @@ export const organizationRoleDetailRequestAction = createAction(
     organizationRoleId: string;
     onSucceeded?: (response: IOrganizationRoleDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const organizationRoleDetailResponseAction = createAction(
   `${PREFIX} DETAIL RESPONSE`,
   props<{
     response: IOrganizationRoleDetailResponse;
-  }>()
+  }>(),
 );
 
 export const organizationRoleCreateRequestAction = createAction(
@@ -38,13 +38,13 @@ export const organizationRoleCreateRequestAction = createAction(
     payload: IOrganizationRoleCreateRequest;
     onSucceeded?: (response: IOrganizationRoleDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const organizationRoleCreateResponseAction = createAction(
   `${PREFIX} CREATE RESPONSE`,
   props<{
     response: IOrganizationRoleDetailResponse;
-  }>()
+  }>(),
 );
 
 export const organizationRoleEditRequestAction = createAction(
@@ -54,13 +54,13 @@ export const organizationRoleEditRequestAction = createAction(
     payload: IOrganizationRoleEditRequest;
     onSucceeded?: (response: IOrganizationRoleDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const organizationRoleEditResponseAction = createAction(
   `${PREFIX} EDIT RESPONSE`,
   props<{
     response: IOrganizationRoleDetailResponse;
-  }>()
+  }>(),
 );
 
 export const organizationRoleDeleteRequestAction = createAction(
@@ -69,7 +69,7 @@ export const organizationRoleDeleteRequestAction = createAction(
     organizationRoleId: string;
     onSucceeded?: () => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const organizationRoleDeleteResponseAction = createAction(`${PREFIX} DELETE RESPONSE`);
 
@@ -78,5 +78,5 @@ export const organizationRoleErrorAction = createAction(
   `${PREFIX} ERROR RESPONSE`,
   props<{
     error: any;
-  }>()
+  }>(),
 );

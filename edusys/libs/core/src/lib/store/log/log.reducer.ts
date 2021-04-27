@@ -20,7 +20,7 @@ const _logReducer = createReducer(
   }),
   on(logDetailResponseAction, (state: ILogState, payload) => {
     return { ...state, detail: payload?.response };
-  })
+  }),
 );
 
 export function logReducer(state: ILogState, action: Action): any {

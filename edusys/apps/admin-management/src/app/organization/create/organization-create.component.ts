@@ -34,7 +34,7 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
         }),
         packageId: new FormControl(),
       },
-      createOrganizationSchema
+      createOrganizationSchema,
     );
     this.navigationItems = [
       {
@@ -64,7 +64,7 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
         this.onSuccess('general.saved.success');
         this.navigateToOrganizationHome;
       },
-      this.onError
+      this.onError,
     );
   }
 }

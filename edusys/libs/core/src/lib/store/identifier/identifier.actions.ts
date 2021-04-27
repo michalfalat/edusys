@@ -10,13 +10,13 @@ export const identifierListRequestAction = createAction(
     request: IIdentifierFilterRequest;
     onSucceeded?: (response: Pagination<IIdentifierDetailResponse>) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const identifierListResponseAction = createAction(
   `${PREFIX} LIST RESPONSE`,
   props<{
     response: Pagination<IIdentifierDetailResponse>;
-  }>()
+  }>(),
 );
 
 // IDENTIFIER DETAIL
@@ -26,13 +26,13 @@ export const identifierDetailRequestAction = createAction(
     identifierId: string;
     onSucceeded?: (response: IIdentifierDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const identifierDetailResponseAction = createAction(
   `${PREFIX} DETAIL RESPONSE`,
   props<{
     response: IIdentifierDetailResponse;
-  }>()
+  }>(),
 );
 
 // CREATE IDENTIFIER
@@ -42,13 +42,13 @@ export const identifierCreateRequestAction = createAction(
     payload: IIdentifierCreateRequest;
     onSucceeded?: (response: IIdentifierDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const identifierCreateResponseAction = createAction(
   `${PREFIX} CREATE RESPONSE`,
   props<{
     response: IIdentifierDetailResponse;
-  }>()
+  }>(),
 );
 
 // EDIT IDENTIFIER
@@ -59,13 +59,13 @@ export const identifierEditRequestAction = createAction(
     payload: IIdentifierEditRequest;
     onSucceeded?: (response: IIdentifierDetailResponse) => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const identifierEditResponseAction = createAction(
   `${PREFIX} EDIT RESPONSE`,
   props<{
     response: IIdentifierDetailResponse;
-  }>()
+  }>(),
 );
 
 // DELETE IDENTIFIER
@@ -75,7 +75,7 @@ export const identifierDeleteRequestAction = createAction(
     identifierId: string;
     onSucceeded?: () => void;
     onError?: (error: any) => void;
-  }>()
+  }>(),
 );
 export const identifierDeleteResponseAction = createAction(`${PREFIX} DELETE RESPONSE`);
 
@@ -84,5 +84,5 @@ export const identifierErrorAction = createAction(
   `${PREFIX} ERROR RESPONSE`,
   props<{
     error: any;
-  }>()
+  }>(),
 );

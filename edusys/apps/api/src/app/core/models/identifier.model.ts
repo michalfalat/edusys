@@ -59,7 +59,7 @@ const identifierSchema = new Schema<IIdentifierDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 identifierSchema.plugin(paginate);
@@ -68,6 +68,6 @@ type IdentifierModel<T extends Document> = PaginateModel<T>;
 
 const IdentifierModel: IdentifierModel<IIdentifierDocument> = model<IIdentifierDocument>(
   'identifier',
-  identifierSchema
+  identifierSchema,
 ) as IdentifierModel<IIdentifierDocument>;
 export default IdentifierModel;

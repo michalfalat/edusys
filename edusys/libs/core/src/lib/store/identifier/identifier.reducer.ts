@@ -16,7 +16,7 @@ const _identifierReducer = createReducer(
   }),
   on(identifierDetailResponseAction, (state: IIdentifierState, payload) => {
     return { ...state, detail: payload?.response };
-  })
+  }),
 );
 
 export function identifierReducer(state: IIdentifierState, action: Action): any {

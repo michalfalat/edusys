@@ -29,7 +29,7 @@ export class OrganizationRoleDetailComponent extends OrganizationRoleBaseContain
         permissions: this.fb.array(this.organizationRoleDetail?.permissions || []),
         status: new FormControl(this.organizationRoleDetail?.status),
       },
-      editOrganizationRoleSchema
+      editOrganizationRoleSchema,
     );
     this.activeTab = this.activatedRoute.snapshot.queryParams.activeTab || 0;
   }
@@ -81,7 +81,7 @@ export class OrganizationRoleDetailComponent extends OrganizationRoleBaseContain
       },
       (err) => {
         this.onError(err.error?.message?.message);
-      }
+      },
     );
   }
 
@@ -123,7 +123,7 @@ export class OrganizationRoleDetailComponent extends OrganizationRoleBaseContain
           },
           (err) => {
             this.onError(err.error?.message?.message);
-          }
+          },
         );
     });
   }

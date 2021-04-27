@@ -28,7 +28,7 @@ const _organizationReducer = createReducer(
   }),
   on(companyInfoEditResponseAction, (state: IOrganizationState, payload) => {
     return { ...state, companyInfo: payload?.response };
-  })
+  }),
 );
 
 export function organizationReducer(state: IOrganizationState, action: Action): any {

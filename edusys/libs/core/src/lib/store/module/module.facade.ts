@@ -32,7 +32,7 @@ export class ModuleFacade {
     moduleId: string,
     payload: IModuleEditRequest,
     onSucceeded?: (response: IModuleDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: HttpErrorResponse) => void,
   ): void {
     this.store.dispatch(moduleEditRequestAction({ moduleId, payload, onSucceeded, onError }));
   }
