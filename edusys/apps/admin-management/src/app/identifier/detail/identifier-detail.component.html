@@ -1,0 +1,119 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form" (ngSubmit)="onEditIdentifier()">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'identifier.created_at' | translate }}</mat-label>
+        <input matInput [value]="identifierDetail?.createdAt | date" [disabled]="true" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'identifier.edited_at' | translate }}</mat-label>
+        <input matInput [value]="identifierDetail?.updatedAt | date" [disabled]="true" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'identifier.number' | translate }}</mat-label>
+        <input matInput formControlName="number" name="number" [readonly]="true" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'number'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field *ngIf="isEditMode">
+        <mat-select formControlName="organizationId" [placeholder]="'identifier.organization' | translate" (selectionChange)="organizationChanged(true)">
+          <mat-option *ngFor="let organization of organizationList" [value]="organization?.id">
+            {{ organization?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="!isEditMode">
+        <mat-label>{{ 'identifier.organization' | translate }}</mat-label>
+        <input matInput [value]="identifierDetail?.organizationName" [readonly]="true" />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field *ngIf="isEditMode">
+        <mat-select formControlName="userId" [placeholder]="'identifier.user' | translate">
+          <mat-option *ngFor="let user of organizationUsers" [value]="user?.id">
+            {{ user?.fullname || user?.email }}
+          </mat-option>
+        </mat-select>
+
+        <mat-error><ui-form-error [formGroup]="form" [name]="'userId'"></ui-form-error></mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="!isEditMode">
+        <mat-label>{{ 'identifier.user' | translate }}</mat-label>
+        <input matInput [value]="identifierDetail?.user?.fullname || identifierDetail?.user?.email" [readonly]="true" />
+      </mat-form-field>
+    </div>
+
+    <div class="row between">
+      <mat-form-field [style.width]="'45%'">
+        <mat-select formControlName="status" [placeholder]="'identifier.status' | translate" *ngIf="isEditMode">
+          <mat-option [value]="identifierStatuses.ACTIVE">
+            {{ identifierStatuses.ACTIVE }}
+          </mat-option>
+          <mat-option [value]="identifierStatuses.CANCELED">
+            {{ identifierStatuses.CANCELED }}
+          </mat-option>
+          <mat-option [value]="identifierStatuses.LOST">
+            {{ identifierStatuses.LOST }}
+          </mat-option>
+        </mat-select>
+        <input matInput formControlName="status" name="status" *ngIf="!isEditMode" [placeholder]="'identifier.status' | translate" [readonly]="true" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'status'"></ui-form-error></mat-error>
+      </mat-form-field>
+      <mat-form-field [style.width]="'45%'">
+        <mat-select formControlName="type" [placeholder]="'identifier.type' | translate" *ngIf="isEditMode">
+          <mat-option [value]="identifierTypes.CARD">
+            {{ identifierTypes.CARD }}
+          </mat-option>
+        </mat-select>
+        <input matInput formControlName="type" name="type" *ngIf="!isEditMode" [placeholder]="'identifier.type' | translate" [readonly]="true" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'type'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row between vertical-align">
+      <!-- <mat-form-field [style.width]="'45%'">
+      </mat-form-field> -->
+      <mat-checkbox [disabled]="!isEditMode" formControlName="hasExpiration" name="hasExpiration"> {{ 'identifier.has_expiration' | translate }}</mat-checkbox>
+
+      <mat-form-field [style.width]="'45%'">
+        <mat-label>{{ 'identifier.valid_until' | translate }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="toDatePicker"
+          formControlName="validUntil"
+          [placeholder]="'identifier.valid_until' | translate"
+          [readonly]="!isEditMode"
+          [disabled]="!form?.value?.hasExpiration"
+        />
+        <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #toDatePicker></mat-datepicker>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'validUntil'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="bottom-content">
+      <div class="row between" *ngIf="isEditMode">
+        <button mat-button type="button" (click)="showDeleteDialog()">{{ 'general.delete.button' | translate }}</button>
+        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+        <div class="row right">
+          <button mat-button (click)="navigateToIdentifierDetail(identifierDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+          <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+          <button mat-raised-button color="primary" type="button" (click)="onEditIdentifier()" [disabled]="!form.valid">
+            {{ 'general.save.button' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="row right" *ngIf="!isEditMode">
+        <button mat-raised-button color="primary" type="button" (click)="navigateToIdentifierEdit(identifierDetail?.id)">
+          {{ 'general.edit.button' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-card>

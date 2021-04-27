@@ -1,6 +1,7 @@
 import { AppEffects } from './app/app.effects';
 import { AuthEffects } from './auth/auth.effects';
 import { FileEffects } from './file/file.effects';
+import { IdentifierEffects } from './identifier/identifier.effects';
 import { LogEffects } from './log/log.effects';
 import { ModuleEffects } from './module/module.effects';
 import { OrganizationRoleEffects } from './organization-role/organization-role.effects';
@@ -22,4 +23,5 @@ export const appEffects = [
   OrganizationRoleEffects,
   LogEffects,
   SubscriptionEffects,
+  IdentifierEffects,
 ];

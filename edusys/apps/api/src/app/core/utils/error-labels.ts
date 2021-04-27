@@ -5,6 +5,7 @@ export const errorLabels = {
   EXISTING_USER: 'error.existingUser',
   EXISTING_USER_SU: 'Try next time :)',
   EXISTING_NAME: 'error.existingName',
+  EXISTING_CARD: 'error.existingCard',
   UNAUTHORIZED: 'error.notLoggedIn',
   ACCESS_DENIED: 'error.accessDenied',
   BAD_REQUEST: 'error.badRequest',

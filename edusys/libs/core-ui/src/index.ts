@@ -1,6 +1,7 @@
 export * from './lib/core-ui.module';
 
 export * from './lib/components/ui-confirm-modal/ui-confirm-modal.component';
+export * from './lib/components/ui-scan-card-modal/ui-scan-card-modal.component';
 export * from './lib/components/ui-breadcrumb/ui-breadcrumb.component';
 
 // PIPES

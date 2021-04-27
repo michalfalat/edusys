@@ -13,6 +13,7 @@ export * from './lib/dto/company-info.dto';
 export * from './lib/dto/task.dto';
 export * from './lib/dto/file.dto';
 export * from './lib/dto/log.dto';
+export * from './lib/dto/identifier.dto';
 
 // PERMISSIONS
 export * from './lib/model/permissions.model';
@@ -27,5 +28,6 @@ export * from './lib/validations/organization.validations';
 export * from './lib/validations/package.validations';
 export * from './lib/validations/subscription.validations';
 export * from './lib/validations/task.validations';
+export * from './lib/validations/identifier.validations';
 export * from './lib/validations/company-info.validations';
 export * from './lib/validations/organization-role.validations';

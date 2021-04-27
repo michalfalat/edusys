@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{ 'identifier.scan_card' | translate }}</h1>
+<div mat-dialog-content [style.width]="'20rem'">
+  <ui-divider [compact]="true"></ui-divider>
+  <img [src]="'./assets/icons/scan_card.svg'" [style.width]="'15rem'" />
+  <ui-divider></ui-divider>
+  <p>{{ 'identifier.scan_card_info' | translate }}</p>
+  <ui-divider></ui-divider>
+  <input [(ngModel)]="cardNumber" [autofocus]="true" (keydown.enter)="sendCardNumber()" />
+</div>
+<div mat-dialog-actions>
+  <div class="row between flex-1">
+    <button mat-button (click)="onClose()">{{ 'general.cancel.button' | translate }}</button>
+  </div>
+</div>

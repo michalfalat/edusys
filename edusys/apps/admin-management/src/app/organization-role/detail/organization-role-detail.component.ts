@@ -3,7 +3,7 @@ import { FormArray, FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { editOrganizationRoleSchema, IOrganizationRoleDetailResponse, IOrganizationRoleEditRequest } from '@edusys/model';
-import { UiConfirmModalComponent } from 'libs/core-ui/src/lib/components/ui-confirm-modal/ui-confirm-modal.component';
+import { UiConfirmModalComponent } from '@edusys/core-ui';
 import { routes } from '../../utils/routes';
 import { OrganizationRoleBaseContainer } from '../organization-role-base.container';
 
@@ -59,7 +59,7 @@ export class OrganizationRoleDetailComponent extends OrganizationRoleBaseContain
   }
 
   removePermission(permission: string): void {
-    let control = <FormArray>this.form.get('permissions');
+    const control = <FormArray>this.form.get('permissions');
     control.removeAt(control.value.findIndex((p) => p === permission));
   }
 
@@ -114,7 +114,7 @@ export class OrganizationRoleDetailComponent extends OrganizationRoleBaseContain
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (!!result)
+      if (result)
         this.organizationRoleFacade.deleteOrganizationRole(
           this.organizationRoleId,
           () => {

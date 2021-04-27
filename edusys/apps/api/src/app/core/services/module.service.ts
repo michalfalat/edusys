@@ -26,12 +26,12 @@ export const detailOfModule = async (id: string): Promise<IModuleDetailResponse>
 // CREATE NEW MODULE
 export const createModule = async (payload: IModuleCreateRequest): Promise<IModuleDetailResponse> => {
   const { error } = createModuleSchemaValidate(payload);
-  if (!!error) {
+  if (error) {
     throw new BadRequest(error.details[0].message);
   }
 
   const existingModel = await ModuleModel.findOne({ name: payload.name });
-  if (!!existingModel) {
+  if (existingModel) {
     throw new BadRequest(errorLabels.EXISTING_NAME);
   }
 
@@ -52,7 +52,7 @@ export const createModule = async (payload: IModuleCreateRequest): Promise<IModu
 // EDIT MODULE
 export const editModule = async (payload: IModuleEditRequest): Promise<IModuleDetailResponse> => {
   const { error } = editModuleSchemaValidate(payload);
-  if (!!error) {
+  if (error) {
     throw new BadRequest(error.details[0].message);
   }
   try {

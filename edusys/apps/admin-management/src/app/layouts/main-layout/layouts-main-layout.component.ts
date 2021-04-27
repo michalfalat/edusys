@@ -1,4 +1,4 @@
-import { Component, HostListener, Injector, OnInit } from '@angular/core';
+import { Component, HostListener, Injector } from '@angular/core';
 import { PERMISSION } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { LayoutBaseContainer } from '../layout-base.module';
@@ -9,7 +9,7 @@ import { LayoutBaseContainer } from '../layout-base.module';
   templateUrl: './layouts-main-layout.component.html',
   styleUrls: ['./layouts-main-layout.component.scss'],
 })
-export class LayoutsMainLayoutComponent extends LayoutBaseContainer implements OnInit {
+export class LayoutsMainLayoutComponent extends LayoutBaseContainer {
   navigationItems = [
     {
       name: 'navigation.modules',
@@ -30,6 +30,12 @@ export class LayoutsMainLayoutComponent extends LayoutBaseContainer implements O
       icon: 'domain',
     },
     {
+      name: 'navigation.organization_roles',
+      route: routes.organizationRole.home,
+      permission: PERMISSION.ORGANIZATION_ROLE.BASIC,
+      icon: 'group',
+    },
+    {
       name: 'navigation.subscriptions',
       route: routes.subscription.home,
       permission: PERMISSION.SUBSCRIPTION.BASIC,
@@ -42,17 +48,18 @@ export class LayoutsMainLayoutComponent extends LayoutBaseContainer implements O
       icon: 'person',
     },
     {
+      name: 'navigation.identifiers',
+      route: routes.identifier.home,
+      permission: PERMISSION.IDENTIFIER.BASIC,
+      icon: 'badge',
+    },
+    {
       name: 'navigation.tasks',
       route: routes.task.home,
       permission: PERMISSION.TASK.BASIC,
       icon: 'task',
     },
-    {
-      name: 'navigation.organization_roles',
-      route: routes.organizationRole.home,
-      permission: PERMISSION.ORGANIZATION_ROLE.BASIC,
-      icon: 'group',
-    },
+
     {
       name: 'navigation.logs',
       route: routes.log.home,
@@ -79,8 +86,6 @@ export class LayoutsMainLayoutComponent extends LayoutBaseContainer implements O
       this.sidenavMode = 'over';
     }
   }
-
-  ngOnInit(): void {}
 
   onSidenavToogle(): void {
     this.sidenavOpened = !this.sidenavOpened;

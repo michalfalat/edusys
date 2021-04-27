@@ -21,6 +21,7 @@ import { UiGalleryComponent } from './components/ui-gallery/ui-gallery.component
 import { UiConfirmModalComponent } from './components/ui-confirm-modal/ui-confirm-modal.component';
 import { SelectByIdPipe } from './pipes/select-by-id.pipe';
 import { DurationPipe } from './pipes/duration.pipe';
+import { UiScanCardModalComponent } from './components/ui-scan-card-modal/ui-scan-card-modal.component';
 
 const pipes = [SelectByIdPipe, DurationPipe];
 
@@ -50,6 +51,7 @@ const pipes = [SelectByIdPipe, DurationPipe];
     CoreTranslateModule,
     UiFormErrorComponent,
     UiConfirmModalComponent,
+    UiScanCardModalComponent,
   ],
   declarations: [
     ...pipes,
@@ -64,6 +66,7 @@ const pipes = [SelectByIdPipe, DurationPipe];
     UiFormErrorComponent,
     UiBankDetailComponent,
     UiConfirmModalComponent,
+    UiScanCardModalComponent,
   ],
 })
 export class CoreUiModule {}

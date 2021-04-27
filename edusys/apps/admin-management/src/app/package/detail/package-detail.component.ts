@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { editPackageSchema, IAmount, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
-import { UiConfirmModalComponent } from 'libs/core-ui/src/lib/components/ui-confirm-modal/ui-confirm-modal.component';
+import { UiConfirmModalComponent } from '@edusys/core-ui';
 import { routes } from '../../utils/routes';
 import { PackageBaseContainer } from '../package-base.container';
 
@@ -59,7 +59,7 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
   }
 
   deleteAnnumPrice(index: number): void {
-    let control = <FormArray>this.form.get('annumPrices');
+    const control = <FormArray>this.form.get('annumPrices');
     control.removeAt(index);
   }
 
@@ -74,7 +74,7 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
   }
 
   deleteInstallationPrice(index: number): void {
-    let control = <FormArray>this.form.get('installationPrices');
+    const control = <FormArray>this.form.get('installationPrices');
     control.removeAt(index);
   }
 
@@ -87,9 +87,17 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
       installationPrices: this.form?.value.installationPrices,
       moduleIds: this.form?.value.moduleIds,
     };
-    this.packageFacade.editPackage(this.packageId, request, () => {
-      this.navigateToPackageDetail(this.packageId);
-    });
+    this.packageFacade.editPackage(
+      this.packageId,
+      request,
+      () => {
+        this.onSuccess('general.saved.success');
+        this.navigateToPackageDetail(this.packageId);
+      },
+      (err) => {
+        this.onError(err);
+      }
+    );
   }
 
   setBreadcrumbNavigation = (response?: IPackageDetailResponse): void => {
@@ -114,7 +122,7 @@ export class PackageDetailComponent extends PackageBaseContainer implements OnIn
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (!!result)
+      if (result)
         this.packageFacade.deletePackage(this.packageId, () => {
           this.navigateToPackageHome();
         });

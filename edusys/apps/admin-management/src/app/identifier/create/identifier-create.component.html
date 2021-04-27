@@ -1,0 +1,47 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form" (ngSubmit)="onCreateIdentifier()">
+    <div class="row">
+      <mat-form-field>
+        <mat-select formControlName="organizationId" [placeholder]="'identifier.select_organization' | translate" (selectionChange)="organizationChanged()">
+          <mat-option *ngFor="let org of organizationList" [value]="org?.id">
+            {{ org?.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'organizationId'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-select formControlName="userId" [placeholder]="'identifier.select_user' | translate">
+          <mat-option *ngFor="let user of organizationUsers" [value]="user?.id">
+            {{ user?.fullname || user?.email }}
+          </mat-option>
+        </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'userId'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-select formControlName="type" [placeholder]="'identifier.type' | translate">
+          <mat-option [value]="'CARD'">CARD</mat-option>
+        </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'type'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'identifier.number' | translate }}</mat-label>
+        <input matInput formControlName="number" name="number" (click)="scanCardDialog()" [readonly]="true" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'number'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <ui-divider [solid]="true" [compact]="true"></ui-divider>
+
+    <div class="row center">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form?.valid">{{ 'general.create.button' | translate }}</button>
+    </div>
+  </form>
+</mat-card>

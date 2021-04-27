@@ -10,6 +10,7 @@ import * as path from 'path';
 import { authRouter } from './app/controllers/auth.controller';
 import { companyInfoRouter } from './app/controllers/company-info.controller';
 import { fileRouter } from './app/controllers/file.controller';
+import { identifierRouter } from './app/controllers/identifier.controller';
 import { invoiceRouter } from './app/controllers/invoice.controller';
 import { logRouter } from './app/controllers/log.controller';
 import { moduleRouter } from './app/controllers/module.controller';
@@ -59,6 +60,7 @@ app.use(invoiceRouter);
 app.use(taskRouter);
 app.use(logRouter);
 app.use(subscriptionRouter);
+app.use(identifierRouter);
 
 // Error handler
 app.use(handleErrors);

@@ -14,8 +14,8 @@ export const organizationDetailMapper = (data: IOrganization): IOrganizationDeta
   registrationNumberVAT: data.registrationNumberVAT,
   taxId: data.taxId,
   users: userListMapper(data.users),
-  owner: !!data.owner ? userDetailMapper(data.owner) : null,
-  activeSubscription: !!data.subscriptions ? subscriptionDetailMapper(data.subscriptions.find((s) => s.isActive)) : null,
+  owner: data.owner ? userDetailMapper(data.owner) : null,
+  activeSubscription: data.subscriptions ? subscriptionDetailMapper(data.subscriptions.find((s) => s.isActive)) : null,
   subscriptions: data.subscriptions?.map((s) => subscriptionDetailMapper(s)),
   roles: organizationRoleListMapper(data.organizationRoles),
   packageId: data.subscriptions.find((s) => s.isActive)?.package?.id,
@@ -28,10 +28,10 @@ export const organizationBasicMapper = (data: IOrganization): IOrganizationRespo
   id: data._id,
   name: data.name,
   status: data.status,
-  owner: !!data.owner ? userDetailMapper(data.owner) : null,
+  owner: data.owner ? userDetailMapper(data.owner) : null,
   userCount: data.users?.length,
   createdAt: data.createdAt,
-  activeSubscription: !!data.subscriptions ? subscriptionDetailMapper(data.subscriptions?.find((s) => s.isActive)) : null,
+  activeSubscription: data.subscriptions ? subscriptionMapper(data.subscriptions?.find((s) => s.isActive)) : null,
 });
 
 export const organizationListMapper = (data: IOrganization[]): IOrganizationResponse[] =>
@@ -39,8 +39,8 @@ export const organizationListMapper = (data: IOrganization[]): IOrganizationResp
     id: organization._id,
     name: organization.name,
     status: organization.status,
-    owner: !!organization.owner ? userDetailMapper(organization.owner) : null,
+    owner: organization.owner ? userDetailMapper(organization.owner) : null,
     userCount: organization.users?.length,
     createdAt: organization.createdAt,
-    activeSubscription: !!organization.subscriptions ? subscriptionMapper(organization.subscriptions.find((s) => s.isActive)) : null,
+    activeSubscription: organization.subscriptions ? subscriptionMapper(organization.subscriptions.find((s) => s.isActive)) : null,
   }));

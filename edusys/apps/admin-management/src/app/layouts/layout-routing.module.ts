@@ -65,6 +65,12 @@ const routes: Routes = [
         path: 'log',
         loadChildren: () => import('../log/log.module').then((m) => m.LogModule),
       },
+      {
+        path: 'identifier',
+        loadChildren: () => import('../identifier/identifier.module').then((m) => m.IdentifierModule),
+        canActivate: [PermissionGuard],
+        data: { moduleName: PERMISSION.IDENTIFIER.BASIC },
+      },
     ],
   },
   {

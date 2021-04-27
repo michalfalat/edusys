@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { IPackageCreateRequest, IPackageDetailResponse, IPackageEditRequest } from '@edusys/model';
@@ -20,11 +19,11 @@ export class PackageFacade {
   getPackageList$ = this.store.pipe(select(getPackageList));
   getPackageDetail$ = this.store.pipe(select(getPackageDetail));
 
-  fetchPackageList(onSucceeded?: (response: IPackageDetailResponse[]) => void, onError?: (response: HttpErrorResponse) => void): void {
+  fetchPackageList(onSucceeded?: (response: IPackageDetailResponse[]) => void, onError?: (response: any) => void): void {
     this.store.dispatch(packageListRequestAction({ onSucceeded, onError }));
   }
 
-  fetchPackageDetail(packageId: string, onSucceeded?: (response: IPackageDetailResponse) => void, onError?: (response: HttpErrorResponse) => void): void {
+  fetchPackageDetail(packageId: string, onSucceeded?: (response: IPackageDetailResponse) => void, onError?: (response: any) => void): void {
     this.store.dispatch(packageDetailRequestAction({ packageId, onSucceeded, onError }));
   }
 
@@ -32,20 +31,16 @@ export class PackageFacade {
     packageId: string,
     payload: IPackageEditRequest,
     onSucceeded?: (response: IPackageDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
+    onError?: (response: any) => void
   ): void {
     this.store.dispatch(packageEditRequestAction({ packageId, payload, onSucceeded, onError }));
   }
 
-  createPackage(
-    payload: IPackageCreateRequest,
-    onSucceeded?: (response: IPackageDetailResponse) => void,
-    onError?: (response: HttpErrorResponse) => void
-  ): void {
+  createPackage(payload: IPackageCreateRequest, onSucceeded?: (response: IPackageDetailResponse) => void, onError?: (response: any) => void): void {
     this.store.dispatch(packageCreateRequestAction({ payload, onSucceeded, onError }));
   }
 
-  deletePackage(packageId: string, onSucceeded?: () => void, onError?: (response: HttpErrorResponse) => void): void {
+  deletePackage(packageId: string, onSucceeded?: () => void, onError?: (response: any) => void): void {
     this.store.dispatch(packageDeleteRequestAction({ packageId, onSucceeded, onError }));
   }
 }

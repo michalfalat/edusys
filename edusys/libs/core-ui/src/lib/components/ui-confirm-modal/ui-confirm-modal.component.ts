@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface IConfirmModalData {
@@ -11,7 +11,7 @@ export interface IConfirmModalData {
   templateUrl: './ui-confirm-modal.component.html',
   styleUrls: ['./ui-confirm-modal.component.scss'],
 })
-export class UiConfirmModalComponent implements OnInit {
+export class UiConfirmModalComponent {
   constructor(public dialogRef: MatDialogRef<UiConfirmModalComponent>, @Inject(MAT_DIALOG_DATA) public data: IConfirmModalData) {}
 
   onClose(): void {
@@ -21,6 +21,4 @@ export class UiConfirmModalComponent implements OnInit {
   onDelete(): void {
     this.dialogRef.close(true);
   }
-
-  ngOnInit(): void {}
 }
