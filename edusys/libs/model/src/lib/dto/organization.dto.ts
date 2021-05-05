@@ -7,6 +7,7 @@ export interface IOrganizationInfo {
   name: string;
   description: string;
   businessId?: string;
+  status?: OrganizationStatus;
   taxId?: string;
   registrationNumberVAT?: string;
 }

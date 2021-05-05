@@ -128,9 +128,21 @@ export const editOrganization = async (payload: IOrganizationEditRequest): Promi
   }
   try {
     const id = payload.id;
-    const updatedModel = await OrganizationModel.findByIdAndUpdate(id, payload, { new: true });
+    await OrganizationModel.findByIdAndUpdate(
+      id,
+      {
+        name: payload.info.name,
+        description: payload.info.description,
+        address: payload.address,
+        businessId: payload.info.businessId,
+        registrationNumberVAT: payload.info.registrationNumberVAT,
+        status: payload.info.status,
+        taxId: payload.info.taxId,
+      },
+      { new: true },
+    );
     logInfo(`[ORGANIZATION_SERVICE] organization '${payload.info?.name}' edited`);
-    return organizationDetailMapper(updatedModel);
+    return detailOfOrganization(id);
   } catch (error) {
     throw new BadRequest(error);
   }
@@ -147,7 +159,6 @@ export const deleteOrganization = async (id: string): Promise<void> => {
   }
 };
 
-// DELETE ORGANIZATION
 export const getAvailablePermissions = async (id: string): Promise<string[]> => {
   try {
     const detailModel = await OrganizationModel.findById(id).populate({ path: 'subscriptions', populate: { path: 'package' } });

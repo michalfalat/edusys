@@ -23,8 +23,9 @@ import { SelectByIdPipe } from './pipes/select-by-id.pipe';
 import { DurationPipe } from './pipes/duration.pipe';
 import { UiScanCardModalComponent } from './components/ui-scan-card-modal/ui-scan-card-modal.component';
 import { FilterPipe } from './pipes/filter-data.pipe';
+import { FindCountryPipe } from './pipes/find-country.pipe';
 
-const pipes = [SelectByIdPipe, DurationPipe, FilterPipe];
+const pipes = [SelectByIdPipe, DurationPipe, FilterPipe, FindCountryPipe];
 
 @NgModule({
   imports: [

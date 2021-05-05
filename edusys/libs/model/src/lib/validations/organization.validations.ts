@@ -1,15 +1,16 @@
 import * as Joi from '@hapi/joi';
 import { IOrganizationCreateRequest } from '@edusys/model';
 import { addressSchema } from './common.validations';
-import { IOrganizationEditRequest } from '../dto/organization.dto';
+import { IOrganizationEditRequest, IOrganizationInfo } from '../dto/organization.dto';
 
-export const createOrganizationInfoSchema = Joi.object({
+export const createOrganizationInfoSchema = Joi.object<IOrganizationInfo>({
   owner: Joi.required(),
   name: Joi.string().min(2).max(255).required(),
   description: Joi.string().optional().max(512).allow(null, ''),
   businessId: Joi.string().optional().max(128).allow(null, ''),
   taxId: Joi.string().optional().max(128).allow(null, ''),
   registrationNumberVAT: Joi.string().optional().max(128).allow(null, ''),
+  status: Joi.optional(),
 });
 
 export const createOrganizationSchema = Joi.object<IOrganizationCreateRequest>({

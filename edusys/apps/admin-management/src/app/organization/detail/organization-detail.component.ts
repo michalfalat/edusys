@@ -27,6 +27,7 @@ export class OrganizationDetailComponent extends OrganizationBaseContainer imple
           businessId: new FormControl(this.organizationDetail?.businessId),
           registrationNumberVAT: new FormControl(this.organizationDetail?.registrationNumberVAT),
           taxId: new FormControl(this.organizationDetail?.taxId),
+          status: new FormControl(this.organizationDetail?.status),
         }),
         address: this.fb.group({
           name: new FormControl(this.organizationDetail?.address?.name),
@@ -53,18 +54,20 @@ export class OrganizationDetailComponent extends OrganizationBaseContainer imple
   }
 
   fillForm = (data: IOrganizationDetailResponse): void => {
+    if (!data) return;
     this.form?.patchValue({
-      id: data?.id,
+      id: data.id,
       info: {
-        owner: data?.owner?.id,
-        name: data?.name,
-        description: data?.description,
-        businessId: data?.businessId,
-        registrationNumberVAT: data?.registrationNumberVAT,
-        taxId: data?.taxId,
+        owner: data.owner?.id,
+        name: data.name,
+        description: data.description,
+        businessId: data.businessId,
+        registrationNumberVAT: data.registrationNumberVAT,
+        taxId: data.taxId,
+        status: data.status,
       },
-      address: data?.address,
-      package: data?.packageId,
+      address: data.address,
+      packageId: data.packageId,
     }); //TODO
   };
 

@@ -13,23 +13,23 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
   constructor(injector: Injector) {
     super(injector);
 
-    this.setTitle('organization.home.title');
+    this.setTitle('organization.create.title');
     this.createForm(
       {
         info: this.fb.group({
           owner: new FormControl(''),
-          name: new FormControl('Test skola'),
-          description: new FormControl('Test description'),
-          businessId: new FormControl('3215'),
-          registrationNumberVAT: new FormControl('314asd364'),
-          taxId: new FormControl('35q4wd'),
+          name: new FormControl(''),
+          description: new FormControl(''),
+          businessId: new FormControl(''),
+          registrationNumberVAT: new FormControl(''),
+          taxId: new FormControl(''),
         }),
         address: this.fb.group({
-          name: new FormControl('Adresa sidla'),
-          street: new FormControl('street'),
-          streetNumber: new FormControl('streetNumber'),
-          city: new FormControl('Blava'),
-          postalCode: new FormControl('85101'),
+          name: new FormControl(''),
+          street: new FormControl(''),
+          streetNumber: new FormControl(''),
+          city: new FormControl(''),
+          postalCode: new FormControl(''),
           country: new FormControl('sk'),
         }),
         packageId: new FormControl(),
@@ -62,7 +62,7 @@ export class OrganizationCreateComponent extends OrganizationBaseContainer imple
       request,
       () => {
         this.onSuccess('general.saved.success');
-        this.navigateToOrganizationHome;
+        this.navigateToOrganizationHome();
       },
       this.onError,
     );

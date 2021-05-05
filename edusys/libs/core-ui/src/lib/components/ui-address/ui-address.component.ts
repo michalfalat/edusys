@@ -13,7 +13,7 @@ export class UiAddressComponent {
       code: 'sk',
     },
     {
-      name: 'Cesko',
+      name: 'Česká republika',
       code: 'cz',
     },
   ];

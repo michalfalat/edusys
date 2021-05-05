@@ -11,8 +11,8 @@
         <input matInput formControlName="street" [placeholder]="'address.street.hint' | translate" [readonly]="readonly" />
       </mat-form-field>
       <mat-form-field [style.width]="'35%'">
-        <mat-label>{{ 'address.streetNumber' | translate }}</mat-label>
-        <input matInput formControlName="streetNumber" [placeholder]="'address.streetNumber.hint' | translate" [readonly]="readonly" />
+        <mat-label>{{ 'address.street_number' | translate }}</mat-label>
+        <input matInput formControlName="streetNumber" [placeholder]="'address.street_number.hint' | translate" [readonly]="readonly" />
       </mat-form-field>
     </div>
 
@@ -22,8 +22,8 @@
         <input matInput formControlName="city" [placeholder]="'address.city.hint' | translate" [readonly]="readonly" />
       </mat-form-field>
       <mat-form-field [style.width]="'35%'">
-        <mat-label>{{ 'address.postalCode' | translate }}</mat-label>
-        <input matInput formControlName="postalCode" [placeholder]="'address.postalCode.hint' | translate" [readonly]="readonly" />
+        <mat-label>{{ 'address.postal_code' | translate }}</mat-label>
+        <input matInput formControlName="postalCode" [placeholder]="'address.postal_code.hint' | translate" [readonly]="readonly" />
       </mat-form-field>
     </div>
 
@@ -34,7 +34,7 @@
           {{ country.name }}
         </mat-option>
       </mat-select>
-      <input *ngIf="readonly" matInput formControlName="country" [readonly]="readonly" />
+      <input *ngIf="readonly" matInput [readonly]="true" [value]="(countries | findCountry: controlContainer.control?.value?.country)?.name" />
     </mat-form-field>
   </div>
 </ng-container>

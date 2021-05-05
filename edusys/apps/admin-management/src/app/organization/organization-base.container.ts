@@ -1,7 +1,7 @@
 import { Injector } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonContainer, OrganizationFacade, PackageFacade, UserFacade } from '@edusys/core';
-import { IOrganizationDetailResponse, IPackageDetailResponse, IUserDetailResponse } from '@edusys/model';
+import { IOrganizationDetailResponse, IPackageDetailResponse, IUserDetailResponse, OrganizationStatus } from '@edusys/model';
 import { INavigationItem } from 'libs/core-ui/src/lib/components/ui-breadcrumb/ui-breadcrumb.component';
 import { NotificationService } from '../utils/notification.service';
 import { routes } from '../utils/routes';
@@ -18,6 +18,7 @@ export class OrganizationBaseContainer extends CommonContainer {
   navigationItems: INavigationItem[];
   packages: IPackageDetailResponse[];
   users: IUserDetailResponse[];
+  organizationStatuses = OrganizationStatus;
 
   constructor(injector: Injector) {
     super(injector);

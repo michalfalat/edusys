@@ -11,7 +11,10 @@
             <div class="row">
               <mat-form-field>
                 <mat-select formControlName="owner" [placeholder]="'organization.owner' | translate">
-                  <mat-option *ngFor="let user of users" [value]="user?.id">
+                  <mat-option>
+                    <ngx-mat-select-search [placeholderLabel]="'organization.owner_search' | translate" #ownerSearch></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let user of users | filter: ['fullname', 'email']:ownerSearch.value" [value]="user?.id">
                     {{ user?.fullname || user?.email }}
                   </mat-option>
                 </mat-select>
