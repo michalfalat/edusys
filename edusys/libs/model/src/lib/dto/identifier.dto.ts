@@ -11,10 +11,10 @@ export interface IIdentifierCreateRequest {
 
 export interface IIdentifierFilterRequest extends IPaginable {
   number?: string;
-  organization?: string;
+  organizationId?: string;
   type?: IdentifierType;
   status?: IdentifierStatus;
-  user?: string;
+  userId?: string;
 }
 
 export interface IIdentifierDetailResponse {

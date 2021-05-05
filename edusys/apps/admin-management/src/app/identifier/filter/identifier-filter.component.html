@@ -6,6 +6,57 @@
     </mat-expansion-panel-header>
 
     <form [formGroup]="form">
+      <div class="row">
+        <mat-form-field>
+          <mat-select formControlName="organizationId" [placeholder]="'identifier.select_organization' | translate" (selectionChange)="organizationChanged()">
+            <mat-option>
+              <ngx-mat-select-search [placeholderLabel]="'identifier.select_organization' | translate" #organizationSearch></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let org of organizationList | filter: 'name':organizationSearch.value" [value]="org?.id">
+              {{ org?.name }}
+            </mat-option>
+          </mat-select>
+          <button *ngIf="form?.value?.organizationId" matSuffix mat-icon-button type="button" (click)="clearFilter('organizationId'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="userId" [placeholder]="'identifier.select_user' | translate">
+            <mat-option>
+              <ngx-mat-select-search [placeholderLabel]="'identifier.select_user' | translate" #userSearch></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let user of organizationUsers | filter: ['fullname', 'email']:userSearch.value" [value]="user?.id">
+              {{ user?.fullname || user?.email }}
+            </mat-option>
+          </mat-select>
+          <button *ngIf="form?.value?.userId" matSuffix mat-icon-button type="button" (click)="clearFilter('userId'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field>
+          <mat-select formControlName="type" [placeholder]="'identifier.type' | translate">
+            <mat-option [value]="identifierTypes.CARD">{{ identifierTypes.CARD }}</mat-option>
+          </mat-select>
+          <button *ngIf="form?.value?.type" matSuffix mat-icon-button type="button" (click)="clearFilter('type'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'identifier.status' | translate }}</mat-label>
+          <mat-select formControlName="status" [placeholder]="'identifier.status' | translate">
+            <mat-option [value]="identifierStatuses.ACTIVE"> {{ identifierStatuses.ACTIVE }} </mat-option>
+            <mat-option [value]="identifierStatuses.CANCELED"> {{ identifierStatuses.CANCELED }} </mat-option>
+            <mat-option [value]="identifierStatuses.LOST"> {{ identifierStatuses.LOST }} </mat-option>
+          </mat-select>
+          <button *ngIf="form?.value?.status" matSuffix mat-icon-button type="button" (click)="clearFilter('status'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
       <!-- <div class="row between">
         <mat-form-field [style.width]="'45%'">
           <mat-label>{{ 'identifier.from_date' | translate }}</mat-label>
@@ -28,16 +79,6 @@
           </button>
         </mat-form-field>
       </div> -->
-      <mat-form-field>
-        <mat-label>{{ 'identifier.status' | translate }}</mat-label>
-        <mat-select formControlName="status" [placeholder]="'identifier.status' | translate">
-          <mat-option [value]="'error'"> ERROR </mat-option>
-          <mat-option [value]="'info'"> INFO </mat-option>
-        </mat-select>
-        <button *ngIf="form?.value?.status" matSuffix mat-icon-button type="button" (click)="clearFilter('status'); $event.stopPropagation()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
 
       <!-- <mat-form-field>
         <mat-label>{{ 'identifier.keyword' | translate }}</mat-label>

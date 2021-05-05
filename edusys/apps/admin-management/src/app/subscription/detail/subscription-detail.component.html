@@ -11,20 +11,60 @@
     </div>
     <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'subscription.level' | translate }}</mat-label>
-        <input matInput formControlName="level" name="level" [readonly]="true" />
+        <mat-label>{{ 'subscription.name' | translate }}</mat-label>
+        <input matInput formControlName="name" name="name" [readonly]="!isEditMode" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'subscription.message' | translate }}</mat-label>
-        <textarea matInput formControlName="message" name="message" [rows]="10" [readonly]="true"></textarea>
+        <mat-label>{{ 'subscription.description' | translate }}</mat-label>
+        <input matInput formControlName="description" name="description" [readonly]="!isEditMode" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'description'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row between">
+      <mat-form-field [style.width]="'45%'">
+        <mat-select formControlName="status" [placeholder]="'subscription.status' | translate" *ngIf="isEditMode">
+          <mat-option [value]="subscriptionStatuses.ACTIVE">
+            {{ subscriptionStatuses.ACTIVE }}
+          </mat-option>
+          <mat-option [value]="subscriptionStatuses.CANCELED">
+            {{ subscriptionStatuses.CANCELED }}
+          </mat-option>
+          <mat-option [value]="subscriptionStatuses.DEMO">
+            {{ subscriptionStatuses.DEMO }}
+          </mat-option>
+          <mat-option [value]="subscriptionStatuses.EXPIRED">
+            {{ subscriptionStatuses.EXPIRED }}
+          </mat-option>
+        </mat-select>
+        <input matInput formControlName="status" name="status" *ngIf="!isEditMode" [placeholder]="'subscription.status' | translate" [readonly]="true" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'status'"></ui-form-error></mat-error>
+      </mat-form-field>
+      <mat-form-field [style.width]="'45%'">
+        <mat-label>{{ 'subscription.reference' | translate }}</mat-label>
+        <input matInput formControlName="reference" name="reference" [readonly]="!isEditMode" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'reference'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
 
     <div class="bottom-content">
-      <div class="row between">
-        <button mat-button type="button" (click)="showDeleteDiasubscription()">{{ 'general.delete.button' | translate }}</button>
+      <div class="row between" *ngIf="isEditMode">
+        <button mat-button type="button" (click)="showDeleteDialog()">{{ 'general.delete.button' | translate }}</button>
+        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+        <div class="row right">
+          <button mat-button (click)="navigateToSubscriptionDetail(subscriptionDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+          <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+          <button mat-raised-button color="primary" type="button" (click)="onEditSubscription()" [disabled]="!form.valid">
+            {{ 'general.save.button' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="row right" *ngIf="!isEditMode">
+        <button mat-raised-button color="primary" type="button" (click)="navigateToSubscriptionEdit(subscriptionDetail?.id)">
+          {{ 'general.edit.button' | translate }}
+        </button>
       </div>
     </div>
   </form>

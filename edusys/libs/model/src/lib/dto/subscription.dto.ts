@@ -26,6 +26,7 @@ export interface ISubscriptionDetailResponse {
   name: string;
   description: string;
   organizationId: string;
+  organizationName: string;
   package: IPackageDetailResponse;
   reference: string;
   status: SubscriptionStatus;

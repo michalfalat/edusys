@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { CoreTranslateModule } from '@edusys/core-translate';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CoreUiModule,
     CoreTranslateModule,
     TranslateModule,
+    NgxMatSelectSearchModule,
   ],
   declarations: [],
   exports: [
@@ -49,6 +51,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatListModule,
     CoreUiModule,
     TranslateModule,
+    NgxMatSelectSearchModule,
   ],
   providers: [],
 })

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { IdentifierBaseContainer } from '../identifier-base.container';
-import { IIdentifierFilterRequest } from '@edusys/model';
+import { IAuthUserBasicResponse, IIdentifierFilterRequest } from '@edusys/model';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -11,26 +11,35 @@ import { FormControl } from '@angular/forms';
 export class IdentifierFilterComponent extends IdentifierBaseContainer implements OnInit {
   filterData: IIdentifierFilterRequest;
   filterExpanded: boolean;
+  organizationUsers: IAuthUserBasicResponse[];
 
   @Output() onFilter = new EventEmitter<IIdentifierFilterRequest>();
 
   constructor(injector: Injector) {
     super(injector);
     this.filterData = this.activatedRoute.snapshot.queryParams as IIdentifierFilterRequest;
-    const { page, pageSize, status, number, organization, type } = this.filterData || {};
+    const { page, pageSize, status, number, organizationId, userId, type } = this.filterData || {};
     this.createForm({
       page: new FormControl(page || 0),
       pageSize: new FormControl(pageSize || 20),
       status: new FormControl(status),
       number: new FormControl(number),
-      organization: new FormControl(organization),
+      organizationId: new FormControl(organizationId),
+      userId: new FormControl(userId),
       type: new FormControl(type),
     });
-    this.filterExpanded = !!status || !!number || !!organization || !!type;
+    this.filterExpanded = !!status || !!number || !!organizationId || !!type || !!userId;
   }
 
   ngOnInit(): void {
+    if (!this.organizationList) this.organizationFacade.fetchOrganizationList();
     this.filter();
+  }
+
+  organizationChanged(): void {
+    this.organizationFacade.fetchOrganizationDetail(this.form?.value?.organizationId, (data) => {
+      this.organizationUsers = data.users;
+    });
   }
 
   filter(reset = false): void {
@@ -40,7 +49,8 @@ export class IdentifierFilterComponent extends IdentifierBaseContainer implement
       status: this.form.value.status,
       number: this.form.value.number,
       type: this.form.value.type,
-      organization: this.form.value.organization,
+      organizationId: this.form.value.organizationId,
+      userId: this.form.value.userId,
     };
     this.onFilter.emit(data);
   }

@@ -9,6 +9,7 @@ export const subscriptionDetailMapper = (subs: ISubscription): ISubscriptionDeta
   description: subs?.description,
   finalPrice: subs?.finalPrice,
   organizationId: subs?.organization?.id,
+  organizationName: subs?.organization?.name,
   reference: subs?.reference,
   package: packageDetailMapper(subs?.package, null),
   status: subs?.status,

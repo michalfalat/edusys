@@ -25,7 +25,7 @@
     <div class="row">
       <mat-form-field>
         <mat-select formControlName="type" [placeholder]="'identifier.type' | translate">
-          <mat-option [value]="'CARD'">CARD</mat-option>
+          <mat-option [value]="identifierTypes.CARD">{{ identifierTypes.CARD }}</mat-option>
         </mat-select>
         <mat-error><ui-form-error [formGroup]="form" [name]="'type'"></ui-form-error></mat-error>
       </mat-form-field>

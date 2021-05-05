@@ -22,8 +22,9 @@ import { UiConfirmModalComponent } from './components/ui-confirm-modal/ui-confir
 import { SelectByIdPipe } from './pipes/select-by-id.pipe';
 import { DurationPipe } from './pipes/duration.pipe';
 import { UiScanCardModalComponent } from './components/ui-scan-card-modal/ui-scan-card-modal.component';
+import { FilterPipe } from './pipes/filter-data.pipe';
 
-const pipes = [SelectByIdPipe, DurationPipe];
+const pipes = [SelectByIdPipe, DurationPipe, FilterPipe];
 
 @NgModule({
   imports: [

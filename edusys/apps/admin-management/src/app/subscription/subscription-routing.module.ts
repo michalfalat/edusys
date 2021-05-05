@@ -10,13 +10,19 @@ const routes: Routes = [
     path: '',
     component: SubscriptionHomeComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.LOG.BASIC },
+    data: { moduleName: PERMISSION.SUBSCRIPTION.BASIC },
   },
   {
     path: 'detail/:subscriptionId',
     component: SubscriptionDetailComponent,
     canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.LOG.DETAIL },
+    data: { moduleName: PERMISSION.SUBSCRIPTION.DETAIL, isEditMode: false },
+  },
+  {
+    path: 'edit/:subscriptionId',
+    component: SubscriptionDetailComponent,
+    canActivate: [PermissionGuard],
+    data: { moduleName: PERMISSION.SUBSCRIPTION.EDIT, isEditMode: true },
   },
 ];
 

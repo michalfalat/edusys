@@ -23,13 +23,14 @@ export class SubscriptionFilterComponent extends SubscriptionBaseContainer imple
       pageSize: new FormControl(pageSize || 20),
       status: new FormControl(status),
       name: new FormControl(name),
-      organization: new FormControl(organization),
+      organizationId: new FormControl(organization),
     });
     this.filterExpanded = !!status || !!name || !!organization;
   }
 
   ngOnInit(): void {
     this.filter();
+    if (!this.organizationList) this.organizationFacade.fetchOrganizationList();
   }
 
   filter(reset = false): void {
@@ -38,7 +39,7 @@ export class SubscriptionFilterComponent extends SubscriptionBaseContainer imple
       pageSize: reset ? 20 : this.form.value.pageSize,
       status: this.form.value.status,
       name: this.form.value.name,
-      organization: this.form.value.organization,
+      organization: this.form.value.organizationId,
     };
     this.onFilter.emit(data);
   }

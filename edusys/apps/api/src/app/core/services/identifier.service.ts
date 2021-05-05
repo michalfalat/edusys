@@ -114,11 +114,11 @@ const buildFilterCriteria = (data: IIdentifierFilterRequest): any => {
   if (data?.type) {
     filter.$and.push({ type: data?.type });
   }
-  if (data?.user) {
-    filter.$and.push({ user: data?.user });
+  if (data?.userId) {
+    filter.$and.push({ user: data?.userId });
   }
-  if (data?.organization) {
-    filter.$and.push({ organization: data?.organization });
+  if (data?.organizationId) {
+    filter.$and.push({ organization: data?.organizationId });
   }
 
   return filter.$and.length ? filter : {};

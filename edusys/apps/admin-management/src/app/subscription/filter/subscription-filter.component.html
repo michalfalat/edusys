@@ -28,11 +28,36 @@
           </button>
         </mat-form-field>
       </div> -->
+      <div class="row">
+        <mat-form-field>
+          <mat-select formControlName="organizationId" [placeholder]="'subscription.select_organization' | translate">
+            <mat-option>
+              <ngx-mat-select-search [placeholderLabel]="'subscription.select_organization' | translate" #organizationSearch></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let org of organizationList | filter: 'name':organizationSearch.value" [value]="org?.id">
+              {{ org?.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button *ngIf="form?.value?.organizationId" matSuffix mat-icon-button type="button" (click)="clearFilter('organizationId'); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
       <mat-form-field>
         <mat-label>{{ 'subscription.status' | translate }}</mat-label>
         <mat-select formControlName="status" [placeholder]="'subscription.status' | translate">
-          <mat-option [value]="'error'"> ERROR </mat-option>
-          <mat-option [value]="'info'"> INFO </mat-option>
+          <mat-option [value]="subscriptionStatuses.ACTIVE">
+            {{ subscriptionStatuses.ACTIVE }}
+          </mat-option>
+          <mat-option [value]="subscriptionStatuses.CANCELED">
+            {{ subscriptionStatuses.CANCELED }}
+          </mat-option>
+          <mat-option [value]="subscriptionStatuses.DEMO">
+            {{ subscriptionStatuses.DEMO }}
+          </mat-option>
+          <mat-option [value]="subscriptionStatuses.EXPIRED">
+            {{ subscriptionStatuses.EXPIRED }}
+          </mat-option>
         </mat-select>
         <button *ngIf="form?.value?.status" matSuffix mat-icon-button type="button" (click)="clearFilter('status'); $event.stopPropagation()">
           <mat-icon>close</mat-icon>
