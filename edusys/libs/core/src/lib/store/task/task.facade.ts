@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ITaskCreateRequest, ITaskDetailResponse, ITaskEditRequest } from '@edusys/model';
+import { ITaskCreateRequest, ITaskDetailResponse, ITaskEditRequest, ITaskFilterRequest, Pagination } from '@edusys/model';
 import { taskCreateRequestAction, taskDeleteRequestAction, taskDetailRequestAction, taskEditRequestAction, taskListRequestAction } from './task.actions';
 import { getTaskDetail, getTaskList } from './task.selectors';
 import ITaskState from './task.reducer';
@@ -14,8 +14,12 @@ export class TaskFacade {
   getTaskList$ = this.store.pipe(select(getTaskList));
   getTaskDetail$ = this.store.pipe(select(getTaskDetail));
 
-  fetchTaskList(onSucceeded?: (response: ITaskDetailResponse[]) => void, onError?: (response: HttpErrorResponse) => void): void {
-    this.store.dispatch(taskListRequestAction({ onSucceeded, onError }));
+  fetchTaskList(
+    request: ITaskFilterRequest,
+    onSucceeded?: (response: Pagination<ITaskDetailResponse>) => void,
+    onError?: (response: HttpErrorResponse) => void,
+  ): void {
+    this.store.dispatch(taskListRequestAction({ request, onSucceeded, onError }));
   }
 
   fetchTaskDetail(taskId: string, onSucceeded?: (response: ITaskDetailResponse) => void, onError?: (response: HttpErrorResponse) => void): void {

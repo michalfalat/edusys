@@ -1,9 +1,10 @@
 import { TaskPriority, TaskStatus, TaskType } from '@edusys/model';
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, PaginateModel } from 'mongoose';
 import { IEntity } from './entity.model';
 import { IFile } from './file.model';
 import { IOrganization } from './organization.model';
 import { IUser } from './user.model';
+import * as paginate from 'mongoose-paginate-v2';
 
 export interface ITask extends IEntity {
   name: string;
@@ -89,5 +90,9 @@ const taskSchema = new Schema<ITaskDocument>(
   },
 );
 
-const TaskModel = model<ITaskDocument>('task', taskSchema);
+taskSchema.plugin(paginate);
+
+type TaskModel<T extends Document> = PaginateModel<T>;
+
+const TaskModel: TaskModel<ITaskDocument> = model<ITaskDocument>('task', taskSchema) as TaskModel<ITaskDocument>;
 export default TaskModel;

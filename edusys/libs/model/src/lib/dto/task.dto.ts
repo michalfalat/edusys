@@ -1,6 +1,7 @@
 import { IAuthUserBasicResponse } from './user.dto';
 import { IFileDetailResponse } from './file.dto';
 import { IOrganizationResponse } from './organization.dto';
+import { IPaginable } from './common.dto';
 
 export enum TaskStatus {
   NEW = 'NEW',
@@ -29,6 +30,15 @@ export interface ITaskCreateRequest {
   attachments?: IFileDetailResponse[];
   type: TaskType;
   priority: TaskPriority;
+}
+
+export interface ITaskFilterRequest extends IPaginable {
+  name?: string;
+  status?: string;
+  organization?: string;
+  priority?: string;
+  place?: string;
+  description?: string;
 }
 
 export interface ITaskAssignRequest {

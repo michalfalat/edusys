@@ -3,7 +3,7 @@ import * as taskService from './../core/services/task.service';
 
 export const listOfTasks = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const listOfTasksResponse = await taskService.listOfTasks();
+    const listOfTasksResponse = await taskService.listOfTasks(req.query as any);
     res.send(listOfTasksResponse);
   } catch (err) {
     next(err);

@@ -1,9 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { ITaskDetailResponse } from '@edusys/model';
+import { ITaskDetailResponse, Pagination } from '@edusys/model';
 import { taskAssignResponseAction, taskDetailResponseAction, taskEditResponseAction, taskFinishResponseAction, taskListResponseAction } from './task.actions';
 
 export default interface ITaskState {
-  list?: ITaskDetailResponse[];
+  list?: Pagination<ITaskDetailResponse>;
   detail?: ITaskDetailResponse;
 }
 

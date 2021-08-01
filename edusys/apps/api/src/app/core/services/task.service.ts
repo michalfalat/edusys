@@ -8,10 +8,12 @@ import {
   ITaskCreateRequest,
   ITaskDetailResponse,
   ITaskEditRequest,
+  ITaskFilterRequest,
   ITaskFinishRequest,
   TaskStatus,
 } from '@edusys/model';
-import { taskDetailMapper, taskListMapper } from '../mappers/task.mapper';
+import { PaginateResult } from 'mongoose';
+import { taskDetailMapper, taskPaginatedListMapper } from '../mappers/task.mapper';
 import { getCurrentUser } from '../middlewares/current-http-context';
 import TaskModel from '../models/task.model';
 import UserModel from '../models/user.model';
@@ -19,13 +21,27 @@ import { BadRequest, NotFound } from '../utils/errors';
 import { logInfo } from '../utils/logger';
 import { sendEmail } from './email.service';
 
-// LIST OF ALL TASKS WITHOUT PAGINATION
-export const listOfTasks = async (): Promise<ITaskDetailResponse[]> => {
-  const listOfEntities = await TaskModel.find().populate('organization').populate('createdBy');
+// // LIST OF ALL TASKS WITHOUT PAGINATION
+// export const listOfTasks = async (): Promise<ITaskDetailResponse[]> => {
+//   const listOfEntities = await TaskModel.find().populate('organization').populate('createdBy');
+//   if (!listOfEntities) {
+//     throw new NotFound();
+//   }
+//   return taskListMapper(listOfEntities);
+// };
+
+export const listOfTasks = async (data: ITaskFilterRequest): Promise<PaginateResult<ITaskDetailResponse>> => {
+  const listOfEntities = await TaskModel.paginate(buildFilterCriteria(data), {
+    page: data?.page || 1,
+    limit: data?.pageSize || 5,
+    offset: data?.page * data?.pageSize || 0,
+    sort: { createdAt: -1 },
+    populate: ['organization', 'createdBy'],
+  });
   if (!listOfEntities) {
     throw new NotFound();
   }
-  return taskListMapper(listOfEntities);
+  return taskPaginatedListMapper(listOfEntities);
 };
 
 // DETAIL OF TASK
@@ -165,4 +181,30 @@ export const deleteTask = async (id: string): Promise<void> => {
   } catch (error) {
     throw new BadRequest(error);
   }
+};
+
+const buildFilterCriteria = (data: ITaskFilterRequest): any => {
+  const filter = {
+    $and: [],
+  };
+  if (data?.name) {
+    filter.$and.push({ name: { $regex: data.name, $options: 'i' } });
+  }
+  if (data?.status) {
+    filter.$and.push({ status: data?.status });
+  }
+  if (data?.organization) {
+    filter.$and.push({ organization: data?.organization });
+  }
+  if (data?.place) {
+    filter.$and.push({ place: data?.place });
+  }
+  if (data?.priority) {
+    filter.$and.push({ priority: data?.priority });
+  }
+  if (data?.description) {
+    filter.$and.push({ description: { $regex: data.description, $options: 'i' } });
+  }
+
+  return filter.$and.length ? filter : {};
 };

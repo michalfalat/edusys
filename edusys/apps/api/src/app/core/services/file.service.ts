@@ -12,7 +12,7 @@ export const detailOfFile = async (id: string): Promise<IFileDetailResponse> => 
   if (!detailModel || detailModel.obsolete) {
     throw new NotFound();
   }
-  return fileDetailMapper(detailModel, process.env.APP_URL);
+  return fileDetailMapper(detailModel, process.env.API_URL);
 };
 
 export const uploadFile = async (payload: IFileUploadRequest, file: Express.Multer.File): Promise<IFileDetailResponse> => {
@@ -38,7 +38,7 @@ export const uploadFile = async (payload: IFileUploadRequest, file: Express.Mult
     savedModel = await savedModel.save();
 
     logInfo(`[FILE_SERVICE] file '${file.originalname}' uploaded`);
-    return fileDetailMapper(savedModel, process.env.APP_URL);
+    return fileDetailMapper(savedModel, process.env.API_URL);
   } catch (error) {
     throw new BadRequest(error);
   }

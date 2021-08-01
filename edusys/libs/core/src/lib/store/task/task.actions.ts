@@ -1,4 +1,12 @@
-import { ITaskAssignRequest, ITaskCreateRequest, ITaskDetailResponse, ITaskEditRequest, ITaskFinishRequest } from '@edusys/model';
+import {
+  ITaskAssignRequest,
+  ITaskCreateRequest,
+  ITaskDetailResponse,
+  ITaskEditRequest,
+  ITaskFilterRequest,
+  ITaskFinishRequest,
+  Pagination,
+} from '@edusys/model';
 import { createAction, props } from '@ngrx/store';
 
 const PREFIX = '[TASK]';
@@ -7,14 +15,15 @@ const PREFIX = '[TASK]';
 export const taskListRequestAction = createAction(
   `${PREFIX} LIST REQUEST`,
   props<{
-    onSucceeded?: (response: ITaskDetailResponse[]) => void;
+    request: ITaskFilterRequest;
+    onSucceeded?: (response: Pagination<ITaskDetailResponse>) => void;
     onError?: (error: any) => void;
   }>(),
 );
 export const taskListResponseAction = createAction(
   `${PREFIX} LIST RESPONSE`,
   props<{
-    response: ITaskDetailResponse[];
+    response: Pagination<ITaskDetailResponse>;
   }>(),
 );
 

@@ -23,7 +23,6 @@ export const listOfIdentifiers = async (data: IIdentifierFilterRequest): Promise
     sort: { createdAt: -1 },
     populate: ['organization', 'user'],
   });
-  console.log(data);
   if (!listOfEntities) {
     throw new NotFound();
   }

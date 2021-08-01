@@ -28,8 +28,8 @@ export class TaskEffects {
   fetchTaskList$ = createEffect(() =>
     this.actions$.pipe(
       ofType(taskListRequestAction),
-      mergeMap(({ onSucceeded, onError }) =>
-        this.taskService.fetchTaskList().pipe(
+      mergeMap(({ request, onSucceeded, onError }) =>
+        this.taskService.fetchTaskList(request).pipe(
           map((response) => {
             if (onSucceeded) {
               onSucceeded(response);

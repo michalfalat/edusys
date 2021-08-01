@@ -1,8 +1,9 @@
 import { ITaskDetailResponse } from '@edusys/model';
-import { ITask } from '../models/task.model';
+import { ITask, ITaskDocument } from '../models/task.model';
 import { userDetailMapper } from './user.mapper';
 import { fileDetailMapper } from './file.mapper';
 import { organizationBasicMapper } from './organization.mapper';
+import { PaginateResult } from 'mongoose';
 
 export const taskDetailMapper = (data: ITask): ITaskDetailResponse => ({
   id: data._id,
@@ -11,7 +12,7 @@ export const taskDetailMapper = (data: ITask): ITaskDetailResponse => ({
   createdAt: data.createdAt,
   updatedAt: data.updatedAt,
   place: data.place,
-  attachments: data.attachments?.map((a) => fileDetailMapper(a, process.env.APP_URL)),
+  attachments: data.attachments?.map((a) => fileDetailMapper(a, process.env.API_URL)),
   type: data.type,
   priority: data.priority,
   organization: !!data.organization ? organizationBasicMapper(data.organization) : null,
@@ -25,3 +26,10 @@ export const taskDetailMapper = (data: ITask): ITaskDetailResponse => ({
 });
 
 export const taskListMapper = (data: ITask[]): ITaskDetailResponse[] => data?.map((d) => taskDetailMapper(d));
+
+export const taskPaginatedListMapper = (data: PaginateResult<ITaskDocument>): PaginateResult<ITaskDetailResponse> => {
+  return {
+    ...data,
+    docs: data.docs?.map((d) => taskDetailMapper(d)),
+  };
+};

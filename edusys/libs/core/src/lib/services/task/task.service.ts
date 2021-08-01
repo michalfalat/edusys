@@ -3,7 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { APP_CONFIG } from '@edusys/app-config';
 import { assignTaskUrl, createTaskUrl, deleteTaskUrl, editTaskUrl, fetchTaskDetailUrl, fetchTaskListUrl, finishTaskUrl } from './task.endpoints';
-import { ITaskAssignRequest, ITaskCreateRequest, ITaskDetailResponse, ITaskEditRequest, ITaskFinishRequest } from '@edusys/model';
+import {
+  ITaskAssignRequest,
+  ITaskCreateRequest,
+  ITaskDetailResponse,
+  ITaskEditRequest,
+  ITaskFilterRequest,
+  ITaskFinishRequest,
+  Pagination,
+} from '@edusys/model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +23,8 @@ export class TaskService {
     return this.appConfig.apiUrl;
   }
 
-  fetchTaskList = (): Observable<ITaskDetailResponse[]> => {
-    return this.httpClient.get<ITaskDetailResponse[]>(fetchTaskListUrl(this.baseUrl()));
+  fetchTaskList = (request: ITaskFilterRequest): Observable<Pagination<ITaskDetailResponse>> => {
+    return this.httpClient.get<Pagination<ITaskDetailResponse>>(fetchTaskListUrl(this.baseUrl(), request));
   };
 
   fetchTaskDetail = (taskId: string): Observable<ITaskDetailResponse> => {

@@ -1,9 +1,13 @@
-<mat-card class="basic-card" *ngIf="taskList?.length > 0">
+<mat-card class="basic-card">
   <div class="row between">
     <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
     <button mat-raised-button color="primary" (click)="navigateToTaskCreate()">{{ 'task.add.button' | translate }}</button>
   </div>
-  <table mat-table [dataSource]="taskList" class="mat-elevation-z0">
+  <ui-divider [compact]="true"></ui-divider>
+  <task-filter (onFilter)="filter($event)"></task-filter>
+
+  <ui-divider [compact]="true"></ui-divider>
+  <table mat-table [dataSource]="taskList?.docs" class="mat-elevation-z0">
     <ng-container matColumnDef="createdAt">
       <th mat-header-cell *matHeaderCellDef>{{ 'general.created_at' | translate }}</th>
       <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
@@ -31,8 +35,23 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr class="row-clickable" mat-row *matRowDef="let row; columns: displayedColumns" (click)="navigateToTaskDetail(row.id)"></tr>
+    <tr
+      class="row-clickable"
+      [ngClass]="{ 'row-error': row.level === 'error', 'row-info': row.level === 'info' }"
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="navigateToTaskDetail(row.id)"
+    ></tr>
   </table>
+  <mat-paginator
+    #paginator
+    [length]="taskList?.totalDocs"
+    [pageSize]="filterData?.pageSize"
+    [pageIndex]="filterData?.page"
+    [pageSizeOptions]="[20, 50, 100]"
+    (page)="onPaginatorEvent($event)"
+  >
+  </mat-paginator>
 </mat-card>
 
 <div *ngIf="taskList?.length === 0">
