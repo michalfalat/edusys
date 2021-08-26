@@ -1,4 +1,4 @@
-import { Component, HostListener, Injector } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { PERMISSION } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { LayoutBaseContainer } from '../layout-base.module';
@@ -69,26 +69,11 @@ export class LayoutsMainLayoutComponent extends LayoutBaseContainer {
   ];
 
   sidenavOpened = true;
-  sidenavMode = window.innerWidth > 700 ? 'side' : 'over';
-  width: number;
   constructor(injector: Injector) {
     super(injector);
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    console.log(event.target.innerWidth);
-    this.width = event.target.innerWidth;
-    if (this.width > 700) {
-      this.sidenavMode = 'side';
-      this.sidenavOpened = true;
-    } else {
-      this.sidenavMode = 'over';
-    }
-  }
-
   onSidenavToogle(): void {
     this.sidenavOpened = !this.sidenavOpened;
-    console.log(this.sidenavOpened);
   }
 }

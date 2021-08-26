@@ -11,6 +11,7 @@ export * from './lib/guards/permission.guard';
 // SERVICES
 export { LocalStorageService } from './lib/services/local-storage/local-storage.service';
 export { CookieService } from './lib/services/cookie/cookie.service';
+export { LayoutService } from './lib/services/layout/layout.service';
 
 // FACADES
 export { AppFacade } from './lib/store/app/app.facade';

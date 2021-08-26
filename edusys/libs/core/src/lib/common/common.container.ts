@@ -6,6 +6,7 @@ import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/route
 import { Subscription } from 'rxjs';
 import { CoreTranslateService } from '@edusys/core-translate';
 import { Schema } from '@hapi/joi';
+import { LayoutService } from '../services/layout/layout.service';
 
 @Component({
   template: '',
@@ -20,6 +21,7 @@ export abstract class CommonContainer implements OnDestroy {
   fb: FormBuilder;
   titleService: Title;
   translateService: CoreTranslateService;
+  layoutService: LayoutService;
   titleKey: string;
 
   constructor(injector: Injector) {
@@ -29,6 +31,7 @@ export abstract class CommonContainer implements OnDestroy {
     this.titleService = injector.get(Title);
     this.translateService = injector.get(CoreTranslateService);
     this.activatedRoute = injector.get(ActivatedRoute);
+    this.layoutService = injector.get(LayoutService);
     this.subscriptions.add(
       this.translateService.onLangChange().subscribe(() => {
         if (!!this.titleKey) {
