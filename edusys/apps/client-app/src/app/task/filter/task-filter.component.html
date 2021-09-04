@@ -1,0 +1,113 @@
+<mat-accordion>
+  <mat-expansion-panel class="mat-elevation-z1" [expanded]="filterExpanded">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ 'general.filter' | translate }}</mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <form [formGroup]="form">
+      <!-- <div class="row between">
+        <mat-form-field [style.width]="'45%'">
+          <mat-label>{{ 'task.from_date' | translate }}</mat-label>
+          <input matInput [matDatepicker]="fromDatePicker" formControlName="fromDate" [placeholder]="'task.from_date' | translate" />
+          <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromDatePicker></mat-datepicker>
+
+          <button *ngIf="form?.value?.fromDate" matSuffix mat-icon-button type="button" (click)="clearFilter('fromDate'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field [style.width]="'45%'">
+          <mat-label>{{ 'task.to_date' | translate }}</mat-label>
+          <input matInput [matDatepicker]="toDatePicker" formControlName="toDate" [placeholder]="'task.to_date' | translate" />
+          <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #toDatePicker></mat-datepicker>
+
+          <button *ngIf="form?.value?.toDate" matSuffix mat-icon-button type="button" (click)="clearFilter('toDate'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div> -->
+      <div class="row">
+        <mat-form-field>
+          <mat-select formControlName="organizationId" [placeholder]="'task.select_organization' | translate">
+            <mat-option>
+              <ngx-mat-select-search [placeholderLabel]="'task.select_organization' | translate" #organizationSearch></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let org of organizations | filter: 'name':organizationSearch.value" [value]="org?.id">
+              {{ org?.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button *ngIf="form?.value?.organizationId" matSuffix mat-icon-button type="button" (click)="clearFilter('organizationId'); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <mat-form-field>
+        <mat-label>{{ 'task.name' | translate }}</mat-label>
+        <input matInput formControlName="name" [placeholder]="'task.name' | translate" />
+
+        <button *ngIf="form?.value?.name" matSuffix mat-icon-button type="button" (click)="clearFilter('name'); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="row between">
+        <mat-form-field [style.width]="'45%'">
+          <mat-label>{{ 'task.status' | translate }}</mat-label>
+          <mat-select formControlName="status" [placeholder]="'task.status' | translate">
+            <mat-option [value]="taskStatuses.NEW">
+              {{ taskStatuses.NEW }}
+            </mat-option>
+            <mat-option [value]="taskStatuses.ASSIGNED">
+              {{ taskStatuses.ASSIGNED }}
+            </mat-option>
+
+            <mat-option [value]="taskStatuses.FIXED">
+              {{ taskStatuses.FIXED }}
+            </mat-option>
+            <mat-option [value]="taskStatuses.CANCELED">
+              {{ taskStatuses.CANCELED }}
+            </mat-option>
+          </mat-select>
+          <button *ngIf="form?.value?.status" matSuffix mat-icon-button type="button" (click)="clearFilter('status'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field [style.width]="'45%'">
+          <mat-label>{{ 'task.priority' | translate }}</mat-label>
+          <mat-select formControlName="priority" [placeholder]="'task.priority' | translate">
+            <mat-option [value]="taskPriorities.LOW">
+              {{ taskPriorities.LOW }}
+            </mat-option>
+            <mat-option [value]="taskPriorities.MEDIUM">
+              {{ taskPriorities.MEDIUM }}
+            </mat-option>
+            <mat-option [value]="taskPriorities.HIGH">
+              {{ taskPriorities.HIGH }}
+            </mat-option>
+            <mat-option [value]="taskPriorities.ULTRA_HIGH">
+              {{ taskPriorities.ULTRA_HIGH }}
+            </mat-option>
+          </mat-select>
+          <button *ngIf="form?.value?.priority" matSuffix mat-icon-button type="button" (click)="clearFilter('priority'); $event.stopPropagation()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <!-- <mat-form-field>
+        <mat-label>{{ 'task.keyword' | translate }}</mat-label>
+        <input matInput formControlName="keyword" [placeholder]="'task.keyword' | translate" />
+
+        <button *ngIf="form?.value?.keyword" matSuffix mat-icon-button type="button" (click)="clearFilter('keyword'); $event.stopPropagation()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field> -->
+    </form>
+    <mat-action-row>
+      <button mat-button (click)="clearFilter()">{{ 'general.filter.cancel' | translate }}</button>
+      <button mat-raised-button color="primary" (click)="filter(true)">{{ 'general.filter.button' | translate }}</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,134 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form" (ngSubmit)="onEditTask()">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'task.created_at' | translate }}</mat-label>
+        <input matInput [value]="taskDetail?.createdAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'task.edited_at' | translate }}</mat-label>
+        <input matInput [value]="taskDetail?.updatedAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'task.created_by' | translate }}</mat-label>
+        <input matInput [value]="taskDetail?.createdBy?.email" [readonly]="true" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field *ngIf="isEditMode">
+        <mat-select formControlName="organizationId" [placeholder]="'task.organization' | translate">
+          <mat-option *ngFor="let organization of organizations" [value]="organization?.id">
+            {{ organization?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="!isEditMode">
+        <mat-label>{{ 'task.organization' | translate }}</mat-label>
+        <input matInput [value]="organizations | selectById: taskDetail?.organization:'name'" [readonly]="true" />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'task.name' | translate }}</mat-label>
+        <input matInput formControlName="name" name="name" [readonly]="!isEditMode" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'task.description' | translate }}</mat-label>
+        <textarea matInput formControlName="description" name="description" [readonly]="!isEditMode"></textarea>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'description'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'task.place' | translate }}</mat-label>
+        <input matInput formControlName="place" name="place" [readonly]="!isEditMode" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'place'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row between">
+      <mat-form-field [style.width]="'30%'">
+        <mat-select formControlName="priority" [placeholder]="'task.priority' | translate" *ngIf="isEditMode">
+          <mat-option [value]="taskPriorities.LOW">
+            {{ taskPriorities.LOW }}
+          </mat-option>
+          <mat-option [value]="taskPriorities.MEDIUM">
+            {{ taskPriorities.MEDIUM }}
+          </mat-option>
+          <mat-option [value]="taskPriorities.HIGH">
+            {{ taskPriorities.HIGH }}
+          </mat-option>
+          <mat-option [value]="taskPriorities.ULTRA_HIGH">
+            {{ taskPriorities.ULTRA_HIGH }}
+          </mat-option>
+        </mat-select>
+        <input matInput formControlName="priority" name="priority" *ngIf="!isEditMode" [placeholder]="'task.priority' | translate" [readonly]="true" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'priority'"></ui-form-error></mat-error>
+      </mat-form-field>
+      <mat-form-field [style.width]="'30%'">
+        <mat-select formControlName="type" [placeholder]="'task.type' | translate" *ngIf="isEditMode">
+          <mat-option [value]="taskTypes.IT">
+            {{ taskTypes.IT }}
+          </mat-option>
+          <mat-option [value]="taskTypes.OTHER">
+            {{ taskTypes.OTHER }}
+          </mat-option>
+        </mat-select>
+        <input matInput formControlName="type" name="type" *ngIf="!isEditMode" [placeholder]="'task.type' | translate" [readonly]="true" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'type'"></ui-form-error></mat-error>
+      </mat-form-field>
+      <mat-form-field [style.width]="'30%'">
+        <mat-select formControlName="status" [placeholder]="'task.status' | translate" *ngIf="isEditMode">
+          <mat-option [value]="taskStatuses.NEW">
+            {{ taskStatuses.NEW }}
+          </mat-option>
+          <mat-option [value]="taskStatuses.ASSIGNED">
+            {{ taskStatuses.ASSIGNED }}
+          </mat-option>
+          <mat-option [value]="taskStatuses.FIXED">
+            {{ taskStatuses.FIXED }}
+          </mat-option>
+          <mat-option [value]="taskStatuses.CANCELED">
+            {{ taskStatuses.CANCELED }}
+          </mat-option>
+        </mat-select>
+        <input matInput formControlName="status" name="status" *ngIf="!isEditMode" [placeholder]="'task.status' | translate" [readonly]="true" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'status'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="column">
+      <ui-divider></ui-divider>
+      <h4 class="mat-h4">{{ 'task.attachments' | translate }}</h4>
+
+      <ui-divider [compact]="true"></ui-divider>
+      <ui-upload
+        (onUploadFinish)="addAttachment($event)"
+        (onRemoveFile)="removeAttachment($event)"
+        [attachments]="form.value?.attachments"
+        [readonly]="!isEditMode"
+      ></ui-upload>
+    </div>
+
+    <div class="bottom-content">
+      <div class="row right" *ngIf="isEditMode">
+        <button mat-button (click)="navigateToTaskDetail(taskDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+        <button mat-raised-button color="primary" type="button" (click)="onEditTask()" [disabled]="!form.valid">
+          {{ 'general.save.button' | translate }}
+        </button>
+      </div>
+      <div class="row right" *ngIf="!isEditMode">
+        <button mat-raised-button color="primary" type="button" (click)="navigateToTaskEdit(taskDetail?.id)">{{ 'general.edit.button' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</mat-card>

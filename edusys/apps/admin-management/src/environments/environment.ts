@@ -4,8 +4,8 @@ class AppConfig implements APP_CONFIG {
   production = false;
   apiUrl = 'http://localhost:3005';
   appUrls = {
-    attendanceClient: 'http://localhost:4200',
-    adminManagement: 'http://localhost:4201',
+    clientApp: 'http://localhost:3004',
+    adminManagementApp: 'http://localhost:3004',
   };
 }
 

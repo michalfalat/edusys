@@ -1,0 +1,80 @@
+<mat-card class="basic-card">
+  <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
+  <ui-divider [compact]="true"></ui-divider>
+  <form [formGroup]="form" (ngSubmit)="onCreateTask()">
+    <div class="row">
+      <mat-form-field>
+        <mat-select formControlName="organizationId" [placeholder]="'task.organization' | translate">
+          <mat-option *ngFor="let organization of organizations" [value]="organization?.id">
+            {{ organization?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'task.name' | translate }}</mat-label>
+        <input matInput formControlName="name" name="name" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'task.description' | translate }}</mat-label>
+        <textarea matInput formControlName="description" name="description"></textarea>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'description'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ 'task.place' | translate }}</mat-label>
+        <input matInput formControlName="place" name="place" />
+        <mat-error><ui-form-error [formGroup]="form" [name]="'place'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row between">
+      <mat-form-field [style.width]="'45%'">
+        <mat-select formControlName="priority" [placeholder]="'task.priority' | translate">
+          <mat-option [value]="taskPriorities.LOW">
+            {{ taskPriorities.LOW }}
+          </mat-option>
+          <mat-option [value]="taskPriorities.MEDIUM">
+            {{ taskPriorities.MEDIUM }}
+          </mat-option>
+          <mat-option [value]="taskPriorities.HIGH">
+            {{ taskPriorities.HIGH }}
+          </mat-option>
+          <mat-option [value]="taskPriorities.ULTRA_HIGH">
+            {{ taskPriorities.ULTRA_HIGH }}
+          </mat-option>
+        </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'priority'"></ui-form-error></mat-error>
+      </mat-form-field>
+      <mat-form-field [style.width]="'45%'">
+        <mat-select formControlName="type" [placeholder]="'task.type' | translate">
+          <mat-option [value]="taskTypes.IT">
+            {{ taskTypes.IT }}
+          </mat-option>
+          <mat-option [value]="taskTypes.OTHER">
+            {{ taskTypes.OTHER }}
+          </mat-option>
+        </mat-select>
+        <mat-error><ui-form-error [formGroup]="form" [name]="'type'"></ui-form-error></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="column">
+      <ui-divider></ui-divider>
+      <h4 class="mat-h4">{{ 'task.attachments' | translate }}</h4>
+
+      <ui-divider [compact]="true"></ui-divider>
+      <ui-upload (onUploadFinish)="addAttachment($event)" [attachments]="form.value.attachments"></ui-upload>
+    </div>
+
+    <div class="row center">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form?.valid">{{ 'general.create.button' | translate }}</button>
+    </div>
+  </form>
+</mat-card>

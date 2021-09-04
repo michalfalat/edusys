@@ -15,7 +15,7 @@ import { getCurrentUser } from '../middlewares/current-http-context';
 import UserModel from '../models/user.model';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
-import { logInfo } from '../utils/logger';
+import { logError, logInfo } from '../utils/logger';
 
 // // REGISTER
 // export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuthRegisterUserResponse> => {
@@ -76,6 +76,7 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
   }
   const validPassword = await user.comparePassword(payload.password);
   if (!validPassword) {
+    logError(`[AUTH_SERVICE] user ${user.email} tried to login with invalid credentials`);
     throw new BadRequest(errorLabels.INVALID_CREDENTIALS);
   }
 

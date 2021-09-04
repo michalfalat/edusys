@@ -3,6 +3,7 @@ export * from './lib/core.module';
 // COMMON
 export * from './lib/common/common.container';
 export * from './lib/interceptors';
+export * from './lib/model/app/app.model';
 
 // GUARDS
 export * from './lib/guards/auth.guard';

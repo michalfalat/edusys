@@ -1,0 +1,244 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+@import 'variables.scss';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$client-app-primary: mat-palette($mat-blue);
+$client-app-accent: mat-palette($mat-pink, a200, a100, a400);
+
+// The warn palette is optional (defaults to red).
+$client-app-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$client-app-theme: mat-light-theme(
+  (color: (primary: $client-app-primary,
+  accent: $client-app-accent,
+  warn: $client-app-warn,
+))
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($client-app-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+div.row {
+  display: flex;
+  flex-direction: row;
+
+  &.flex-1 {
+    flex: 1;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.between {
+    justify-content: space-between;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
+
+  &.left {
+    justify-content: flex-start;
+  }
+
+  &.vertical-align {
+    align-items: center;
+  }
+}
+
+div.column {
+  display: flex;
+  flex-direction: column;
+
+  &.center {
+    align-items: center;
+  }
+}
+
+mat-card.basic-card {
+  width: calc(100vw - 500px);
+  max-width: 50rem;
+  margin: 3rem auto;
+
+  &.small {
+    max-width: 25rem;
+  }
+
+  &.large {
+    max-width: 60rem;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  mat-card.basic-card {
+    width: unset;
+
+    &.small {
+      max-width: 80vw;
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+
+  &.small {
+    max-width: 50%;
+  }
+}
+
+p,
+b {
+  font-size: 0.85rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.mat-icon-button .mat-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 !important;
+}
+
+.bottom-content {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.notification-info {
+  background-color: #2a9e51;
+  color: rgba(255, 255, 255, 0.836);
+}
+
+.notification-info .mat-simple-snackbar-action {
+  color: white;
+}
+
+.notification-warning {
+  background-color: #e99516;
+  color: white;
+}
+
+.notification-warning .mat-simple-snackbar-action {
+  color: white;
+}
+
+.notification-error {
+  background-color: #dd4646;
+  color: white;
+}
+
+.notification-error .mat-simple-snackbar-action {
+  color: white;
+}
+
+tr.mat-row.row-clickable:hover {
+  background-color: #80808029;
+  transition: 0.15s all linear;
+  cursor: pointer;
+}
+
+tr.mat-row.row-error {
+  background-color: #f8a9a929;
+}
+
+tr.mat-row.row-info {
+  background-color: #aaf8a929;
+}
+
+mat-icon {
+  opacity: 0.74;
+}
+
+:focus {
+  outline: 0 !important;
+}
+
+.mat-table {
+  overflow-x: auto;
+}
+
+.sm-show {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .sm-hide {
+    display: none !important;
+  }
+
+  .sm-show {
+    display: block !important;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .mat-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+    padding: 8px 24px;
+    margin: 2rem auto;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+    height: auto !important;
+  }
+
+  .mat-cell {
+    border-bottom-style: none !important;
+    padding: 0.5rem !important;
+    width: 100% !important;
+
+    &:first-child {
+      padding: 0.5rem !important;
+    }
+
+    &.sm-bold {
+      font-size: 20px;
+      color: inherit;
+    }
+
+    &.sm-description {
+      color: rgba(0, 0, 0, 0.54);
+    }
+  }
+}

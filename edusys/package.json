@@ -8,6 +8,7 @@
     "nx": "nx",
     "start:attendance": "nx run-many --parallel --target=serve --projects=attendance-client,api",
     "start:admin": "nx run-many --parallel --target=serve --projects=admin-management,api",
+    "start:all": "nx run-many --parallel --target=serve --projects=admin-management,client-app,api",
     "start:api": "nx serve api",
     "start:admin-sa": "ng serve admin-management",
     "start:attendance-sa": "ng serve attendance-client",

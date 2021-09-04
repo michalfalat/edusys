@@ -1,0 +1,22 @@
+@import 'variables.scss';
+
+table {
+  width: 100%;
+}
+
+mat-chip {
+  &.HIGH {
+    background-color: $textError;
+    color: #fff;
+  }
+
+  &.ULTRA_HIGH {
+    background-color: $textError2;
+    color: #fff;
+  }
+
+  &.MEDIUM {
+    background-color: $textWarning;
+    color: #fff;
+  }
+}
