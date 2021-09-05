@@ -1,4 +1,4 @@
-import { IUserCreateRequest, IUserDetailResponse, IUserEditRequest } from '@edusys/model';
+import { IUserCreateRequest, IUserDetailResponse, IUserEditRequest, VerifyTokenType } from '@edusys/model';
 import UserModel from '../models/user.model';
 import { userDetailMapper, userListMapper } from '../mappers/user.mapper';
 import { errorLabels } from '../utils/error-labels';
@@ -8,6 +8,7 @@ import OrganizationModel from '../models/organization.model';
 import { sendEmail } from './email.service';
 import { EmailType } from '@edusys/email-sender';
 import { logInfo } from '../utils/logger';
+import { createVerificationToken, generateVerificationTokenURL } from './verify-token.service';
 
 export const listOfUsers = async (): Promise<IUserDetailResponse[]> => {
   const listOfEntities = await UserModel.find();
@@ -50,10 +51,13 @@ export const createUser = async (payload: IUserCreateRequest): Promise<IUserDeta
       const organizationId = payload.organizations[i];
       await OrganizationModel.addUserToOrganization(organizationId, savedModel._id);
     }
+    const token = await createVerificationToken(VerifyTokenType.PASSWORD_CREATE, savedModel._id);
+    const url = await generateVerificationTokenURL(token);
     if (payload.organizations?.length) {
       const organizations = await OrganizationModel.findByOrganizationIds(payload.organizations);
-      const url = `${process.env.CLIENT_APP_URL}/login`; // TODO
       sendEmail(EmailType.USER_ORGANIZATION_ADD, payload.email, { isNewUser: true, organizations: organizations?.map((o) => o.name), url });
+    } else {
+      sendEmail(EmailType.VERIFY_EMAIL, payload.email, { name: savedModel.fullname || savedModel.email, verifyTokenUrl: url });
     }
 
     logInfo(`[USER_SERVICE] user '${payload.email}' created with id '${savedModel._id}'`);

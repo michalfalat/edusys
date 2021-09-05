@@ -1,5 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { IAuthLoginUserRequest, IAuthLoginUserResponse, IAuthUserInfoResponse } from '@edusys/model';
+import {
+  IAuthCreatePasswordRequest,
+  IAuthLoginUserRequest,
+  IAuthLoginUserResponse,
+  IAuthUserInfoResponse,
+  IAuthVerificationTokenInfoRequest,
+  IAuthVerificationTokenInfoResponse,
+} from '@edusys/model';
 
 const PREFIX = '[AUTH]';
 
@@ -41,6 +48,33 @@ export const authLogoutAction = createAction(
     onSucceeded?: () => void;
   }>(),
 );
+
+// VERIFY TOKEN
+export const authVerifyTokenRequestAction = createAction(
+  `${PREFIX} VERIFY TOKEN REQUEST`,
+  props<{
+    payload: IAuthVerificationTokenInfoRequest;
+    onSucceeded?: (response: IAuthVerificationTokenInfoResponse) => void;
+    onError?: (error: any) => void;
+  }>(),
+);
+export const authVerifyTokenResponseAction = createAction(
+  `${PREFIX} VERIFY TOKEN RESPONSE`,
+  props<{
+    response: IAuthVerificationTokenInfoResponse;
+  }>(),
+);
+
+// CREATE PASSWORD
+export const authCreatePasswordRequestAction = createAction(
+  `${PREFIX} CREATE PASSWORD REQUEST`,
+  props<{
+    payload: IAuthCreatePasswordRequest;
+    onSucceeded?: () => void;
+    onError?: (error: any) => void;
+  }>(),
+);
+export const authCreatePasswordResponseAction = createAction(`${PREFIX} CREATE PASSWORD RESPONSE`);
 
 // ERROR
 export const authErrorAction = createAction(

@@ -115,8 +115,9 @@ userSchema.methods.comparePassword = comparePassword;
 userSchema.pre('save', function save(next) {
   const user = this as IUserDocument;
   let userPassword = user.password;
+  console.log('before save >>>', user.isModified('password'));
   if (user.isNew || user.isModified('password')) {
-    console.log('user password is modified!');
+    console.log('user password is modified!', userPassword);
     genSalt(10, (err, salt) => {
       if (err) {
         return next(err);
@@ -129,6 +130,8 @@ userSchema.pre('save', function save(next) {
           uppercase: true,
           lowercase: true,
         });
+      } else {
+        user.passwordSet = true;
       }
       console.log('new password is ', userPassword);
       hash(userPassword, salt, (err: any, hash) => {

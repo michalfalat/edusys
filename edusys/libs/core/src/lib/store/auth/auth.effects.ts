@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { catchError, mergeMap, map } from 'rxjs/operators';
 import {
+  authCreatePasswordRequestAction,
+  authCreatePasswordResponseAction,
   authErrorAction,
   authLoginRequestAction,
   authLoginResponseAction,
   authLogoutAction,
   authUserInfoRequestAction,
   authUserInfoResponseAction,
+  authVerifyTokenRequestAction,
+  authVerifyTokenResponseAction,
 } from './auth.actions';
 import { AuthService } from './../../services/auth/auth.service';
 import { of } from 'rxjs';
@@ -67,6 +71,50 @@ export class AuthEffects {
               onSucceeded(response);
             }
             return authUserInfoResponseAction({ response });
+          }),
+          catchError((error) => {
+            if (onError) {
+              onError(error);
+            }
+            return of(authErrorAction({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  verifyToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authVerifyTokenRequestAction),
+      mergeMap(({ payload, onSucceeded, onError }) =>
+        this.authService.verifyTokenInfo(payload).pipe(
+          map((response) => {
+            if (onSucceeded) {
+              onSucceeded(response);
+            }
+            return authVerifyTokenResponseAction({ response });
+          }),
+          catchError((error) => {
+            if (onError) {
+              onError(error);
+            }
+            return of(authErrorAction({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  createPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authCreatePasswordRequestAction),
+      mergeMap(({ payload, onSucceeded, onError }) =>
+        this.authService.createPassword(payload).pipe(
+          map(() => {
+            if (onSucceeded) {
+              onSucceeded();
+            }
+            return authCreatePasswordResponseAction();
           }),
           catchError((error) => {
             if (onError) {

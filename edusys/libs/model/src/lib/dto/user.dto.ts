@@ -1,3 +1,4 @@
+import { VerifyTokenType } from '@edusys/model';
 import { IOrganizationRoleResponse } from './organization-role.dto';
 import { IOrganizationResponse } from './organization.dto';
 
@@ -18,6 +19,23 @@ export interface IAuthLoginUserRequest {
 
 export interface IAuthLoginUserResponse {
   token: string;
+}
+
+export interface IAuthVerificationTokenInfoRequest {
+  token: string;
+}
+
+export interface IAuthVerificationTokenInfoResponse {
+  id: string;
+  token: string;
+  expired: boolean;
+  type: VerifyTokenType;
+  email?: string;
+}
+
+export interface IAuthCreatePasswordRequest {
+  token: string;
+  password: string;
 }
 
 export interface IAuthUserInfoResponse {

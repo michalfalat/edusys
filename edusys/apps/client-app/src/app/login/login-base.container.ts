@@ -1,23 +1,22 @@
 import { Injector } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthFacade, CommonContainer } from '@edusys/core';
+import { NotificationService } from '../utils/notification.service';
 import { routes } from './../utils/routes';
 
 export class LoginBaseContainer extends CommonContainer {
   authFacade: AuthFacade;
-  snackbar: MatSnackBar;
+  notificationService: NotificationService;
   constructor(injector: Injector) {
     super(injector);
     this.authFacade = injector.get(AuthFacade);
-    this.snackbar = injector.get(MatSnackBar);
+    this.notificationService = injector.get(NotificationService);
   }
 
-  onError = (message?: string): void => {
-    console.log('error :>> ', message);
-    this.snackbar.open(message);
+  onError = (message?: any): void => {
+    this.notificationService.showError(message);
   };
   onSuccess = (message?: string): void => {
-    this.snackbar.open(message);
+    this.notificationService.showSuccess(message);
   };
 
   navigateToProfile = (): void => {

@@ -9,4 +9,5 @@ export const errorLabels = {
   UNAUTHORIZED: 'error.notLoggedIn',
   ACCESS_DENIED: 'error.accessDenied',
   BAD_REQUEST: 'error.badRequest',
+  EXPIRED_TOKEN: 'error.expiredToken',
 };

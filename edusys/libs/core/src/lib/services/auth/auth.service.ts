@@ -1,8 +1,15 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IAuthLoginUserRequest, IAuthLoginUserResponse, IAuthUserInfoResponse } from '@edusys/model';
-import { loginUrl, userInfoUrl, logoutUrl } from './auth.endpoints';
+import {
+  IAuthCreatePasswordRequest,
+  IAuthLoginUserRequest,
+  IAuthLoginUserResponse,
+  IAuthUserInfoResponse,
+  IAuthVerificationTokenInfoRequest,
+  IAuthVerificationTokenInfoResponse,
+} from '@edusys/model';
+import { loginUrl, userInfoUrl, logoutUrl, verifyTokenUrl, createPasswordUrl } from './auth.endpoints';
 import { APP_CONFIG } from '@edusys/app-config';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AppLocalStorageKeys } from '../../model/app/app.model';
@@ -54,5 +61,13 @@ export class AuthService {
 
   userInfo = (): Observable<IAuthUserInfoResponse> => {
     return this.httpClient.get<IAuthUserInfoResponse>(userInfoUrl(this.baseUrl()));
+  };
+
+  verifyTokenInfo = (payload: IAuthVerificationTokenInfoRequest): Observable<IAuthVerificationTokenInfoResponse> => {
+    return this.httpClient.post<IAuthVerificationTokenInfoResponse>(verifyTokenUrl(this.baseUrl()), payload);
+  };
+
+  createPassword = (payload: IAuthCreatePasswordRequest): Observable<void> => {
+    return this.httpClient.post<void>(createPasswordUrl(this.baseUrl()), payload);
   };
 }

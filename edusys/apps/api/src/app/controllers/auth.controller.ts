@@ -3,6 +3,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { verifyToken } from '../core/middlewares/verify-token';
 import { BadRequest } from '../core/utils/errors';
 import * as authService from './../core/services/auth.service';
+import * as verificationTokenService from './../core/services/verify-token.service';
 import * as emailService from './../core/services/email.service';
 import * as httpContext from 'express-http-context';
 import { EmailType } from '@edusys/email-sender';
@@ -48,6 +49,24 @@ export const changePassword = async (req: Request, res: Response, next: NextFunc
   }
 };
 
+export const verifyTokenInfo = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = await verificationTokenService.verificationTokenInfo(req.body);
+    res.send(data);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const createPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await authService.createPassword(req.body);
+    res.send({});
+  } catch (err) {
+    next(err);
+  }
+};
+
 // SEED SU
 export const seedSU = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -84,6 +103,8 @@ export const authRouter = Router();
 authRouter.post('/api/auth/register', register);
 authRouter.post('/api/auth/login', login);
 authRouter.post('/api/auth/logout', logout);
+authRouter.post('/api/auth/verify-token', verifyTokenInfo);
+authRouter.post('/api/auth/create-password', createPassword);
 authRouter.get('/api/auth/user-info', [verifyToken], userInfo);
 authRouter.get('/api/auth/change-password', [verifyToken], changePassword);
 authRouter.post('/api/auth/test-email', testEmail);

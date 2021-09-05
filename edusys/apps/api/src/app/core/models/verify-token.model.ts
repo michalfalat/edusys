@@ -1,5 +1,5 @@
 import { VerifyTokenType } from '@edusys/model';
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Query, Model } from 'mongoose';
 import { IEntity } from './entity.model';
 import { IUser } from './user.model';
 
@@ -16,6 +16,7 @@ const verifyTokenSchema = new Schema<IVerifyTokenDocument>(
   {
     user: {
       type: Schema.Types.ObjectId,
+      ref: 'user',
       required: true,
     },
     token: {
@@ -36,5 +37,13 @@ const verifyTokenSchema = new Schema<IVerifyTokenDocument>(
   },
 );
 
-const VerifyTokenModel = model<IVerifyTokenDocument>('verifyToken', verifyTokenSchema);
+verifyTokenSchema.statics.findByToken = function (token: string): Query<any, IVerifyTokenDocument> {
+  return this.findOne({ token });
+};
+
+export interface IVerifyTokeModel extends Model<IVerifyTokenDocument> {
+  findByToken(token: string): Query<any, IVerifyTokenDocument>;
+}
+
+const VerifyTokenModel = model<IVerifyTokenDocument, IVerifyTokeModel>('verifyToken', verifyTokenSchema);
 export default VerifyTokenModel;

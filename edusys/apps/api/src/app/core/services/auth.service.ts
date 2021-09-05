@@ -1,5 +1,7 @@
 import {
   changePasswordSchemaValidate,
+  createPasswordSchemaValidate,
+  IAuthCreatePasswordRequest,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
   IAuthUserChangePasswordRequest,
@@ -16,6 +18,7 @@ import UserModel from '../models/user.model';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
 import { logError, logInfo } from '../utils/logger';
+import { deleteToken, verificationTokenInfo } from './verify-token.service';
 
 // // REGISTER
 // export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuthRegisterUserResponse> => {
@@ -127,6 +130,33 @@ export const changePassword = async (payload: IAuthUserChangePasswordRequest): P
   logInfo(`[AUTH_SERVICE] user ${user.email} changed password successfully`);
 
   return { success: true };
+};
+
+// CREATE  PASSWORD
+export const createPassword = async (payload: IAuthCreatePasswordRequest): Promise<void> => {
+  const { error } = createPasswordSchemaValidate(payload);
+  if (!!error) {
+    throw new BadRequest(error.details[0].message);
+  }
+  const token = await verificationTokenInfo({ token: payload.token });
+  if (!token) {
+    throw new NotFound();
+  }
+  if (token.expired) {
+    throw new BadRequest(errorLabels.EXPIRED_TOKEN);
+  }
+  const user = await UserModel.findByEmail(token.email);
+  if (!user) {
+    throw new NotFound();
+  }
+  user.password = payload.password;
+  user.emailVerified = true;
+  await user.save();
+  await deleteToken(token.id);
+
+  logInfo(`[AUTH_SERVICE] user ${user.email} created password successfully`);
+
+  return;
 };
 
 // SU //TODO move to separate file
