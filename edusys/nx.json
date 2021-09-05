@@ -23,13 +23,6 @@
     }
   },
   "projects": {
-    "attendance-client": {
-      "tags": []
-    },
-    "attendance-client-e2e": {
-      "tags": [],
-      "implicitDependencies": ["attendance-client"]
-    },
     "core": {
       "tags": []
     },
