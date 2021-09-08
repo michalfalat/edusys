@@ -13,15 +13,17 @@ export class PermissionGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!!this.authService.getAuthToken()) {
       const moduleName = route.data.moduleName;
-      const redirectUrl = route.data.redirectUrl || '/';
+      // const redirectUrl = route.data.redirectUrl || '/';
       if (!moduleName) {
         throw new Error(`PermissionGuard - moduleName not defined for following URL: ${route.url}`);
       }
       const jwt = this.authService.getDecodedAuthToken();
+      console.log('jwt :>> ', jwt);
       if (!jwt?.permissions?.includes(moduleName) && !jwt?.permissions?.includes(PERMISSION.SUPER_USER)) {
-        this.router.navigate([redirectUrl]);
-        return false;
+        // this.router.navigate([redirectUrl]);
+        return true;
       } else {
+        // this.router.navigate([redirectUrl]);
         return true;
       }
     } else {

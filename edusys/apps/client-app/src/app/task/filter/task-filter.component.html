@@ -28,7 +28,7 @@
           </button>
         </mat-form-field>
       </div> -->
-      <div class="row">
+      <div class="row" *ngxPermissionsOnly="[PERMISSION.TASK.VIEW_ALL]">
         <mat-form-field>
           <mat-select formControlName="organizationId" [placeholder]="'task.select_organization' | translate">
             <mat-option>

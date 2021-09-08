@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { CoreTranslateService } from '@edusys/core-translate';
 import { Schema } from '@hapi/joi';
 import { LayoutService } from '../services/layout/layout.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   template: '',
@@ -22,6 +23,8 @@ export abstract class CommonContainer implements OnDestroy {
   titleService: Title;
   translateService: CoreTranslateService;
   layoutService: LayoutService;
+  permissionService: NgxPermissionsService;
+  permissions = {};
   titleKey: string;
 
   constructor(injector: Injector) {
@@ -32,11 +35,18 @@ export abstract class CommonContainer implements OnDestroy {
     this.translateService = injector.get(CoreTranslateService);
     this.activatedRoute = injector.get(ActivatedRoute);
     this.layoutService = injector.get(LayoutService);
+    this.permissionService = injector.get(NgxPermissionsService);
     this.subscriptions.add(
       this.translateService.onLangChange().subscribe(() => {
         if (!!this.titleKey) {
           this.setTitle(this.titleKey);
         }
+      }),
+    );
+    this.subscriptions.add(
+      this.permissionService.permissions$.subscribe((permissions) => {
+        console.log(permissions);
+        this.permissions = permissions;
       }),
     );
   }

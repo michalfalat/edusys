@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   IAuthCreatePasswordRequest,
+  IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
   IAuthUserInfoResponse,
   IAuthVerificationTokenInfoRequest,
   IAuthVerificationTokenInfoResponse,
 } from '@edusys/model';
-import { loginUrl, userInfoUrl, logoutUrl, verifyTokenUrl, createPasswordUrl } from './auth.endpoints';
+import { loginUrl, userInfoUrl, logoutUrl, verifyTokenUrl, createPasswordUrl, initDataUrl } from './auth.endpoints';
 import { APP_CONFIG } from '@edusys/app-config';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AppLocalStorageKeys } from '../../model/app/app.model';
@@ -61,6 +62,10 @@ export class AuthService {
 
   userInfo = (): Observable<IAuthUserInfoResponse> => {
     return this.httpClient.get<IAuthUserInfoResponse>(userInfoUrl(this.baseUrl()));
+  };
+
+  initData = (): Observable<IAuthInitDataResponse> => {
+    return this.httpClient.post<IAuthInitDataResponse>(initDataUrl(this.baseUrl()), {});
   };
 
   verifyTokenInfo = (payload: IAuthVerificationTokenInfoRequest): Observable<IAuthVerificationTokenInfoResponse> => {

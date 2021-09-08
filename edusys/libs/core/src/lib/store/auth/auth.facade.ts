@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
   IAuthCreatePasswordRequest,
+  IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
   IAuthUserInfoResponse,
@@ -11,13 +12,14 @@ import {
 } from '@edusys/model';
 import {
   authCreatePasswordRequestAction,
+  authInitDataRequestAction,
   authLoginRequestAction,
   authLogoutAction,
   authUserInfoRequestAction,
   authVerifyTokenRequestAction,
 } from './auth.actions';
 import IAuthState from './auth.reducer';
-import { getUserInfo } from './auth.selectors';
+import { getInitData, getUserInfo } from './auth.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +27,7 @@ import { getUserInfo } from './auth.selectors';
 export class AuthFacade {
   constructor(private store: Store<IAuthState>) {}
   getUserInfo$ = this.store.pipe(select(getUserInfo));
+  getInitData$ = this.store.pipe(select(getInitData));
 
   login(payload: IAuthLoginUserRequest, onSucceeded?: (response: IAuthLoginUserResponse) => void, onError?: (response: HttpErrorResponse) => void): void {
     this.store.dispatch(authLoginRequestAction({ payload, onSucceeded, onError }));
@@ -48,5 +51,9 @@ export class AuthFacade {
 
   createPassword(payload: IAuthCreatePasswordRequest, onSucceeded?: () => void, onError?: (response: HttpErrorResponse) => void): void {
     this.store.dispatch(authCreatePasswordRequestAction({ payload, onSucceeded, onError }));
+  }
+
+  fetchInitData(onSucceeded?: (response: IAuthInitDataResponse) => void, onError?: (response: HttpErrorResponse) => void): void {
+    this.store.dispatch(authInitDataRequestAction({ onSucceeded, onError }));
   }
 }

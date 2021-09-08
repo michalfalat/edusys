@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import {
   IAuthCreatePasswordRequest,
+  IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
   IAuthUserInfoResponse,
@@ -23,6 +24,21 @@ export const authLoginResponseAction = createAction(
   `${PREFIX} LOGIN RESPONSE`,
   props<{
     response: IAuthLoginUserResponse;
+  }>(),
+);
+
+// INIT DATA
+export const authInitDataRequestAction = createAction(
+  `${PREFIX} INIT DATA REQUEST`,
+  props<{
+    onSucceeded?: (response: IAuthInitDataResponse) => void;
+    onError?: (error: any) => void;
+  }>(),
+);
+export const authInitDataResponseAction = createAction(
+  `${PREFIX} INIT DATA RESPONSE`,
+  props<{
+    response: IAuthInitDataResponse;
   }>(),
 );
 

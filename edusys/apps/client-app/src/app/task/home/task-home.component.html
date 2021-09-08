@@ -1,7 +1,9 @@
 <mat-card class="basic-card">
   <div class="row between">
     <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
-    <button mat-raised-button color="primary" (click)="navigateToTaskCreate()">{{ 'task.add.button' | translate }}</button>
+    <button *ngxPermissionsOnly="[PERMISSION.TASK.CREATE]" mat-raised-button color="primary" (click)="navigateToTaskCreate()">
+      {{ 'task.add.button' | translate }}
+    </button>
   </div>
   <ui-divider [compact]="true"></ui-divider>
   <task-filter (onFilter)="filter($event)"></task-filter>
@@ -12,9 +14,11 @@
       <th mat-header-cell *matHeaderCellDef>{{ 'general.created_at' | translate }}</th>
       <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
     </ng-container>
-    <ng-container matColumnDef="organization">
-      <th mat-header-cell *matHeaderCellDef>{{ 'task.organization' | translate }}</th>
-      <td mat-cell *matCellDef="let element">{{ element.organization?.name }}</td>
+    <ng-container *ngxPermissionsOnly="[PERMISSION.TASK.VIEW_ALL]">
+      <ng-container matColumnDef="organization">
+        <th mat-header-cell *matHeaderCellDef>{{ 'task.organization' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.organization?.name }}</td>
+      </ng-container>
     </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>{{ 'task.name' | translate }}</th>
@@ -36,8 +40,7 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr
-      class="row-clickable"
-      [ngClass]="{ 'row-error': row.level === 'error', 'row-info': row.level === 'info' }"
+      [ngClass]="{ 'row-clickable': !!permissions[PERMISSION.TASK.DETAIL], 'row-error': row.level === 'error', 'row-info': row.level === 'info' }"
       mat-row
       *matRowDef="let row; columns: displayedColumns"
       (click)="navigateToTaskDetail(row.id)"

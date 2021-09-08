@@ -1,7 +1,7 @@
 import { Injector } from '@angular/core';
 import { CommonContainer, OrganizationFacade, TaskFacade } from '@edusys/core';
 import { INavigationItem } from '@edusys/core-ui';
-import { IOrganizationDetailResponse, ITaskDetailResponse, Pagination, TaskPriority, TaskStatus, TaskType } from '@edusys/model';
+import { IOrganizationDetailResponse, ITaskDetailResponse, Pagination, PERMISSION, TaskPriority, TaskStatus, TaskType } from '@edusys/model';
 import { NotificationService } from '../utils/notification.service';
 import { routes } from '../utils/routes';
 
@@ -17,6 +17,7 @@ export class TaskBaseContainer extends CommonContainer {
   taskStatuses = TaskStatus;
   organizations: IOrganizationDetailResponse[];
   notificationService: NotificationService;
+  PERMISSION = PERMISSION;
 
   constructor(injector: Injector) {
     super(injector);

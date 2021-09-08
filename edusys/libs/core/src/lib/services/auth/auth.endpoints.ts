@@ -5,5 +5,6 @@ export const registerCnfirmUrl = (baseUrl: string) => `${baseUrl}/api/auth/regis
 export const changePasswordUrl = (baseUrl: string) => `${baseUrl}/api/auth/change-password`;
 export const forgotPasswordUrl = (baseUrl: string) => `${baseUrl}/api/auth/forgot-password`;
 export const userInfoUrl = (baseUrl: string) => `${baseUrl}/api/auth/user-info`;
+export const initDataUrl = (baseUrl: string) => `${baseUrl}/api/auth/init-data`;
 export const verifyTokenUrl = (baseUrl: string) => `${baseUrl}/api/auth/verify-token`;
 export const createPasswordUrl = (baseUrl: string) => `${baseUrl}/api/auth/create-password`;

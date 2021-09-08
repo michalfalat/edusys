@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard, PermissionGuard } from '@edusys/core';
+import { AuthGuard } from '@edusys/core';
 import { PERMISSION } from '@edusys/model';
 import { LayoutsEmptyLayoutComponent } from './empty-layout/layouts-empty-layout.component';
 import { LayoutsMainLayoutComponent } from './main-layout/layouts-main-layout.component';
+import { NgxPermissionsGuard } from 'ngx-permissions';
+import { routes as navigationRoutes } from '../utils/routes';
 
 const routes: Routes = [
   {
@@ -14,8 +16,13 @@ const routes: Routes = [
       {
         path: 'task',
         loadChildren: () => import('../task/task.module').then((m) => m.TaskModule),
-        canActivate: [PermissionGuard],
-        data: { moduleName: PERMISSION.TASK.BASIC },
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: [PERMISSION.TASK.BASIC],
+            redirectTo: navigationRoutes.login,
+          },
+        },
       },
       {
         path: 'profile',

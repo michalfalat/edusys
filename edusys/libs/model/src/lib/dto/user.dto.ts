@@ -1,4 +1,4 @@
-import { VerifyTokenType } from '@edusys/model';
+import { IOrganizationDetailResponse, VerifyTokenType } from '@edusys/model';
 import { IOrganizationRoleResponse } from './organization-role.dto';
 import { IOrganizationResponse } from './organization.dto';
 
@@ -36,6 +36,11 @@ export interface IAuthVerificationTokenInfoResponse {
 export interface IAuthCreatePasswordRequest {
   token: string;
   password: string;
+}
+
+export interface IAuthInitDataResponse {
+  activeOrganization?: IOrganizationDetailResponse;
+  permissions: string[];
 }
 
 export interface IAuthUserInfoResponse {

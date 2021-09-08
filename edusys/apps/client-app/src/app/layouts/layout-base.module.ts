@@ -7,6 +7,7 @@ export class LayoutBaseContainer extends CommonContainer {
   pendingTasks: string[];
   sidenavMode: string;
   deviceScreen: AppDeviceScreen;
+  sidenavOpened: boolean;
 
   constructor(injector: Injector) {
     super(injector);
@@ -14,9 +15,9 @@ export class LayoutBaseContainer extends CommonContainer {
     this.subscriptions.add(this.appFacade.getPendingRequests$.pipe(delay(0)).subscribe((data) => (this.pendingTasks = data)));
     this.subscriptions.add(
       this.layoutService.deviceScreen().subscribe((data) => {
-        console.log(data);
         this.deviceScreen = data;
         this.sidenavMode = data === AppDeviceScreen.MOBILE ? 'over' : 'side';
+        this.sidenavOpened = this.deviceScreen !== AppDeviceScreen.MOBILE;
       }),
     );
   }

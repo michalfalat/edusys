@@ -29,6 +29,16 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   }
 };
 
+// INIT DATA
+export const initData = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = await authService.initData();
+    res.send(data);
+  } catch (err) {
+    next(err);
+  }
+};
+
 // USER INFO
 export const userInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -103,6 +113,7 @@ export const authRouter = Router();
 authRouter.post('/api/auth/register', register);
 authRouter.post('/api/auth/login', login);
 authRouter.post('/api/auth/logout', logout);
+authRouter.post('/api/auth/init-data', initData);
 authRouter.post('/api/auth/verify-token', verifyTokenInfo);
 authRouter.post('/api/auth/create-password', createPassword);
 authRouter.get('/api/auth/user-info', [verifyToken], userInfo);

@@ -1,5 +1,4 @@
 import { Component, Injector } from '@angular/core';
-import { AppDeviceScreen } from '@edusys/core';
 import { PERMISSION } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { LayoutBaseContainer } from '../layout-base.module';
@@ -20,10 +19,8 @@ export class LayoutsMainLayoutComponent extends LayoutBaseContainer {
     },
   ];
 
-  sidenavOpened: boolean;
   constructor(injector: Injector) {
     super(injector);
-    this.sidenavOpened = this.deviceScreen !== AppDeviceScreen.MOBILE;
   }
 
   onSidenavToogle(): void {

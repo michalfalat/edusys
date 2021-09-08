@@ -5,6 +5,8 @@ import {
   authCreatePasswordRequestAction,
   authCreatePasswordResponseAction,
   authErrorAction,
+  authInitDataRequestAction,
+  authInitDataResponseAction,
   authLoginRequestAction,
   authLoginResponseAction,
   authLogoutAction,
@@ -71,6 +73,28 @@ export class AuthEffects {
               onSucceeded(response);
             }
             return authUserInfoResponseAction({ response });
+          }),
+          catchError((error) => {
+            if (onError) {
+              onError(error);
+            }
+            return of(authErrorAction({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  initData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authInitDataRequestAction),
+      mergeMap(({ onSucceeded, onError }) =>
+        this.authService.initData().pipe(
+          map((response) => {
+            if (onSucceeded) {
+              onSucceeded(response);
+            }
+            return authInitDataResponseAction({ response });
           }),
           catchError((error) => {
             if (onError) {

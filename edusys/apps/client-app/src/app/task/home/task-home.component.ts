@@ -1,6 +1,6 @@
 import { Component, Injector, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ITaskFilterRequest } from '@edusys/model';
+import { ITaskFilterRequest, PERMISSION } from '@edusys/model';
 import { TaskBaseContainer } from '../task-base.container';
 
 @Component({
@@ -9,13 +9,21 @@ import { TaskBaseContainer } from '../task-base.container';
   styleUrls: ['./task-home.component.scss'],
 })
 export class TaskHomeComponent extends TaskBaseContainer {
-  displayedColumns: string[] = ['createdAt', 'organization', 'name', 'priority', 'status'];
+  displayedColumns: string[] = ['createdAt', 'name', 'priority', 'status'];
   filterData: ITaskFilterRequest;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(injector: Injector) {
     super(injector);
     this.setTitle('task.home.title');
+    // TODO not working well
+    // this.permissionService.hasPermission(PERMISSION.TASK.VIEW_ALL).then((has) => {
+    console.log('checked here', this.permissions, this.permissions[PERMISSION.TASK.VIEW_ALL]);
+    if (!!this.permissions[PERMISSION.TASK.VIEW_ALL]) {
+      this.displayedColumns.push('organization');
+    }
+    // });
+
     this.navigationItems = [
       {
         text: 'navigation.tasks',

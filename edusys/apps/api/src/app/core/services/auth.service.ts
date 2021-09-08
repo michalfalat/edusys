@@ -2,6 +2,7 @@ import {
   changePasswordSchemaValidate,
   createPasswordSchemaValidate,
   IAuthCreatePasswordRequest,
+  IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
   IAuthUserChangePasswordRequest,
@@ -12,6 +13,7 @@ import {
   PERMISSION,
 } from '@edusys/model';
 import * as jwt from 'jsonwebtoken';
+import { organizationDetailMapper } from '../mappers/organization.mapper';
 import { userDetailMapper } from '../mappers/user.mapper';
 import { getCurrentUser } from '../middlewares/current-http-context';
 import UserModel from '../models/user.model';
@@ -108,6 +110,20 @@ export const userInfo = async (): Promise<IAuthUserInfoResponse> => {
     throw new NotFound();
   }
   return userDetailMapper(user);
+};
+
+// INIT DATA
+export const initData = async (): Promise<IAuthInitDataResponse> => {
+  const jwtData = getCurrentUser();
+  const user = await UserModel.findById(jwtData?.id).populate('organizations');
+  if (!user) {
+    return { permissions: [] };
+  }
+  // TODO
+  return {
+    permissions: [PERMISSION.TASK.BASIC, PERMISSION.TASK.EDIT, PERMISSION.TASK.DETAIL, PERMISSION.TASK.CREATE],
+    activeOrganization: organizationDetailMapper(user.organizations[0]),
+  };
 };
 
 // CHANGE PASSWORD
