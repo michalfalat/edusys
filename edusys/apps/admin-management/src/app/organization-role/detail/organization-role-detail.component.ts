@@ -28,6 +28,7 @@ export class OrganizationRoleDetailComponent extends OrganizationRoleBaseContain
         description: new FormControl(this.organizationRoleDetail?.description),
         permissions: this.fb.array(this.organizationRoleDetail?.permissions || []),
         status: new FormControl(this.organizationRoleDetail?.status),
+        users: new FormControl(this.organizationRoleDetail?.users.map((u) => u.id) || []),
       },
       editOrganizationRoleSchema,
     );
@@ -35,14 +36,20 @@ export class OrganizationRoleDetailComponent extends OrganizationRoleBaseContain
   }
 
   ngOnInit(): void {
-    this.organizationFacade.fetchOrganizationList();
-    this.organizationRoleFacade.fetchOrganizationRoleDetail(this.organizationRoleId, this.setBreadcrumbNavigation, this.navigateToOrganizationRoleHome);
+    this.organizationRoleFacade.fetchOrganizationRoleDetail(
+      this.organizationRoleId,
+      (data) => {
+        this.organizationFacade.fetchOrganizationDetail(data.organizationId);
+        this.setBreadcrumbNavigation(data);
+      },
+      this.navigateToOrganizationRoleHome,
+    );
   }
 
   fillForm = (data: IOrganizationRoleDetailResponse): void => {
     if (!data) return;
-    const { id, name, description, permissions, status } = data;
-    this.form?.patchValue({ id, name, description, permissions, status });
+    const { id, name, description, permissions, status, users } = data;
+    this.form?.patchValue({ id, name, description, permissions, status, users: users.map((u) => u.id) || [] });
   };
 
   permissionChange(event: MatCheckboxChange, permission: string): void {
@@ -64,13 +71,14 @@ export class OrganizationRoleDetailComponent extends OrganizationRoleBaseContain
   }
 
   onEditOrganizationRole(): void {
-    const { id, name, description, permissions, status } = this.form?.value as IOrganizationRoleEditRequest;
+    const { id, name, description, permissions, status, users } = this.form?.value as IOrganizationRoleEditRequest;
     const request: IOrganizationRoleEditRequest = {
       id,
       name,
       description,
       permissions,
       status,
+      users,
     };
     this.organizationRoleFacade.editOrganizationRole(
       this.organizationRoleId,

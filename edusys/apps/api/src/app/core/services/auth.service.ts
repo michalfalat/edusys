@@ -21,6 +21,7 @@ import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
 import { logError, logInfo } from '../utils/logger';
 import { deleteToken, verificationTokenInfo } from './verify-token.service';
+import { flatten, uniq } from 'lodash';
 
 // // REGISTER
 // export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuthRegisterUserResponse> => {
@@ -115,14 +116,19 @@ export const userInfo = async (): Promise<IAuthUserInfoResponse> => {
 // INIT DATA
 export const initData = async (): Promise<IAuthInitDataResponse> => {
   const jwtData = getCurrentUser();
-  const user = await UserModel.findById(jwtData?.id).populate('organizations');
+  const user = await UserModel.findById(jwtData?.id).populate({ path: 'organizations', populate: { path: 'organizationRoles', populate: 'users' } });
   if (!user) {
     return { permissions: [] };
   }
+  //TODO
+  const activeOrganization = organizationDetailMapper(user.organizations[0]);
+  const userRoles = activeOrganization.roles.filter((r) => r.users.map((u) => u.id).includes(user.id));
+  const permissions = uniq(flatten(userRoles.map((r) => r.permissions)));
+  console.log('permissions :>> ', permissions);
   // TODO
   return {
-    permissions: [PERMISSION.TASK.BASIC, PERMISSION.TASK.EDIT, PERMISSION.TASK.DETAIL, PERMISSION.TASK.CREATE],
-    activeOrganization: organizationDetailMapper(user.organizations[0]),
+    permissions,
+    activeOrganization,
   };
 };
 

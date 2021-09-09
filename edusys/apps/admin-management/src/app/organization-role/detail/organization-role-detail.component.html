@@ -59,15 +59,36 @@
         <ui-divider [compact]="true"></ui-divider>
         <div class="column">
           <ng-container *ngFor="let perm of availablePermissions">
-            <mat-checkbox (change)="permissionChange($event, perm)" [checked]="organizationRoleDetail?.permissions?.includes(perm)" [disabled]="!isEditMode">{{
-              perm
-            }}</mat-checkbox>
+            <mat-checkbox
+              *ngIf="!isEditMode"
+              (change)="permissionChange($event, perm)"
+              [checked]="organizationRoleDetail?.permissions?.includes(perm)"
+              [disabled]="true"
+              >{{ perm }}</mat-checkbox
+            >
+            <mat-checkbox
+              *ngIf="isEditMode"
+              (change)="permissionChange($event, perm)"
+              [checked]="form.controls.permissions.value?.includes(perm)"
+              color="primary"
+              >{{ perm }}</mat-checkbox
+            >
           </ng-container>
         </div>
       </mat-tab>
 
       <mat-tab [label]="'organization_role.users' | translate">
         <ui-divider [compact]="true"></ui-divider>
+        <mat-form-field>
+          <mat-select formControlName="users" [placeholder]="'organization_role.select_user' | translate" [multiple]="true">
+            <mat-option>
+              <ngx-mat-select-search [placeholderLabel]="'organization_role.select_user' | translate" #userSearch></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let user of organizationDetail?.users | filter: ['fullname', 'email']:userSearch.value" [value]="user?.id">
+              {{ user?.fullname || user?.email }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </mat-tab>
     </mat-tab-group>
 

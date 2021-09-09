@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injector } from '@angular/core';
-import { CommonContainer, OrganizationFacade, TaskFacade } from '@edusys/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CommonContainer, ICommonError, OrganizationFacade, TaskFacade } from '@edusys/core';
 import { INavigationItem } from '@edusys/core-ui';
 import { IOrganizationDetailResponse, ITaskDetailResponse, Pagination, PERMISSION, TaskPriority, TaskStatus, TaskType } from '@edusys/model';
 import { NotificationService } from '../utils/notification.service';
@@ -17,6 +19,7 @@ export class TaskBaseContainer extends CommonContainer {
   taskStatuses = TaskStatus;
   organizations: IOrganizationDetailResponse[];
   notificationService: NotificationService;
+  dialogService: MatDialog;
   PERMISSION = PERMISSION;
 
   constructor(injector: Injector) {
@@ -24,6 +27,7 @@ export class TaskBaseContainer extends CommonContainer {
     this.taskFacade = injector.get(TaskFacade);
     this.organizationFacade = injector.get(OrganizationFacade);
     this.notificationService = injector.get(NotificationService);
+    this.dialogService = injector.get(MatDialog);
 
     this.subscriptions.add(this.organizationFacade.getOrganizationList$.subscribe((data) => (this.organizations = data)));
     this.subscriptions.add(this.taskFacade.getTaskList$.subscribe((data) => (this.taskList = data)));
@@ -35,7 +39,7 @@ export class TaskBaseContainer extends CommonContainer {
     );
   }
 
-  onError = (message?: string): void => {
+  onError = (message?: string | HttpErrorResponse | ICommonError): void => {
     this.notificationService.showError(message);
   };
   onSuccess = (message?: string): void => {

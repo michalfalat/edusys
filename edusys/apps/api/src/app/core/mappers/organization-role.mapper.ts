@@ -12,6 +12,20 @@ export const organizationRoleDetailMapper = (data: IOrganizationRole): IOrganiza
   permissions: data.permissions,
   editable: data.editable,
   status: data.status,
+  users: data.users?.map((user) => ({
+    id: user._id,
+    name: user.name,
+    surname: user.surname,
+    fullname: user.fullname,
+    organizations: [],
+    email: user.email,
+    phone: user.phone,
+    roles: user.roles,
+    emailVerified: user.emailVerified,
+    phoneVerified: user.phoneVerified,
+    createdAt: user.createdAt,
+    passwordChangedAt: user.passwordChangedAt?.toISOString(),
+  })),
 });
 
 export const organizationRoleListMapper = (role: IOrganizationRole[]): IOrganizationRoleDetailResponse[] =>
@@ -26,4 +40,18 @@ export const organizationRoleListMapper = (role: IOrganizationRole[]): IOrganiza
     permissions: data.permissions,
     editable: data.editable,
     status: data.status,
+    users: data.users?.map((user) => ({
+      id: user._id,
+      name: user.name,
+      surname: user.surname,
+      fullname: user.fullname,
+      organizations: [],
+      email: user.email,
+      phone: user.phone,
+      roles: user.roles,
+      emailVerified: user.emailVerified,
+      phoneVerified: user.phoneVerified,
+      createdAt: user.createdAt,
+      passwordChangedAt: user.passwordChangedAt?.toISOString(),
+    })),
   }));

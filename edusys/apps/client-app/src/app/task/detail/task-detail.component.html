@@ -1,6 +1,8 @@
 <mat-card class="basic-card">
   <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
   <ui-divider [compact]="true"></ui-divider>
+  <mat-divider></mat-divider>
+  <ui-divider [compact]="true"></ui-divider>
   <form [formGroup]="form" (ngSubmit)="onEditTask()">
     <div class="row">
       <mat-form-field>
@@ -117,17 +119,28 @@
         [readonly]="!isEditMode"
       ></ui-upload>
     </div>
+    <ui-divider></ui-divider>
 
     <div class="bottom-content">
-      <div class="row right" *ngIf="isEditMode">
-        <button mat-button (click)="navigateToTaskDetail(taskDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
-        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
-        <button mat-raised-button color="primary" type="button" (click)="onEditTask()" [disabled]="!form.valid">
-          {{ 'general.save.button' | translate }}
+      <div class="row between">
+        <button *ngxPermissionsOnly="[PERMISSION.TASK.DELETE]" mat-button type="button" (click)="showDeleteDialog()">
+          <mat-icon>delete</mat-icon>&nbsp;{{ 'general.delete.button' | translate }}
         </button>
-      </div>
-      <div class="row right" *ngIf="!isEditMode">
-        <button mat-raised-button color="primary" type="button" (click)="navigateToTaskEdit(taskDetail?.id)">{{ 'general.edit.button' | translate }}</button>
+
+        <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+
+        <div class="row right" *ngIf="isEditMode">
+          <button mat-button (click)="navigateToTaskDetail(taskDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
+          <ui-divider [compact]="true" [vertical]="true"></ui-divider>
+          <button *ngxPermissionsOnly="[PERMISSION.TASK.EDIT]" mat-raised-button color="primary" type="button" (click)="onEditTask()" [disabled]="!form.valid">
+            <mat-icon>save</mat-icon>&nbsp;{{ 'general.save.button' | translate }}
+          </button>
+        </div>
+        <div class="row right" *ngIf="!isEditMode">
+          <button *ngxPermissionsOnly="[PERMISSION.TASK.EDIT]" mat-raised-button color="primary" type="button" (click)="navigateToTaskEdit(taskDetail?.id)">
+            <mat-icon>edit</mat-icon>&nbsp;{{ 'general.edit.button' | translate }}
+          </button>
+        </div>
       </div>
     </div>
   </form>

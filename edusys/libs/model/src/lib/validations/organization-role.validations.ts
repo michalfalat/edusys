@@ -14,6 +14,7 @@ export const editOrganizationRoleSchema = Joi.object<IOrganizationRoleEditReques
   description: Joi.string().min(2).optional().allow(null, ''),
   permissions: Joi.array().optional(),
   status: Joi.string().required(),
+  users: Joi.array().required(),
 });
 
 // USER

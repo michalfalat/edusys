@@ -1,6 +1,7 @@
 import { IAuthUserBasicResponse, IAuthUserInfoResponse } from './user.dto';
 import { IAddress } from './common.dto';
 import { ISubscriptionResponse, ISubscriptionDetailResponse } from './subscription.dto';
+import { IOrganizationRoleDetailResponse } from '@edusys/model';
 
 export interface IOrganizationInfo {
   owner: string;
@@ -42,7 +43,7 @@ export interface IOrganizationDetailResponse {
   users: IAuthUserInfoResponse[];
   activeSubscription?: ISubscriptionDetailResponse;
   subscriptions?: ISubscriptionDetailResponse[];
-  roles: any; // TODO
+  roles: IOrganizationRoleDetailResponse[];
   createdAt?: string;
   updatedAt?: string;
   packageId: string;

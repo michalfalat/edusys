@@ -1,3 +1,5 @@
+import { IAuthUserBasicResponse } from '@edusys/model';
+
 export interface IOrganizationRoleCreateRequest {
   name: string;
   description: string;
@@ -21,6 +23,7 @@ export interface IOrganizationRoleDetailResponse {
   updatedAt?: string;
   editable: boolean;
   status: OrganizationRoleStatus;
+  users: IAuthUserBasicResponse[];
 }
 
 export interface IOrganizationRoleEditRequest {
@@ -29,6 +32,7 @@ export interface IOrganizationRoleEditRequest {
   description?: string;
   permissions: string[];
   status: OrganizationRoleStatus;
+  users: string[];
 }
 
 export enum OrganizationRoleStatus {

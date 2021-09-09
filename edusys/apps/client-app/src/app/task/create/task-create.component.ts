@@ -60,6 +60,9 @@ export class TaskCreateComponent extends TaskBaseContainer implements OnInit {
       type: this.form?.value.type,
       priority: this.form?.value.priority,
     };
-    this.taskFacade.createTask(request, this.navigateToTaskHome);
+    this.taskFacade.createTask(request, () => {
+      this.onSuccess('general.saved.success');
+      this.navigateToTaskHome();
+    });
   }
 }

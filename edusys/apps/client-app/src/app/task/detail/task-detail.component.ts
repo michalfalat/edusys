@@ -1,5 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { UiConfirmModalComponent } from '@edusys/core-ui';
 import { editTaskSchema, IFileDetailResponse, ITaskDetailResponse, ITaskEditRequest } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { TaskBaseContainer } from '../task-base.container';
@@ -109,4 +110,26 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
       },
     ];
   };
+
+  showDeleteDialog(): void {
+    const dialogRef = this.dialogService.open(UiConfirmModalComponent, {
+      data: { title: 'general.delete.title', text: 'task.delete.text' },
+    });
+
+    this.subscriptions.add(
+      dialogRef.afterClosed().subscribe((result) => {
+        if (!!result)
+          this.taskFacade.deleteTask(
+            this.taskId,
+            () => {
+              this.onSuccess('general.delete.success');
+              this.navigateToTaskHome();
+            },
+            (err) => {
+              this.onError(err);
+            },
+          );
+      }),
+    );
+  }
 }

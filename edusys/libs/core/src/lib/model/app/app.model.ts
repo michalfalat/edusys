@@ -8,3 +8,9 @@ export enum AppDeviceScreen {
   TABLET = 'TABLET',
   WEB = 'WEB',
 }
+
+export interface ICommonError {
+  status: number;
+  message: string;
+  messageLocalized: string;
+}

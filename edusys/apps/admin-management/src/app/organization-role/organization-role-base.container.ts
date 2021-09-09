@@ -14,6 +14,7 @@ export class OrganizationRoleBaseContainer extends CommonContainer {
   organizationRoleList: IOrganizationRoleDetailResponse[];
   organizationRoleDetail: IOrganizationRoleDetailResponse;
   organizationList: IOrganizationDetailResponse[];
+  organizationDetail: IOrganizationDetailResponse;
   organizationRoleId: string;
   navigationItems: INavigationItem[];
   organizationRoleStatuses = OrganizationRoleStatus;
@@ -26,6 +27,7 @@ export class OrganizationRoleBaseContainer extends CommonContainer {
     this.notificationService = injector.get(NotificationService);
 
     this.subscriptions.add(this.organizationFacade.getOrganizationList$.subscribe((data) => (this.organizationList = data)));
+    this.subscriptions.add(this.organizationFacade.getOrganizationDetail$.subscribe((data) => (this.organizationDetail = data)));
     this.subscriptions.add(this.organizationRoleFacade.getOrganizationRoleList$.subscribe((data) => (this.organizationRoleList = data)));
     this.subscriptions.add(this.activatedRoute.params.subscribe((data) => (this.organizationRoleId = data?.organizationRoleId)));
     this.subscriptions.add(

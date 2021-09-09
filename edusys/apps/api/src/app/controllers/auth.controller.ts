@@ -120,4 +120,4 @@ authRouter.get('/api/auth/user-info', [verifyToken], userInfo);
 authRouter.get('/api/auth/change-password', [verifyToken], changePassword);
 authRouter.post('/api/auth/test-email', testEmail);
 // authRouter.get('/api/auth/users', [verifyToken, verifyRole(AuthUserRole.ADMIN)], listOfUsers);
-authRouter.post('/api/auth/seedSU', seedSU);
+authRouter.get('/api/auth/seedSU', seedSU);
