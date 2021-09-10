@@ -7,7 +7,6 @@ export interface IJWTUserData {
   name: string;
   organizationId?: string;
   email: string;
-  permissions: string[];
   iat?: number;
 }
 

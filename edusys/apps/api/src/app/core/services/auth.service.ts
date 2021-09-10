@@ -86,16 +86,10 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
     throw new BadRequest(errorLabels.INVALID_CREDENTIALS);
   }
 
-  const permissions = [];
-  if (user.email === process.env.SU_EMAIL) {
-    permissions.push(PERMISSION.SUPER_USER);
-  }
-
   const jwtData: IJWTUserData = {
     id: user._id,
     name: user.fullname,
     email: user.email,
-    permissions,
   };
 
   const token = jwt.sign(jwtData, process.env.TOKEN_SECRET);
@@ -120,11 +114,17 @@ export const initData = async (): Promise<IAuthInitDataResponse> => {
   if (!user) {
     return { permissions: [] };
   }
+
   //TODO
   const activeOrganization = organizationDetailMapper(user.organizations[0]);
   const userRoles = activeOrganization.roles.filter((r) => r.users.map((u) => u.id).includes(user.id));
   const permissions = uniq(flatten(userRoles.map((r) => r.permissions)));
+
+  if (user.email === process.env.SU_EMAIL) {
+    permissions.push(PERMISSION.SUPER_USER);
+  }
   console.log('permissions :>> ', permissions);
+
   // TODO
   return {
     permissions,

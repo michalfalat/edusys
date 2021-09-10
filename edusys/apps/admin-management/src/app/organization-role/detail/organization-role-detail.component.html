@@ -79,7 +79,7 @@
 
       <mat-tab [label]="'organization_role.users' | translate">
         <ui-divider [compact]="true"></ui-divider>
-        <mat-form-field>
+        <mat-form-field *ngIf="isEditMode">
           <mat-select formControlName="users" [placeholder]="'organization_role.select_user' | translate" [multiple]="true">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'organization_role.select_user' | translate" #userSearch></ngx-mat-select-search>
@@ -89,35 +89,39 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field *ngIf="!isEditMode">
+          <mat-label>{{ 'organization_role.select_user' | translate }}</mat-label>
+          <input matInput [value]="organizationDetail?.users | selectById: organizationRoleDetail?.users:['fullname', 'email']" [readonly]="true" />
+        </mat-form-field>
       </mat-tab>
     </mat-tab-group>
 
     <ui-divider [compact]="true"></ui-divider>
 
     <div class="bottom-content">
-      <div class="row between" *ngIf="isEditMode">
-        <button mat-button type="button" (click)="showDeleteDialog()">{{ 'general.delete.button' | translate }}</button>
+      <div class="row between">
+        <button mat-button type="button" (click)="showDeleteDialog()"><mat-icon>delete</mat-icon>&nbsp;{{ 'general.delete.button' | translate }}</button>
         <ui-divider [compact]="true" [vertical]="true"></ui-divider>
-        <div class="row right">
+        <div class="row right" *ngIf="isEditMode">
           <button mat-button (click)="navigateToOrganizationRoleDetail(organizationRoleDetail?.id, activeTab)">
             {{ 'general.cancel.button' | translate }}
           </button>
           <ui-divider [compact]="true" [vertical]="true"></ui-divider>
           <button mat-raised-button color="primary" type="button" (click)="onEditOrganizationRole()" [disabled]="!form.valid">
-            {{ 'general.save.button' | translate }}
+            <mat-icon>save</mat-icon>&nbsp;{{ 'general.save.button' | translate }}
           </button>
         </div>
-      </div>
-      <div class="row right" *ngIf="!isEditMode">
-        <button
-          [disabled]="!organizationRoleDetail?.editable"
-          mat-raised-button
-          color="primary"
-          type="button"
-          (click)="navigateToOrganizationRoleEdit(organizationRoleDetail?.id, activeTab)"
-        >
-          {{ 'general.edit.button' | translate }}
-        </button>
+        <div class="row right" *ngIf="!isEditMode">
+          <button
+            [disabled]="!organizationRoleDetail?.editable"
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="navigateToOrganizationRoleEdit(organizationRoleDetail?.id, activeTab)"
+          >
+            <mat-icon>edit</mat-icon>&nbsp; {{ 'general.edit.button' | translate }}
+          </button>
+        </div>
       </div>
     </div>
   </form>
