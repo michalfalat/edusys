@@ -45,7 +45,6 @@ export abstract class CommonContainer implements OnDestroy {
     );
     this.subscriptions.add(
       this.permissionService.permissions$.subscribe((permissions) => {
-        console.log(permissions);
         this.permissions = permissions;
       }),
     );

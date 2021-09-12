@@ -60,49 +60,61 @@
       <mat-form-field [style.width]="'30%'">
         <mat-select formControlName="priority" [placeholder]="'task.priority' | translate" *ngIf="isEditMode">
           <mat-option [value]="taskPriorities.LOW">
-            {{ taskPriorities.LOW }}
+            {{ 'task.priority.' + taskPriorities.LOW | translate }}
           </mat-option>
           <mat-option [value]="taskPriorities.MEDIUM">
-            {{ taskPriorities.MEDIUM }}
+            {{ 'task.priority.' + taskPriorities.MEDIUM | translate }}
           </mat-option>
           <mat-option [value]="taskPriorities.HIGH">
-            {{ taskPriorities.HIGH }}
+            {{ 'task.priority.' + taskPriorities.HIGH | translate }}
           </mat-option>
           <mat-option [value]="taskPriorities.ULTRA_HIGH">
-            {{ taskPriorities.ULTRA_HIGH }}
+            {{ 'task.priority.' + taskPriorities.ULTRA_HIGH | translate }}
           </mat-option>
         </mat-select>
-        <input matInput formControlName="priority" name="priority" *ngIf="!isEditMode" [placeholder]="'task.priority' | translate" [readonly]="true" />
+        <input
+          matInput
+          [value]="'task.priority.' + taskDetail?.priority | translate"
+          *ngIf="!isEditMode"
+          [placeholder]="'task.priority' | translate"
+          [readonly]="true"
+        />
         <mat-error><ui-form-error [formGroup]="form" [name]="'priority'"></ui-form-error></mat-error>
       </mat-form-field>
       <mat-form-field [style.width]="'30%'">
         <mat-select formControlName="type" [placeholder]="'task.type' | translate" *ngIf="isEditMode">
           <mat-option [value]="taskTypes.IT">
-            {{ taskTypes.IT }}
+            {{ 'task.type.' + taskTypes.IT | translate }}
           </mat-option>
           <mat-option [value]="taskTypes.OTHER">
-            {{ taskTypes.OTHER }}
+            {{ 'task.type.' + taskTypes.OTHER | translate }}
           </mat-option>
         </mat-select>
-        <input matInput formControlName="type" name="type" *ngIf="!isEditMode" [placeholder]="'task.type' | translate" [readonly]="true" />
+        <input matInput [value]="'task.type.' + taskDetail?.type | translate" *ngIf="!isEditMode" [placeholder]="'task.type' | translate" [readonly]="true" />
         <mat-error><ui-form-error [formGroup]="form" [name]="'type'"></ui-form-error></mat-error>
       </mat-form-field>
       <mat-form-field [style.width]="'30%'">
         <mat-select formControlName="status" [placeholder]="'task.status' | translate" *ngIf="isEditMode">
           <mat-option [value]="taskStatuses.NEW">
-            {{ taskStatuses.NEW }}
+            {{ 'task.status.' + taskStatuses.NEW | translate }}
           </mat-option>
           <mat-option [value]="taskStatuses.ASSIGNED">
-            {{ taskStatuses.ASSIGNED }}
+            {{ 'task.status.' + taskStatuses.ASSIGNED | translate }}
           </mat-option>
           <mat-option [value]="taskStatuses.FIXED">
-            {{ taskStatuses.FIXED }}
+            {{ 'task.status.' + taskStatuses.FIXED | translate }}
           </mat-option>
           <mat-option [value]="taskStatuses.CANCELED">
-            {{ taskStatuses.CANCELED }}
+            {{ 'task.status.' + taskStatuses.CANCELED | translate }}
           </mat-option>
         </mat-select>
-        <input matInput formControlName="status" name="status" *ngIf="!isEditMode" [placeholder]="'task.status' | translate" [readonly]="true" />
+        <input
+          matInput
+          [value]="'task.status.' + taskDetail?.status | translate"
+          *ngIf="!isEditMode"
+          [placeholder]="'task.status' | translate"
+          [readonly]="true"
+        />
         <mat-error><ui-form-error [formGroup]="form" [name]="'status'"></ui-form-error></mat-error>
       </mat-form-field>
     </div>
@@ -133,7 +145,7 @@
           <button mat-button (click)="navigateToTaskDetail(taskDetail?.id)">{{ 'general.cancel.button' | translate }}</button>
           <ui-divider [compact]="true" [vertical]="true"></ui-divider>
           <button *ngxPermissionsOnly="[PERMISSION.TASK.EDIT]" mat-raised-button color="primary" type="button" (click)="onEditTask()" [disabled]="!form.valid">
-            <mat-icon>save</mat-icon>&nbsp;{{ 'general.save.button' | translate }}
+            <mat-icon>check</mat-icon>&nbsp;{{ 'general.save.button' | translate }}
           </button>
         </div>
         <div class="row right" *ngIf="!isEditMode">

@@ -58,7 +58,7 @@ export class UserDetailComponent extends UserBaseContainer implements OnInit {
         this.navigateToUserDetail(this.userId);
       },
       (err) => {
-        this.onError(err.error?.message?.message);
+        this.onError(err);
       },
     );
   }
@@ -84,18 +84,20 @@ export class UserDetailComponent extends UserBaseContainer implements OnInit {
       data: { title: 'general.delete.title', text: 'user.delete.text' },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!!result)
-        this.userFacade.deleteUser(
-          this.userId,
-          () => {
-            this.onSuccess('general.delete.success');
-            this.navigateToUserHome();
-          },
-          (err) => {
-            this.onError(err.error?.message?.message);
-          },
-        );
-    });
+    this.subscriptions.add(
+      dialogRef.afterClosed().subscribe((result) => {
+        if (!!result)
+          this.userFacade.deleteUser(
+            this.userId,
+            () => {
+              this.onSuccess('general.delete.success');
+              this.navigateToUserHome();
+            },
+            (err) => {
+              this.onError(err);
+            },
+          );
+      }),
+    );
   }
 }

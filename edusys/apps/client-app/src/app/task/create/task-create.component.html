@@ -38,16 +38,16 @@
       <mat-form-field [style.width]="'45%'">
         <mat-select formControlName="priority" [placeholder]="'task.priority' | translate">
           <mat-option [value]="taskPriorities.LOW">
-            {{ taskPriorities.LOW }}
+            {{ 'task.priority.' + taskPriorities.LOW | translate }}
           </mat-option>
           <mat-option [value]="taskPriorities.MEDIUM">
-            {{ taskPriorities.MEDIUM }}
+            {{ 'task.priority.' + taskPriorities.MEDIUM | translate }}
           </mat-option>
           <mat-option [value]="taskPriorities.HIGH">
-            {{ taskPriorities.HIGH }}
+            {{ 'task.priority.' + taskPriorities.HIGH | translate }}
           </mat-option>
           <mat-option [value]="taskPriorities.ULTRA_HIGH">
-            {{ taskPriorities.ULTRA_HIGH }}
+            {{ 'task.priority.' + taskPriorities.ULTRA_HIGH | translate }}
           </mat-option>
         </mat-select>
         <mat-error><ui-form-error [formGroup]="form" [name]="'priority'"></ui-form-error></mat-error>
@@ -55,10 +55,10 @@
       <mat-form-field [style.width]="'45%'">
         <mat-select formControlName="type" [placeholder]="'task.type' | translate">
           <mat-option [value]="taskTypes.IT">
-            {{ taskTypes.IT }}
+            {{ 'task.type.' + taskTypes.IT | translate }}
           </mat-option>
           <mat-option [value]="taskTypes.OTHER">
-            {{ taskTypes.OTHER }}
+            {{ 'task.type.' + taskTypes.OTHER | translate }}
           </mat-option>
         </mat-select>
         <mat-error><ui-form-error [formGroup]="form" [name]="'type'"></ui-form-error></mat-error>

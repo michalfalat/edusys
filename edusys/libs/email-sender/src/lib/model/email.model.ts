@@ -28,7 +28,7 @@ export type EmailTemplatesData = {
   };
   [EmailType.TASK_NEW]: {
     taskName: string;
-    taskOrganziation: string;
+    taskOrganization: string;
     taskDescription: string;
     taskPlace: string;
     taskPriority: string;

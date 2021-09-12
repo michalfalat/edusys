@@ -56,17 +56,16 @@
           <mat-label>{{ 'task.status' | translate }}</mat-label>
           <mat-select formControlName="status" [placeholder]="'task.status' | translate">
             <mat-option [value]="taskStatuses.NEW">
-              {{ taskStatuses.NEW }}
+              {{ 'task.status.' + taskStatuses.NEW | translate }}
             </mat-option>
             <mat-option [value]="taskStatuses.ASSIGNED">
-              {{ taskStatuses.ASSIGNED }}
+              {{ 'task.status.' + taskStatuses.ASSIGNED | translate }}
             </mat-option>
-
             <mat-option [value]="taskStatuses.FIXED">
-              {{ taskStatuses.FIXED }}
+              {{ 'task.status.' + taskStatuses.FIXED | translate }}
             </mat-option>
             <mat-option [value]="taskStatuses.CANCELED">
-              {{ taskStatuses.CANCELED }}
+              {{ 'task.status.' + taskStatuses.CANCELED | translate }}
             </mat-option>
           </mat-select>
           <button *ngIf="form?.value?.status" matSuffix mat-icon-button type="button" (click)="clearFilter('status'); $event.stopPropagation()">
@@ -78,16 +77,16 @@
           <mat-label>{{ 'task.priority' | translate }}</mat-label>
           <mat-select formControlName="priority" [placeholder]="'task.priority' | translate">
             <mat-option [value]="taskPriorities.LOW">
-              {{ taskPriorities.LOW }}
+              {{ 'task.priority.' + taskPriorities.LOW | translate }}
             </mat-option>
             <mat-option [value]="taskPriorities.MEDIUM">
-              {{ taskPriorities.MEDIUM }}
+              {{ 'task.priority.' + taskPriorities.MEDIUM | translate }}
             </mat-option>
             <mat-option [value]="taskPriorities.HIGH">
-              {{ taskPriorities.HIGH }}
+              {{ 'task.priority.' + taskPriorities.HIGH | translate }}
             </mat-option>
             <mat-option [value]="taskPriorities.ULTRA_HIGH">
-              {{ taskPriorities.ULTRA_HIGH }}
+              {{ 'task.priority.' + taskPriorities.ULTRA_HIGH | translate }}
             </mat-option>
           </mat-select>
           <button *ngIf="form?.value?.priority" matSuffix mat-icon-button type="button" (click)="clearFilter('priority'); $event.stopPropagation()">
@@ -107,7 +106,7 @@
     </form>
     <mat-action-row>
       <button mat-button (click)="clearFilter()">{{ 'general.filter.cancel' | translate }}</button>
-      <button mat-raised-button color="primary" (click)="filter(true)">{{ 'general.filter.button' | translate }}</button>
+      <button mat-raised-button color="primary" (click)="filter(true)"><mat-icon>search</mat-icon>&nbsp;{{ 'general.filter.button' | translate }}</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

@@ -16,7 +16,7 @@ export class MyMissingTranslationHandler implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams): any {
     const missingKey = params.key;
     missingTranslations[missingKey] = missingKey; // or any structure holding missing translations
-    // console.warn('Missing translations: ', missingKey, missingTranslations);
+    console.warn('Missing translations: ', missingKey, missingTranslations);
     return `${missingKey}`;
   }
 }

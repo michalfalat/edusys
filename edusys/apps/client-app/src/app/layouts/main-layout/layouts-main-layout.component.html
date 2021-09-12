@@ -3,8 +3,8 @@
   <mat-sidenav [opened]="sidenavOpened" [mode]="sidenavMode">
     <mat-action-list>
       <ng-container *ngFor="let item of navigationItems">
-        <ng-container *ngxPermissionsOnly="[item.permission]">
-          <mat-list-item [routerLink]="item.route" [routerLinkActive]="'selected'">
+        <ng-container *ngxPermissionsOnly="item.permission || undefined">
+          <mat-list-item [routerLink]="item.route" [routerLinkActive]="'selected'" (click)="checkClick()">
             <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
             <div mat-line>{{ item.name | translate }}</div>
           </mat-list-item>

@@ -14,7 +14,7 @@ export class LoginCreatePasswordComponent extends LoginBaseContainer implements 
   constructor(injector: Injector) {
     super(injector);
     this.subscriptions.add(this.activatedRoute.queryParams.subscribe((data) => (this.token = data?.token)));
-    this.setTitle('general.login.create-password.title');
+    this.setTitle('login.createPassword.title');
     this.createForm(
       {
         email: new FormControl(''),
@@ -53,7 +53,7 @@ export class LoginCreatePasswordComponent extends LoginBaseContainer implements 
     this.authFacade.createPassword(
       request,
       () => {
-        this.onSuccess('login.create-password.success');
+        this.onSuccess('login.createPassword.success');
         this.navigateTo(routes.login);
       },
 

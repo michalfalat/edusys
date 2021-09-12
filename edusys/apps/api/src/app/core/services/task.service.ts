@@ -83,7 +83,7 @@ export const createTask = async (payload: ITaskCreateRequest): Promise<ITaskDeta
       taskDescription: savedModel.description,
       taskName: savedModel.name,
       taskPlace: savedModel.place,
-      taskOrganziation: savedModel?.organization?.name,
+      taskOrganization: savedModel?.organization?.name,
       taskPriority: savedModel.priority,
       url,
     });

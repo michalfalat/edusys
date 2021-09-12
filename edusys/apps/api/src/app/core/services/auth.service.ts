@@ -100,7 +100,7 @@ export const login = async (payload: IAuthLoginUserRequest): Promise<IAuthLoginU
 // USER INFO
 export const userInfo = async (): Promise<IAuthUserInfoResponse> => {
   const jwtData = getCurrentUser();
-  const user = await UserModel.findById(jwtData?.id);
+  const user = await UserModel.findById(jwtData?.id).populate('organizations');
   if (!user) {
     throw new NotFound();
   }

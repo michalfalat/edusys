@@ -9,5 +9,6 @@ import { HomeBaseContainer } from '../home-base.container';
 export class HomeLandingComponent extends HomeBaseContainer {
   constructor(injector: Injector) {
     super(injector);
+    this.setTitle('home.landing.title');
   }
 }

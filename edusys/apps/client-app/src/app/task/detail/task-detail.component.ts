@@ -100,15 +100,17 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
 
   setBreadcrumbNavigation = (response?: ITaskDetailResponse): void => {
     this.fillForm(response);
+    const title = this.taskDetail?.name || response?.name || 'task.detail.title';
     this.navigationItems = [
       {
         text: 'navigation.tasks',
         route: routes.task.home,
       },
       {
-        text: this.taskDetail?.name || response?.name || 'Detail',
+        text: title,
       },
     ];
+    this.setTitle(title);
   };
 
   showDeleteDialog(): void {

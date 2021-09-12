@@ -44,6 +44,7 @@ export const createUser = async (payload: IUserCreateRequest): Promise<IUserDeta
     surname: payload.surname,
     phone: payload.phone,
     organizations: payload.organizations ? [...payload.organizations] : [],
+    activeOrganization: payload.organizations ? payload.organizations[0] : null,
   });
   try {
     const savedModel = await newModel.save();

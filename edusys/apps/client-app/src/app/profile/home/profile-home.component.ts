@@ -10,7 +10,7 @@ import { ProfileBaseContainer } from '../profile-base.container';
 export class ProfileHomeComponent extends ProfileBaseContainer implements OnInit {
   constructor(injector: Injector) {
     super(injector);
-    this.setTitle('general.language');
+    this.setTitle('general.profile.title');
   }
 
   ngOnInit(): void {

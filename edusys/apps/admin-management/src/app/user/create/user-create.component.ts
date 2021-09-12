@@ -53,8 +53,7 @@ export class UserCreateComponent extends UserBaseContainer implements OnInit {
         this.navigateToUserHome();
       },
       (err) => {
-        console.log(err);
-        this.onError(err.error?.message?.message);
+        this.onError(err);
       },
     );
   }

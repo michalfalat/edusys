@@ -11,7 +11,7 @@ import { LoginBaseContainer } from '../login-base.container';
 export class LoginHomeComponent extends LoginBaseContainer {
   constructor(injector: Injector) {
     super(injector);
-    this.setTitle('general.login.title');
+    this.setTitle('login.home.title');
     this.createForm({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),

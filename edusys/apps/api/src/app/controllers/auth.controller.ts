@@ -5,7 +5,6 @@ import { BadRequest } from '../core/utils/errors';
 import * as authService from './../core/services/auth.service';
 import * as verificationTokenService from './../core/services/verify-token.service';
 import * as emailService from './../core/services/email.service';
-import * as httpContext from 'express-http-context';
 import { EmailType } from '@edusys/email-sender';
 
 // REGISTER
@@ -102,7 +101,6 @@ export const testEmail = async (req: Request, res: Response, next: NextFunction)
 
 export const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(httpContext.get('currentUser'));
     res.send({});
   } catch (err) {
     next(err);

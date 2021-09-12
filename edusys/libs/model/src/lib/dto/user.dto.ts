@@ -50,6 +50,7 @@ export interface IAuthUserInfoResponse {
   email: string;
   phone: string;
   roles: IOrganizationRoleResponse[];
+  organizations: IOrganizationResponse[];
   emailVerified: boolean;
   phoneVerified: boolean;
 }

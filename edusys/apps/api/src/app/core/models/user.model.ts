@@ -88,6 +88,10 @@ const userSchema = new Schema<IUserDocument>(
       type: Boolean,
       default: false,
     },
+    activeOrganization: {
+      type: Schema.Types.ObjectId,
+      ref: 'organization',
+    },
   },
   {
     timestamps: true,
@@ -115,9 +119,7 @@ userSchema.methods.comparePassword = comparePassword;
 userSchema.pre('save', function save(next) {
   const user = this as IUserDocument;
   let userPassword = user.password;
-  console.log('before save >>>', user.isModified('password'));
   if (user.isNew || user.isModified('password')) {
-    console.log('user password is modified!', userPassword);
     genSalt(10, (err, salt) => {
       if (err) {
         return next(err);
@@ -133,7 +135,6 @@ userSchema.pre('save', function save(next) {
       } else {
         user.passwordSet = true;
       }
-      console.log('new password is ', userPassword);
       hash(userPassword, salt, (err: any, hash) => {
         if (err) {
           return next(err);

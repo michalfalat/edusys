@@ -7,7 +7,6 @@ export class SelectByIdPipe implements PipeTransform {
     if (!allData) return;
     if (isArray(selectedData)) {
       const filtered = allData.filter((all) => selectedData?.map((s) => s.id)?.includes(all?.id));
-      console.log(filtered);
       if (filtered) {
         if (isArray(attribute)) {
           return filtered?.map((f) => f[attribute[0]] || f[attribute[1]]);

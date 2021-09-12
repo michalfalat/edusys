@@ -1,6 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injector } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CommonContainer, OrganizationFacade, UserFacade } from '@edusys/core';
+import { CommonContainer, ICommonError, OrganizationFacade, UserFacade } from '@edusys/core';
 import { IOrganizationDetailResponse, IUserDetailResponse } from '@edusys/model';
 import { INavigationItem } from 'libs/core-ui/src/lib/components/ui-breadcrumb/ui-breadcrumb.component';
 import { NotificationService } from '../utils/notification.service';
@@ -34,9 +35,10 @@ export class UserBaseContainer extends CommonContainer {
     );
   }
 
-  onError = (message?: string): void => {
+  onError = (message?: string | HttpErrorResponse | ICommonError): void => {
     this.notificationService.showError(message);
   };
+
   onSuccess = (message?: string): void => {
     this.notificationService.showSuccess(message);
   };
