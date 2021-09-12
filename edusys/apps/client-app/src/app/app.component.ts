@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
+import * as dayjs from 'dayjs';
+import 'dayjs/locale/sk';
 
 @Component({
   selector: 'edusys-root',
@@ -6,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'client-app';
+  constructor(private dateAdapter: DateAdapter<dayjs.Dayjs>) {
+    this.setLocale('sk');
+  }
+  setLocale(locale: string) {
+    dayjs.locale(locale);
+    this.dateAdapter.setLocale(locale);
+  }
 }

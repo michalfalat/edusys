@@ -1,9 +1,7 @@
 <mat-card class="basic-card">
   <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
   <ui-divider [compact]="true"></ui-divider>
-  <mat-divider></mat-divider>
-  <ui-divider [compact]="true"></ui-divider>
-  <form [formGroup]="form" (ngSubmit)="onEditTask()">
+  <form [formGroup]="form" (ngSubmit)="onEditTask()" *ngIf="taskDetail">
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'task.created_at' | translate }}</mat-label>
@@ -119,9 +117,84 @@
       </mat-form-field>
     </div>
 
+    <ng-container *ngIf="form.value.status !== taskStatuses.NEW">
+      <ui-divider></ui-divider>
+      <p class="mat-title">{{ 'task.fixDescription' | translate }}</p>
+      <ui-divider [compact]="true"></ui-divider>
+      <div class="row">
+        <mat-form-field *ngIf="isEditMode">
+          <mat-label>{{ 'task.estimatedFixOn' | translate }}</mat-label>
+          <input (focus)="picker.open()" formControlName="estimatedFixOn" name="estimatedFixOn" matInput [matDatepicker]="picker" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error><ui-form-error [formGroup]="form" [name]="'estimatedFixOn'"></ui-form-error></mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="!isEditMode">
+          <mat-label>{{ 'task.estimatedFixOn' | translate }}</mat-label>
+          <input matInput [value]="taskDetail?.estimatedFixOn | date: 'dd.MM. YYYY'" [readonly]="true" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field *ngIf="isEditMode">
+          <mat-select formControlName="fixedBy" [placeholder]="'task.fixedBy' | translate">
+            <mat-option>
+              <ngx-mat-select-search
+                [placeholderLabel]="'task.selectFixedBy' | translate"
+                [noEntriesFoundLabel]="'general.noResultsFound' | translate"
+                #userSearch
+              ></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let user of organizationUsers | filter: ['fullname', 'email']:userSearch.value" [value]="user?.id">
+              {{ user?.fullname || user?.email }}
+            </mat-option>
+          </mat-select>
+          <mat-error><ui-form-error [formGroup]="form" [name]="'fixedBy'"></ui-form-error></mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="!isEditMode">
+          <mat-label>{{ 'task.fixedBy' | translate }}</mat-label>
+          <input matInput [value]="taskDetail?.fixedBy?.fullname || taskDetail?.fixedBy?.email" [readonly]="true" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field>
+          <mat-label>{{ 'task.estimatedDescription' | translate }}</mat-label>
+          <textarea matInput formControlName="estimatedDescription" name="estimatedDescription" [readonly]="!isEditMode"></textarea>
+          <mat-error><ui-form-error [formGroup]="form" [name]="'estimatedDescription'"></ui-form-error></mat-error>
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="form.value.status !== taskStatuses.NEW && form.value.status !== taskStatuses.ASSIGNED">
+      <ui-divider></ui-divider>
+      <p class="mat-title">{{ 'task.finalDescription' | translate }}</p>
+      <ui-divider [compact]="true"></ui-divider>
+
+      <div class="row">
+        <mat-form-field *ngIf="isEditMode">
+          <mat-label>{{ 'task.fixedOn' | translate }}</mat-label>
+          <input (focus)="fixedOnPicker.open()" formControlName="fixedOn" name="fixedOn" matInput [matDatepicker]="fixedOnPicker" />
+          <mat-datepicker-toggle matSuffix [for]="fixedOnPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fixedOnPicker></mat-datepicker>
+          <mat-error><ui-form-error [formGroup]="form" [name]="'fixedOn'"></ui-form-error></mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="!isEditMode">
+          <mat-label>{{ 'task.fixedOn' | translate }}</mat-label>
+          <input matInput [value]="taskDetail?.fixedOn | date: 'dd.MM. YYYY'" [readonly]="true" />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field>
+          <mat-label>{{ 'task.finalDescriptionSection' | translate }}</mat-label>
+          <textarea matInput formControlName="finalDescription" name="finalDescription" [readonly]="!isEditMode"></textarea>
+          <mat-error><ui-form-error [formGroup]="form" [name]="'finalDescription'"></ui-form-error></mat-error>
+        </mat-form-field>
+      </div>
+    </ng-container>
+
     <div class="column">
       <ui-divider></ui-divider>
-      <h4 class="mat-h4">{{ 'task.attachments' | translate }}</h4>
+      <p class="mat-title">{{ 'task.attachments' | translate }}</p>
 
       <ui-divider [compact]="true"></ui-divider>
       <ui-upload

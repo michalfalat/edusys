@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { UiConfirmModalComponent } from '@edusys/core-ui';
-import { editTaskSchema, IFileDetailResponse, ITaskDetailResponse, ITaskEditRequest } from '@edusys/model';
+import { editTaskSchema, IAuthUserBasicResponse, IFileDetailResponse, ITaskDetailResponse, ITaskEditRequest } from '@edusys/model';
 import { routes } from '../../utils/routes';
 import { TaskBaseContainer } from '../task-base.container';
 
@@ -12,6 +12,7 @@ import { TaskBaseContainer } from '../task-base.container';
 })
 export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
   isEditMode: boolean;
+  organizationUsers: IAuthUserBasicResponse[];
   constructor(injector: Injector) {
     super(injector);
     this.isEditMode = this.activatedRoute.snapshot.data.isEditMode;
@@ -27,6 +28,11 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
         type: new FormControl(this.taskDetail?.type),
         status: new FormControl(this.taskDetail?.status),
         priority: new FormControl(this.taskDetail?.priority),
+        fixedBy: new FormControl(this.taskDetail?.fixedBy?.id),
+        estimatedDescription: new FormControl(this.taskDetail?.estimatedDescription),
+        estimatedFixOn: new FormControl(this.taskDetail?.estimatedFixOn),
+        finalDescription: new FormControl(this.taskDetail?.finalDescription),
+        fixedOn: new FormControl(this.taskDetail?.fixedOn),
       },
       editTaskSchema,
     );
@@ -34,7 +40,20 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
 
   ngOnInit(): void {
     if (!this.organizations) this.organizationFacade.fetchOrganizationList();
-    this.taskFacade.fetchTaskDetail(this.taskId, this.setBreadcrumbNavigation, this.navigateToTaskHome);
+    this.taskFacade.fetchTaskDetail(
+      this.taskId,
+      (data) => {
+        this.fetchOrganizationUsers(data?.organization?.id);
+        this.setBreadcrumbNavigation(data);
+      },
+      this.navigateToTaskHome,
+    );
+  }
+
+  fetchOrganizationUsers(organizationId: string): void {
+    this.organizationFacade.fetchOrganizationDetail(organizationId, (organizationData) => {
+      this.organizationUsers = organizationData.users;
+    });
   }
 
   fillForm = (data: ITaskDetailResponse): void => {
@@ -47,6 +66,11 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
       type: data.type,
       status: data.status,
       priority: data.priority,
+      fixedBy: data.fixedBy?.id,
+      estimatedDescription: data.estimatedDescription,
+      estimatedFixOn: data.estimatedFixOn,
+      finalDescription: data.finalDescription,
+      fixedOn: data.fixedOn,
     });
     this.form?.setControl('attachments', this.fb.array(data.attachments || []));
   };

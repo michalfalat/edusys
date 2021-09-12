@@ -222,3 +222,7 @@ button.mat-button {
 button.mat-raised-button {
   min-width: 9rem !important;
 }
+
+button.mat-icon-button {
+  min-width: unset !important;
+}

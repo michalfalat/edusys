@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { v4 } from 'uuid';
 import { IInvoiceCore, IInvoiceItem, InvoiceMeasurementUnit, InvoicePaymentType, InvoiceStatus } from './model';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 
 const fontLargeSize = 14;
 const fontRegularSize = 10;
@@ -27,12 +27,12 @@ export const createTestInvoice = async (assetsFolder: string, pathToSave?: strin
 export const testInvoice = (assetsFolder: string): IInvoiceCore => {
   const invoice: IInvoiceCore = {
     id: v4(),
-    issueDate: moment().toDate(),
-    dueDate: moment().add(30, 'days').toDate(),
+    issueDate: dayjs().toDate(),
+    dueDate: dayjs().add(30, 'days').toDate(),
     orderNumber: '000102002020',
     paymentType: InvoicePaymentType.BANK_TRANSFER,
     currency: 'EUR',
-    createdOn: moment().toDate(),
+    createdOn: dayjs().toDate(),
     constantSymbol: '308',
     variableSymbol: '6501032021',
     invoiceNumber: '1324564',
@@ -243,9 +243,9 @@ const generateInvoiceData = (doc: PDFKit.PDFDocument, invoice: IInvoiceCore) => 
 
   doc
     .text(`${getInvoiceStatusTranslation(invoice.status)}`, xPos + 130, yPos)
-    .text(`${moment(invoice.issueDate).format('DD. MM. YYYY')}`)
+    .text(`${dayjs(invoice.issueDate).format('DD. MM. YYYY')}`)
     .font(fontBold)
-    .text(`${moment(invoice.dueDate).format('DD. MM. YYYY')}`)
+    .text(`${dayjs(invoice.dueDate).format('DD. MM. YYYY')}`)
     .font(fontRegular)
     .text(`${getInvoicePayMethodTranslation(invoice.paymentType)}`)
     .text(`${invoice.variableSymbol}`)

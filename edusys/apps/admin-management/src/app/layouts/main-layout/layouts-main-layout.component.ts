@@ -40,7 +40,7 @@ export class LayoutsMainLayoutComponent extends LayoutBaseContainer {
       name: 'navigation.subscriptions',
       route: routes.subscription.home,
       permission: PERMISSION.SUBSCRIPTION.BASIC,
-      icon: 'domain',
+      icon: 'subscriptions',
     },
     {
       name: 'navigation.users',

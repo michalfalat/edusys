@@ -37,7 +37,7 @@
       </div>
       <div formArrayName="annumPrices">
         <div *ngFor="let control of form?.get('annumPrices')['controls']; let i = index">
-          <ui-amount [label]="('package.annum_price_no' | translate) + ' ' + i + 1" [formGroupName]="i" (onDelete)="deleteAnnumPrice(i)"></ui-amount>
+          <ui-amount [label]="('package.annum_price_no' | translate) + ' ' + (i + 1)" [formGroupName]="i" (onDelete)="deleteAnnumPrice(i)"></ui-amount>
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@
       <div formArrayName="installationPrices">
         <div *ngFor="let control of form?.get('installationPrices')['controls']; let i = index">
           <ui-amount
-            [label]="('package.installation_price_no' | translate) + ' ' + i + 1"
+            [label]="('package.installation_price_no' | translate) + ' ' + (i + 1)"
             [formGroupName]="i"
             (onDelete)="deleteInstallationPrice(i)"
           ></ui-amount>

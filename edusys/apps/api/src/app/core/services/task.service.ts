@@ -46,7 +46,7 @@ export const listOfTasks = async (data: ITaskFilterRequest): Promise<PaginateRes
 
 // DETAIL OF TASK
 export const detailOfTask = async (id: string): Promise<ITaskDetailResponse> => {
-  const detailModel = await TaskModel.findById(id).populate('organization').populate('createdBy').populate('attachments');
+  const detailModel = await TaskModel.findById(id).populate('organization').populate('createdBy').populate('attachments').populate('fixedBy');
   if (!detailModel) {
     throw new NotFound();
   }

@@ -1,2 +1,2 @@
-<span *ngIf="controlContainer?.control?.get(name)?.errors as errorControl">{{ errorControl[name]?.type }}</span>
+<span *ngIf="controlContainer?.control?.get(name)?.errors as errorControl">{{ errorControl[name]?.type | translate }}</span>
 <!-- {{ controlContainer?.control?.get(name).errors | json }} -->

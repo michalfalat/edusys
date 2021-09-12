@@ -10,22 +10,11 @@ import { CoreUiModule } from '@edusys/core-ui';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { IdentifierFilterComponent } from './filter/identifier-filter.component';
 import { IdentifierCreateComponent } from './create/identifier-create.component';
 
 @NgModule({
   declarations: [IdentifierHomeComponent, IdentifierFilterComponent, IdentifierDetailComponent, IdentifierCreateComponent],
-  imports: [
-    CommonModule,
-    IdentifierRoutingModule,
-    SharedModule,
-    MatTableModule,
-    CoreUiModule,
-    MatPaginatorModule,
-    MatExpansionModule,
-    MatDatepickerModule,
-    MatMomentDateModule,
-  ],
+  imports: [CommonModule, IdentifierRoutingModule, SharedModule, MatTableModule, CoreUiModule, MatPaginatorModule, MatExpansionModule, MatDatepickerModule],
 })
 export class IdentifierModule {}

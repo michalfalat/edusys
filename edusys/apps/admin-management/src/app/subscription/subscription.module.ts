@@ -10,21 +10,10 @@ import { CoreUiModule } from '@edusys/core-ui';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SubscriptionFilterComponent } from './filter/subscription-filter.component';
 
 @NgModule({
   declarations: [SubscriptionHomeComponent, SubscriptionFilterComponent, SubscriptionDetailComponent],
-  imports: [
-    CommonModule,
-    SubscriptionRoutingModule,
-    SharedModule,
-    MatTableModule,
-    CoreUiModule,
-    MatPaginatorModule,
-    MatExpansionModule,
-    MatDatepickerModule,
-    MatMomentDateModule,
-  ],
+  imports: [CommonModule, SubscriptionRoutingModule, SharedModule, MatTableModule, CoreUiModule, MatPaginatorModule, MatExpansionModule, MatDatepickerModule],
 })
 export class SubscriptionModule {}
