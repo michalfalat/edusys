@@ -1,12 +1,15 @@
 import { Injector } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthFacade, CommonContainer } from '@edusys/core';
+import { INavigationItem } from '@edusys/core-ui';
 import { IAuthUserInfoResponse } from '@edusys/model';
 
 export class ProfileBaseContainer extends CommonContainer {
   authFacade: AuthFacade;
   snackbar: MatSnackBar;
   userInfo: IAuthUserInfoResponse;
+  navigationItems: INavigationItem[];
+
   constructor(injector: Injector) {
     super(injector);
     this.authFacade = injector.get(AuthFacade);

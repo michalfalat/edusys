@@ -27,7 +27,7 @@ export class TaskCreateComponent extends TaskBaseContainer implements OnInit {
         name: new FormControl(''),
         description: new FormControl(''),
         place: new FormControl(''),
-        organizationId: new FormControl(''),
+        organizationId: new FormControl({ value: this.activeOrganization?.id, disabled: true }),
         attachments: this.fb.array([]),
         type: new FormControl(TaskType.IT),
         priority: new FormControl(TaskPriority.MEDIUM),

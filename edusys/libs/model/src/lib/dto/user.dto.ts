@@ -53,6 +53,8 @@ export interface IAuthUserInfoResponse {
   organizations: IOrganizationResponse[];
   emailVerified: boolean;
   phoneVerified: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IAuthUserBasicResponse {
