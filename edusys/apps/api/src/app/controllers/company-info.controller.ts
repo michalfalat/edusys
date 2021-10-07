@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express';
+import { verifyToken } from '../core/middlewares/verify-token';
 import * as companyInfoService from './../core/services/company-info.service';
 
-// CREATE COMPANY INFO
-export const detailOfCompanyInfo = async (req: Request, res: Response, next: NextFunction) => {
+const detailOfCompanyInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailResponse = await companyInfoService.detailOfCompanyInfo();
     res.send(detailResponse);
@@ -11,8 +11,7 @@ export const detailOfCompanyInfo = async (req: Request, res: Response, next: Nex
   }
 };
 
-// EDIT COMPANY INFO
-export const editCompanyInfo = async (req: Request, res: Response, next: NextFunction) => {
+const editCompanyInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const editResponse = await companyInfoService.editCompanyInfo(req.body);
     res.send(editResponse);
@@ -22,5 +21,5 @@ export const editCompanyInfo = async (req: Request, res: Response, next: NextFun
 };
 
 export const companyInfoRouter = Router();
-companyInfoRouter.get('/api/company-info', detailOfCompanyInfo);
-companyInfoRouter.patch('/api/company-info', editCompanyInfo);
+companyInfoRouter.get('/api/company-info', [verifyToken], detailOfCompanyInfo);
+companyInfoRouter.patch('/api/company-info', [verifyToken], editCompanyInfo);

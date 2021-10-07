@@ -1,8 +1,10 @@
+import { PERMISSION } from '@edusys/model';
 import { NextFunction, Request, Response, Router } from 'express';
+import { verifyPermission } from '../core/middlewares/verify-permission';
+import { verifyToken } from '../core/middlewares/verify-token';
 import * as organizationService from './../core/services/organization.service';
 
-// LIST OF ORGANIZATIONS
-export const listOfOrganizations = async (req: Request, res: Response, next: NextFunction) => {
+const listOfOrganizations = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const listOfOrganizationsResponse = await organizationService.listOfOrganizations();
     res.send(listOfOrganizationsResponse);
@@ -11,8 +13,7 @@ export const listOfOrganizations = async (req: Request, res: Response, next: Nex
   }
 };
 
-// DETAIL OF ORGANIZATION
-export const detailOfOrganization = async (req: Request, res: Response, next: NextFunction) => {
+const detailOfOrganization = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailOrganizationResponse = await organizationService.detailOfOrganization(req.params.id);
     res.send(detailOrganizationResponse);
@@ -21,8 +22,7 @@ export const detailOfOrganization = async (req: Request, res: Response, next: Ne
   }
 };
 
-// CREATE ORGANIZATION
-export const createOrganization = async (req: Request, res: Response, next: NextFunction) => {
+const createOrganization = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createOrganizationResponse = await organizationService.createOrganization(req.body);
     res.send(createOrganizationResponse);
@@ -31,8 +31,7 @@ export const createOrganization = async (req: Request, res: Response, next: Next
   }
 };
 
-// EDIT ORGANIZATION
-export const editOrganization = async (req: Request, res: Response, next: NextFunction) => {
+const editOrganization = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const editOrganizationResponse = await organizationService.editOrganization(req.body);
     res.send(editOrganizationResponse);
@@ -41,7 +40,7 @@ export const editOrganization = async (req: Request, res: Response, next: NextFu
   }
 };
 
-export const availablePermissions = async (req: Request, res: Response, next: NextFunction) => {
+const availablePermissions = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const editOrganizationResponse = await organizationService.getAvailablePermissions(req.params.id);
     res.send(editOrganizationResponse);
@@ -50,8 +49,7 @@ export const availablePermissions = async (req: Request, res: Response, next: Ne
   }
 };
 
-// DELETE ORGANIZATION
-export const deleteOrganization = async (req: Request, res: Response, next: NextFunction) => {
+const deleteOrganization = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await organizationService.deleteOrganization(req.params.id);
     res.send();
@@ -61,9 +59,9 @@ export const deleteOrganization = async (req: Request, res: Response, next: Next
 };
 
 export const organizationRouter = Router();
-organizationRouter.get('/api/organization', listOfOrganizations);
-organizationRouter.get('/api/organization/:id', detailOfOrganization);
-organizationRouter.get('/api/organization/:id/available-permissions', availablePermissions);
-organizationRouter.post('/api/organization', createOrganization);
-organizationRouter.patch('/api/organization/:id', editOrganization);
-organizationRouter.delete('/api/organization/:id', deleteOrganization);
+organizationRouter.get('/api/organization', [verifyToken, verifyPermission(PERMISSION.ORGANIZATION.BASIC)], listOfOrganizations);
+organizationRouter.get('/api/organization/:id', [verifyToken, verifyPermission(PERMISSION.ORGANIZATION.DETAIL)], detailOfOrganization);
+organizationRouter.get('/api/organization/:id/available-permissions', [verifyToken, verifyPermission(PERMISSION.ORGANIZATION.BASIC)], availablePermissions);
+organizationRouter.post('/api/organization', [verifyToken, verifyPermission(PERMISSION.ORGANIZATION.CREATE)], createOrganization);
+organizationRouter.patch('/api/organization/:id', [verifyToken, verifyPermission(PERMISSION.ORGANIZATION.EDIT)], editOrganization);
+organizationRouter.delete('/api/organization/:id', [verifyToken, verifyPermission(PERMISSION.ORGANIZATION.DELETE)], deleteOrganization);

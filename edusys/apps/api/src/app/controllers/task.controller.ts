@@ -1,7 +1,10 @@
+import { PERMISSION } from '@edusys/model';
 import { NextFunction, Request, Response, Router } from 'express';
+import { verifyPermission } from '../core/middlewares/verify-permission';
+import { verifyToken } from '../core/middlewares/verify-token';
 import * as taskService from './../core/services/task.service';
 
-export const listOfTasks = async (req: Request, res: Response, next: NextFunction) => {
+const listOfTasks = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const listOfTasksResponse = await taskService.listOfTasks(req.query as any);
     res.send(listOfTasksResponse);
@@ -10,7 +13,7 @@ export const listOfTasks = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const detailOfTask = async (req: Request, res: Response, next: NextFunction) => {
+const detailOfTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailTaskResponse = await taskService.detailOfTask(req.params.id);
     res.send(detailTaskResponse);
@@ -19,7 +22,7 @@ export const detailOfTask = async (req: Request, res: Response, next: NextFuncti
   }
 };
 
-export const createTask = async (req: Request, res: Response, next: NextFunction) => {
+const createTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createTaskResponse = await taskService.createTask(req.body);
     res.send(createTaskResponse);
@@ -28,7 +31,7 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-export const editTask = async (req: Request, res: Response, next: NextFunction) => {
+const editTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const responseData = await taskService.editTask(req.body);
     res.send(responseData);
@@ -37,7 +40,7 @@ export const editTask = async (req: Request, res: Response, next: NextFunction) 
   }
 };
 
-export const assignTask = async (req: Request, res: Response, next: NextFunction) => {
+const assignTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const responseData = await taskService.assignTask(req.body);
     res.send(responseData);
@@ -46,7 +49,7 @@ export const assignTask = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-export const finishTask = async (req: Request, res: Response, next: NextFunction) => {
+const finishTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const responseData = await taskService.finishTask(req.body);
     res.send(responseData);
@@ -55,7 +58,7 @@ export const finishTask = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-export const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
+const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await taskService.deleteTask(req.params.id);
     res.send();
@@ -65,10 +68,10 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
 };
 
 export const taskRouter = Router();
-taskRouter.get('/api/task', listOfTasks);
-taskRouter.get('/api/task/:id', detailOfTask);
-taskRouter.post('/api/task/:id/assign', assignTask);
-taskRouter.post('/api/task/:id/finish', finishTask);
-taskRouter.post('/api/task', createTask);
-taskRouter.patch('/api/task/:id', editTask);
-taskRouter.delete('/api/task/:id', deleteTask);
+taskRouter.get('/api/task', [verifyToken, verifyPermission(PERMISSION.TASK.BASIC)], listOfTasks);
+taskRouter.get('/api/task/:id', [verifyToken, verifyPermission(PERMISSION.TASK.DETAIL)], detailOfTask);
+taskRouter.post('/api/task/:id/assign', [verifyToken, verifyPermission(PERMISSION.TASK.ASSIGN)], assignTask);
+taskRouter.post('/api/task/:id/finish', [verifyToken, verifyPermission(PERMISSION.TASK.EDIT)], finishTask);
+taskRouter.post('/api/task', [verifyToken, verifyPermission(PERMISSION.TASK.CREATE)], createTask);
+taskRouter.patch('/api/task/:id', [verifyToken, verifyPermission(PERMISSION.TASK.EDIT)], editTask);
+taskRouter.delete('/api/task/:id', [verifyToken, verifyPermission(PERMISSION.TASK.DELETE)], deleteTask);

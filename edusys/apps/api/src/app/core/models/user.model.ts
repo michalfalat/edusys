@@ -20,6 +20,7 @@ export interface IUser extends IEntity {
   passwordSet: boolean;
   fullname?: string;
   passwordChangedAt?: Date;
+  activeOrganization?: IOrganization['_id'];
 }
 
 export interface IUserDocument extends IUser, Document {

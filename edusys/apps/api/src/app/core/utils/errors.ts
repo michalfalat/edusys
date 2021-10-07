@@ -1,8 +1,10 @@
 import { errorLabels } from './error-labels';
 
 export class GeneralError extends Error {
-  constructor(message?: string) {
+  metadata: any;
+  constructor(message?: string, metadata?: any) {
     super();
+    this.metadata = metadata;
     this.setMessage(message);
   }
 

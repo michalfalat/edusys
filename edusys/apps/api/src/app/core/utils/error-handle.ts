@@ -9,6 +9,7 @@ export const handleErrors = (err, req: Request, res: Response, next: NextFunctio
       status: 'error',
       message: err.message,
       messageLocalized: req.__(err.message),
+      metadata: err.metadata,
     });
   }
 

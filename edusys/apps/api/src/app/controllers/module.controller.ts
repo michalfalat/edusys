@@ -1,7 +1,10 @@
+import { PERMISSION } from '@edusys/model';
 import { NextFunction, Request, Response, Router } from 'express';
+import { verifyPermission } from '../core/middlewares/verify-permission';
+import { verifyToken } from '../core/middlewares/verify-token';
 import * as moduleService from './../core/services/module.service';
 
-export const listOfModules = async (req: Request, res: Response, next: NextFunction) => {
+const listOfModules = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const listOfModulesResponse = await moduleService.listOfModules();
     res.send(listOfModulesResponse);
@@ -10,7 +13,7 @@ export const listOfModules = async (req: Request, res: Response, next: NextFunct
   }
 };
 
-export const detailOfModule = async (req: Request, res: Response, next: NextFunction) => {
+const detailOfModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailModuleResponse = await moduleService.detailOfModule(req.params.id);
     res.send(detailModuleResponse);
@@ -19,7 +22,7 @@ export const detailOfModule = async (req: Request, res: Response, next: NextFunc
   }
 };
 
-export const createModule = async (req: Request, res: Response, next: NextFunction) => {
+const createModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createModuleResponse = await moduleService.createModule(req.body);
     res.send(createModuleResponse);
@@ -28,7 +31,7 @@ export const createModule = async (req: Request, res: Response, next: NextFuncti
   }
 };
 
-export const editModule = async (req: Request, res: Response, next: NextFunction) => {
+const editModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const editModuleResponse = await moduleService.editModule(req.body);
     res.send(editModuleResponse);
@@ -37,7 +40,7 @@ export const editModule = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-export const deleteModule = async (req: Request, res: Response, next: NextFunction) => {
+const deleteModule = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await moduleService.deleteModule(req.params.id);
     res.send();
@@ -47,8 +50,8 @@ export const deleteModule = async (req: Request, res: Response, next: NextFuncti
 };
 
 export const moduleRouter = Router();
-moduleRouter.get('/api/module', listOfModules);
-moduleRouter.get('/api/module/:id', detailOfModule);
-moduleRouter.post('/api/module', createModule);
-moduleRouter.patch('/api/module/:id', editModule);
-moduleRouter.delete('/api/module/:id', deleteModule);
+moduleRouter.get('/api/module', [verifyToken, verifyPermission(PERMISSION.MODULE.BASIC)], listOfModules);
+moduleRouter.get('/api/module/:id', [verifyToken, verifyPermission(PERMISSION.MODULE.DETAIL)], detailOfModule);
+moduleRouter.post('/api/module', [verifyToken, verifyPermission(PERMISSION.MODULE.CREATE)], createModule);
+moduleRouter.patch('/api/module/:id', [verifyToken, verifyPermission(PERMISSION.MODULE.EDIT)], editModule);
+moduleRouter.delete('/api/module/:id', [verifyToken, verifyPermission(PERMISSION.MODULE.DELETE)], deleteModule);

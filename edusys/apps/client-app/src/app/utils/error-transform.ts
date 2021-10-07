@@ -8,7 +8,7 @@ export const transformError = (error: string | HttpErrorResponse | ICommonError)
     return error;
   } else if (error['error']) {
     const httpError = error as HttpErrorResponse;
-    return httpError?.error?.message?.message || error?.message || 'unknown.error';
+    return httpError?.error?.message?.message || httpError?.error?.message || error?.message || 'unknown.error';
   } else {
     return error?.message || 'unknown.error';
   }

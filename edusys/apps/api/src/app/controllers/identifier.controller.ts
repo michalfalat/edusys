@@ -1,7 +1,10 @@
+import { PERMISSION } from '@edusys/model';
 import { NextFunction, Request, Response, Router } from 'express';
+import { verifyPermission } from '../core/middlewares/verify-permission';
+import { verifyToken } from '../core/middlewares/verify-token';
 import * as identifierService from './../core/services/identifier.service';
 
-export const listOfIdentifiers = async (req: Request, res: Response, next: NextFunction) => {
+const listOfIdentifiers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const listOfIdentifiersResponse = await identifierService.listOfIdentifiers(req.query as any);
     res.send(listOfIdentifiersResponse);
@@ -10,7 +13,7 @@ export const listOfIdentifiers = async (req: Request, res: Response, next: NextF
   }
 };
 
-export const detailOfIdentifier = async (req: Request, res: Response, next: NextFunction) => {
+const detailOfIdentifier = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailIdentifierResponse = await identifierService.detailOfIdentifier(req.params.id);
     res.send(detailIdentifierResponse);
@@ -19,7 +22,7 @@ export const detailOfIdentifier = async (req: Request, res: Response, next: Next
   }
 };
 
-export const createIdentifier = async (req: Request, res: Response, next: NextFunction) => {
+const createIdentifier = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createIdentifierResponse = await identifierService.createIdentifier(req.body);
     res.send(createIdentifierResponse);
@@ -28,7 +31,7 @@ export const createIdentifier = async (req: Request, res: Response, next: NextFu
   }
 };
 
-export const editIdentifier = async (req: Request, res: Response, next: NextFunction) => {
+const editIdentifier = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const editIdentifierResponse = await identifierService.editIdentifier(req.body);
     res.send(editIdentifierResponse);
@@ -37,7 +40,7 @@ export const editIdentifier = async (req: Request, res: Response, next: NextFunc
   }
 };
 
-export const deleteIdentifier = async (req: Request, res: Response, next: NextFunction) => {
+const deleteIdentifier = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await identifierService.deleteIdentifier(req.params.id);
     res.send();
@@ -47,8 +50,8 @@ export const deleteIdentifier = async (req: Request, res: Response, next: NextFu
 };
 
 export const identifierRouter = Router();
-identifierRouter.get('/api/identifier', listOfIdentifiers);
-identifierRouter.get('/api/identifier/:id', detailOfIdentifier);
-identifierRouter.post('/api/identifier', createIdentifier);
-identifierRouter.patch('/api/identifier/:id', editIdentifier);
-identifierRouter.delete('/api/identifier/:id', deleteIdentifier);
+identifierRouter.get('/api/identifier', [verifyToken, verifyPermission(PERMISSION.IDENTIFIER.BASIC)], listOfIdentifiers);
+identifierRouter.get('/api/identifier/:id', [verifyToken, verifyPermission(PERMISSION.IDENTIFIER.DETAIL)], detailOfIdentifier);
+identifierRouter.post('/api/identifier', [verifyToken, verifyPermission(PERMISSION.IDENTIFIER.CREATE)], createIdentifier);
+identifierRouter.patch('/api/identifier/:id', [verifyToken, verifyPermission(PERMISSION.IDENTIFIER.EDIT)], editIdentifier);
+identifierRouter.delete('/api/identifier/:id', [verifyToken, verifyPermission(PERMISSION.IDENTIFIER.DELETE)], deleteIdentifier);

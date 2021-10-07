@@ -4,7 +4,7 @@ import * as multer from 'multer';
 import * as fs from 'fs';
 import { __basedir } from '../../dir';
 
-export const detailOfFile = async (req: Request, res: Response, next: NextFunction) => {
+const detailOfFile = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailFileResponse = await fileService.detailOfFile(req.params.id);
     res.send(detailFileResponse);
@@ -13,7 +13,7 @@ export const detailOfFile = async (req: Request, res: Response, next: NextFuncti
   }
 };
 
-export const uploadFile = async (req: Request, res: Response, next: NextFunction) => {
+const uploadFile = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createFileResponse = await fileService.uploadFile(req.body, req.file);
     res.send(createFileResponse);
@@ -22,7 +22,7 @@ export const uploadFile = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-export const deleteFile = async (req: Request, res: Response, next: NextFunction) => {
+const deleteFile = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // await fileService.deleteFile(req.params.id);
     res.send();

@@ -1,7 +1,10 @@
+import { PERMISSION } from '@edusys/model';
 import { NextFunction, Request, Response, Router } from 'express';
+import { verifyPermission } from '../core/middlewares/verify-permission';
+import { verifyToken } from '../core/middlewares/verify-token';
 import * as packageService from './../core/services/package.service';
 
-export const listOfPackages = async (req: Request, res: Response, next: NextFunction) => {
+const listOfPackages = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const listOfPackagesResponse = await packageService.listOfPackages();
     res.send(listOfPackagesResponse);
@@ -10,7 +13,7 @@ export const listOfPackages = async (req: Request, res: Response, next: NextFunc
   }
 };
 
-export const detailOfPackage = async (req: Request, res: Response, next: NextFunction) => {
+const detailOfPackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const detailPackageResponse = await packageService.detailOfPackage(req.params.id);
     res.send(detailPackageResponse);
@@ -19,7 +22,7 @@ export const detailOfPackage = async (req: Request, res: Response, next: NextFun
   }
 };
 
-export const createPackage = async (req: Request, res: Response, next: NextFunction) => {
+const createPackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createPackageResponse = await packageService.createPackage(req.body);
     res.send(createPackageResponse);
@@ -28,7 +31,7 @@ export const createPackage = async (req: Request, res: Response, next: NextFunct
   }
 };
 
-export const editPackage = async (req: Request, res: Response, next: NextFunction) => {
+const editPackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const editPackageResponse = await packageService.editPackage(req.body);
     res.send(editPackageResponse);
@@ -37,7 +40,7 @@ export const editPackage = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const deletePackage = async (req: Request, res: Response, next: NextFunction) => {
+const deletePackage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await packageService.deletePackage(req.params.id);
     res.send();
@@ -47,8 +50,8 @@ export const deletePackage = async (req: Request, res: Response, next: NextFunct
 };
 
 export const packageRouter = Router();
-packageRouter.get('/api/package', listOfPackages);
-packageRouter.get('/api/package/:id', detailOfPackage);
-packageRouter.post('/api/package', createPackage);
-packageRouter.patch('/api/package/:id', editPackage);
-packageRouter.delete('/api/package/:id', deletePackage);
+packageRouter.get('/api/package', [verifyToken, verifyPermission(PERMISSION.PACKAGE.BASIC)], listOfPackages);
+packageRouter.get('/api/package/:id', [verifyToken, verifyPermission(PERMISSION.PACKAGE.DETAIL)], detailOfPackage);
+packageRouter.post('/api/package', [verifyToken, verifyPermission(PERMISSION.PACKAGE.CREATE)], createPackage);
+packageRouter.patch('/api/package/:id', [verifyToken, verifyPermission(PERMISSION.PACKAGE.EDIT)], editPackage);
+packageRouter.delete('/api/package/:id', [verifyToken, verifyPermission(PERMISSION.PACKAGE.DELETE)], deletePackage);

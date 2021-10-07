@@ -55,6 +55,12 @@ export class TaskHomeComponent extends TaskBaseContainer {
       queryParams: filterRequest,
       queryParamsHandling: 'merge',
     });
-    this.taskFacade.fetchTaskList(filterRequest);
+    this.taskFacade.fetchTaskList(
+      filterRequest,
+      () => {},
+      (err) => {
+        this.onError(err);
+      },
+    );
   }
 }

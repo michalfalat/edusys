@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as invoiceService from './../core/services/invoice.service';
 
-// TEST INVOICE
-export const testInvoice = async (req: Request, res: Response, next: NextFunction) => {
+const testInvoice = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const url = await invoiceService.testInvoice();
     res.send({ status: 'OK', url });
@@ -11,8 +10,7 @@ export const testInvoice = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-// CREATE INVOICE
-export const createInvoice = async (req: Request, res: Response, next: NextFunction) => {
+const createInvoice = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createInvoiceResponse = await invoiceService.createInvoice();
     res.send(createInvoiceResponse);
