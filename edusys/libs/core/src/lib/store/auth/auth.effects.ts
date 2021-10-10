@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { catchError, mergeMap, map } from 'rxjs/operators';
 import {
+  authChangePasswordRequestAction,
+  authChangePasswordResponseAction,
   authCreatePasswordRequestAction,
   authCreatePasswordResponseAction,
   authErrorAction,
@@ -139,6 +141,28 @@ export class AuthEffects {
               onSucceeded();
             }
             return authCreatePasswordResponseAction();
+          }),
+          catchError((error) => {
+            if (onError) {
+              onError(error);
+            }
+            return of(authErrorAction({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  changePassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authChangePasswordRequestAction),
+      mergeMap(({ payload, onSucceeded, onError }) =>
+        this.authService.changePassword(payload).pipe(
+          map(() => {
+            if (onSucceeded) {
+              onSucceeded();
+            }
+            return authChangePasswordResponseAction();
           }),
           catchError((error) => {
             if (onError) {

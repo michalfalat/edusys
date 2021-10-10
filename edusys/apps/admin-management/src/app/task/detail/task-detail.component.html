@@ -4,7 +4,7 @@
   <form [formGroup]="form" (ngSubmit)="onEditTask()">
     <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'task.created_at' | translate }}</mat-label>
+        <mat-label>{{ 'task.createdAt' | translate }}</mat-label>
         <input matInput [value]="taskDetail?.createdAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
       </mat-form-field>
       <mat-form-field>

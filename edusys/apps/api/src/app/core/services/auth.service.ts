@@ -151,7 +151,8 @@ export const changePassword = async (payload: IAuthUserChangePasswordRequest): P
   if (!validPassword) {
     throw new BadRequest(errorLabels.INVALID_CREDENTIALS);
   }
-  await UserModel.updateOne({ _id: jwtData?.id }, { $set: { password: payload.newPassword } });
+  user.password = payload.newPassword;
+  await user.save();
   logInfo(`[AUTH_SERVICE] user ${user.email} changed password successfully`);
 
   return { success: true };

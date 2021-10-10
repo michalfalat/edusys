@@ -51,6 +51,7 @@ export interface IAuthUserInfoResponse {
   phone: string;
   roles: IOrganizationRoleResponse[];
   organizations: IOrganizationResponse[];
+  passwordChangedAt: string;
   emailVerified: boolean;
   phoneVerified: boolean;
   createdAt?: string;
@@ -69,6 +70,7 @@ export interface IAuthUserBasicResponse {
 export interface IAuthUserChangePasswordRequest {
   oldPassword: string;
   newPassword: string;
+  newPasswordConfirm?: string;
 }
 
 export interface IAuthUserChangePasswordResponse {

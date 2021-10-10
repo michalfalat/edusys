@@ -5,7 +5,7 @@
   <form [formGroup]="form">
     <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'subscription.created_at' | translate }}</mat-label>
+        <mat-label>{{ 'subscription.createdAt' | translate }}</mat-label>
         <input matInput [value]="subscriptionDetail?.createdAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
       </mat-form-field>
     </div>

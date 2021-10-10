@@ -42,7 +42,7 @@ export class TaskBaseContainer extends CommonContainer {
     this.subscriptions.add(this.taskFacade.getTaskList$.subscribe((data) => (this.taskList = data)));
     this.subscriptions.add(this.activatedRoute.params.subscribe((data) => (this.taskId = data?.taskId)));
     this.subscriptions.add(this.authFacade.getInitData$.subscribe((data) => (this.activeOrganization = data.activeOrganization)));
-    this.subscriptions.add(this.authFacade.getUserInfo$.subscribe((data) => (this.userOrganizations = data.organizations)));
+    this.subscriptions.add(this.authFacade.getUserInfo$.subscribe((data) => (this.userOrganizations = data?.organizations)));
     this.subscriptions.add(
       this.taskFacade.getTaskDetail$.subscribe((data) => {
         this.taskDetail = data?.id === this.taskId ? data : null;

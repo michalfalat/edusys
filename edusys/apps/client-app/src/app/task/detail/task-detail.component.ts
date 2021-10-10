@@ -104,7 +104,7 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
       name: this.form.value.name,
       description: this.form.value.description,
       place: this.form.value.place,
-      organizationId: this.form.value.organizationId,
+      organizationId: this.form.value.organizationId || this.activeOrganization?.id,
       type: this.form.value.type,
       status: this.form.value.status,
       priority: this.form.value.priority,

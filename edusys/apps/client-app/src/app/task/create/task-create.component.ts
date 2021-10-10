@@ -51,7 +51,7 @@ export class TaskCreateComponent extends TaskBaseContainer {
       name: this.form?.value.name,
       description: this.form?.value.description,
       place: this.form?.value.place,
-      organizationId: this.form?.value.organizationId,
+      organizationId: this.activeOrganization?.id,
       attachments: this.form?.value.attachments,
       type: this.form?.value.type,
       priority: this.form?.value.priority,

@@ -5,7 +5,7 @@
   <form [formGroup]="form" (ngSubmit)="onEditUser()">
     <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'user.created_at' | translate }}</mat-label>
+        <mat-label>{{ 'user.createdAt' | translate }}</mat-label>
         <input matInput [value]="userDetail?.createdAt | date" [disabled]="true" />
       </mat-form-field>
       <mat-form-field>

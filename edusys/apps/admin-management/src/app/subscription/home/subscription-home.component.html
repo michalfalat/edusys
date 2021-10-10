@@ -9,7 +9,7 @@
   <ui-divider [compact]="true"></ui-divider>
   <table mat-table [dataSource]="subscriptionList?.docs" class="mat-elevation-z0">
     <ng-container matColumnDef="createdAt">
-      <th mat-header-cell *matHeaderCellDef>{{ 'general.created_at' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'general.createdAt' | translate }}</th>
       <td mat-cell *matCellDef="let element">{{ element.createdAt | date: 'MMM dd YYYY HH:mm' }}</td>
     </ng-container>
 

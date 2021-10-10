@@ -1,31 +1,12 @@
 <mat-card class="basic-card">
   <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
   <ui-divider [compact]="true"></ui-divider>
-  <form [formGroup]="form" *ngIf="userInfo">
-    <div class="row left">
-      <mat-icon class="avatar-logo">account_circle</mat-icon>
-      <ui-divider [vertical]="true"></ui-divider>
-      <div class="column">
-        <mat-form-field>
-          <mat-label>{{ 'profile.name' | translate }}</mat-label>
-          <input matInput formControlName="name" name="name" [readonly]="true" />
-          <mat-error><ui-form-error [formGroup]="form" [name]="'name'"></ui-form-error></mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>{{ 'profile.surname' | translate }}</mat-label>
-          <input matInput formControlName="surname" name="surname" [readonly]="true" />
-          <mat-error><ui-form-error [formGroup]="form" [name]="'surname'"></ui-form-error></mat-error>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div class="row">
-      <mat-form-field>
-        <mat-label>{{ 'profile.createdAt' | translate }}</mat-label>
-        <input matInput [value]="userInfo?.createdAt | date: 'MMM dd YYYY'" [readonly]="true" />
-      </mat-form-field>
-    </div>
-
-    <ui-divider></ui-divider>
-  </form>
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab [label]="'profile.basicInfo' | translate">
+      <app-profile-basic-info [userInfo]="userInfo"></app-profile-basic-info>
+    </mat-tab>
+    <mat-tab [label]="'profile.changePassword' | translate">
+      <app-profile-change-password [lastPasswordChange]="userInfo?.passwordChangedAt"></app-profile-change-password>
+    </mat-tab>
+  </mat-tab-group>
 </mat-card>

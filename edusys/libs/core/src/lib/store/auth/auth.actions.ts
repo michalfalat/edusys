@@ -4,6 +4,7 @@ import {
   IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
+  IAuthUserChangePasswordRequest,
   IAuthUserInfoResponse,
   IAuthVerificationTokenInfoRequest,
   IAuthVerificationTokenInfoResponse,
@@ -91,6 +92,17 @@ export const authCreatePasswordRequestAction = createAction(
   }>(),
 );
 export const authCreatePasswordResponseAction = createAction(`${PREFIX} CREATE PASSWORD RESPONSE`);
+
+// CHANGE PASSWORD
+export const authChangePasswordRequestAction = createAction(
+  `${PREFIX} CHANGE PASSWORD REQUEST`,
+  props<{
+    payload: IAuthUserChangePasswordRequest;
+    onSucceeded?: () => void;
+    onError?: (error: any) => void;
+  }>(),
+);
+export const authChangePasswordResponseAction = createAction(`${PREFIX} CHANGE PASSWORD RESPONSE`);
 
 // ERROR
 export const authErrorAction = createAction(

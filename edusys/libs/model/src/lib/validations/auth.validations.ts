@@ -12,9 +12,12 @@ export const createPasswordSchema = Joi.object<IAuthCreatePasswordRequest>({
   password: Joi.string().min(6).required(),
 }).options({ allowUnknown: true });
 
-export const changePasswordSchema = Joi.object({
+export const changePasswordSchema = Joi.object<IAuthUserChangePasswordRequest>({
   oldPassword: Joi.string().required(),
   newPassword: Joi.string().min(6).required(),
+  newPasswordConfirm: Joi.string().min(6).valid(Joi.ref('newPassword')).messages({
+    'any.only': 'Password must match',
+  }),
 });
 
 export const loginUserSchemaValidate = (data: IAuthLoginUserRequest): Joi.ValidationResult => loginUserSchema.validate(data);

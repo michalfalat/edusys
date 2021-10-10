@@ -6,11 +6,13 @@ import {
   IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
+  IAuthUserChangePasswordRequest,
   IAuthUserInfoResponse,
   IAuthVerificationTokenInfoRequest,
   IAuthVerificationTokenInfoResponse,
 } from '@edusys/model';
 import {
+  authChangePasswordRequestAction,
   authCreatePasswordRequestAction,
   authInitDataRequestAction,
   authLoginRequestAction,
@@ -51,6 +53,10 @@ export class AuthFacade {
 
   createPassword(payload: IAuthCreatePasswordRequest, onSucceeded?: () => void, onError?: (response: HttpErrorResponse) => void): void {
     this.store.dispatch(authCreatePasswordRequestAction({ payload, onSucceeded, onError }));
+  }
+
+  changePassword(payload: IAuthUserChangePasswordRequest, onSucceeded?: () => void, onError?: (response: HttpErrorResponse) => void): void {
+    this.store.dispatch(authChangePasswordRequestAction({ payload, onSucceeded, onError }));
   }
 
   fetchInitData(onSucceeded?: (response: IAuthInitDataResponse) => void, onError?: (response: HttpErrorResponse) => void): void {

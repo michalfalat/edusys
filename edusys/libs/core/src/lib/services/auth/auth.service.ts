@@ -6,11 +6,12 @@ import {
   IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
+  IAuthUserChangePasswordRequest,
   IAuthUserInfoResponse,
   IAuthVerificationTokenInfoRequest,
   IAuthVerificationTokenInfoResponse,
 } from '@edusys/model';
-import { loginUrl, userInfoUrl, logoutUrl, verifyTokenUrl, createPasswordUrl, initDataUrl } from './auth.endpoints';
+import { loginUrl, userInfoUrl, logoutUrl, verifyTokenUrl, createPasswordUrl, initDataUrl, changePasswordUrl } from './auth.endpoints';
 import { APP_CONFIG } from '@edusys/app-config';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AppLocalStorageKeys } from '../../model/app/app.model';
@@ -74,5 +75,9 @@ export class AuthService {
 
   createPassword = (payload: IAuthCreatePasswordRequest): Observable<void> => {
     return this.httpClient.post<void>(createPasswordUrl(this.baseUrl()), payload);
+  };
+
+  changePassword = (payload: IAuthUserChangePasswordRequest): Observable<void> => {
+    return this.httpClient.post<void>(changePasswordUrl(this.baseUrl()), payload);
   };
 }

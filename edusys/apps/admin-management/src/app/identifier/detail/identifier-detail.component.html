@@ -4,7 +4,7 @@
   <form [formGroup]="form" (ngSubmit)="onEditIdentifier()">
     <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'identifier.created_at' | translate }}</mat-label>
+        <mat-label>{{ 'identifier.createdAt' | translate }}</mat-label>
         <input matInput [value]="identifierDetail?.createdAt | date" [disabled]="true" />
       </mat-form-field>
       <mat-form-field>

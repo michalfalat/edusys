@@ -107,7 +107,7 @@ authRouter.post('/api/auth/init-data', [verifyToken], initData);
 authRouter.post('/api/auth/verify-token', verifyTokenInfo);
 authRouter.post('/api/auth/create-password', createPassword);
 authRouter.get('/api/auth/user-info', [verifyToken], userInfo);
-authRouter.get('/api/auth/change-password', [verifyToken], changePassword);
+authRouter.post('/api/auth/change-password', [verifyToken], changePassword);
 authRouter.post('/api/auth/test-email', testEmail);
 // authRouter.get('/api/auth/users', [verifyToken, verifyRole(AuthUserRole.ADMIN)], listOfUsers);
 authRouter.get('/api/auth/seedSU', seedSU);
