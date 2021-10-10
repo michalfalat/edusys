@@ -65,7 +65,7 @@ export const editOrganizationRole = async (payload: IOrganizationRoleEditRequest
   }
   try {
     const id = payload.id;
-    const updatedModel = await OrganizationRoleModel.findByIdAndUpdate(id, payload, { new: true });
+    const updatedModel = await OrganizationRoleModel.findByIdAndUpdate(id, { $set: { ...payload } }, { new: true });
     logInfo(`[ORGANIZATION_ROLE_SERVICE] role '${payload.name}' edited`);
     return organizationRoleDetailMapper(updatedModel);
   } catch (error) {

@@ -47,15 +47,15 @@ const taskSchema = new Schema<ITaskDocument>(
       },
     ],
     type: {
-      type: TaskType,
+      type: Schema.Types.String,
       required: true,
     },
     priority: {
-      type: TaskPriority,
+      type: Schema.Types.String,
       required: true,
     },
     status: {
-      type: TaskStatus,
+      type: Schema.Types.String,
       required: true,
     },
     organization: {

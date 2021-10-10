@@ -39,11 +39,10 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.organizations) this.organizationFacade.fetchOrganizationList();
     this.taskFacade.fetchTaskDetail(
       this.taskId,
       (data) => {
-        this.fetchOrganizationUsers(data?.organization?.id);
+        // this.fetchOrganizationUsers(data?.organization?.id);
         this.setBreadcrumbNavigation(data);
       },
       this.navigateToTaskHome,

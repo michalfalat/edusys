@@ -45,9 +45,8 @@ const identifierSchema = new Schema<IIdentifierDocument>(
       type: String,
     },
     type: {
-      type: String,
+      type: Schema.Types.String,
     },
-
     user: {
       type: Schema.Types.ObjectId,
       required: true,

@@ -54,6 +54,7 @@ export class AppModule {}
 export function loadInitData(authFacade: AuthFacade, ps: NgxPermissionsService): Function {
   return () => {
     const promise = new Promise<boolean>((resolve) => {
+      authFacade.userInfo();
       authFacade.fetchInitData((data) => {
         ps.loadPermissions(data.permissions);
         resolve(true);

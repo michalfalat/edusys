@@ -5,7 +5,7 @@
     <div class="row">
       <mat-form-field>
         <mat-select formControlName="organizationId" [placeholder]="'task.organization' | translate">
-          <mat-option *ngFor="let organization of organizations" [value]="organization?.id">
+          <mat-option *ngFor="let organization of userOrganizations" [value]="organization?.id">
             {{ organization?.name }}
           </mat-option>
         </mat-select>

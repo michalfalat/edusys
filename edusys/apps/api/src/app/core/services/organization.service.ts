@@ -110,7 +110,9 @@ export const createOrganization = async (payload: IOrganizationCreateRequest): P
     });
     ownerRole = await ownerRole.save();
 
-    savedOrganization = await OrganizationModel.findByIdAndUpdate(savedOrganization.id, { subscriptions: [savedSubscription], organizationRoles: [ownerRole] });
+    savedOrganization = await OrganizationModel.findByIdAndUpdate(savedOrganization.id, {
+      $set: { subscriptions: [savedSubscription], organizationRoles: [ownerRole] },
+    });
 
     logInfo(`[ORGANIZATION_SERVICE] organization created '${payload.info.name}' created with package '${pack.name}' `);
 

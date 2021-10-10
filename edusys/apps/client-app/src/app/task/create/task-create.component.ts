@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
 import { createTaskSchema, IFileDetailResponse, ITaskCreateRequest, TaskPriority, TaskType } from '@edusys/model';
 import { routes } from '../../utils/routes';
@@ -9,7 +9,7 @@ import { TaskBaseContainer } from '../task-base.container';
   templateUrl: './task-create.component.html',
   styleUrls: ['./task-create.component.scss'],
 })
-export class TaskCreateComponent extends TaskBaseContainer implements OnInit {
+export class TaskCreateComponent extends TaskBaseContainer {
   constructor(injector: Injector) {
     super(injector);
     this.navigationItems = [
@@ -44,10 +44,6 @@ export class TaskCreateComponent extends TaskBaseContainer implements OnInit {
   removeAttachment(index: number): void {
     const control = <FormArray>this.form.get('attachments');
     control.removeAt(index);
-  }
-
-  ngOnInit(): void {
-    this.organizationFacade.fetchOrganizationList();
   }
 
   onCreateTask(): void {

@@ -26,7 +26,7 @@ import { handleErrors } from './app/core/utils/error-handle';
 const app = express();
 dotenv.config({ path: path.join(__dirname, './../.env') });
 
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, () => {
+mongoose.connect(process.env.DB_CONNECT, {}, () => {
   console.log('Connected to DB!');
 });
 

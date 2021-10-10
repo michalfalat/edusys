@@ -51,7 +51,7 @@ const organizationSchema = new Schema<IOrganizationDocument>(
       ref: 'user',
     },
     status: {
-      type: OrganizationStatus,
+      type: Schema.Types.String,
     },
     organizationRoles: [
       {

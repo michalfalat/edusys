@@ -21,14 +21,14 @@
     <div class="row">
       <mat-form-field *ngIf="isEditMode">
         <mat-select formControlName="organizationId" [placeholder]="'task.organization' | translate">
-          <mat-option *ngFor="let organization of organizations" [value]="organization?.id">
+          <mat-option *ngFor="let organization of userOrganizations" [value]="organization?.id">
             {{ organization?.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field *ngIf="!isEditMode">
         <mat-label>{{ 'task.organization' | translate }}</mat-label>
-        <input matInput [value]="organizations | selectById: taskDetail?.organization:'name'" [readonly]="true" />
+        <input matInput [value]="userOrganizations | selectById: taskDetail?.organization:'name'" [readonly]="true" />
       </mat-form-field>
     </div>
     <div class="row">

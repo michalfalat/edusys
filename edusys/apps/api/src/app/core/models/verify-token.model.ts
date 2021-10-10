@@ -28,7 +28,7 @@ const verifyTokenSchema = new Schema<IVerifyTokenDocument>(
       required: true,
     },
     type: {
-      type: VerifyTokenType,
+      type: Schema.Types.String,
       required: true,
     },
   },

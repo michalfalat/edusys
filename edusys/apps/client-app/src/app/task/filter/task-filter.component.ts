@@ -33,7 +33,6 @@ export class TaskFilterComponent extends TaskBaseContainer implements OnInit {
 
   ngOnInit(): void {
     this.filter();
-    if (!this.organizations) this.organizationFacade.fetchOrganizationList();
   }
 
   filter(reset = false): void {

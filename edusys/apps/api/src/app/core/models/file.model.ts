@@ -37,7 +37,7 @@ const fileSchema = new Schema<IFileDocument>(
       type: String,
     },
     type: {
-      type: FileType,
+      type: Schema.Types.String,
     },
   },
   {

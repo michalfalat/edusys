@@ -76,7 +76,7 @@ export const editUser = async (payload: IUserEditRequest): Promise<IUserDetailRe
   }
   try {
     const id = payload.id;
-    const updatedModel = await UserModel.findByIdAndUpdate(id, payload, { new: true });
+    const updatedModel = await UserModel.findByIdAndUpdate(id, { $set: { ...payload } }, { new: true });
     for (let i = 0; i < payload.organizations?.length; i++) {
       const organizationId = payload.organizations[i];
       await OrganizationModel.addUserToOrganization(organizationId, updatedModel._id);

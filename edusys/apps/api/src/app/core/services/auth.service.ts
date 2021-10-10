@@ -110,18 +110,19 @@ export const userInfo = async (): Promise<IAuthUserInfoResponse> => {
 // INIT DATA
 export const initData = async (): Promise<IAuthInitDataResponse> => {
   const jwtData = getCurrentUser();
-  let user = await UserModel.findById(jwtData?.id).populate({ path: 'activeOrganization', populate: { path: 'organizationRoles', populate: 'users' } });
+  const user = await UserModel.findById(jwtData?.id).populate({ path: 'activeOrganization', populate: { path: 'organizationRoles', populate: 'users' } });
   if (!user) {
     return { permissions: [] };
   }
 
   if (!user.activeOrganization && user.organizations?.length > 0) {
-    user = await UserModel.updateOne({ _id: jwtData?.id }, { $set: { activeOrganization: user.organizations[0]._id } });
+    user.activeOrganization = user.organizations[0]._id;
+    user.save();
   }
 
   const activeOrganization = organizationDetailMapper(user.activeOrganization);
-  const userRoles = activeOrganization.roles.filter((r) => r.users.map((u) => u.id).includes(user.id));
-  const permissions = uniq(flatten(userRoles.map((r) => r.permissions)));
+  const userRoles = user.activeOrganization?.organizationRoles?.filter((r) => r.users?.map((u) => u.id).includes(user.id));
+  const permissions: string[] = uniq(flatten(userRoles.map((r) => r.permissions)));
 
   if (user.email === process.env.SU_EMAIL) {
     permissions.push(PERMISSION.SUPER_USER);

@@ -67,7 +67,7 @@ export const editPackage = async (payload: IPackageEditRequest): Promise<IPackag
       installationPrices: payload.installationPrices,
       modules,
     };
-    const updatedModel = await PackageModel.findByIdAndUpdate(id, editedPackage, { new: true });
+    const updatedModel = await PackageModel.findByIdAndUpdate(id, { $set: { ...editedPackage } }, { new: true });
     logInfo(`[PACKAGE_SERVICE] package '${payload.name}' edited`);
     return packageDetailMapper(updatedModel, process.env.PRIMARY_CURRENCY);
   } catch (error) {

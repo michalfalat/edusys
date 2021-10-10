@@ -34,7 +34,7 @@
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'task.select_organization' | translate" #organizationSearch></ngx-mat-select-search>
             </mat-option>
-            <mat-option *ngFor="let org of organizations | filter: 'name':organizationSearch.value" [value]="org?.id">
+            <mat-option *ngFor="let org of userOrganizations | filter: 'name':organizationSearch.value" [value]="org?.id">
               {{ org?.name }}
             </mat-option>
           </mat-select>

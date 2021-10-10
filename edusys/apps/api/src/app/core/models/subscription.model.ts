@@ -42,7 +42,9 @@ const subscriptionSchema = new Schema<ISubscriptionDocument>(
       ref: 'package',
     },
     reference: { type: String, max: 255 },
-    status: { type: SubscriptionStatus },
+    status: {
+      type: Schema.Types.String,
+    },
     validUntil: { type: Date },
     discount: { type: amountSchema },
     discountPercentage: { type: Number },
