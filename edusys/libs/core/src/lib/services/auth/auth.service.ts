@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import {
   IAuthCreatePasswordRequest,
   IAuthInitDataResponse,
@@ -22,6 +22,7 @@ import memoize from 'lodash-es/memoize';
   providedIn: 'root',
 })
 export class AuthService {
+  isLoggedIn$ = from(this.getAuthToken());
   constructor(private httpClient: HttpClient, private localStorageService: LocalStorageService, @Inject(APP_CONFIG) private appConfig: any) {}
 
   baseUrl(): string {

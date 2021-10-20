@@ -22,12 +22,14 @@ import {
 } from './auth.actions';
 import IAuthState from './auth.reducer';
 import { getInitData, getUserInfo } from './auth.selectors';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthFacade {
-  constructor(private store: Store<IAuthState>) {}
+  constructor(private store: Store<IAuthState>, private authService: AuthService) {}
+  isLoggedIn$ = this.authService.isLoggedIn$;
   getUserInfo$ = this.store.pipe(select(getUserInfo));
   getInitData$ = this.store.pipe(select(getInitData));
 

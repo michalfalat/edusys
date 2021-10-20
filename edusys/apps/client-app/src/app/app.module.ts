@@ -14,6 +14,7 @@ import { MatDayjsDateModule } from '@tabuckner/material-dayjs-adapter';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeSk from '@angular/common/locales/sk';
+import { AuthService } from 'libs/core/src/lib/services/auth/auth.service';
 
 registerLocaleData(localeSk);
 
@@ -45,7 +46,7 @@ export const MY_DATE_FORMAT = {
       provide: APP_INITIALIZER,
       useFactory: loadInitData,
 
-      deps: [AuthFacade, NgxPermissionsService],
+      deps: [AuthFacade, AuthService, NgxPermissionsService],
       multi: true,
     },
     { provide: MAT_DATE_LOCALE, useValue: 'sk-SK' },
@@ -56,14 +57,18 @@ export const MY_DATE_FORMAT = {
 })
 export class AppModule {}
 
-export function loadInitData(authFacade: AuthFacade, ps: NgxPermissionsService): Function {
+export function loadInitData(authFacade: AuthFacade, authService: AuthService, ps: NgxPermissionsService): Function {
   return () => {
     const promise = new Promise<boolean>((resolve) => {
-      authFacade.userInfo();
-      authFacade.fetchInitData((data) => {
-        ps.loadPermissions(data.permissions);
+      if (authService.getAuthToken()) {
+        authFacade.userInfo();
+        authFacade.fetchInitData((data) => {
+          ps.loadPermissions(data.permissions);
+          resolve(true);
+        });
+      } else {
         resolve(true);
-      });
+      }
     });
 
     return promise;
