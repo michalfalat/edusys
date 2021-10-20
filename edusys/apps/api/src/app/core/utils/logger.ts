@@ -8,7 +8,7 @@ import { getCurrentUser } from '../middlewares/current-http-context';
 const { MongoDB }: { MongoDB: MongoDBTransportInstance } = require('winston-mongodb');
 const {}: { MongoDB: MongoDBTransportInstance } = require('winston-daily-rotate-file');
 
-export const logger = winston.createLogger({
+const logger = winston.createLogger({
   format: winston.format.json(),
   transports: [
     //
@@ -35,12 +35,12 @@ export const logger = winston.createLogger({
     //     winston.format.printf((info) => `${info.level}: ${[info.timestamp]}: ${info.message} ${JSON.stringify(info.metadata?.metadata)}`)
     //   ),
     // }),
-    new winston.transports.MongoDB({
-      db: process.env.DB_CONNECT,
-      collection: 'logs',
-      capped: true,
-      options: { useNewUrlParser: true, useUnifiedTopology: true },
-    }),
+    // new winston.transports.MongoDB({
+    //   db: process.env.DB_CONNECT,
+    //   collection: 'logs',
+    //   capped: true,
+    //   options: { useNewUrlParser: true, useUnifiedTopology: true },
+    // }),
 
     new winston.transports.DailyRotateFile({
       filename: 'application-%DATE%.log',
@@ -60,11 +60,13 @@ export const logger = winston.createLogger({
 });
 
 export const logError = (message: string | any, meta?: any): void => {
+  console.log('message :>> ', message);
   const { id, email } = getCurrentUser() || {};
   logger.error(message, { metadata: { ...meta, loggedUser: { id, email } } });
 };
 
 export const logInfo = (message: string | any, meta?: any): void => {
+  console.log('message :>> ', message);
   const { id, email } = getCurrentUser() || {};
   logger.info(message, { metadata: { ...meta, loggedUser: { id, email } } });
 };
