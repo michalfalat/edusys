@@ -77,8 +77,7 @@ export const createTask = async (payload: ITaskCreateRequest): Promise<ITaskDeta
   try {
     await newModel.save();
     const savedModel = await TaskModel.findById(newModel._id).populate('organization');
-    console.log('ORGANIZATION: ', savedModel.organization);
-    const url = 'www.edusys.sk/task/detail/131'; //`${getCurrentHostname()}/task/detail/${savedModel?.id}`; //TODO
+    const url = `${process.env.CLIENT_APP_URL}/task/detail/${savedModel?.id}`;
     sendEmail(EmailType.TASK_NEW, recipient, {
       createdBy: recipient,
       taskDescription: savedModel.description,

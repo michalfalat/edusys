@@ -49,11 +49,11 @@ export class TaskDetailComponent extends TaskBaseContainer implements OnInit {
     );
   }
 
-  fetchOrganizationUsers(organizationId: string): void {
-    this.organizationFacade.fetchOrganizationDetail(organizationId, (organizationData) => {
-      this.organizationUsers = organizationData.users;
-    });
-  }
+  // fetchOrganizationUsers(organizationId: string): void {
+  //   this.organizationFacade.fetchOrganizationDetail(organizationId, (organizationData) => {
+  //     this.organizationUsers = organizationData.users;
+  //   });
+  // }
 
   fillForm = (data: ITaskDetailResponse): void => {
     this.form?.patchValue({
