@@ -12,7 +12,7 @@
     "start:api": "nx serve api",
     "start:admin-sa": "ng serve admin-management",
     "start:attendance-sa": "ng serve attendance-client",
-    "build:api": "nx build api",
+    "build:api": "nx build api --prod --configuration=production",
     "build:client": "nx build client-app --aot --prod --configuration=production",
     "build:admin": "nx build admin-management --aot --prod --configuration=production",
     "eslint:apps:fix": "eslint --no-error-on-unmatched-pattern --fix --no-ignore -c ./.eslintrc.js ./apps/**/*{.ts,.tsx}",

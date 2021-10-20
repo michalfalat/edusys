@@ -10,10 +10,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/core/src/**/*.ts",
-              "libs/core/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/core/src/**/*.ts", "libs/core/src/**/*.html"]
           }
         },
         "test": {
@@ -35,10 +32,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/core-translate/src/**/*.ts",
-              "libs/core-translate/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/core-translate/src/**/*.ts", "libs/core-translate/src/**/*.html"]
           }
         },
         "test": {
@@ -60,10 +54,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/app-config/src/**/*.ts",
-              "libs/app-config/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/app-config/src/**/*.ts", "libs/app-config/src/**/*.html"]
           }
         },
         "test": {
@@ -86,6 +77,7 @@
           "builder": "@nrwl/node:build",
           "outputs": ["{options.outputPath}"],
           "options": {
+            "externalDependencies": "none",
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/server.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
@@ -151,10 +143,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/model/src/**/*.ts",
-              "libs/model/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/model/src/**/*.ts", "libs/model/src/**/*.html"]
           }
         },
         "test": {
@@ -176,10 +165,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/email-sender/src/**/*.ts",
-              "libs/email-sender/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/email-sender/src/**/*.ts", "libs/email-sender/src/**/*.html"]
           }
         }
       }
@@ -199,10 +185,7 @@
             "polyfills": "apps/admin-management/src/polyfills.ts",
             "tsConfig": "apps/admin-management/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/admin-management/src/favicon.ico",
-              "apps/admin-management/src/assets"
-            ],
+            "assets": ["apps/admin-management/src/favicon.ico", "apps/admin-management/src/assets"],
             "styles": ["apps/admin-management/src/styles.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["apps/admin-management/src/assets/styles"]
@@ -260,10 +243,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/admin-management/src/**/*.ts",
-              "apps/admin-management/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/admin-management/src/**/*.ts", "apps/admin-management/src/**/*.html"]
           }
         },
         "test": {
@@ -311,10 +291,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/core-ui/src/**/*.ts",
-              "libs/core-ui/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/core-ui/src/**/*.ts", "libs/core-ui/src/**/*.html"]
           }
         }
       }
@@ -347,10 +324,7 @@
             "polyfills": "apps/client-app/src/polyfills.ts",
             "tsConfig": "apps/client-app/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/client-app/src/favicon.ico",
-              "apps/client-app/src/assets"
-            ],
+            "assets": ["apps/client-app/src/favicon.ico", "apps/client-app/src/assets"],
             "styles": ["apps/client-app/src/styles.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["apps/client-app/src/assets/styles"]
@@ -408,10 +382,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/client-app/src/**/*.ts",
-              "apps/client-app/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/client-app/src/**/*.ts", "apps/client-app/src/**/*.html"]
           }
         },
         "test": {
