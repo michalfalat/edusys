@@ -29,7 +29,6 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class AuthFacade {
   constructor(private store: Store<IAuthState>, private authService: AuthService) {}
-  isLoggedIn$ = this.authService.isLoggedIn$;
   getUserInfo$ = this.store.pipe(select(getUserInfo));
   getInitData$ = this.store.pipe(select(getInitData));
 
