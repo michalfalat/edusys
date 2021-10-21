@@ -42,4 +42,4 @@ export const logRouter = Router();
 logRouter.post('/api/log', [verifyToken], listOfLogs);
 logRouter.get('/api/log/:id', [verifyToken], detailOfLog);
 logRouter.delete('/api/log/:id', [verifyToken], deleteLog);
-logRouter.get('/api/server-stats', [verifyToken], serverStats);
+logRouter.get('/api/server-stats', serverStats);
