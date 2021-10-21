@@ -1,5 +1,3 @@
-export * from './lib/model.module';
-
 // DTO - requests, responses etc..
 export * from './lib/dto/user.dto';
 export * from './lib/dto/module.dto';
