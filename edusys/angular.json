@@ -77,7 +77,8 @@
           "builder": "@nrwl/node:build",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "externalDependencies": "none",
+            "generatePackageJson": true,
+            "externalDependencies": "all",
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/server.ts",
             "tsConfig": "apps/api/tsconfig.app.json",

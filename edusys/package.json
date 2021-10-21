@@ -12,7 +12,7 @@
     "start:api": "nx serve api",
     "start:admin-sa": "ng serve admin-management",
     "start:attendance-sa": "ng serve attendance-client",
-    "build:api": "nx build api --prod --configuration=production",
+    "build:api": "nx build api --skip-nx-cache  --prod --configuration=production",
     "build:client": "nx build client-app --aot --prod --configuration=production",
     "build:admin": "nx build admin-management --aot --prod --configuration=production",
     "eslint:apps:fix": "eslint --no-error-on-unmatched-pattern --fix --no-ignore -c ./.eslintrc.js ./apps/**/*{.ts,.tsx}",
@@ -58,7 +58,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@nrwl/angular": "11.1.5",
-    "@nrwl/node": "^11.1.5",
+    "@nrwl/node": "11.1.5",
     "@tabuckner/material-dayjs-adapter": "^2.0.0",
     "@types/bcrypt": "^3.0.0",
     "@types/cookie-parser": "^1.4.2",
@@ -141,7 +141,6 @@
     "jest-preset-angular": "8.3.1",
     "prettier": "2.2.1",
     "ts-jest": "26.4.0",
-    "ts-node": "~9.1.1",
     "tslint": "~6.1.0",
     "typescript": "~4.0.3"
   }

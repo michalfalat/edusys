@@ -6,7 +6,7 @@ import { logError } from './logger';
 export const handleErrors = (err, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof GeneralError) {
     return res.status(err.getCode()).json({
-      status: 'errorFor test',
+      status: 'error',
       message: err.message,
       messageLocalized: req.__(err.message),
       metadata: err.metadata,
