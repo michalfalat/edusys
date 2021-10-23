@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "files": [],
   "include": [],
+  "exclude": ["**/configuration.json"],
   "references": [
     {
       "path": "./tsconfig.app.json"

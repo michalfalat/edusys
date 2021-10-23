@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthFacade, CoreModule, httpInterceptorProviders } from '@edusys/core';
 import { CoreTranslateModule } from '@edusys/core-translate';
 import { APP_CONFIG } from '@edusys/app-config';
@@ -46,7 +46,7 @@ export const MY_DATE_FORMAT = {
       provide: APP_INITIALIZER,
       useFactory: loadInitData,
 
-      deps: [AuthFacade, AuthService, NgxPermissionsService],
+      deps: [HttpClient, AuthFacade, AuthService, NgxPermissionsService],
       multi: true,
     },
     { provide: MAT_DATE_LOCALE, useValue: 'sk-SK' },
@@ -57,18 +57,22 @@ export const MY_DATE_FORMAT = {
 })
 export class AppModule {}
 
-export function loadInitData(authFacade: AuthFacade, authService: AuthService, ps: NgxPermissionsService): Function {
+export function loadInitData(httpClient: HttpClient, authFacade: AuthFacade, authService: AuthService, ps: NgxPermissionsService): Function {
   return () => {
     const promise = new Promise<boolean>((resolve) => {
-      if (authService.getAuthToken()) {
-        authFacade.userInfo();
-        authFacade.fetchInitData((data) => {
-          ps.loadPermissions(data.permissions);
+      httpClient.get('assets/configuration.json').subscribe((res: APP_CONFIG) => {
+        appConfig.apiUrl = res.apiUrl;
+        appConfig.appUrls = res.appUrls;
+        if (authService.getAuthToken()) {
+          authFacade.userInfo();
+          authFacade.fetchInitData((data) => {
+            ps.loadPermissions(data.permissions);
+            resolve(true);
+          });
+        } else {
           resolve(true);
-        });
-      } else {
-        resolve(true);
-      }
+        }
+      });
     });
 
     return promise;

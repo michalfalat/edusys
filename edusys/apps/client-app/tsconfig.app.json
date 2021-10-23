@@ -4,5 +4,6 @@
     "outDir": "../../dist/out-tsc",
     "types": []
   },
+  "exclude": ["**/configuration.json"],
   "files": ["src/main.ts", "src/polyfills.ts"]
 }
