@@ -1,7 +1,7 @@
 <mat-card class="basic-card">
   <ui-breadcrumb [showHome]="true" [navigationItems]="navigationItems" (onNavigationItemClick)="navigateTo($event.route)"></ui-breadcrumb>
   <ui-divider [compact]="true"></ui-divider>
-  <mat-tab-group animationDuration="0ms">
+  <mat-tab-group animationDuration="0ms" (selectedTabChange)="tabClick($event)">
     <mat-tab [label]="'profile.basicInfo' | translate">
       <app-profile-basic-info [userInfo]="userInfo"></app-profile-basic-info>
     </mat-tab>

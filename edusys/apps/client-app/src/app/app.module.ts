@@ -61,8 +61,10 @@ export function loadInitData(httpClient: HttpClient, authFacade: AuthFacade, aut
   return () => {
     const promise = new Promise<boolean>((resolve) => {
       httpClient.get('assets/configuration.json').subscribe((res: APP_CONFIG) => {
-        appConfig.apiUrl = res.apiUrl;
-        appConfig.appUrls = res.appUrls;
+        if (appConfig.production) {
+          appConfig.apiUrl = res.apiUrl;
+          appConfig.appUrls = res.appUrls;
+        }
         if (authService.getAuthToken()) {
           authFacade.userInfo();
           authFacade.fetchInitData((data) => {

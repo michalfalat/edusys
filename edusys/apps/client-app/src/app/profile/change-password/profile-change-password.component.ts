@@ -13,7 +13,6 @@ export class ProfileChangePasswordComponent extends ProfileBaseContainer {
   @Input() lastPasswordChange: string;
   constructor(injector: Injector) {
     super(injector);
-    this.setTitle('general.profile.changePassword.title');
     this.initForm();
     this.navigationItems = [
       {
