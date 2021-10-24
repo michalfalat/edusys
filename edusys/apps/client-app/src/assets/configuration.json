@@ -1,5 +1,5 @@
 {
-  "production": "false",
+  "production": false,
   "apiUrl": "http://5.189.173.85:3005",
   "appUrls": {
     "clientApp": "http://5.189.173.85:3004",

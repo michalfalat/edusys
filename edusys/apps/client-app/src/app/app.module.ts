@@ -61,8 +61,6 @@ export function loadInitData(httpClient: HttpClient, authFacade: AuthFacade, aut
   return () => {
     const promise = new Promise<boolean>((resolve) => {
       httpClient.get('assets/configuration.json').subscribe((res: APP_CONFIG) => {
-        console.log('appConfig :>> ', appConfig);
-        console.log('res :>> ', res);
         if (appConfig.production) {
           appConfig.apiUrl = res.apiUrl;
           appConfig.appUrls = res.appUrls;
