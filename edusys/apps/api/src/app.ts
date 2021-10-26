@@ -27,7 +27,7 @@ const app = express();
 dotenv.config({ path: path.join(__dirname, '.env') });
 
 mongoose.connect(process.env.DB_CONNECT, {}, () => {
-  console.log('Connected to DB!!!!');
+  console.log('Connected to DB!');
 });
 
 i18n.configure({
