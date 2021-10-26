@@ -16,6 +16,9 @@ export class LoginHomeComponent extends LoginBaseContainer {
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
+    if (this.authService.getAuthToken()) {
+      this.navigateToHome();
+    }
   }
 
   onLogin(): void {
@@ -27,7 +30,10 @@ export class LoginHomeComponent extends LoginBaseContainer {
       },
       () => {
         this.authFacade.userInfo();
-        this.navigateToProfile();
+        this.authFacade.fetchInitData((data) => {
+          this.permissionService.loadPermissions(data.permissions);
+          this.navigateToProfile();
+        });
       },
       (error) => {
         this.onError(error.error?.messageLocalized || error.error);

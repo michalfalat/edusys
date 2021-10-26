@@ -1,16 +1,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
 @import 'variables.scss';
 @import './ui-theme.scss';
-
-@font-face {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Helvetica Neue'), local('sans-serif'),  format('woff2');
-  font-display: swap;
-}
 
 html {
   height: 100%;
