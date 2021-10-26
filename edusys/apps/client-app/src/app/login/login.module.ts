@@ -5,9 +5,10 @@ import { LoginResetPasswordComponent } from './reset-password/login-reset-passwo
 import { LoginRoutingModule } from './login-routing.module';
 import { SharedModule } from '../shared.module';
 import { LoginCreatePasswordComponent } from './create-password/login-create-password.component';
+import { LoginPartnersComponent } from './login-partners/login-partners.component';
 
 @NgModule({
-  declarations: [LoginHomeComponent, LoginResetPasswordComponent, LoginCreatePasswordComponent],
+  declarations: [LoginHomeComponent, LoginResetPasswordComponent, LoginCreatePasswordComponent, LoginPartnersComponent],
   imports: [CommonModule, LoginRoutingModule, SharedModule],
 })
 export class LoginModule {}
