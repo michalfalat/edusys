@@ -1,6 +1,12 @@
 <img class="background" [src]="'./assets/images/wallpaper1.jpg'" width="100%" height="auto" />
-
+<div [style.height]="'6px'">
+  <mat-progress-bar mode="indeterminate" color="secondary" *ngIf="isLoading"></mat-progress-bar>
+</div>
 <mat-card class="basic-card small">
+  <h1>{{ 'login.home.title' | translate }}</h1>
+  <ui-divider [compact]="true"></ui-divider>
+  <p>{{ 'login.home.message' | translate }}</p>
+  <ui-divider></ui-divider>
   <form [formGroup]="form" (ngSubmit)="onLogin()">
     <div class="row">
       <mat-form-field>
@@ -12,12 +18,15 @@
     <div class="row">
       <mat-form-field>
         <mat-label>{{ 'general.password' | translate }}</mat-label>
-        <input matInput formControlName="password" type="password" name="password" />
+        <input matInput formControlName="password" type="password" name="password" #passwordInput />
+        <mat-icon class="pointer" matSuffix (click)="passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password'">{{
+          passwordInput.type === 'password' ? 'lock' : 'lock_open'
+        }}</mat-icon>
       </mat-form-field>
     </div>
 
     <div class="row center">
-      <button color="primary" mat-raised-button type="submit">{{ 'general.login.button' | translate }}</button>
+      <button color="primary" mat-raised-button type="submit" [disabled]="isLoading">{{ 'general.login.button' | translate }}</button>
     </div>
   </form>
 </mat-card>

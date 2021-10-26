@@ -62,6 +62,8 @@
   "log.message": "Text",
   "log.meta": "Metadáta",
   "log.toDate": "Do",
+  "login.home.title": "Prihlásenie",
+  "login.home.message": "Zadajte svoje prihlasovacie údaje:",
   "login.partnersMessage": "V spolupráci s ",
   "module.add.button": "Pridať modul",
   "module.description": "Popis",

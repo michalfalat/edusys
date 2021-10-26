@@ -17,8 +17,8 @@ export class LoginCreatePasswordComponent extends LoginBaseContainer implements 
     this.setTitle('login.createPassword.title');
     this.createForm(
       {
-        email: new FormControl(''),
-        password: new FormControl(''),
+        email: new FormControl(),
+        password: new FormControl(),
         token: new FormControl(this.token),
       },
       createPasswordSchema,

@@ -6,9 +6,10 @@ import { LoginRoutingModule } from './login-routing.module';
 import { SharedModule } from '../shared.module';
 import { LoginCreatePasswordComponent } from './create-password/login-create-password.component';
 import { LoginPartnersComponent } from './login-partners/login-partners.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [LoginHomeComponent, LoginResetPasswordComponent, LoginCreatePasswordComponent, LoginPartnersComponent],
-  imports: [CommonModule, LoginRoutingModule, SharedModule],
+  imports: [CommonModule, LoginRoutingModule, SharedModule, MatProgressBarModule],
 })
 export class LoginModule {}

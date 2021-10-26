@@ -9,6 +9,7 @@ import { LoginBaseContainer } from '../login-base.container';
   styleUrls: ['./login-home.component.scss'],
 })
 export class LoginHomeComponent extends LoginBaseContainer {
+  isLoading: boolean;
   constructor(injector: Injector) {
     super(injector);
     this.setTitle('login.home.title');
@@ -22,6 +23,10 @@ export class LoginHomeComponent extends LoginBaseContainer {
   }
 
   onLogin(): void {
+    if (!this.form.valid) {
+      return;
+    }
+    this.isLoading = true;
     this.authFacade.login(
       {
         password: this.form?.value.password,
@@ -36,6 +41,7 @@ export class LoginHomeComponent extends LoginBaseContainer {
         });
       },
       (error) => {
+        this.isLoading = false;
         this.onError(error.error?.messageLocalized || error.error);
       },
     );
