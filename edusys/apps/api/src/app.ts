@@ -1,6 +1,5 @@
 import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
-import * as dotenv from 'dotenv';
 import * as express from 'express';
 import * as httpContext from 'express-http-context';
 import * as helmet from 'helmet';
@@ -24,7 +23,6 @@ import { currentHttpContext } from './app/core/middlewares/current-http-context'
 import { handleErrors } from './app/core/utils/error-handle';
 
 const app = express();
-dotenv.config({ path: path.join(__dirname, '.env') });
 
 mongoose.connect(process.env.DB_CONNECT, {}, () => {
   console.log('Connected to DB!');
