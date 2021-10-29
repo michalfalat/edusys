@@ -40,22 +40,13 @@
       </ng-container>
     </div>
     <div class="row right sm-show">
-      <ng-container *ngIf="!!initData">
-        <button mat-icon-button [matMenuTriggerFor]="menuOrg">
-          <mat-icon>account_balance</mat-icon>
-          {{ initData?.activeOrganization?.name }}
-        </button>
-        <mat-menu #menuOrg="matMenu">
-          <!-- <button mat-menu-item (click)="navigateToProfile()">{{ 'general.profile' | translate }}</button>
-          <button mat-menu-item (click)="onLogout()">{{ 'general.logout' | translate }}</button> -->
-        </mat-menu>
-      </ng-container>
       <ui-divider [vertical]="true"></ui-divider>
       <ng-container *ngIf="!!userInfo">
         <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>account_circle</mat-icon>
+          <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+          <button mat-menu-item>{{ initData?.activeOrganization?.name }}</button>
           <button mat-menu-item (click)="navigateToProfile()">{{ 'general.profile' | translate }}</button>
           <button mat-menu-item (click)="onLogout()">{{ 'general.logout' | translate }}</button>
         </mat-menu>
