@@ -24,6 +24,11 @@
         }}</mat-icon>
       </mat-form-field>
     </div>
+    <div class="row right">
+      <a mat-flat-button (click)="navigateToForgotPassword()">{{ 'login.home.forgotPassword' | translate }}</a>
+    </div>
+
+    <ui-divider></ui-divider>
 
     <div class="row center">
       <button color="primary" mat-raised-button type="submit" [disabled]="isLoading">{{ 'general.login.button' | translate }}</button>

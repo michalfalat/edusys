@@ -29,7 +29,7 @@ export class HeaderComponent extends HeaderBaseContainer implements OnInit {
   }
 
   navigateToLogin = (): void => {
-    this.navigateTo(routes.login);
+    this.navigateTo(routes.login.home);
   };
 
   navigateToProfile = (): void => {

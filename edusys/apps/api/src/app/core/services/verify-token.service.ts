@@ -47,6 +47,6 @@ export const generateVerificationTokenURL = async (token: IVerifyToken): Promise
   }
 
   if (token.type === VerifyTokenType.PASSWORD_RESET) {
-    return `${process.env.CLIENT_APP_URL}/login/reset-password?token=${token.token}`;
+    return `${process.env.CLIENT_APP_URL}/login/create-password?token=${token.token}`;
   }
 };

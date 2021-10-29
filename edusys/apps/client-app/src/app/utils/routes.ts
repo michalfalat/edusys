@@ -1,6 +1,9 @@
 export const routes = {
   home: '/home',
-  login: '/login',
+  login: {
+    home: '/login',
+    forgotPassword: '/login/forgot-password',
+  },
   profile: '/profile',
 
   task: {

@@ -12,6 +12,8 @@ import {
   authLoginRequestAction,
   authLoginResponseAction,
   authLogoutAction,
+  authResetPasswordRequestAction,
+  authResetPasswordResponseAction,
   authUserInfoRequestAction,
   authUserInfoResponseAction,
   authVerifyTokenRequestAction,
@@ -141,6 +143,28 @@ export class AuthEffects {
               onSucceeded();
             }
             return authCreatePasswordResponseAction();
+          }),
+          catchError((error) => {
+            if (onError) {
+              onError(error);
+            }
+            return of(authErrorAction({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  resetPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authResetPasswordRequestAction),
+      mergeMap(({ payload, onSucceeded, onError }) =>
+        this.authService.resetPassword(payload).pipe(
+          map(() => {
+            if (onSucceeded) {
+              onSucceeded();
+            }
+            return authResetPasswordResponseAction();
           }),
           catchError((error) => {
             if (onError) {

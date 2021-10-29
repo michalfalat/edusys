@@ -32,6 +32,10 @@ export interface IAuthVerificationTokenInfoResponse {
   email?: string;
 }
 
+export interface IAuthResetPasswordRequest {
+  email: string;
+}
+
 export interface IAuthCreatePasswordRequest {
   token: string;
   password: string;

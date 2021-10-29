@@ -1,7 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { createPasswordSchema, IAuthCreatePasswordRequest, IAuthVerificationTokenInfoRequest } from '@edusys/model';
-import { routes } from '../../utils/routes';
+import { createPasswordSchema, IAuthCreatePasswordRequest, IAuthVerificationTokenInfoRequest, IAuthVerificationTokenInfoResponse } from '@edusys/model';
 import { LoginBaseContainer } from '../login-base.container';
 
 @Component({
@@ -29,21 +28,18 @@ export class LoginCreatePasswordComponent extends LoginBaseContainer implements 
     const request: IAuthVerificationTokenInfoRequest = {
       token: this.token,
     };
-    this.authFacade.verifyTokenInfo(
-      request,
-      (data) => {
-        if (data.expired) {
-          this.onError('error.expiredToken');
-          this.navigateTo(routes.login);
-        }
-        this.form?.patchValue({
-          email: data.email,
-        });
-      },
-
-      (error) => this.onTokenError(error),
-    );
+    this.authFacade.verifyTokenInfo(request, this.onTokenData, this.onTokenError);
   }
+
+  onTokenData = (data: IAuthVerificationTokenInfoResponse): void => {
+    if (data.expired) {
+      this.onError('error.expiredToken');
+      this.navigateToLoginHome();
+    }
+    this.form?.patchValue({
+      email: data.email,
+    });
+  };
 
   onCreatePassword(): void {
     const request: IAuthCreatePasswordRequest = {
@@ -54,7 +50,7 @@ export class LoginCreatePasswordComponent extends LoginBaseContainer implements 
       request,
       () => {
         this.onSuccess('login.createPassword.success');
-        this.navigateTo(routes.login);
+        this.navigateToLoginHome();
       },
 
       (error) => this.onTokenError(error),
@@ -62,7 +58,7 @@ export class LoginCreatePasswordComponent extends LoginBaseContainer implements 
   }
 
   onTokenError = (error: any): void => {
-    this.onError(error.error?.messageLocalized || error.error);
-    this.navigateTo(routes.login);
+    this.onError(error);
+    this.navigateToLoginHome();
   };
 }

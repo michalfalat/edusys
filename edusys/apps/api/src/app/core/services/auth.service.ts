@@ -5,12 +5,15 @@ import {
   IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
+  IAuthResetPasswordRequest,
   IAuthUserChangePasswordRequest,
   IAuthUserChangePasswordResponse,
   IAuthUserInfoResponse,
   IJWTUserData,
   loginUserSchemaValidate,
   PERMISSION,
+  resetPasswordSchemaValidate,
+  VerifyTokenType,
 } from '@edusys/model';
 import * as jwt from 'jsonwebtoken';
 import { organizationDetailMapper } from '../mappers/organization.mapper';
@@ -20,8 +23,10 @@ import UserModel from '../models/user.model';
 import { errorLabels } from '../utils/error-labels';
 import { BadRequest, NotFound } from '../utils/errors';
 import { logError, logInfo } from '../utils/logger';
-import { deleteToken, verificationTokenInfo } from './verify-token.service';
+import { createVerificationToken, deleteToken, generateVerificationTokenURL, verificationTokenInfo } from './verify-token.service';
 import { flatten, uniq } from 'lodash';
+import { EmailType } from '@edusys/email-sender';
+import { sendEmail } from './email.service';
 
 // // REGISTER
 // export const register = async (payload: IAuthRegisterUserRequest): Promise<IAuthRegisterUserResponse> => {
@@ -181,6 +186,27 @@ export const createPassword = async (payload: IAuthCreatePasswordRequest): Promi
   await deleteToken(token.id);
 
   logInfo(`[AUTH_SERVICE] user ${user.email} created password successfully`);
+
+  return;
+};
+
+// RESET  PASSWORD
+export const resetPassword = async (payload: IAuthResetPasswordRequest): Promise<void> => {
+  const { error } = resetPasswordSchemaValidate(payload);
+  if (!!error) {
+    throw new BadRequest(error.details[0].message);
+  }
+
+  const user = await UserModel.findByEmail(payload.email);
+  if (!user) {
+    throw new NotFound();
+  }
+
+  const token = await createVerificationToken(VerifyTokenType.PASSWORD_RESET, user._id);
+  const url = await generateVerificationTokenURL(token);
+  sendEmail(EmailType.RESET_PASSWORD, payload.email, { name: user.fullname || user.email, url });
+
+  logInfo(`[AUTH_SERVICE] user ${user.email} reset password request`);
 
   return;
 };

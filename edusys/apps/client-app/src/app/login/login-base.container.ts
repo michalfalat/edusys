@@ -28,7 +28,16 @@ export class LoginBaseContainer extends CommonContainer {
   navigateToProfile = (): void => {
     this.navigateTo(routes.profile);
   };
+
   navigateToHome = (): void => {
     this.navigateTo(routes.home);
+  };
+
+  navigateToLoginHome = (): void => {
+    this.navigateTo(routes.login.home);
+  };
+
+  navigateToForgotPassword = (): void => {
+    this.navigateTo(routes.login.forgotPassword);
   };
 }

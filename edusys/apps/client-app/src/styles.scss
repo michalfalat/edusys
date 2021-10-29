@@ -53,6 +53,14 @@ div.column {
   }
 }
 
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
 mat-card.basic-card {
   width: calc(100vw - 500px);
   max-width: 50rem;

@@ -5,6 +5,7 @@ export enum EmailType {
   ORGANIZATION_CREATE_VERIFY_EMAIL = 'ORGANIZATION_CREATE_VERIFY_EMAIL',
   TASK_NEW = 'TASK_NEW',
   USER_ORGANIZATION_ADD = 'USER_ORGANIZATION_ADD',
+  RESET_PASSWORD = 'RESET_PASSWORD',
 }
 
 export type EmailTemplatesData = {
@@ -38,6 +39,10 @@ export type EmailTemplatesData = {
   [EmailType.USER_ORGANIZATION_ADD]: {
     isNewUser: boolean;
     organizations: string[];
+    url: string;
+  };
+  [EmailType.RESET_PASSWORD]: {
+    name: string;
     url: string;
   };
 };

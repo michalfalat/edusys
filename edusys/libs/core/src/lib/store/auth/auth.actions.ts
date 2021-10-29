@@ -4,6 +4,7 @@ import {
   IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
+  IAuthResetPasswordRequest,
   IAuthUserChangePasswordRequest,
   IAuthUserInfoResponse,
   IAuthVerificationTokenInfoRequest,
@@ -92,6 +93,17 @@ export const authCreatePasswordRequestAction = createAction(
   }>(),
 );
 export const authCreatePasswordResponseAction = createAction(`${PREFIX} CREATE PASSWORD RESPONSE`);
+
+// RESET PASSWORD
+export const authResetPasswordRequestAction = createAction(
+  `${PREFIX} RESET PASSWORD REQUEST`,
+  props<{
+    payload: IAuthResetPasswordRequest;
+    onSucceeded?: () => void;
+    onError?: (error: any) => void;
+  }>(),
+);
+export const authResetPasswordResponseAction = createAction(`${PREFIX} RESET PASSWORD RESPONSE`);
 
 // CHANGE PASSWORD
 export const authChangePasswordRequestAction = createAction(

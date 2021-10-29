@@ -6,6 +6,7 @@ import {
   IAuthInitDataResponse,
   IAuthLoginUserRequest,
   IAuthLoginUserResponse,
+  IAuthResetPasswordRequest,
   IAuthUserChangePasswordRequest,
   IAuthUserInfoResponse,
   IAuthVerificationTokenInfoRequest,
@@ -17,6 +18,7 @@ import {
   authInitDataRequestAction,
   authLoginRequestAction,
   authLogoutAction,
+  authResetPasswordRequestAction,
   authUserInfoRequestAction,
   authVerifyTokenRequestAction,
 } from './auth.actions';
@@ -54,6 +56,10 @@ export class AuthFacade {
 
   createPassword(payload: IAuthCreatePasswordRequest, onSucceeded?: () => void, onError?: (response: HttpErrorResponse) => void): void {
     this.store.dispatch(authCreatePasswordRequestAction({ payload, onSucceeded, onError }));
+  }
+
+  resetPassword(payload: IAuthResetPasswordRequest, onSucceeded?: () => void, onError?: (response: HttpErrorResponse) => void): void {
+    this.store.dispatch(authResetPasswordRequestAction({ payload, onSucceeded, onError }));
   }
 
   changePassword(payload: IAuthUserChangePasswordRequest, onSucceeded?: () => void, onError?: (response: HttpErrorResponse) => void): void {

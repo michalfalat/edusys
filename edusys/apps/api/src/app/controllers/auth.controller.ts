@@ -70,6 +70,15 @@ const createPassword = async (req: Request, res: Response, next: NextFunction) =
   }
 };
 
+const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await authService.resetPassword(req.body);
+    res.send({});
+  } catch (err) {
+    next(err);
+  }
+};
+
 const seedSU = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await authService.seedSU();
@@ -106,6 +115,7 @@ authRouter.post('/api/auth/logout', logout);
 authRouter.post('/api/auth/init-data', [verifyToken], initData);
 authRouter.post('/api/auth/verify-token', verifyTokenInfo);
 authRouter.post('/api/auth/create-password', createPassword);
+authRouter.post('/api/auth/reset-password', resetPassword);
 authRouter.get('/api/auth/user-info', [verifyToken], userInfo);
 authRouter.post('/api/auth/change-password', [verifyToken], changePassword);
 authRouter.post('/api/auth/test-email', testEmail);

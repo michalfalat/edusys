@@ -1,0 +1,14 @@
+extends ../layout.pug
+
+block content
+  div.left
+    p Dobrý deň, #{name},
+    p Tento email Vám bol odoslaný, aby ste si nastavili Vaše nové heslo do aplikácie Edusys.
+    br
+    p Pre vytvorenie nového hesla prosím použite nasledujúci odkaz:
+    br
+  button
+    a(href='' + url) Reset hesla
+  br
+  p.small Ak sa vám odkaz nezobrazuje správne, použite nasledujúci link:
+  a.small(href='' + url) #{url}
