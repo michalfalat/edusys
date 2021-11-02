@@ -1,5 +1,6 @@
 import { AppEffects } from './app/app.effects';
 import { AuthEffects } from './auth/auth.effects';
+import { DashboardEffects } from './dashboard/dashboard.effects';
 import { FileEffects } from './file/file.effects';
 import { IdentifierEffects } from './identifier/identifier.effects';
 import { LogEffects } from './log/log.effects';
@@ -24,4 +25,5 @@ export const appEffects = [
   LogEffects,
   SubscriptionEffects,
   IdentifierEffects,
+  DashboardEffects,
 ];

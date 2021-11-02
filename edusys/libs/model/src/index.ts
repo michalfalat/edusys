@@ -12,6 +12,7 @@ export * from './lib/dto/task.dto';
 export * from './lib/dto/file.dto';
 export * from './lib/dto/log.dto';
 export * from './lib/dto/identifier.dto';
+export * from './lib/dto/dashboard.dto';
 
 // PERMISSIONS
 export * from './lib/model/permissions.model';

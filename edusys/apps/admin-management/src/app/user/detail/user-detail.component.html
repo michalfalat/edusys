@@ -9,17 +9,17 @@
         <input matInput [value]="userDetail?.createdAt | date" [disabled]="true" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>{{ 'user.edited_at' | translate }}</mat-label>
+        <mat-label>{{ 'user.editedAt' | translate }}</mat-label>
         <input matInput [value]="userDetail?.updatedAt | date" [disabled]="true" />
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'user.email_verified' | translate }}</mat-label>
+        <mat-label>{{ 'user.emailVerified' | translate }}</mat-label>
         <input matInput [value]="userDetail?.emailVerified | translate" [disabled]="true" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>{{ 'user.password_changed_at' | translate }}</mat-label>
+        <mat-label>{{ 'user.passwordChangedAt' | translate }}</mat-label>
         <input matInput [value]="userDetail?.passwordChangedAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
       </mat-form-field>
     </div>

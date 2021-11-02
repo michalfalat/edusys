@@ -8,6 +8,7 @@ import * as mongoose from 'mongoose';
 import * as path from 'path';
 import { authRouter } from './app/controllers/auth.controller';
 import { companyInfoRouter } from './app/controllers/company-info.controller';
+import { dashboardRouter } from './app/controllers/dashboard.controller';
 import { fileRouter } from './app/controllers/file.controller';
 import { identifierRouter } from './app/controllers/identifier.controller';
 import { invoiceRouter } from './app/controllers/invoice.controller';
@@ -59,6 +60,7 @@ app.use(taskRouter);
 app.use(logRouter);
 app.use(subscriptionRouter);
 app.use(identifierRouter);
+app.use(dashboardRouter);
 
 // Error handler
 app.use(handleErrors);

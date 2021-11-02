@@ -217,5 +217,9 @@
   "user.phone": "Telefónne číslo",
   "user.surname": "Priezvisko",
   "string.empty": "Povinný atribút",
-  "profile.password.infoMessage": "Posledná zmena hesla bola vykonaná dňa: {{$1}}"
+  "profile.password.infoMessage": "Posledná zmena hesla bola vykonaná dňa: {{$1}}",
+  "widget.taskData.all": "Počet všetkých úloh: {{$1}}",
+  "widget.taskData.my": "Počet mojich úloh: {{$1}}",
+  "widget.taskData.myDetailed": "(Uzavretých {{$1}} z {{$2}})",
+  "widget.taskData.title": "Prehľad úloh"
 }

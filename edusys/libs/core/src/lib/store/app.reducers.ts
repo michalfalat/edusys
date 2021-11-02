@@ -1,5 +1,6 @@
 import { appReducer } from './app/app.reducer';
 import { authReducer } from './auth/auth.reducer';
+import { dashboardReducer } from './dashboard/dashboard.reducer';
 import { fileReducer } from './file/file.reducer';
 import { identifierReducer } from './identifier/identifier.reducer';
 import { logReducer } from './log/log.reducer';
@@ -24,4 +25,5 @@ export const appReducers = {
   subscription: subscriptionReducer,
   task: taskReducer,
   user: userReducer,
+  dashboard: dashboardReducer,
 };

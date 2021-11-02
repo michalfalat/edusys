@@ -1,0 +1,12 @@
+<mat-card class="basic-card small">
+  <ui-breadcrumb [navigationItems]="navigationItems"></ui-breadcrumb>
+  <h2>{{ 'widget.taskData.all' | translate: { $1: taskData?.totalTasks || 0 } }}</h2>
+  <ui-divider></ui-divider>
+  <div class="row vertical-align">
+    <h2>{{ 'widget.taskData.my' | translate: { $1: taskData?.myTasks || 0 } }}</h2>
+    &nbsp;
+    <p>{{ 'widget.taskData.myDetailed' | translate: { $1: taskData?.myOpenTasks || 0, $2: taskData?.myFixedTasks } }}</p>
+  </div>
+  <ui-divider></ui-divider>
+  <mat-progress-bar mode="determinate" color="secondary" [value]="(taskData?.myFixedTasks / taskData?.myTasks) * 100"></mat-progress-bar>
+</mat-card>

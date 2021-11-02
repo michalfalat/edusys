@@ -27,3 +27,4 @@ export { OrganizationFacade } from './lib/store/organization/organization.facade
 export { OrganizationRoleFacade } from './lib/store/organization-role/organization-role.facade';
 export { SubscriptionFacade } from './lib/store/subscription/subscription.facade';
 export { IdentifierFacade } from './lib/store/identifier/identifier.facade';
+export { DashboardFacade } from './lib/store/dashboard/dashboard.facade';

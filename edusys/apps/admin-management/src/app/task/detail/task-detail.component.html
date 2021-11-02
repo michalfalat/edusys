@@ -8,13 +8,13 @@
         <input matInput [value]="taskDetail?.createdAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>{{ 'task.edited_at' | translate }}</mat-label>
+        <mat-label>{{ 'task.editedAt' | translate }}</mat-label>
         <input matInput [value]="taskDetail?.updatedAt | date: 'MMM dd YYYY HH:mm'" [disabled]="true" />
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
-        <mat-label>{{ 'task.created_by' | translate }}</mat-label>
+        <mat-label>{{ 'task.createdBy' | translate }}</mat-label>
         <input matInput [value]="taskDetail?.createdBy?.email" [readonly]="true" />
       </mat-form-field>
     </div>
