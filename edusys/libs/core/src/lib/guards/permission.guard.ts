@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth/auth.service';
 @Injectable({
   providedIn: 'root',
 })
+/// deprecated
 export class PermissionGuard implements CanActivate {
   token: string;
   constructor(private authService: AuthService, private router: Router) {}

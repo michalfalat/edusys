@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard, PermissionGuard } from '@edusys/core';
-import { PERMISSION } from '@edusys/model';
+import { AuthGuard } from '@edusys/core';
 import { LayoutsEmptyLayoutComponent } from './empty-layout/layouts-empty-layout.component';
 import { LayoutsMainLayoutComponent } from './main-layout/layouts-main-layout.component';
 
@@ -14,38 +13,26 @@ const routes: Routes = [
       {
         path: 'module',
         loadChildren: () => import('../module/module.module').then((m) => m.ModuleModule),
-        canActivate: [PermissionGuard],
-        data: { moduleName: PERMISSION.MODULE.BASIC },
       },
       {
         path: 'package',
         loadChildren: () => import('../package/package.module').then((m) => m.PackageModule),
-        canActivate: [PermissionGuard],
-        data: { moduleName: PERMISSION.PACKAGE.BASIC },
       },
       {
         path: 'user',
         loadChildren: () => import('../user/user.module').then((m) => m.UserModule),
-        canActivate: [PermissionGuard],
-        data: { moduleName: PERMISSION.USER.BASIC },
       },
       {
         path: 'organization',
         loadChildren: () => import('../organization/organization.module').then((m) => m.OrganizationModule),
-        canActivate: [PermissionGuard],
-        data: { moduleName: PERMISSION.ORGANIZATION.BASIC },
       },
       {
         path: 'subscription',
         loadChildren: () => import('../subscription/subscription.module').then((m) => m.SubscriptionModule),
-        canActivate: [PermissionGuard],
-        data: { moduleName: PERMISSION.SUBSCRIPTION.BASIC },
       },
       {
         path: 'task',
         loadChildren: () => import('../task/task.module').then((m) => m.TaskModule),
-        canActivate: [PermissionGuard],
-        data: { moduleName: PERMISSION.TASK.BASIC },
       },
       {
         path: 'profile',
@@ -58,8 +45,6 @@ const routes: Routes = [
       {
         path: 'organization-role',
         loadChildren: () => import('../organization-role/organization-role.module').then((m) => m.OrganizationRoleModule),
-        canActivate: [PermissionGuard],
-        data: { moduleName: PERMISSION.ORGANIZATION_ROLE.BASIC },
       },
       {
         path: 'log',
@@ -68,8 +53,6 @@ const routes: Routes = [
       {
         path: 'identifier',
         loadChildren: () => import('../identifier/identifier.module').then((m) => m.IdentifierModule),
-        canActivate: [PermissionGuard],
-        data: { moduleName: PERMISSION.IDENTIFIER.BASIC },
       },
     ],
   },

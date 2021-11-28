@@ -60,13 +60,11 @@ const logger = winston.createLogger({
 });
 
 export const logError = (message: string | any, meta?: any): void => {
-  console.log('message :>> ', message);
   const { id, email } = getCurrentUser() || {};
   logger.error(message, { metadata: { ...meta, loggedUser: { id, email } } });
 };
 
 export const logInfo = (message: string | any, meta?: any): void => {
-  console.log('message :>> ', message);
   const { id, email } = getCurrentUser() || {};
   logger.info(message, { metadata: { ...meta, loggedUser: { id, email } } });
 };

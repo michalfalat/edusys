@@ -8,8 +8,13 @@ export const verifyPermission = (permission: string): any => async (req: Request
   try {
     const currentUser = getCurrentUser();
     const user = await UserModel.findById(currentUser?.id).populate({ path: 'activeOrganization', populate: { path: 'organizationRoles', populate: 'users' } });
+
     if (!user) {
       throw new AccessForbidden();
+    }
+    if (user.email === process.env.SU_EMAIL) {
+      next();
+      return;
     }
     const userRoles = user?.activeOrganization?.organizationRoles?.filter((r) => r.users?.map((u) => u.id).includes(user.id));
     if (!userRoles) {

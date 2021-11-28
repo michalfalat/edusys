@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { CoreTranslateModule } from '@edusys/core-translate';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     CoreTranslateModule,
     TranslateModule,
     NgxMatSelectSearchModule,
+    FlexLayoutModule,
   ],
   declarations: [],
   exports: [
@@ -52,6 +54,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     CoreUiModule,
     TranslateModule,
     NgxMatSelectSearchModule,
+    FlexLayoutModule,
   ],
   providers: [],
 })

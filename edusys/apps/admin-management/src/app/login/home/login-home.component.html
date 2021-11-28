@@ -1,4 +1,10 @@
 <mat-card class="basic-card small">
+  <h1>
+    {{ 'login.home.title' | translate }}
+  </h1>
+  <ui-divider [compact]="true"></ui-divider>
+  <p>{{ 'login.home.message' | translate }}</p>
+  <ui-divider></ui-divider>
   <form [formGroup]="form" (ngSubmit)="onLogin()">
     <div class="row">
       <mat-form-field>

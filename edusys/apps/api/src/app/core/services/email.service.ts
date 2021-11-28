@@ -17,5 +17,6 @@ export const sendEmail = async <T extends EmailType>(type: T, to: string, params
     logInfo(`[EMAIL_SERVICE] email '${type}' sent to ${to}`);
   } catch (err: any) {
     logError(`[EMAIL_SERVICE] email error ${JSON.stringify(err)}`);
+    throw err;
   }
 };

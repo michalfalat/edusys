@@ -9,6 +9,8 @@ import { CoreModule, httpInterceptorProviders } from '@edusys/core';
 import { CoreTranslateModule } from '@edusys/core-translate';
 import { APP_CONFIG } from '@edusys/app-config';
 import { LayoutModule } from './layouts/layout.module';
+import { MatDayjsDateModule } from '@tabuckner/material-dayjs-adapter';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { appConfig } from '../environments/environment';
 
 @NgModule({
@@ -21,6 +23,8 @@ import { appConfig } from '../environments/environment';
     CoreModule,
     CoreTranslateModule,
     LayoutModule,
+    MatDayjsDateModule,
+    FlexLayoutModule,
   ],
   providers: [{ provide: APP_CONFIG, useValue: appConfig }, httpInterceptorProviders],
   bootstrap: [AppComponent],

@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PermissionGuard } from '@edusys/core';
-import { PERMISSION } from '@edusys/model';
 import { SubscriptionDetailComponent } from './detail/subscription-detail.component';
 import { SubscriptionHomeComponent } from './home/subscription-home.component';
 
@@ -9,20 +7,16 @@ const routes: Routes = [
   {
     path: '',
     component: SubscriptionHomeComponent,
-    canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.SUBSCRIPTION.BASIC },
   },
   {
     path: 'detail/:subscriptionId',
     component: SubscriptionDetailComponent,
-    canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.SUBSCRIPTION.DETAIL, isEditMode: false },
+    data: { isEditMode: false },
   },
   {
     path: 'edit/:subscriptionId',
     component: SubscriptionDetailComponent,
-    canActivate: [PermissionGuard],
-    data: { moduleName: PERMISSION.SUBSCRIPTION.EDIT, isEditMode: true },
+    data: { isEditMode: true },
   },
 ];
 

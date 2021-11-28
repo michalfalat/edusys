@@ -7,25 +7,49 @@
       <ui-divider [vertical]="true" [compact]="true"></ui-divider>
       <div>{{ getTitle() }}</div>
     </div>
-    <div class="row right sm-hide">
-      <div *ngIf="!!userInfo">
-        <button mat-button [matMenuTriggerFor]="menu">{{ userInfo?.email }}</button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="navigateToProfile()">{{ 'general.profile' | translate }}</button>
-          <button mat-menu-item (click)="onLogout()">{{ 'general.logout' | translate }}</button>
-        </mat-menu>
-      </div>
+    <div class="row right" fxShow fxHide.lt-sm>
+      <!-- <ng-container *ngIf="!!initData">
+        <div class="row">
+          <button mat-button [matMenuTriggerFor]="menuOrg" *ngIf="userInfo?.organizations?.length > 1; else oneOrganizationTemplate">
+            <mat-icon>account_balance</mat-icon>
+            {{ initData?.activeOrganization?.name }}
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <ng-template #oneOrganizationTemplate>
+            <button mat-button [disableRipple]="true">
+              <mat-icon>account_balance</mat-icon>
+              {{ initData?.activeOrganization?.name }}
+            </button>
+          </ng-template>
+          <mat-menu #menuOrg="matMenu">
+            <button mat-menu-item *ngFor="let org of userInfo?.organizations">{{ org?.name }}</button>
+             <button mat-menu-item (click)="onLogout()">{{ 'general.logout' | translate }}</button>
+          </mat-menu>
+        </div>
+      </ng-container> -->
+
+      <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+      <ng-container *ngIf="!!userInfo">
+        <div class="row">
+          <button mat-button [matMenuTriggerFor]="menu">{{ userInfo?.email }} <mat-icon>arrow_drop_down</mat-icon></button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="navigateToProfile()">{{ 'general.profile' | translate }}</button>
+            <button mat-menu-item (click)="onLogout()">{{ 'general.logout' | translate }}</button>
+          </mat-menu>
+        </div>
+      </ng-container>
     </div>
-    <div class="row right sm-show">
-      <div *ngIf="!!userInfo">
+    <div class="row right" fxHide fxShow.lt-sm>
+      <ui-divider [vertical]="true" [compact]="true"></ui-divider>
+      <ng-container *ngIf="!!userInfo">
         <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>account_circle</mat-icon>
+          <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="navigateToProfile()">{{ 'general.profile' | translate }}</button>
           <button mat-menu-item (click)="onLogout()">{{ 'general.logout' | translate }}</button>
         </mat-menu>
-      </div>
+      </ng-container>
     </div>
   </div>
 </mat-toolbar>

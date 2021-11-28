@@ -1,8 +1,16 @@
-<ng-container *ngIf="dashboardData?.taskData">
-  <div class="row wrap">
-    <widget-task-data [taskData]="dashboardData?.taskData"></widget-task-data>
-    <widget-task-data [taskData]="dashboardData?.taskData"></widget-task-data>
-    <widget-task-data [taskData]="dashboardData?.taskData"></widget-task-data>
-    <widget-task-data [taskData]="dashboardData?.taskData"></widget-task-data>
-  </div>
-</ng-container>
+<!-- <h1 fxHide fxShow.xs>XS</h1>
+<h1 fxHide fxShow.sm>SM</h1>
+<h1 fxHide fxShow.md>MD</h1>
+<h1 fxHide fxShow.lg>LG</h1>
+<h1 fxHide fxShow.xl>XL</h1> -->
+<ui-divider></ui-divider>
+<div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="3rem" ngClass.gt-xs="ml-1">
+  <widget-task-data
+    fxFlex.sm="0 1 calc(100%-3rem)"
+    fxFlex.md="0 1 calc(100%-3rem)"
+    fxFlex.lg="0 1 calc(50%-3rem)"
+    fxFlex.gt-lg="0 1 calc(33%-3rem)"
+    *ngIf="dashboardData?.taskData"
+    [taskData]="dashboardData?.taskData"
+  ></widget-task-data>
+</div>

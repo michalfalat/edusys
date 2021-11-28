@@ -17,6 +17,7 @@ import { CoreTranslateModule } from '@edusys/core-translate';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     TranslateModule,
     NgxMatSelectSearchModule,
     NgxPermissionsModule,
+    FlexLayoutModule,
   ],
   declarations: [],
   exports: [
@@ -55,6 +57,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     TranslateModule,
     NgxMatSelectSearchModule,
     NgxPermissionsModule,
+    FlexLayoutModule,
   ],
   providers: [],
 })

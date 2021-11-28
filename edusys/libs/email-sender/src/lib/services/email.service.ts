@@ -33,13 +33,13 @@ const send = async (emailMessage: any): Promise<any> => {
   const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: Number(process.env.EMAIL_PORT),
-    secure: false,
+    secure: true,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD,
     },
   });
-  const info = await transporter.sendMail({
+  await transporter.sendMail({
     from: `${process.env.EMAIL_NICKNAME} <${process.env.EMAIL_USER}>`,
     to: emailMessage.originalMessage.to,
     subject: emailMessage.originalMessage.subject,
@@ -47,5 +47,4 @@ const send = async (emailMessage: any): Promise<any> => {
     html: emailMessage.originalMessage.html,
     attachments: emailMessage.originalMessage.attachments,
   });
-  console.log(info);
 };

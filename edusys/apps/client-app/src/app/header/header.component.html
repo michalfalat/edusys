@@ -7,7 +7,7 @@
       <ui-divider [vertical]="true" [compact]="true"></ui-divider>
       <div>{{ getTitle() }}</div>
     </div>
-    <div class="row right sm-hide">
+    <div class="row right" fxShow fxHide.lt-sm>
       <ng-container *ngIf="!!initData">
         <div class="row">
           <button mat-button [matMenuTriggerFor]="menuOrg" *ngIf="userInfo?.organizations?.length > 1; else oneOrganizationTemplate">
@@ -39,7 +39,7 @@
         </div>
       </ng-container>
     </div>
-    <div class="row right sm-show">
+    <div class="row right" fxHide fxShow.lt-sm>
       <ui-divider [vertical]="true" [compact]="true"></ui-divider>
       <ng-container *ngIf="!!userInfo">
         <button mat-icon-button [matMenuTriggerFor]="menu">

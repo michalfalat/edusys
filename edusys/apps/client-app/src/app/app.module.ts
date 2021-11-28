@@ -15,6 +15,7 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeSk from '@angular/common/locales/sk';
 import { AuthService } from 'libs/core/src/lib/services/auth/auth.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 registerLocaleData(localeSk);
 
@@ -38,6 +39,7 @@ export const MY_DATE_FORMAT = {
     CoreTranslateModule,
     LayoutModule,
     MatDayjsDateModule,
+    FlexLayoutModule,
   ],
   providers: [
     { provide: APP_CONFIG, useValue: appConfig },
